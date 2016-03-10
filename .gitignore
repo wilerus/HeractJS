@@ -1,0 +1,4 @@
+.vs/
+src/HeractJS/node_modules/
+src/HeractJS/HeractJS.xproj.user
+src/HeractJS/Scripts/app/**.js
