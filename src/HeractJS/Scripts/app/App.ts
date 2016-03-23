@@ -127,29 +127,29 @@ class ganttChartBar extends React.Component<any, any> {
             let correctWidth = (Math.floor(Math.floor((newWidth + svgGridWidth)) / svgGridWidth)) * 100;
 
             if (eventTarget && correctWidth.toString() !== eventTarget.getAttribute('width') && correctWidth >= 100) {
-                let animation = eventTarget.animate([{ width: eventTarget.getAttribute('width') + 'px' }, { width: correctWidth + 'px' }], 100);
+                let animation = eventTarget.animate([{ width: this.state.width + 'px' }, { width: correctWidth + 'px' }], 100);
                 animation.addEventListener('finish', function () {
                     eventTarget.setAttribute('width', correctWidth)
-                });
+                    this.setState({ width: correctWidth })
+                }.bind(this));
             }
-            this.setState({ width: correctWidth });
         }.bind(this)
     }
 
     onDragLeft(e) {
         let eventTarget = e.target;
-        let startWidth = this.state.width;
         document.onmousemove = function (event) {
             let newMargin = (event.pageX - 135)
-            let newWidth = this.state.width - (newMargin - this.state.marginLeft);
+            //let newWidth = this.state.width - (newMargin - this.state.marginLeft);
 
-            let correctWidth = (Math.floor(Math.floor((newWidth + svgGridWidth)) / svgGridWidth)) * 100;
-            let correctMargin = (Math.floor(Math.floor((newMargin + svgGridWidth)) / svgGridWidth)) * 100 - 100;
+            //let correctWidth = (Math.floor(Math.floor((newWidth + svgGridWidth)) / svgGridWidth)) * 100;
+            let correctMargin = (Math.floor(newMargin / svgGridWidth)) * 100;
+            let newWidth = this.state.width + this.state.marginLeft - correctMargin;
 
-            if (this.state.width !== correctWidth && eventTarget && eventTarget.tagName === 'rect' && newWidth >= 60) {
+            if (this.state.marginLeft !== correctMargin && eventTarget && eventTarget.tagName === 'rect' && newWidth >= 100) {
                 this.setState({
                     marginLeft: correctMargin,
-                    width: correctWidth
+                    width: newWidth
                 })
             }
         }.bind(this)
@@ -221,20 +221,15 @@ class ganttChartBar extends React.Component<any, any> {
         var eventTarget = event.target;
         this.globalStorePoints.currentDraggingElement = this
         let dropTarget = eventTarget;
-        if (eventTarget.tagName === 'rect') {
+        if (eventTarget.tagName === 'rect' || eventTarget.tagName === 'text') {
             dropTarget = dropTarget.parentNode;
         }
-        if (eventTarget.parentNode) {
-            if (dropTarget.classList.length === 3) {
-                dropTarget.setAttribute('class', 'barDragging barChartBody ' + eventTarget.classList[2])
-            } else {
-                dropTarget.setAttribute('class', 'barDragging barChartBody ' + eventTarget.classList[1])
-            }
+        if (dropTarget.tagName === 'g') {
             document.onmousemove = function (event) {
                 let transform = dropTarget.parentNode.createSVGMatrix();
                 dropTarget.transform.baseVal.getItem(0).setMatrix(
                     transform.translate(
-                        event.clientX - eventTarget.parentNode.getAttribute('x'),
+                        event.clientX - eventTarget.parentNode.getAttribute('x') - 135,
                         event.clientY - eventTarget.parentNode.getAttribute('y'))
                 );
             }
@@ -259,8 +254,6 @@ class ganttChartBar extends React.Component<any, any> {
                 this.globalStorePoints.currentDraggingElement.setState({ top: moveToSateY })
 
                 let currentDropTarget = DOM.findDOMNode(this.globalStorePoints.currentDropTarger) as any
-
-                currentDraggingElement.setAttribute('class', 'barChartBody ' + currentDropTarget.classList[1])
 
                 this.globalStorePoints.currentDropTarger.setState({ marginLeft: exchToSateX })
                 this.globalStorePoints.currentDropTarger.setState({ top: exchToSateY })
@@ -291,20 +284,19 @@ class ganttChartBar extends React.Component<any, any> {
         if (this.globalStorePoints.isCurrentlyDragging && eventTarget.classList[0] !== 'barDragging') {
             let currentDropTarget = DOM.findDOMNode(this) as any
             this.globalStorePoints.currentDropTarger = this;
+            //currentDropTarget.animate([
+            //    { transform: 'translate(0, 0)' },
+            //    { transform: 'translate(30px, 30px)' }
+            //], 100);
 
-            currentDropTarget.animate([
-                { transform: 'translate(0)' },
-                { transform: 'translate(30px, 30px)' }
-            ], 100);
-
-            setTimeout(function () {
-                if (currentDropTarget.getAttribute('transform') !== 'translate(0, 0)') {
-                    currentDropTarget.animate([
-                        { transform: 'translate(30px, 30px)' },
-                        { transform: 'translate(0, 0)' }
-                    ], 100);
-                }
-            }, 1000)
+            //setTimeout(function () {
+            //    if (currentDropTarget.getAttribute('transform') !== 'translate(0, 0)') {
+            //        currentDropTarget.animate([
+            //            { transform: 'translate(30px, 30px)' },
+            //            { transform: 'translate(0, 0)' }
+            //        ], 100);
+            //    }
+            //}, 1000)
         } else {
             if (!this.globalStorePoints.isCurrentlyDragging && !this.globalStorePoints.isCurrentlySizing && eventTarget.tagName === 'rect') {
                 let leftCircle = document.createElementNS('http://www.w3.org/2000/svg', "circle");
@@ -466,7 +458,7 @@ class ganttChartBar extends React.Component<any, any> {
             onMouseEnter: this.handleRectHover.bind(this),
             onMouseOut: this.handleMouseOut.bind(this),
             onMouseDown: this.handleRectSizing.bind(this),
-            transform: 'translate(0 ,0)',
+            transform: 'translate(0, 0)',
             y: this.state.top,
             x: this.state.marginLeft,
             width: this.state.width
