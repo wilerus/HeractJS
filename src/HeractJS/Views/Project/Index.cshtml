@@ -1,0 +1,28 @@
+﻿@{ Layout = null; }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8;" />
+    <link href="@Url.Content("~/resources/shared/master.css")" rel="stylesheet" />
+    <title>Comindware Suite</title>
+</head>
+<body class="browser-chrome browser-version-49.0 system-winnt">
+    <div class="js-fading-region fading-container hidden"></div>
+    <div class="js-popup-region popup-container hidden"></div>
+    <div class="js-navigation-region js-navigation-container menu-container wrp-scroll"></div>
+    <div class="js-content-container content-container">
+        <div class="js-content-loading-region l-loader"></div>
+        <div class="js-content-region layout"></div>
+        <div class="js-toast-notification-region"></div>
+    </div>
+
+    <div class="js-startup-loading" id="loading_container">
+        <img src="~/resources/images/logo.png?is20140903">
+        <img src="~/resources/images/loading.gif?is20140903">
+        <br>
+    </div>
+    <script src="~/js/commons.js"></script>
+    <script src="~/js/cmw.tracker.project.bundle.js"></script>
+</body>
+</html>

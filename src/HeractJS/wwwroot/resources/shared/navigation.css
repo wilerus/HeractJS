@@ -1,0 +1,115 @@
+﻿.leftNavigation {
+    width: 260px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color:  #efeeee;
+    border-right: solid 1px #e1e0e0;    
+}
+.leftNavigation__has-trial {
+    padding-bottom: 97px;
+}
+
+.leftNavigation__has-trial {
+    padding-bottom: 97px;
+}
+
+.navigationWraper {
+    position: absolute;
+    top: 0;
+    left: 51px;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+.body .vboxChild {
+    height: 100%;
+}
+
+/*------------------ Resize  ------------*/
+/* FIX - korzio */
+.motion .hbox , .motion .scrollpane, .motion .hboxChild{
+    width:100% !important;
+    position: absolute !important;
+}
+
+.motion .scrollpane .delta {
+    height: 0 !important;
+}
+
+.motion .scrollpane {
+    overflow: hidden !important;
+}
+
+.motion .hboxChild.area {
+    top : 0 !important;
+    left: 0 !important;
+}
+
+.reduceMenu .left-menu-name {
+    display: none;
+}
+
+.motion .vboxChild.grid, .body .vboxChild.grid {
+    overflow: visible !important;
+}
+
+.preview #tasks_container #tasks_organizer.list{
+    overflow:hidden
+}
+.resizer{
+    padding: 0 8px 0 0;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    cursor:e-resize;
+    top:0;
+    height:100%;
+    left:49.8%;
+    width:0;
+    position:absolute;
+    z-index: 5
+}
+/*-----//------*/
+
+/*------------------------------ Notification  -------------------------------*/
+
+.notification_tab {
+    z-index: 1001;
+    position: absolute;
+    right: 20px;
+    top: 50px;
+    width: 300px;
+    height: 400px !important;    
+    display: none;
+    border: 1px dashed fuchsia;
+    padding: 5px;
+}
+
+.notification_grid {
+    width: 300px;
+    height: 380px !important;    
+}
+
+.short.notificationItem
+{
+    font-size: 12px;
+    color: black;
+}
+
+.short.notificationItem a
+{
+    font-size: 12px;
+    color: blue;
+}
+
+.see_more {
+    color: pink;
+}
+
+.left-submenu-scroll .scrollBox{
+    margin-left: 4px;
+}

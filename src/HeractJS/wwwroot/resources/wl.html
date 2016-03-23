@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/resources/shared/master.css">
+    <title>Workload</title>
+    <style>
+        body {
+            padding: 0;
+            background: #f8f8f8;
+        }
+        
+.wl-summary {
+    margin: 0 20px;
+    padding: 7px 0;
+    display: block;
+    border-top: solid 1px #ced3d7;
+}
+.wl-summary__item {
+    margin: 7px 0;
+    display: block;
+}
+.wl-summary__project {
+    font-size: 18px;
+    display: block;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.wl-summary__info {
+    color: #cb4e30;
+    font-size: 12px;
+}
+.wl-buttons {
+    margin: 0 20px;
+    padding: 7px 0;
+    display: block;
+    color: #0575bd;
+    border-top: solid 1px #ced3d7;
+}
+.wl-buttons__big {
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: bold;
+    display: block;
+}
+.wl-buttons__small {
+    font-size: 14px;
+    line-height: 28px;
+    display: block;
+}
+    </style>
+</head>
+<body>
+    <div class="doubleContainer">
+        <div class="tr-left-column tr-left-column_workload">
+            <div class="tr-toolbar">
+                <div id="searchUserButton" class="button-icon button-icon_search" title="Search"></div>
+                <div id="filters" class="tr-filters">
+                    <div>
+                        <ul>
+                            <li class="tr-filters__item tr-filters__item_current">
+                                <a class="tr-filters__link tr-filters__link_current" href="javascript:void(0)">Active</a>
+                            </li>
+                            <li class="tr-filters__item">
+                                <a class="tr-filters__link" href="javascript:void(0)">All</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="pools">
+                <div class="pools__item">
+                    <h3 class="h3-pool">
+                        <img src="/GetUserpic.ashx?id=account.50&amp;streamId=stream:///4aee5209-8966-467b-9e70-021a7f9baf7d" alt="" width="32" height="32" class="avatar-icon avatar-icon_pool">
+                        Product Management
+                        <i class="toggle-arrow"></i>
+                    </h3>
+                    <div class="pools__project">Anastasia Chumakova</div>
+                    <div class="pools__project">Anastasia </div>
+                    <div class="pools__project"> Chumakova</div>
+                </div>
+                <div class="pools__item">
+                    <h3 class="h3-pool">
+                        <img src="/GetUserpic.ashx?id=account.50&amp;streamId=stream:///4aee5209-8966-467b-9e70-021a7f9baf7d" alt="" width="32" height="32" class="avatar-icon avatar-icon_pool">
+                        Product Management
+                        <i class="toggle-arrow"></i>
+                    </h3>
+                    <div class="pools__project">Anastasia Chumakova</div>
+                    <div class="pools__project">Anastasia </div>
+                    <div class="pools__project"> Chumakova</div>
+                </div>
+            </div>
+            <ul class="wl-shortcut">
+                <li class="wl-shortcut__item">Ctrl + G <span class="wl-shortcut__describe">Collaps all groups</span></li>
+                <li class="wl-shortcut__item">Alt + G  <span class="wl-shortcut__describe">Expand all groups</span></li>
+            </ul>
+        </div>
+        <div class="tr-center-column">
+            <div class="tr-toolbar">
+                <div id="Div3" class="button-icon button-icon_next" title="Next"></div>
+                <div id="Div1" class="button-icon button-icon_prev" title="Prev"></div>
+                <div id="Div2" class="tr-filters">
+                    <div>
+                        <ul>
+                            <li class="tr-filters__item tr-filters__item_current"><a id="A1" class="tr-filters__link active  tr-filters__link_current" href="javascript:void(0)">Day</a></li>
+                            <li class="tr-filters__item"><a id="A2" class="tr-filters__link " href="javascript:void(0)">Week</a></li>
+                            <li class="tr-filters__item"><a id="A3" class="tr-filters__link " href="javascript:void(0)">Month</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <ul class="wl-calendar">
+                <li class="wl-calendar__items">October
+                    <ul>
+                        <li class="wl-calendar__item wl-day">17</li>
+                        <li class="wl-calendar__item wl-day">20</li>
+                        <li class="wl-calendar__item wl-day">30</li>
+                    </ul>
+                </li>
+                <li class="wl-calendar__items">November
+                    <ul>
+                        <li class="wl-calendar__item wl-week">17-23</li>
+                        <li class="wl-calendar__item wl-week">24-30</li>
+                        <li class="wl-calendar__item wl-week">3-10</li>
+                    </ul>
+                </li>
+                <li class="wl-calendar__items">September
+                    <ul>
+                        <li class="wl-calendar__item wl-week">17-23</li>
+                        <li class="wl-calendar__item wl-week">24-30</li>
+                        <li class="wl-calendar__item wl-week">3-10</li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="wl-user">
+                <ul class="wl-total">
+                    <li class="wl-total__item wl-total-overload"></li><li class="wl-total__item wl-total-overload"></li><!--
+                    --><li class="wl-total__item"></li>
+                    <li class="wl-total__item wl-day"></li>
+                    <li class="wl-total__item wl-day"></li>
+                    <li class="wl-total__item wl-day wl-total-busy"></li>
+                    <li class="wl-total__item wl-day wl-total-busy"></li>
+                    <li class="wl-total__item wl-total-busy"></li>
+                    <li class="wl-total__item"></li>
+                    <li class="wl-total__item"></li>
+                    <li class="wl-total__item"></li>
+                    <li class="wl-total__item"></li>
+                </ul>
+                <ul class="wl-list">
+                    <li class="wl-list__item wl-overload"></li>
+                    <li class="wl-list__item wl-overload"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"></li>
+                </ul>
+                <ul class="wl-list">
+                    <li class="wl-list__item wl-overload"></li>
+                    <li class="wl-list__item wl-overload"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item wl-busy"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item wl-busy"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item wl-busy"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item"></li>
+                </ul>
+                <ul class="wl-list">
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item wl-overload"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item wl-overload"></li>
+                </ul>
+            </div>
+            <div class="wl-user">
+                <ul class="wl-total">
+                    <li class="wl-total__item wl-total-overload"></li>
+                    <li class="wl-total__item"></li>
+                    <li class="wl-total__item"></li>
+                    <li class="wl-total__item"></li>
+                    <li class="wl-total__item wl-total-overload"></li>
+                    <li class="wl-total__item"></li>
+                    <li class="wl-total__item"></li>
+                    <li class="wl-total__item"></li>
+                    <li class="wl-total__item wl-total-busy"></li>
+                    <li class="wl-total__item wl-total-busy"></li>
+                    <li class="wl-total__item"></li>
+                    <li class="wl-total__item"></li>
+                </ul>
+                <ul class="wl-list">
+                    <li class="wl-list__item wl-overload"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item wl-overload"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item"></li>
+                </ul>
+                <ul class="wl-list">
+                    <li class="wl-list__item wl-overload"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item wl-overload"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item"></li>
+                </ul>
+                <ul class="wl-list">
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item"><div class="wl-allocate"></div></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item wl-overload"></li>
+                    <li class="wl-list__item wl-overload"></li>
+                    <li class="wl-list__item"></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item wl-busy"></li>
+                    <li class="wl-list__item"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="tr-right-column tr-right-column_workload">
+            <h2 class="h2-workload">Allocation AllocationAllocation</h2>
+            <div class="wl-decription">Click on week cell to allocate person on project.</div>
+            <ul class="wl-summary">
+                <li class="wl-summary__item">
+                    <span class="wl-summary__project">wedqewdqawd</span>
+                    <span class="wl-summary__info">qwdqwdqwd</span>
+                </li>
+            </ul>
+            <div class="wl-buttons">
+                <span class="wl-buttons__big">sdvsdvsdv</span>
+                <span class="wl-buttons__small">sdvsdvsdv</span>
+            </div>
+            <ul class="wl-footnote">
+                <li class="wl-footnote__item">
+                    <span class="wl-footnote__type wl-overload"></span> Overloaded
+                </li>
+                <li class="wl-footnote__item">
+                    <span class="wl-footnote__type wl-busy"></span> Buzy
+                </li>
+                <li class="wl-footnote__item">
+                    <span class="wl-footnote__type wl-free"></span> Free
+                </li>
+                <li class="wl-footnote__item">
+                    <span class="wl-footnote__type"><span class="wl-allocate"></span></span> Allocated
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

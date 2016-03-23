@@ -1,0 +1,1276 @@
+/* moved from deprecated teamwork.css */
+
+#TimesheetGrid {
+    height: auto !important;
+}
+#TimesheetGrid .hboxChild.area, #TimesheetGrid .vboxChild.grid {
+    height: auto !important;
+    width: 100% !important;
+}
+#TimesheetGrid .gridTitle.gridRow {
+    height: 50px;
+}
+#TimesheetGrid .gridFooter.gridRow {
+    height: auto;
+    min-height: 30px;
+    line-height: 30px;
+    border: none;
+    background: #fff;
+    border-top:1px solid #ced3d7;
+    float: left;
+    width: 100%;
+    overflow: visible;
+}
+#TimesheetGrid .gridTimesheetRow > div {
+    border-left:1px solid #b6bdc2;
+}
+
+#TimesheetGrid .gridTimesheetRow > div:first-child {
+    padding: 0 0 0 15px;
+}
+#TimesheetGrid .gridTimesheetRow {
+    clear: both;
+}
+#TimesheetGrid .vbox.explorer {
+    width: auto !important;
+    height: auto !important;
+}
+#TimesheetGrid .gridTitle.gridRow div, #TimesheetGrid .gridFooter.gridRow div {
+    height: 50px;
+    padding: 7px 5px 0;
+    line-height: 16px;
+    text-align: center;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#TimesheetGrid .gridTitle.gridRow div:first-child {
+    padding-top: 18px;
+}
+#TimesheetGrid .gridFooter.gridRow div {
+    height: auto;
+    min-height: 30px;
+    line-height: 30px;
+    background: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    color: #000;
+    border-color:#fff;
+}
+#TimesheetGrid .gridFooter.gridRow div:first-child {
+    text-align: right;
+    padding-right: 10px;
+}
+#TimesheetGrid .vbox .vboxChild:last-child {
+    margin-top: -1px;
+    overflow: visible !important;
+}
+#TimesheetGrid .gridTimesheetRow > div {
+    padding: 0;
+    line-height: 50px;
+    text-align: center;
+}
+#TimesheetGrid .gridTimesheetRow > .groupEl {
+    padding: 0 7px 0 0;
+    color:transparent;
+    border-top:1px solid #b6bdc2;
+}
+#TimesheetGrid .gridTimesheetRow:first-child > .groupEl {
+    border-top:none
+}
+#TimesheetGrid .gridTimesheetRow > .groupEl:first-child {
+    color:#182026
+}
+#TimesheetGrid .gridTimesheetRow > div:first-child, #TimesheetGrid .gridTitle.gridRow > div:first-child{
+    text-align: left;
+}
+#TimesheetGrid .gridTimesheetRow > div:first-child .wrap {
+    padding: 0 10px 0 0 !important;
+}
+
+
+.reports-filters {
+}
+.reports-filters__list {
+    margin: 0 0 0 20px;
+}
+.reports-filters__list ul.values {
+    display: none !important;
+}
+.reports-filters__value {
+    display: table;
+    margin: 15px 0 0 20px;
+}
+.report-filter {
+    display: table-row;
+}
+.report-filter .cmw-form-editor {
+    vertical-align: top;
+}
+.report-filter__title {
+    height: 22px;
+    line-height: 22px;
+    white-space: nowrap;
+}
+.report-filter__title, .report-filter .cmw-form-editor {
+    display: table-cell;
+}
+
+/**/
+.cmw-form .grid_filters .suggest.vertical .values > li {
+    cursor: auto;
+}
+/* /report */
+
+
+/* /report suggest */
+#TimesheetGrid.teamwork .gridRow.gridTitle > div, #TimesheetGrid.teamwork .gridTimesheetRow  > div {
+    width: 20%;
+    line-height: 30px;
+}
+
+#TimesheetGrid.TimesheetGrid .gridRow.gridTitle{
+    background: #fff;
+}
+#TimesheetGrid.TimesheetGrid .gridTitle.gridRow > div {
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid #ced3d7;
+}
+#TimesheetGrid.TimesheetGrid .gridTitle.gridRow > div span{
+    font-size: 11px;
+    font-weight: bold;
+    color:#000;
+    margin-top: 10px;
+    display: inline-block;
+    line-height: 14px;
+}
+#TimesheetGrid.TimesheetGrid .gridTitle.gridRow > div span em{
+    font-size: 11px;
+    font-weight: normal;
+    color:#43525d;
+}
+#TimesheetGrid.TimesheetGrid .gridTitle.gridRow > div:first-child {
+    border-left: 1px solid transparent;
+    color:#fff;
+}
+#TimesheetGrid.TimesheetGrid .gridTitle.gridRow > div:first-child span{
+    color:#fff;
+}
+
+#TimesheetGrid .gridTimesheetRow .wrap > a
+{
+    vertical-align: top;
+}
+
+#TimesheetGrid .gridTimesheetRow a.timesheet
+{
+    text-decoration: none;
+    font-weight: bolder;    
+}
+
+.motion .TimesheetGrid .hbox, .motion .TimesheetGrid .hboxChild {
+    position: relative !important;
+}
+.timesheetgrid .gridtimesheetrow > div .wrap img
+{
+    height: 42px;
+}
+
+a.timesheet.published { color : blue; }
+a.timesheet.notPublished { color : black; }
+
+.datenav.teamwork
+{
+    padding-top: 20px;
+    margin-top: 10px;
+}
+
+.datenav.teamwork .changeWeek {
+  margin-top: 2px;
+}
+
+.toolbar.teamwork
+{
+    display: none;
+}
+
+.toolbar .account
+{ 
+    top : 0;
+    float: left; 
+    padding-top: 10px;    
+}
+.toolbar .account > img
+{
+    left: 0;
+    width: 35px;
+    height: 35px;
+}
+
+.toolbar .account > a
+{
+    padding-left: 25px;
+    line-height: 12px;
+    color: black;
+    text-decoration: none;
+}
+
+#content #tasks_container {
+    
+}
+
+
+#content #task_preview .head {
+    height: 45px;
+    width: 100%;
+    background: #EDF3FB;
+    border-bottom: 1px solid #FFF;
+    box-shadow: 0 1px 1px #CCC;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+#content #task_preview .head .toolbar {
+  padding-left: 0;
+}
+
+/* ??? */
+#content #task_preview .userInfo .ico {
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: -60px;
+  width: 80px;
+  height: 80px;
+  background: url(timesheet.png?is20140903) 0 0 no-repeat;
+}
+
+#content .list .head .sort {
+  margin-left: 20px;
+  height: 30px;
+}
+
+#content .task_preview .toolbar a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+#tasks_organizer .weeks {
+  position: relative;
+  top: -7px;
+  clear: both;
+  height: 20px;
+  background: #f6f6f6;
+  padding: 9px 19px 0 19px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+#tasks_organizer .weeks .wduration { float: left; font-weight: bold;  }
+#tasks_organizer .weeks .windex { float: right; color: gray; }
+
+.footer_add_new {
+    height: 18px;
+    position: absolute;
+    top: 14px;
+    left: 0;
+    z-index: 99;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    line-height: 18px;
+}
+.footer_add_new .cmw-input:before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    margin:4px 4px 0 0;
+    display: inline-block;
+    vertical-align: top;
+    background: no-repeat 0 0 url(/resources/icons/timesheet_add_new.png?is20140903);
+}
+.footer_add_new:hover .cmw-input:before {
+    background-position: 0 -20px;
+}
+.footer_add_new:hover .cmw-input:active {
+    background-position: 0 -40px;
+}
+.footer_add_new .cmw-input.empty {
+    color: #0575bd;
+    padding: 0;
+}
+.footer_add_new:hover .cmw-input.empty {
+    color: #009BFE;
+}
+.footer_add_new .cmw-input {
+    min-width: 75px;
+    width: 100%;
+    height: 19px;
+    margin-left: 1px;
+    cursor: pointer;
+}
+
+
+#task_preview #TimesheetGrid .gridTitle.gridRow div,
+#task_preview #TimesheetGrid .gridFooter.gridRow div {
+  position: static;
+}
+#task_preview #TimesheetGrid .gridFooter.gridRow div:first-child, #task_preview #TimesheetGrid .gridTitle.gridRow div:first-child {
+    width: 30%;
+}
+
+#task_preview #TimesheetGrid .gridFooter.gridRow div, #task_preview #TimesheetGrid .gridTitle.gridRow div {
+  width: 10%;
+}
+
+#task_preview #TimesheetGrid.teamwork .gridRow.gridTitle > div, #task_preview #TimesheetGrid.teamwork .gridTimesheetRow  > div {
+  width: 10%;
+  line-height: 30px;
+}
+#task_preview .TimesheetGrid .gridTimesheetRow > div:first-child,
+.TimesheetGrid .gridTimesheetRow > div:first-child {
+  width: 30%;
+}
+
+#task_preview .TimesheetGrid .gridTimesheetRow > div,
+.TimesheetGrid .gridTimesheetRow > div {
+  width: 10%;
+}
+
+#task_preview .timesheetgrid .noeditable span {
+  opacity: 1;
+}
+
+
+/* daily timesheet */
+#task_preview #TimesheetGrid.daily .gridFooter.gridRow div:first-child, #task_preview #TimesheetGrid.daily .gridTitle.gridRow div:first-child {
+    width: 80%;
+}
+
+#task_preview #TimesheetGrid.daily .gridFooter.gridRow div, #task_preview #TimesheetGrid.daily .gridTitle.gridRow div {
+  width: 20%;
+}
+
+#task_preview #TimesheetGrid.daily.teamwork .gridRow.gridTitle > div, #task_preview #TimesheetGrid.daily.teamwork .gridTimesheetRow  > div {
+  width: 20%;
+  line-height: 30px;
+}
+#task_preview .TimesheetGrid.daily .gridTimesheetRow > div:first-child {
+  width: 80%;
+}
+
+#task_preview .TimesheetGrid.daily .gridTimesheetRow > div {
+  width: 20%;
+}
+
+.totaltask, .TimesheetGrid.daily .gridTimesheetRow > div:last-child {
+  background:none !important;
+}
+/* daily timesheet */
+
+
+.simpleScrollerContainer .scrollBox
+{
+    right: 19px;
+}
+
+
+.ts .toolbar_container .toolbar {
+  background-image: none;
+  height: auto;
+  width: auto;
+  margin: 0;
+  padding: 0 15px 0 26px;
+}
+
+.my_container .team_list, .my_container .my_info {
+  height: 100%;
+  float: left;
+  border: 1px solid #fff;
+  background: #fff;
+  box-shadow: 0 0 2px #ccc;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.organizationchart .toolbar h2 {
+  font-size: 18px;
+}
+
+.organizationchart .mindmap .toolbar {
+  height: 50px;
+  width: auto;
+  background: white;
+  padding: 25px 20px 20px 20px;
+}
+
+.organizationchart .mindmap .container {
+  top: 81px;
+}
+
+.organizationchart .mindmap .head,
+.organizationchart .mindmap .toolbar {
+  margin-left: 2px;
+  margin-right: 1px;
+}
+
+.organizationchart .mindmap .head {
+  height: 31px;
+  background: #dde5f0;
+  border-top: 1px solid #c5d1e1;
+  border-bottom: 1px solid #c5d1e1;
+  box-shadow: none;
+}
+
+.organizationchart .list .head .plus {
+  float: left;
+  margin-left: 20px;
+}
+
+.changeweek {
+    margin-top: 15px;
+}
+
+.groupEl {
+    color: black;
+    border-left: solid 1px #ced3d7;
+}
+
+.ManagerTimesheetList .img img {
+    width: 24px;
+    height: 24px;
+}
+
+.ManagerTimesheetList .TaskOrganizerItem .fullTime.right {
+    padding-top: 15px;
+    right: 20px;
+}
+
+.ManagerTimesheetList .TaskOrganizerItem.short.group .groupEl {
+    padding-top: 15px;
+}
+
+.cmw-form .grid_groups .suggest > div, .cmw-form .grid_filters .suggest > div {
+    display: block;
+}
+
+.generalInfo .timeframe {
+    display: inline-block;
+}
+
+.generalInfo .timeframe label {
+    padding-left: 0;
+}
+
+.generalInfo .timeframe .element_form__content__field{
+    float: left;
+    width: 200px;
+    margin-right: 20px;
+}
+
+.grid_filters .values {
+    float: left;
+}
+
+.grid_filters .titles{
+    width: 100px;
+    float: left;
+}
+
+.cmw-form .grid_filters .titles .suggest.vertical ul.values li, .cmw-form .grid_filters > .values > div {
+    line-height: 35px;
+}
+
+.TimesheetReportGrid {
+    width: 100%;
+    height: auto !important;
+    padding: 0 250px 0 5px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+.TimesheetReportGrid .scrollpane {
+    width: 100% !important;
+}
+.TimesheetReportGrid .hboxChild.area, .TimesheetReportGrid .vboxChild.grid {
+    height: auto !important;
+    width: 100% !important;
+}
+.TimesheetReportGrid .vbox.explorer {
+    width: auto !important;
+    height: auto !important;
+}
+
+
+/* TimesheetGrid */
+.TimesheetReportGrid .scrollBox {
+    right: 1px;
+}
+.TimesheetReportGrid .gridTimesheetRow {
+    clear: both;
+    border:1px solid #ededed;
+    border-top:none
+}
+.TimesheetReportGrid .gridTimesheetRow.published
+{
+    background: #F6F6F6;
+}
+.TimesheetReportGrid .gridTimesheetRow > div > div {
+  height: 40px;
+}
+.TimesheetReportGrid .gridTimesheetRow > div {
+    float: left;
+    width: 8%;
+    border-left:1px solid #ededed;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+/* for resizable */
+.TimesheetReportGrid .gridFooter.gridRow div,
+.TimesheetReportGrid .gridTitle.gridRow div { width: 8%; /*position: static;*/ }
+.TimesheetReportGrid .gridFooter.gridRow div:first-child,
+.TimesheetReportGrid .gridTitle.gridRow div:first-child { width: 20%; }
+
+.TimesheetReportGrid .gridTimesheetRow > div:first-child {
+    float: left;
+    width: 20%;
+    border-left: none;
+    text-align: left
+}
+
+
+.TimesheetReportGrid .gridTimesheetRow > div .wrap,
+.TimesheetReportGrid .gridTimesheetRow > div.groupEl,
+.TimesheetReportGrid .gridTimesheetRow > div .wrap > div {
+  vertical-align: middle;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 40px;
+  line-height: 41px;
+}
+
+.TimesheetReportGrid .gridTimesheetRow > div:first-child .wrap {
+    text-align: left;
+    padding-left: 43px;
+    font-size: 11px;
+    color:#273d57;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.TimesheetReportGrid .gridTimesheetRow .wrap .icon {
+    display: inline-block;
+    width:24px;
+    height: 24px;
+    position: absolute;
+    left:15px;
+    top:50%;
+    margin-top: -12px;
+    background: url('img/task_24.png') 50% 50% no-repeat;
+    opacity: 0.8;
+}
+.TimesheetReportGrid .gridTimesheetRow > div:first-child {
+    padding-right: 0;
+}
+.totaltask, .timeleft, .groupEl {
+    background:#fff;
+    color:#333;
+    line-height: 50px;
+}
+.timeleft {
+    background: #f6f6f6 !important;
+}
+.timesheetgrid .noeditable span {
+  opacity: 0.5;
+}
+.TimesheetReportGrid .gridTitle.gridRow {
+    height: 28px;
+}
+.TimesheetReportGrid .gridTitle.gridRow div, .grid-ts-row div {
+    height: 28px !important;
+    margin: 0;
+    padding: 0 2px;
+    line-height: 28px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: absolute;
+}
+.TimesheetReportGrid .gridTitle.gridRow .delimiter {
+    width: 10px !important;
+    border: 0;
+}
+
+.TimesheetReportGrid .gridRow.gridTitle > div {
+    color: #6d777f;
+    font-weight: normal;
+}
+
+/* row */
+.TimesheetReportGrid .hbox {
+    width: 100% !important;
+}
+.TimesheetReportGrid .hboxChild {
+    width: 100% !important;
+    border-bottom: solid 1px #ced3d7;
+    border-right: solid 1px #ced3d7;
+}
+.grid-ts-row {
+    height: 28px;
+    display: block;
+    border-right: 0;
+    border-top: 0;
+}
+.grid-ts-row_0 {
+    border-top: solid 1px #ced3d7;
+}
+.grid-ts-row_0 .groupEl {
+    font-weight: bold;
+}
+.grid-ts-row_1 .commonGroupName {
+    padding-left: 20px;
+    color: #7a8188;
+}
+.grid-ts-row_2 .commonGroupName {
+    padding-left: 30px;
+    color: #7a8188;
+}
+.grid-ts-row_3 .commonGroupName {
+    padding-left: 40px;
+    color: #7a8188;
+}
+
+div.commonGroupName {
+    padding: 0 4px 0 10px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left !important;
+}
+.grid-ts-cell, .grid-ts-group {
+    height: 28px;
+    padding: 0 2px;
+    line-height: 28px;
+    border-left: solid 1px #ededed;
+    box-sizing: border-box;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.grid-ts-group {
+    text-align: left !important;
+    font-weight: bold;
+}
+.grid-ts-cell:last-child {
+    border-right: solid 1px #ededed;
+}
+.activity_stream_content{
+    margin-top: -25px;
+}
+/*
+.activity_stream_content .activeStream{
+    padding-top: 20px;
+    border-top: solid 1px #DFE4E8;
+}*/
+#TimesheetGrid .gridTimesheetRow > .sat,
+#TimesheetGrid .gridTimesheetRow > .sun {
+    background: #f6f9fb;
+}
+.timesheet_entity .duration-editor:hover{
+    background: transparent;
+}
+
+.clearing
+{
+    clear: both;
+}
+
+#element_form__content
+{
+    margin: 0 15px;
+    padding-bottom: 15px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+/* moved from deprecated mywork.css */
+.timesheetgrid .gridtimesheetrow > div .wrap img {
+  height: 50px;
+  position: relative;
+  top: 5px;
+  margin-right: 10px;
+}
+
+.TimesheetGrid .gridTimesheetRow > div:first-child {
+  padding-right: 10px;
+  border-left: 0 !important;
+}
+
+.TimesheetGrid .gridTimesheetRow > div b {
+  font-weight: bold;
+  color: gray;
+  white-space: nowrap;
+}
+
+.TimesheetGrid .vbox .vboxChild:last-child { 
+    margin-top: 1px;
+}
+.TimesheetGrid .crumbs .gridTimesheetRow > div .wrap {
+  font-weight: bold;
+}
+
+.TimesheetGrid .footer .delimiter,
+.TimesheetGrid .crumbs .delimiter { display: none; }
+
+.TimesheetGrid .first_additive { height: 0; }
+
+/* ??? */
+.TimesheetGrid .wrap .deleteIcon, .TimesheetGrid .disabled .wrap .deleteIcon {
+    width: 16px;
+    height: 16px;
+    margin: 0 10px 0 5px;
+    display: none;
+    vertical-align: middle;
+    cursor: pointer;
+    background: no-repeat 0 0 url(/resources/icons/icons_16x16.png?is20140903);
+}
+.TimesheetGrid .wrap .deleteIcon:hover {
+    background-position: 0 -20px;
+}
+
+/** scroll position **/
+#TimesheetGrid
+{
+    position: static;
+}
+#TimesheetGrid .emptyText {
+    display: none !important;
+}
+
+.TimesheetGrid
+{
+    padding: 0 20px;
+}
+
+.scrollbox
+{
+    right: 6px;
+    top: 130px;
+}
+
+
+#content > h1
+{
+    font-size: 13px;
+    border-bottom: 1px solid #e0e1e4;
+    padding-left: 5px;
+    padding-bottom: 4px;
+    margin: 15px 18px 10px;
+}
+
+/*------------------------------  Toolbar  -------------------------------*/
+.wraptoolbar{
+    height: 70px;
+    width: 100%;
+    margin: 0;
+    box-shadow: none;
+    background: none;
+    border: none;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+    padding: 20px 20px 0 20px;
+}
+
+.wraptoolbar .button{
+    margin-right: 20px;
+}
+
+.wraptoolbar .button.disabled {
+  opacity: 0.7;
+}
+
+.wraptoolbar div.add {
+  margin-right: 5px;
+}
+
+.wraptoolbar .savedDate {
+  display: none;
+}
+
+.wraptoolbar .filters{
+
+}
+.changeweek{
+    margin-top: -20px;
+}
+
+.duration.published
+{
+    color : blue;    
+}
+
+.changeweek.status.approved .duration
+{
+    color: #387531
+}
+/*-----//------*/
+
+
+
+/*------------------------------  Grid  -------------------------------*/
+
+.explorer .hbox
+{
+    width: 100% !important;
+    height: 100%;
+}
+
+.TimesheetGrid .wrap .deleteIcon {
+    position: absolute;
+    top: 14px;
+    right: -8px;
+    display: block;
+    visibility: hidden;
+}
+
+.TimesheetGrid .wrap:hover .deleteIcon {
+  visibility: visible;
+}
+
+.TimesheetGrid .ridnewtask input {
+  float: left;
+}
+
+.vboxChild.crumbs{
+    height: 50px;
+    background: #fff !important;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+.gridfooter.gridrow,.gridfooter.gridrow div,
+.gridtitle.gridrow ,.gridtitle.gridrow div,
+.gridfooter.gridrow:hover,.gridfooter.gridrow div:hover,
+.gridtitle.gridrow:hover,.gridtitle.gridrow div:hover{
+    height: 48px;
+    background: none;
+    font-size: 11px;
+    font-weight: bold;
+    color:#333;
+    text-align: center;
+    background: #fff;
+}
+.gridfooter.gridrow,
+.gridtitle.gridrow{
+    border:1px solid #b2b2b2;
+}
+.gridfooter.gridrow div,
+.gridtitle.gridrow div{
+    padding: 10px 5px 5px;
+    border-color:#b2b2b2;
+}
+.gridfooter.gridrow div, .gridfooter.gridrow div:hover{
+    background: #f6f9fd;
+    line-height: 32px;
+}
+.gridfooter.gridrow div:first-child, .gridfooter.gridrow div:first-child:hover{
+    background: #fff;
+    text-align: right;
+    padding-right: 15px;
+}
+
+.TimesheetGrid .scrollBox
+{
+    right: 1px;
+    bottom: 13px;
+}
+
+.gridTimesheetRow  div.cmw-input {
+    line-height: 40px;
+}
+.TimesheetGrid .gridTimesheetRow {
+    clear: both;
+    border-left:1px solid #b6bdc2;
+    border-right:1px solid #b6bdc2;
+}
+
+.TimesheetGrid .gridTimesheetRow.published
+{
+    background: #F6F6F6;
+}
+
+.TimesheetGrid .gridTimesheetRow {
+    height: 40px;
+}
+.TimesheetGrid .gridTimesheetRow > div > div {
+    height: 40px;
+    position: relative;
+}
+
+.TimesheetGrid .gridTimesheetRow > div {
+    float: left;
+    width: 8%;
+    border-left:1px solid #b2b2b2;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+#TimesheetGrid .gridfooter.gridrow div,
+#TimesheetGrid .gridtitle.gridrow div { width: 8%; position: static; }
+#TimesheetGrid .gridfooter.gridrow div:first-child,
+#TimesheetGrid .gridtitle.gridrow div:first-child { width: 20%; }
+
+.TimesheetGrid .gridTimesheetRow > div:first-child {
+    float: left;
+    width: 20%;
+    border-left: none;
+    text-align: left
+}
+
+.TimesheetGrid .gridTimesheetRow > div{
+    height: 40px
+}
+
+
+.TimesheetGrid .gridTimesheetRow > div .wrap,
+.TimesheetGrid .gridTimesheetRow > div .wrap > div {
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 40px;
+    line-height: 40px;
+    font-size:14px;
+    text-align: center;
+    color: #0575BD;
+}
+
+.TimesheetGrid .gridTimesheetRow > div:first-child .wrap {
+    text-align: left;
+    font-size: 15px;
+    padding: 0;
+    color:#384650;
+    position: relative;
+    white-space: nowrap;
+}
+.TimesheetGrid .gridTimesheetRow .wrap .icon {
+    display: inline-block;
+    width:24px;
+    height: 24px;
+    position: absolute;
+    left:10px;
+    top:50%;
+    margin-top: -12px;
+    background: url('img/task_24.png') 50% 50% no-repeat;
+    opacity: 0.8;
+}
+
+.ridtotalDay .wrap, .totaltask,
+.ridtotalDay .wrap, .timeleft {
+    background:#edf3fb;
+    font-weight: bold;
+    color:#333;
+}
+.timeleft {
+    background: #f6f6f6 !important;
+}
+.totaltask {
+  background:#f6f9fd !important;
+}
+.timesheetgrid .gridtimesheetrow.ridtotalDay > div:first-child .wrap {
+    text-align: right;
+    background: #fff;
+    padding-right: 20px;
+ }
+.timesheetgrid .gridtimesheetrow.ridtotalDay > div:first-child .wrap .icon{
+    display: none;
+ }
+
+.timesheetgrid .noeditable span {
+  opacity: 0.5;
+}
+
+/*-----//------*/
+
+
+
+.changeWeek .duration{
+    padding: 5px 10px;
+    margin: -3px 3px 0;
+    border: 1px solid transparent
+}
+.changeWeek .duration:hover{
+    background: #f9fbfe;
+    border-color: #e7eff9;
+}
+
+.TsTaskList,
+.TsTaskList .hbox > .scrollpane,
+.TsTaskList .hbox > .scrollpane > div {
+  width: 100%;
+  height: 545px;
+}
+.TsTaskList .scrollBox{
+    top : 0;
+    right:0
+}
+
+.TsTaskList .scrollpane .selected {
+  background: #edf3fb;
+}
+
+#addingDlg a.button {
+  color: white;
+}
+
+.adContent.other {
+  display: none;
+}
+
+/*------------------------------  Timesheet List  -------------------------------*/
+
+.element_tab_panel {
+  padding: 0;
+  margin-bottom: 25px;
+}
+
+.timesheetlist .listitem {
+    padding: 20px;
+    height: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #e0e1e4;
+}
+.timesheetlist .listitem:last-child {
+    border-bottom: none;
+}
+.timesheetlist .listitem:hover {
+    background-color: #ffffe0
+}
+.timesheetlist .listitem div {
+    float: left;
+    cursor: pointer;
+}
+.timesheetlist .sheetList {
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    float:left;
+    width: 200px;
+}
+
+/*-----//------*/
+
+input.search{
+    margin: -5px 0 10px 0;
+}
+
+
+/*new item - korzio */
+.adContent.TsGAList .title
+{
+    font-size: 14px;
+    padding-bottom: 10px;
+}
+
+.ui-dialog .adContent.TsGAList input
+{
+    margin-bottom: 0;
+}
+
+.adContent.TsGAList .short.selected
+{
+    height: 120px;
+}
+
+.adContent.TsGAList .short > .pjdata
+{
+    padding-right: 40px;
+    font-size: 14px;
+}
+
+.adContent.TsGAList .short > .pjdata > span
+{
+    color: black;
+    line-height: 20px;
+    margin-bottom: 10px;    
+}
+
+.adContent.TsGAList .short .button.add_general_activity
+{
+    margin-top: 10px;
+}
+
+#addingDlg .title
+{
+    padding-left: 0;
+}
+
+#addingDlg .TsTaskList .title
+{
+    padding-left: 10px;
+}
+
+
+.teamwork .scrollbox
+{
+    top : 0;
+}
+
+#content > .scrollbox
+{
+    left: auto !important;
+    margin-top: -81px;
+    right: 21px;
+}
+
+#TimesheetGrid .area
+{
+    height: 100%;
+}
+
+.simpleScrollerContainer .scrollbox
+{
+    margin-left: -15px;
+}
+
+ul.activeStream
+{
+    height: auto;
+}
+
+.card.userInfo {
+    width: 100%;
+    height: 50px;
+    padding-bottom: 0;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 23;
+}
+.card_icon.userInfo {
+    height: 90px;
+    min-height: 90px;
+}
+.gridTimesheetRow .groupEl  {
+    font-size: 11px;
+    font-weight: bold;
+}
+.timesheet_entity  {
+    z-index: 1;
+}
+.h1-user-info{
+    margin: 5px 0 10px 5px;
+    font-size: 21px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    color: #384650;
+}
+.h1-user-info p{
+    font-size: 12px;
+    font-weight: 400;
+    color: #838c93;
+}
+
+
+.status-published .duration-editor:hover, 
+.status-published .deleteIcon, 
+.myTimesheet + .timesheet_entity .status-waitingForApproval .duration-editor:hover
+{
+    display: none;
+}
+
+/*.activity_stream_content .activity-wrp {
+    margin-top: 19px;
+    padding-top: 15px;
+    border-top: solid 1px #d8dcdf;
+}*/
+
+#task_preview #TimesheetGrid .gridFooter.gridRow > div:first-child{
+    text-align: right;
+    padding-left: 0;
+    overflow: visible;
+}
+#task_preview #TimesheetGrid .gridFooter.gridRow .total-hours{
+    display: inline-block;
+    width: auto !important;
+    white-space: nowrap;
+    padding: 0;
+    height: auto;
+    float:right
+}
+#task_preview #TimesheetGrid .gridFooter.gridRow .footer_add_new{
+    float: left;
+}
+#task_preview #TimesheetGrid .gridFooter.gridRow .footer_add_new,
+#task_preview #TimesheetGrid .gridFooter.gridRow .footer_add_new > div:first-child,
+#task_preview #TimesheetGrid .gridFooter.gridRow .footer_add_new .cmw-input{
+    padding: 0;
+    white-space: nowrap;
+    width: auto !important;
+    text-align: left;
+    min-height: 30px;
+    color: #0575BD;
+    position: relative;
+    top:0;
+    overflow: visible;
+    /*max-width: 150px;*/
+}
+#task_preview #TimesheetGrid .gridFooter.gridRow .footer_add_new .cmw-input{
+    color: #0575BD;
+    cursor: pointer;
+}
+#task_preview #TimesheetGrid .gridFooter.gridRow .footer_add_new .cmw-input:hover{
+    color: #009BFE;
+}
+.needsShift{
+    height: auto !important;
+    min-height: 40px;
+}
+.footer_add_new .bselect-wrp{
+    position: absolute !important;
+    width: inherit;
+    text-align: left;
+}
+.footer_add_new  .bselect-wrp .cmw-input,
+.footer_add_new  .bselect-wrp .cmw-input:hover{
+    color:#384650;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 0 5px !important;
+}
+.footer_add_new .menu-bselect__item {
+    text-align: left;
+}
+.footer_add_new .menu-bselect-wrp {
+    width: 158px !important;
+    padding: 0 !important;
+    margin: 0 1px;
+    position: relative !important;
+}
+.footer_add_new .menu-bselect-wrp .simpleScrollerContainer{
+    position: absolute !important;
+    right: 1px;
+    bottom: 1px;
+}
+.footer_add_new .menu-bselect-wrp .scrollBox .scroller {
+    background: #d9d7d7 !important;
+    position: relative !important;
+}
+
+.tr-right-column_timesheet {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}

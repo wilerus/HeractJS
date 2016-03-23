@@ -1,0 +1,679 @@
+﻿body, html
+{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+}
+
+body, input, textarea, select, button
+{
+    font: 1em/1.4 'Roboto', sans-serif;
+}
+
+a
+{
+    color: #2d9adf;
+}
+
+header
+{
+    height: 80px;
+    padding: 0 0 0 20px;
+}
+
+div
+{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    margin: 0;
+    padding: 0;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.iphone header
+{
+    height: 140px;
+    padding-left: 40px;
+}
+
+.logo
+{
+    width: 100px;
+    height: 100%;
+    display: block;
+    background: no-repeat 0 50% url(/resources/images/m-img/logo.png);
+}
+
+.iphone .logo
+{
+    width: 201px;
+    background-image: url(/resources/images/m-img/logo_iphone.png);
+}
+
+.info
+{
+    height: 230px;
+    padding: 35px 5px 35px 150px;
+    font-size: 1.4em;
+    font-weight: 300;
+    line-height: 1.2;
+    color: #fff;
+    overflow: auto;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background: #3fb5ff no-repeat 21px 50% url(/resources/images/m-img/bg_android.png);
+}
+
+.iphone .info
+{
+    height: 280px;
+    padding: 50px 5px 50px 190px;
+    background-image: url(/resources/images/m-img/bg_iphone.png);
+}
+
+.h1-info
+{
+    margin: 0 0 10px;
+    padding: 0;
+    font-size: 1.4em;
+    font-weight: 400;
+}
+
+.iphone .h1-info
+{
+    font-size: 1.6em;
+}
+
+.iphone .info__txt
+{
+    font-size: 1.3em;
+}
+
+.info__button
+{
+    width: 145px;
+    height: 50px;
+    margin-top: 20px;
+    background: no-repeat 0 50% url(/resources/images/m-img/google_play.png);
+}
+
+.iphone .info__button
+{
+    width: 171px;
+    height: 50px;
+    margin-top: 40px;
+    background: no-repeat 0 50% url(/resources/images/m-img/app_store.png);
+}
+
+.auth
+{
+    margin: 1.35em 40px 0;
+    font-size: 1.4em;
+}
+
+.auth__input
+{
+    width: 100%;
+    height: 2.3em;
+    padding: 0 25px;
+    display: block;
+    font-size: 1.1em;
+    line-height: 1;
+    color: #182026;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: solid 1px #bdbdbd;
+    outline: 0;
+}
+
+.iphone .auth__input
+{
+    height: 3em;
+}
+
+.auth__input_top
+{
+    border-bottom: 0;
+}
+
+.auth__password-show
+{
+    margin: 1.3em 0 2.1em;
+    color: #70787f;
+    line-height: 2em;
+}
+
+.iphone .auth__password-show
+{
+    margin-bottom: 3em;
+}
+
+.auth__checkbox
+{
+    width: 1.7em;
+    height: 1.7em;
+    margin: 0 10px 0 0;
+    display: inline-block;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: solid 1px #bdbdbd;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+.iphone .auth__checkbox
+{
+    width: 2em;
+    height: 2em;
+}
+
+.auth__checkbox_select
+{
+    border: solid 1px #0d7aff;
+    background: #0d7aff no-repeat 50% 50% url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAATCAYAAABlcqYFAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQdJREFUeNpi/P//PwONwB0gZgdiNUYaWMIJxC+AmA/Kf8ZCAwteAzE3siA1fSIExE+gFsHARyAWYKKiBU/RLPgAsgDEYKKSBc+AmANJ7C0QC8I4lFoiBcTPoakIBkB8EWRFLBRa8BDNDJCPpNEVMlFgwSM0C55gswDZkgdAfJNIC5SgFjAjid0FYlmcOoBJ+Ol/BLgCStJ4sBYQ//mPCq4R0AO25AeaphM4FBsD8V9SLYBZIoXFdfvQFFphseAcMRbALIEFA7ohm/BYcIJYC5AtgQXHPzTDjmIRO0iKBeiWwFyNbihFFmCzBIQ9cViwixwLcFkCwnHUsgCfJSCchRQvDJRggAADAPYGATYKG1OdAAAAAElFTkSuQmCC);
+}
+
+.auth__submit
+{
+    width: 100%;
+    min-height: 2.2em;
+    padding: 0 15px;
+    border: 0;
+    outline: 0;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1.2em;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+    background: #ef6f3a;
+}
+
+.iphone .auth__submit
+{
+    height: 3em;
+}
+
+.auth__forgot-password
+{
+    margin-top: .4em;
+    display: block;
+    line-height: 2em;
+}
+
+.iphone .auth__forgot-password
+{
+    margin-top: 2em;
+}
+
+@media all and (max-width: 600px)
+{
+    body
+    {
+        font-size: .8em;
+    }
+
+    .info
+    {
+        height: auto !important;
+    }
+}
+
+@media all and (max-width: 460px)
+{
+    .info
+    {
+        padding: 20px 40px !important;
+        background-image: none !important;
+    }
+}
+
+.authorization__input-error
+{
+    height: 20px;
+    margin: 0 0 10px;
+    display: none;
+    line-height: 20px;
+    color: #A9523A;
+    margin-top: 10px;
+}
+
+
+/* from mobile index */
+.mb-left
+{
+    width: 35%;
+    height: 100%;
+    padding: 5% 0 5% 5%;
+    overflow: hidden;
+    position: absolute;
+    z-index: 2;
+}
+
+.mb-right
+{
+    width: 65%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    z-index: 3;
+}
+
+.mb-content, .mb-right__content
+{
+    height: 10em;
+    margin: -5em 0 0;
+    font-size: 1.5em;
+}
+
+.mb-content
+{
+    width: 100%;
+    background: #3097d4;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 1;
+}
+
+.mb-right__content
+{
+    margin-left: 10%;
+    padding: 1em .7em 1.5em 0;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 0;
+}
+
+.mb-right__title
+{
+    margin-bottom: 1em;
+    font-weight: 500;
+}
+
+.mb-right__txt
+{
+    font-weight: 300;
+}
+
+.mb-left__img
+{
+    width: 100%;
+    height: 100%;
+    background: no-repeat 50% 50%;
+    -o-background-size: contain;
+    -moz-background-size: contain;
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+
+.ipad .mb-left__img
+{
+    background-image: url(/resources/images/m-img/ipad.svg);
+}
+
+.iphone .mb-left__img
+{
+    background-image: url(/resources/images/m-img/iphone.svg);
+}
+
+.android .mb-left__img
+{
+    background-image: url(/resources/images/m-img/android.svg);
+}
+
+.another .mb-left__img
+{
+    display: none;
+}
+
+.mb-logo
+{
+    width: 8em;
+    height: 4em;
+    position: absolute;
+    top: -4em;
+    left: -43px;
+    display: block;
+    background: no-repeat 0 0 transparent url(/resources/images/m-img/logo.svg);
+    -o-background-size: contain;
+    -moz-background-size: contain;
+    background-size: contain;
+}
+
+.mb-button-get
+{
+    min-width: 80%;
+    height: 3em;
+    line-height: 3em;
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    bottom: -4em;
+    left: 0;
+    background: #ee6f39;
+    cursor: pointer;
+}
+
+@media all and (orientation:portrait)
+{
+    .another .mb-logo
+    {
+        width: 8em;
+        height: 5em;
+        top: -5em;
+        left: -1.8em;
+    }
+
+    .another .mb-content, .another .mb-right__content
+    {
+        height: 9em;
+        margin-top: -4.5em;
+        font-size: 1em;
+    }
+
+    .ipad .mb-logo
+    {
+        width: 9em;
+        height: 5em;
+        top: -6em;
+        left: -2em;
+    }
+
+    .ipad .mb-content, .ipad .mb-right__content
+    {
+        height: 9em;
+        margin-top: -4.5em;
+        font-size: 1.4em;
+    }
+
+    .iphone .mb-logo
+    {
+        width: 7em;
+        height: 4em;
+        top: -4em;
+        left: -28px;
+    }
+
+    .iphone .mb-content, .iphone .mb-right__content
+    {
+        height: 7em;
+        margin-top: -3.5em;
+        font-size: 1.2em;
+    }
+
+    .android .mb-logo
+    {
+        width: 6em;
+        height: 3em;
+        top: -3em;
+        left: -1em;
+    }
+
+    .android .mb-content, .android .mb-right__content
+    {
+        height: 8em;
+        margin-top: -4em;
+        font-size: 1em;
+    }
+
+    .mb-button-get
+    {
+        min-width: 90%;
+        height: 2em;
+        line-height: 2em;
+        bottom: -3em;
+    }
+}
+
+@media all and (min-height:800px)
+{
+    .android .mb-logo
+    {
+        width: 8em;
+        height: 5em;
+        top: -5em;
+        left: -1.7em;
+    }
+
+    .android .mb-content, .android .mb-right__content
+    {
+        font-size: 1.6em;
+    }
+
+    .mb-button-get
+    {
+        min-width: 90%;
+        height: 2em;
+        line-height: 2em;
+        bottom: -3em;
+    }
+}
+
+@media all and (orientation:landscape)
+{
+    .another .mb-logo
+    {
+        width: 6.5em;
+        height: 3.3em;
+        top: -3.5em;
+        left: -1.4em;
+    }
+
+    .another .mb-content, .another .mb-right__content
+    {
+        height: 7em;
+        margin-top: -3.5em;
+        font-size: 1em;
+    }
+
+    .ipad .mb-left
+    {
+        width: 40%;
+    }
+
+    .ipad .mb-right
+    {
+        width: 60%;
+    }
+
+    .ipad .mb-logo
+    {
+        width: 10em;
+        height: 5em;
+        top: -6em;
+        left: -2.2em;
+    }
+
+    .ipad .mb-content, .ipad .mb-right__content
+    {
+        font-size: 1.5em;
+    }
+
+    .iphone .mb-left
+    {
+        width: 25%;
+        padding: 3% 0 3% 5%;
+    }
+
+    .iphone .mb-right
+    {
+        width: 75%;
+    }
+
+    .iphone .mb-logo
+    {
+        width: 7em;
+        height: 4em;
+        top: -4em;
+        left: -1.5em;
+    }
+
+    .iphone .mb-content, .iphone .mb-right__content
+    {
+        height: 5em;
+        margin-top: -2.5em;
+        font-size: 1.4em;
+    }
+
+    .android .mb-logo
+    {
+        width: 8em;
+        height: 4em;
+        top: -4em;
+        left: -1.6em;
+    }
+
+    .android .mb-content, .android .mb-right__content
+    {
+        height: 6em;
+        margin-top: -3em;
+        font-size: 1.2em;
+    }
+
+    .mb-button-get
+    {
+        height: 2em;
+        line-height: 2em;
+        bottom: -3em;
+    }
+}
+
+@media all and (orientation:landscape) and (min-width:1000px)
+{
+    .android .mb-left
+    {
+        width: 25%;
+        padding: 3% 0 3% 5%;
+    }
+
+    .android .mb-right
+    {
+        width: 75%;
+    }
+
+    .android .mb-content, .android .mb-right__content
+    {
+        height: 6em;
+        margin-top: -3em;
+        font-size: 1.6em;
+    }
+
+    .android .mb-logo
+    {
+        width: 8em;
+        height: 4.6em;
+        top: -4.6em;
+        left: -1.7em;
+    }
+}
+
+@media all and (orientation:portrait) and (min-width:1000px)
+{
+    .android .mb-content, .android .mb-right__content
+    {
+        height: 6em;
+        margin-top: -3em;
+        font-size: 1.6em;
+    }
+
+    .android .mb-logo
+    {
+        width: 12em;
+        height: 6em;
+        top: -6em;
+        left: -1.6em;
+    }
+}
+
+.ipad .mb-button-get
+{
+    min-width: 80%;
+    height: 3em;
+    line-height: 3em;
+    bottom: -5em;
+}
+
+.another .mb-left
+{
+    width: 5% !important;
+}
+
+.another .mb-right
+{
+    width: 95% !important;
+}
+
+.another .mb-button-get, .another .mb-right__title
+{
+    display: none;
+}
+
+.another-button-wrp
+{
+    display: none;
+}
+
+.another .another-button-wrp
+{
+    width: 100%;
+    padding-top: 1em;
+    display: block;
+}
+
+.another-button
+{
+    height: 2.65em;
+    margin: 0 .4em .4em 0;
+    display: inline-block;
+    vertical-align: top;
+    background: no-repeat 0 0;
+    -o-background-size: contain;
+    -moz-background-size: contain;
+    background-size: contain;
+}
+
+.another-button_iphone
+{
+    width: 8em;
+    background-image: url(/resources/images/m-img/appstore_en.svg);
+}
+
+.ru .another-button_iphone
+{
+    background-image: url(/resources/images/m-img/appstore_ru.svg);
+}
+
+.de .another-button_iphone
+{
+    background-image: url(/resources/images/m-img/appstore_de.svg);
+}
+
+.another-button_android
+{
+    width: 7em;
+    background-image: url(/resources/images/m-img/googleplay_en.svg);
+}
+
+.ru .another-button_android
+{
+    background-image: url(/resources/images/m-img/googleplay_ru.svg);
+}
+
+.de .another-button_android
+{
+    background-image: url(/resources/images/m-img/appstore_de.svg);
+}

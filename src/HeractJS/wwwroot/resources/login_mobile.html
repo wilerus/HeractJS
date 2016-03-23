@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Comindware Project</title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;"/>
+    <style>
+        @font-face {
+            font-family: 'Roboto';
+            src: url('/resources/fonts/Roboto-Regular-webfont.eot');
+            src: url('/resources/fonts/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+                 url('/resources/fonts/Roboto-Regular-webfont.woff') format('woff'),
+                 url('/resources/fonts/Roboto-Regular-webfont.ttf') format('truetype'),
+                 url('/resources/fonts/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('/resources/fonts/Roboto-Light-webfont.eot');
+            src: url('/resources/fonts/Roboto-Light-webfont.eot?#iefix') format('embedded-opentype'),
+                 url('/resources/fonts/Roboto-Light-webfont.woff') format('woff'),
+                 url('/resources/fonts/Roboto-Light-webfont.ttf') format('truetype'),
+                 url('/resources/fonts/Roboto-Light-webfont.svg#robotolight') format('svg');
+            font-weight: 300;
+            font-style: normal;
+
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('/resources/fonts/Roboto-Medium-webfont.eot');
+            src: url('/resources/fonts/Roboto-Medium-webfont.eot?#iefix') format('embedded-opentype'),
+                 url('/resources/fonts/Roboto-Medium-webfont.woff') format('woff'),
+                 url('/resources/fonts/Roboto-Medium-webfont.ttf') format('truetype'),
+                 url('/resources/fonts/Roboto-Medium-webfont.svg#robotomedium') format('svg');
+            font-weight: 500;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('/resources/fonts/Roboto-Bold-webfont.eot');
+            src: url('/resources/fonts/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+                 url('/resources/fonts/Roboto-Bold-webfont.woff') format('woff'),
+                 url('/resources/fonts/Roboto-Bold-webfont.ttf') format('truetype'),
+                 url('/resources/fonts/Roboto-Bold-webfont.svg#robotobold') format('svg');
+            font-weight: 700;
+            font-style: normal;
+
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+        }
+        body, input, textarea, select, button {
+            font: 1em/1.4 'Roboto', sans-serif;
+        }
+        a {
+            color: #2d9adf;
+        }
+        header {
+            height: 80px;
+            padding: 0 0 0 20px;
+        }
+        .iphone header {
+            height: 140px;
+            padding-left: 40px;
+        }
+        .logo {
+            width: 100px;
+            height: 100%;
+            display: block;
+            background: no-repeat 0 50% url(/resources/images/m-img/logo.png);
+        }
+        .iphone .logo {
+            width: 201px;
+            background-image: url(/resources/images/m-img/logo_iphone.png);
+        }
+        .info {
+            height: 230px;
+            padding: 35px 5px 35px 150px;
+            font-size: 1.4em;
+            font-weight: 300;
+            line-height: 1.2;
+            color: #fff;
+            overflow: auto;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            background: #3fb5ff no-repeat 21px 50% url(/resources/images/m-img/bg_android.png);
+        }
+        .iphone .info {
+            height: 280px;
+            padding: 50px 5px 50px 190px;
+            background-image: url(/resources/images/m-img/bg_iphone.png);
+        }
+        .h1-info {
+            margin: 0 0 10px;
+            padding: 0;
+            font-size: 1.4em;
+            font-weight: 400;
+        }
+        .iphone .h1-info {
+            font-size: 1.6em;
+        }
+        .iphone .info__txt {
+            font-size: 1.3em;
+            
+        }
+        .info__button {
+            width: 145px;
+            height: 50px;
+            margin-top: 20px;
+            background: no-repeat 0 50% url(/resources/images/m-img/google_play.png);
+        }
+        .iphone .info__button {
+            width: 171px;
+            height: 50px;
+            margin-top: 40px;
+            background: no-repeat 0 50% url(/resources/images/m-img/app_store.png);
+        }
+        .auth {
+            margin: 1.35em 40px 0;
+            font-size: 1.4em;
+        }
+        .auth__input {
+            width: 100%;
+            height: 2.3em;
+            padding: 0 25px;
+            display: block;
+            font-size: 1.1em;
+            line-height: 1;
+            color: #182026;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border: solid 1px #bdbdbd;
+            outline: 0;
+        }
+        .iphone .auth__input {
+            height: 3em;
+        }
+        .auth__input_top {
+            border-bottom: 0;
+        }
+        .auth__password-show {
+            margin: 1.3em 0 2.1em;
+            color: #70787f;
+            line-height: 2em;
+        }
+        .iphone .auth__password-show {
+            margin-bottom: 3em;
+        }
+        .auth__checkbox {
+            width: 1.7em;
+            height: 1.7em;
+            margin: 0 10px 0 0;
+            display: inline-block;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border: solid 1px #bdbdbd;
+            vertical-align: top;
+            cursor: pointer;
+        }
+        .iphone .auth__checkbox {
+            width: 2em;
+            height: 2em;
+        }
+        .auth__checkbox_select {
+            border: solid 1px #0d7aff;
+            background: #0d7aff no-repeat 50% 50% url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAATCAYAAABlcqYFAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQdJREFUeNpi/P//PwONwB0gZgdiNUYaWMIJxC+AmA/Kf8ZCAwteAzE3siA1fSIExE+gFsHARyAWYKKiBU/RLPgAsgDEYKKSBc+AmANJ7C0QC8I4lFoiBcTPoakIBkB8EWRFLBRa8BDNDJCPpNEVMlFgwSM0C55gswDZkgdAfJNIC5SgFjAjid0FYlmcOoBJ+Ol/BLgCStJ4sBYQ//mPCq4R0AO25AeaphM4FBsD8V9SLYBZIoXFdfvQFFphseAcMRbALIEFA7ohm/BYcIJYC5AtgQXHPzTDjmIRO0iKBeiWwFyNbihFFmCzBIQ9cViwixwLcFkCwnHUsgCfJSCchRQvDJRggAADAPYGATYKG1OdAAAAAElFTkSuQmCC);
+        }
+        .auth__submit {
+            width: 100%;
+            min-height: 2.2em;
+            padding: 0 15px;
+            border: 0;
+            outline: 0;
+            color: #fff;
+            font-weight: 500;
+            font-size: 1.2em;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            cursor: pointer;
+            background: #ef6f3a;
+        }
+        .iphone .auth__submit {
+            height: 3em;
+        }
+        .auth__forgot-password {
+            margin-top: .4em;
+            display: block;
+            line-height: 2em;
+        }
+        .iphone .auth__forgot-password {
+            margin-top: 2em;
+        }
+        @media all and (max-width: 600px) {
+            body {
+                font-size: .8em;
+            }
+            .info {
+                height: auto !important;
+            }
+        }
+        @media all and (max-width: 460px) {
+            .info {
+                padding: 20px 40px !important;
+                background-image: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="iphone">
+    <header>
+        <a href="http://comindware.com" class="logo"></a>
+    </header>
+    <div class="info">
+        <h1 class="h1-info">Activate your accaunt</h1>
+        <div class="info__txt">and download application</div>
+        <div class="info__button"></div>
+    </div>
+    <div class="auth">
+        <input type="text" name="" value="" class="auth__input auth__input_top" />
+        <input type="password" name="" value="" class="auth__input" />
+        <div class="auth__password-show">
+            <div class="auth__checkbox auth__checkbox_select"></div> Show password
+        </div>
+        <button class="auth__submit">Activate and download app</button>
+        <a href="#" class="auth__forgot-password">Forgot password?</a>
+    </div>
+</body>
+</html>

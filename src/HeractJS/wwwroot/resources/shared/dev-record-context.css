@@ -1,0 +1,40 @@
+
+.dev-record-context__toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+}
+
+.dev-record-context__grid-container {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.dev-record-context__grid-container__grid {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 16px;
+}
+
+.dev-record-context__grid-container__scrollbar {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    width: 16px;
+    top: 0;
+}
+
+/*.dev-record-context__popup {
+    height: 700px;
+    width: 700px;
+    margin-left: -350px;
+    margin-top: -350px;
+    background-color: white;
+}*/

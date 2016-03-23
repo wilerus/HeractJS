@@ -1,0 +1,220 @@
+.fetchMore{
+    bottom: -10px;
+}
+
+.info {
+    height: 100%;
+}
+
+.project-status-archived {
+    padding-bottom: 0;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    background: #c4c8cb;
+}
+
+.card_project {
+    padding: 0;
+    overflow: hidden;
+}
+.card_project .card__item_head {
+    height: 46px;
+    padding-right: 0;
+    font-size: 26px;
+    font-weight: normal;
+}
+.card_project .cmw-textarea {
+    font-size: 16px;
+}
+.project-head {
+    padding: 15px 0 18px;
+    border-bottom: solid 1px #CED3D7;
+    border-top: solid 1px #CED3D7;
+}
+.project-active {
+    margin: 0 20px;
+    padding: 40px 0 40px;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border-bottom: solid 1px #CED3D7;
+    border-top: solid 1px #CED3D7;
+    clear: both;
+    white-space: nowrap;
+}
+.project-active__chart {
+    min-width: 215px;
+    display: inline-block;
+    vertical-align: top;
+    white-space: normal;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border-right: solid 1px #ced3d7;
+}
+.size-middle .project-active__chart {
+    min-width: 205px;
+}
+.size-large .project-active__chart {
+    max-width: 60%;
+}
+.project-active__content {
+    min-width: 220px;
+    margin-left: -1px;
+    padding-left: 35px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    border-left: solid 1px #ced3d7;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+.size-middle .project-active__content {
+    padding-left: 20px;
+}
+.size-small .project-active__chart,
+.size-small .project-active__content {
+    width: 100%;
+    padding: 0;
+    display: block;
+    border-color: rgba(0,0,0,0);
+}
+.size-small .project-active__content {
+    margin-top: 20px;
+    padding-left: 0;
+}
+.project-active__new {
+    line-height: 28px;
+    font-size: 14px;
+    text-align: center;
+    display: inline-block;
+}
+.size-small .project-active__new {
+    display: block;
+    text-align: left;
+}
+.size-middle .project-active__new {
+    max-width: 220px;
+}
+.size-large .project-active__new {
+    min-width: 300px;
+    padding-right: 20px;
+}
+.project-active__item {
+    margin: 0 0 15px;
+    display: block;
+}
+.size-small .project-active__item {
+    width: 200px;
+}
+.project-active__content .project-active__item:last-child {
+    margin-bottom: 0;
+}
+.project-active__title {
+    display: block;
+    color: #182026;
+}
+.project-active__mp-import {
+    white-space: nowrap;
+}
+.project-active__mp-import-ok {
+    display: block;
+}
+.size-small .project-active__mp-import, .size-small .project-active__mp-import-ok {
+    display: none;
+}
+.size-small .button-icon_create-tasks {
+    margin: 20px 0 0 0;
+}
+.project-active__form-editor {
+    width: 160px;
+    height: 28px;
+    color: #0575bd;
+    font-size: 18px;
+    display: block;
+    cursor: pointer;
+}
+.project-active__form-editor .cmw-form-editor .cmw-input {
+    width: 100%;
+    margin-left: -5px;
+    padding-right: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.project-active__form-editor:hover .cmw-input {
+    outline: solid 1px #E7EBEE;
+}
+.project-active__form {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: normal;
+    height: 25px;
+    line-height: 25px;
+    margin-left: -5px;
+}
+.project-active__form-editor .input:after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    border: solid 4px transparent;
+    border-top-color: #0575bd;
+    vertical-align: middle;
+}
+.project-active__form-editor .calendarButton {
+    display: none;
+}
+/* ломает бублик
+    .project-active .content {
+    padding-top: 20px !important;
+}*/
+
+.project-active__item_overdue .project-active__form-editor {
+    color: #CB4E30 !important;
+}
+.project-active__item_overdue .project-active__form-editor .input:after {
+    border-top-color: #CB4E30;
+}
+/**/
+.preloader {
+    position: relative;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.preloader .spin {
+    position: absolute;
+    border-style: solid;
+}
+
+.preloader .rotate .wrap,
+.preloader .leftpart,
+.preloader .rightpart,
+.preloader .leftfon,
+.preloader .rightfon {
+  position: absolute;
+  overflow: hidden;
+  z-index: 1;
+  opacity: 1;
+}
+
+.preloader .leftpart {
+  z-index: 3;
+}
+
+.preloader .rotate {
+  position: absolute;
+  z-index: 2;
+}
+
+.preloader .rightpart {
+  opacity: 0;
+  z-index: 3;
+}

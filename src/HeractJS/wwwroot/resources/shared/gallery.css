@@ -1,0 +1,118 @@
+﻿.galleryWindow {
+	position : absolute;
+	border : 1px solid gray;
+	background : url(/resources/icons/client/gallery_mask.png) 0 0 repeat;
+	top : 0;
+	left : 0;
+	z-index : 100500;
+	overflow : hidden;
+}
+
+.galleryButton {
+	position : absolute;
+    top:5px;
+    width:24px;
+    height: 24px;
+    line-height: 100px;
+    overflow: hidden;
+    background : url(/resources/icons/client/gallery_close.png) 0 0 no-repeat;
+    cursor:pointer
+}
+.galleryButton:hover {
+    background : url(/resources/icons/client/gallery_close.png) -24px 0 no-repeat;
+}
+.galleryMove {
+    position: absolute;
+    z-index: 100500;
+    width:20px;
+    height: 80px;
+    overflow: hidden;
+    border:none;
+    background : url(/resources/icons/client/gallery_move_buttons.png) -20px 45px no-repeat;
+    cursor:pointer;
+    bottom: 37px;
+    right:3px;
+    opacity: 0.6
+}
+.galleryMove:hover {
+    opacity: 1.0
+}
+.leftMove {
+    background-position: 0 45px;
+    right:auto;
+    left:3px;
+}
+.galleryImage{
+	margin: 20px auto 120px;
+	background-position: center center;
+}
+.galleryImage img{
+	border:2px solid #fff;
+}
+.galleryImageBuffer {
+	position : absolute;
+	z-index : -100500;
+}
+.galleryStripe {
+	position : absolute;
+	bottom : 20px;
+	text-align: center;
+	padding :0 20px;
+	height : 80px;
+	width : 100%;
+	overflow : hidden;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.galleryThumbnail {
+	margin-top : 5px;
+	margin-bottom : 5px;
+	margin-right : 5px;
+	border : 2px solid white;
+    background : black;
+	width : 64px;
+	height : 64px;
+	color : white;
+	font : bold 14px verdana;
+	display: inline-block;
+}
+
+.galleryThumbnail:hover {
+	border : 2px solid yellow;
+}
+
+.galleryThumbnailInfo {
+    position : absolute;
+    height : 20px;
+    color : white;
+    text-align: center;
+    width : 100%;
+    bottom : 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.galleryThumbnailInfo span{
+    color:#999;
+    padding: 0 10px;
+}
+
+.galleryImageDownload{
+    bottom: 104px;
+    text-align:center;
+    position: absolute;
+    z-index: 1;
+    color: #fff;
+    font-size: 18px;
+    line-height: 22px;
+    cursor: pointer;
+    margin-left: 50%;
+    left: -50px;
+    padding:1px 1px 1px 28px;
+    background: url(/resources/icons/client/gallery_download.png) 0 -1px no-repeat;
+}
+
+.galleryImageDownload:hover{
+    background-position: 0 -25px;
+    text-decoration:underline;
+}

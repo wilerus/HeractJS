@@ -1,0 +1,390 @@
+.scrollBox{
+    z-index:50;
+    width:11px;
+    height:800px;
+    right: 0;
+    float: right;
+    background:#fcfcfc;
+    border:none;
+    position: absolute;
+}
+.scrollBox:hover{
+    background:#f0f0f0;
+}
+.motion .scrollBox {
+    opacity: 0 !important;
+}
+.scrollBox .scroller{
+    width:10px;
+    border:none;
+    height:50px; 
+    background:#d9d7d7;
+    position:relative;
+    left:1px;
+}
+.scrollBox .scroller:hover, .scrollBox:hover .scroller{
+    background:#b9b9b9;
+}
+.scrollBox .scroller:active{
+    background:#a0a0a0;
+}
+
+.gridContent{
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    height: 500px;
+    width: 500px;
+    margin:-250px 0 0 -250px;
+}
+.CommonGrid, .CommonPlain{
+    border:1px solid #fff;
+    box-shadow: 0 0 3px #ccc;
+}
+.vbox.explorer {
+    position: relative;
+    width: 100% !important;
+    height: 100% !important;
+}
+.scrollpane {
+    box-sizing: content-box;
+    /*padding: 0 20px 20px 0;*/
+}
+
+
+
+/*------------------------------  Head Grid -------------------------------*/
+.vboxChild.footer {
+  position: absolute !important;
+}
+
+.vboxChild.footer.needsShift {
+  /*margin-top: -9px;*/
+}
+
+.gridTitle, .gridFooter {
+    border: none;
+    height: 40px;
+    overflow: auto;
+    z-index: 21; /*gt than scrollpane*/
+}
+.gridFooter.gridRow, .gridFooter.gridRow:hover,
+.gridTitle.gridRow, .gridTitle.gridRow:hover {
+    margin-right: 0;
+    overflow: hidden;
+    position: relative;
+}
+.gridFooter.gridRow > div,
+.gridTitle.gridRow > div{
+    float : left;
+}
+.gridFooter.gridRow div,
+.gridTitle.gridRow div {
+    font-size: 11px;
+    padding: 22px 1px 0 5px;
+    color: #666;
+    bottom: 0;
+    height: 41px;
+    cursor: default;
+}
+.gridFooter.gridRow div:hover,
+.gridTitle.gridRow div:hover {
+}
+.gridFooter.gridRow div:active,
+.gridTitle.gridRow div:active {
+    cursor: move;
+    height: 41px;
+}
+.gridFooter.gridRow.ui-sortable .move,
+.gridTitle.gridRow.ui-sortable .move{
+    height: 41px !important;
+    cursor: move;
+}
+.gridFooter .delimiter,
+.gridTitle .delimiter {
+    width: 1px;
+    margin: 0;
+    z-index: 20;
+    background: transparent !important;
+}
+.gridFooter .delimiter:hover,
+.gridTitle .delimiter:hover {
+    cursor : e-resize;
+    background: transparent !important;
+}
+/*
+.explorer .gridTitle.gridRow div{
+    padding: 7px 1px 3px 5px;
+} */
+/*-----//------*/
+
+
+/*------------------------------  Grid  -------------------------------*/
+.gridrow, .gridRow {
+    background: #fff;
+    height: 27px;
+    overflow: auto;
+}
+.scrollpane .gridRow:hover{
+    background: #f5f5f5;
+
+}
+.scrollpane .gridRow.selected{
+    background: #edf3fb;
+}
+.scrollpane .gridRow.selected:hover{
+    background: #e5ecf6;
+    border-color: #b3b9ca;
+}
+.gridRow div {
+    font-size: 11px;
+    padding: 7px 1px 3px 5px;
+    position:absolute;
+    margin: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-height: 27px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: default
+}
+.gridRow div:first-child, .gridTitle.gridRow div:first-child, .gridFooter.gridRow div:first-child {
+    border-left: none;
+}
+/*-----//------*/
+
+
+/*------------------------------  Plain  -------------------------------*/
+.short{
+    background: #fff;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    padding: 8px 15px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 45px;
+}
+.short.group{
+    background: #fff;
+    color:#333;
+}
+.scrollpane .short:hover{
+    background: #f0f0f0;
+    border-color: #e0e0e0;
+}
+.scrollpane .short.selected{
+    background: #edf3fb;
+    border-color: #dee2e6;
+}
+.scrollpane .short.selected + .short.selected{
+    border-top-color:#fff;
+}
+.scrollpane .short.selected:hover{
+    background: #e5ecf6;
+    border-color: #b3b9ca;
+}
+.scrollpane .short.selected + .short.selected:hover{
+    border-top-color:#b3b9ca;
+}
+.short .title, .pane .title, .short .description{
+    font-size: 11px;
+    color:#333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.short .description{
+    color:#999;
+}
+.short .pjdata, .pane .pjdata{
+    float:left;
+    margin:5px 20px 0 0;
+    font-size:11px;
+    color:#666
+}
+.short .pjdata:last-child{
+    margin-right:0;
+}
+/*-----//------*/
+
+
+
+/*------------------------------  Pane  -------------------------------*/
+.pane{
+    margin: 0 4px 4px 0;
+    padding: 15px;
+    float:left;
+    width: 42%;
+    background: #fff;
+    border:1px solid #fff;
+    box-shadow: 0 0 3px #ccc;
+}
+.pane:hover{
+    background: #ffffe0 ;
+}
+.pane .pjdata{
+    width:100%;
+    margin:5px 0 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.CommonPane .crumbs{
+    border:1px solid #fff;
+    box-shadow: 0 0 3px #ccc;
+    border-bottom-color: transparent;
+}
+.CommonPane .scrollpane{
+    margin: 2px 0 0;
+}
+.CommonPane .scrollpane .area{
+    margin: 0 -3px;
+    padding-left: 2px;
+}
+/*-----//------*/
+
+.vboxChild.grid {
+    overflow: visible !important;
+}
+
+.content .scrollpane{
+    background: transparent
+}
+.gridRow .edit, .gridRow .edit div{
+    padding: 0;
+    height: 27px;
+    margin: 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.gridRow div.edit div:first-child {
+    width:100%
+}
+.gridRow .edit input, .gridRowInput{
+    outline: none;
+    height: 27px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding:0 0 0 4px;
+    width:100%;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border: 1px solid #A8BAD0;
+    box-shadow: 0 1px 1px #dde5ef inset, 1px 0 1px #dde5ef inset, -1px 0 1px #dde5ef inset
+}
+input.scroll {
+    background: transparent;
+    border: none;
+    color: transparent;
+    opacity: 0;
+    height: 0;
+}
+ input.scroll:focus{
+    outline : none
+}
+.gridIcon {
+    float: left;
+    height: 70px;
+    width: 70px;
+}
+.groupEl {
+    background: #abc ;/*-moz-linear-gradient(center top , #667788, #889999) repeat scroll 0 0 #667788;*/
+    color: #fff;
+}
+
+.emptyText
+{
+    position: absolute;
+    top: 40px;
+    font-size: 14px;
+    z-index: 21;
+    display: none;
+}
+
+/* search */
+
+.vboxChild div.search {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0px;
+}
+.vboxChild.crumbs.search {
+    overflow: visible !important;
+}
+
+
+/* stretched */
+/*.stretched > .vbox.explorer, .stretched > .vbox.explorer .grid.vboxChild, .stretched > .vbox.explorer .grid.vboxChild .hbox, .stretched > .vbox.explorer .grid.vboxChild .area
+{
+    height: auto !important;
+    width:auto !important;
+	
+}*/
+
+.stretched > .vbox.explorer .footer.vboxChild
+{
+    position: relative !important;    
+    top : auto !important;
+}
+
+
+
+/*------------------------------  Drag n Drop  -------------------------------*/
+.draggingItem {
+    background: #f7f9fb !important;
+    border-top: 1px dashed #c7d5e5 !important;
+    border-bottom: 1px dashed #c7d5e5 !important;
+}
+.explanation {
+    padding: 10px 0;
+    line-height: 17px;
+}
+.dragOverUp {
+    margin-bottom: 8px;
+    border-bottom: 1px solid #c7d5e5 !important;
+}
+.dragOverUp + .draggingItem {
+    margin-top: -8px;
+    box-shadow: 0px -3px 0px -2px #fff; 
+}
+.draggingItem + .dragOverDown {
+    margin-top: 0;
+    border-top: 0 !important;
+    box-shadow: none;
+}
+.dragOverDown {
+    border-top: 1px solid #c7d5e5 !important;
+}
+.dragOverCenter {
+    background: #f5f5f5 !important;
+}
+.dragOverCenter .avatar-icon, .overCenter .avatar-icon {
+    color: transparent !important;
+    box-shadow: 0 0 0 1px #2f98e4 !important;
+    background: 50% 50% no-repeat #2f98e4 url(data:image/gif;base64,R0lGODlhEQARAIABAP///////yH5BAEAAAEALAAAAAARABEAAAIgjG+Ay6ENH2RyompTXjj3BITiSH7OdqGHGamayzYxBRUAOw==) !important;
+}
+.overCenter {
+    filter: alpha(opacity=70);
+    opacity: 0.7;
+}
+.DomShuttle {
+    width : 500px !important;
+    height : auto !important;
+    padding: 3px;
+    position : absolute;
+    top : 0;
+    left : 0;
+    display : none;
+    overflow: hidden;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index : 100500;
+}
+
+.DomShuttle .tr-list__item {
+    box-shadow: 0 0 3px rgba(0,0,0,.3) !important;
+}
+.dragOverUp.tr-list__item:hover {
+    background: #fff !important;
+}

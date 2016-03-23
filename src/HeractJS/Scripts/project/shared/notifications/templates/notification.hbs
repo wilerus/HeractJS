@@ -1,0 +1,17 @@
+﻿﻿<span class="notification-i__icon notification-i__icon_{{icon}}"></span>
+
+<div class="notification-i__title">{{title}}</div>
+<div class="notification-i__text">{{text}}</div>
+<span class="notification-i__lastcomment">{{lastCommentTime}}</span>
+{{#if isNotTask}}
+{{#if haveNewComments}}
+<span class="notification-i__newcomment">{{newComments}}</span>
+{{/if}}
+{{#if  isObjectFollowed}}
+<span class="notification-i__unfollow js-unfollow" title="{{localize 'PROCESS.COMMON.NOTIFICATIONS.NOTIFICATION.UNFOLLOW'}}">{{localize 'PROCESS.COMMON.NOTIFICATIONS.NOTIFICATION.UNFOLLOW'}}</span>
+{{else}}
+<span class="dev-notification-unfollowed" title="{{localize 'PROCESS.COMMON.NOTIFICATIONS.NOTIFICATION.UNFOLLOWED'}}">{{localize 'PROCESS.COMMON.NOTIFICATIONS.NOTIFICATION.UNFOLLOWED'}}</span>
+{{/if}}
+{{/if}}
+
+<span class="notification-i__dismiss js-dismiss" title="{{localize 'PROCESS.COMMON.NOTIFICATIONS.NOTIFICATION.DISMISS'}}"></span>

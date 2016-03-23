@@ -1,0 +1,1316 @@
+* { margin: 0; }
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix { *display: inline-block; _width: 100%; }
+
+.ppm_content{padding: 2px 3px 3px 2px}
+.graph:not(.navigation_item) { position: relative; width: 100%; height: 100%; overflow: hidden;background: #fff;}
+.graph .body { overflow: hidden; position: absolute; top: 46px;  height: 100%; bottom: 0; left: 0;right: 0;}
+.graph .body .area { position: absolute; overflow: hidden; left: 0; top: 0; }
+.graph .head .buttons { height: 46px; position: relative; z-index: 1; }
+.graph .head {
+    position: relative;
+    z-index: 3;
+    height: 46px;
+    margin: 0 20px;
+    position: relative;
+    border-bottom: solid 1px #CED3D7;
+}
+
+.button-icon_close-wbs {
+    background-position: 0 -90px;
+    float: right;
+    top: -25px;
+}
+
+.graph .info{
+  /*position: relative;
+  padding-top: 46px;*/
+ }
+body > #topPanel { height: auto; }
+
+#mainMindmap { position: relative; z-index: 1; }
+
+#navigationWraper .footer {
+    position: absolute;
+    height: 42px;
+    width: 100%;
+    bottom: 0;
+    z-index: 2;
+    white-space: nowrap;
+}
+#navigationWraper .footer {
+    background: #fafafa;
+    border-top:1px solid #edeeef;
+    font: 400 14px/23px 'Segoe UI', Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+#navigationWraper .footer:hover .fitem {
+}
+#navigationWraper .footer .fitem:first-child {
+  margin-left: 20px
+}
+#navigationWraper .footer .fitem {
+    display: inline-block;
+    margin: 10px 25px 0 0;
+    white-space: nowrap;
+    color: #43525d;
+}
+#navigationWraper .footer .fitem i {
+    cursor: pointer;
+    padding-right: 5px;
+    font-weight: 500;
+}
+
+#navigationWraper .footer .fitem i.cnavigate {
+  background: url('img/button_navigate.png') 3px 5px no-repeat;
+}
+
+#navigationWraper .footer .fitem span {
+    margin-left: 1px;
+    cursor: pointer;
+}
+
+#navigationWraper .footer .fitem span:hover {
+    color: #009bfe;
+}
+
+.graph .controlpanel {
+    width: 275px;
+    position: absolute;
+    top: 2px;
+    bottom: 27px;
+    left: -277px;
+    background: #fcfcfc;
+    z-index: 170;
+    padding: 20px 0 1px 10px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-left: 1px solid #ced3d7;
+    border-right: 1px solid #ced3d7;
+    -moz-transition: left .3s ease-in, right .3s ease-in;
+    -webkit-transition: left .3s ease-in, right .3s ease-in;
+    transition: left .3s ease-in, right .3s ease-in;
+}
+
+.graph .controlpanel ~ .simpleScrollerContainer .scrollBox {
+    z-index: 1000;
+}
+
+.graph .controlpanel .wrap {
+    height: 100%;
+    overflow: auto;
+}
+
+.graph .controlpanel.show {
+  left: -1px;
+}
+
+.graph .controlpanel.userpanel {
+  top: -1px;
+  padding: 46px 0 0;
+  background: white;
+  width: 632px;
+  right: -634px;
+  left: auto;
+}
+
+.graph .controlpanel.userpanel.show {
+  right: 0;
+  left: auto;
+  overflow: visible !important /* fix dropdown */
+}
+
+.graph .inlineTitle div {
+    font-weight: bold;
+    color: #333333;
+    width: 160px;
+    height: 25px;
+    margin-top: 15px;
+}
+
+.graph .inlineFullname div,
+.graph .inlineDepartment div {
+  color: #666666;
+}
+
+.graph .inlineTitle,
+.graph .inlineFullname,
+.graph .inlineDepartment {
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.graph .inlineTitle .input,
+.graph .inlineTitle textarea,
+.graph .inlineFullname .input,
+.graph .inlineFullname input,
+.graph .inlineDepartment .input,
+.graph .inlineDepartment input {
+  color: #333333;
+  width: 100%;
+  resize: none;
+  font-family: Verdana;
+  border: none;
+  margin-top: 17px;
+}
+
+.graph .inlineTitle input {
+  font-weight: bold;
+}
+
+.graph .inlineTitle textarea {
+  line-height: 15px;
+}
+
+.graph .controlpanel.ui-droppable ul li {
+  padding: 10px 12px 12px 12px;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #ced3d7;
+  margin:7px 15px 11px 10px;
+  min-height: 60px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  width: 225px;
+}
+
+.graph .controlpanel ul li.managerfalse {
+  opacity: 0.5;
+}
+
+.graph .controlpanel ul li .username {
+  display: none;
+  border-radius: 40px;
+  border: 1px solid #e4e9ee;
+  height: 29px;
+  width: 38px;
+  font-size: 15px;
+  font-family: "Segoe UI", sans-serif;
+  padding-top: 9px;
+  float: left;
+  margin-right: 10px;
+  text-align: center;
+  color: #99a1a7;
+  font-weight: bold;
+}
+
+.graph .userpanel.content-scroller_content-wrapper {
+    height: auto !important;
+    bottom: 0px;
+}
+
+.graph .controlpanel ul li .fullname {
+  color: #384650;
+  font-size: 15px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.graph .controlpanel.ui-droppable ul li:first-child {
+    margin-top: 2px;
+}
+
+.graph .controlpanel.ui-droppable ul li:hover {
+    background: #f0f0f0;
+}
+
+.graph .body .basket {
+    width: 100px;
+    height: 100px;
+    background: url('/resources/graph/img/basket.png') 50% 50% no-repeat;
+    position: absolute;
+    left: 5px;
+    bottom: 50px;
+    z-index: 999;
+    opacity: 0.3;
+    border-radius: 50%;
+    border: 1px solid transparent;
+}
+/* gingo */
+.graph .ginfo {
+  width: 230px;
+  padding: 10px 5px 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  position: absolute;
+  background: #fff;
+  display: none;
+  z-index: 10;
+  border: 1px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.7);
+}
+.graph .ginfo:before {
+    content: '';
+    display: block;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: absolute;
+    margin-left: -26px;
+    top:43%;
+    border-top:20px solid transparent;
+    border-bottom:20px solid transparent;
+    border-right:20px solid #999;
+}
+.graph .ginfo:after {
+    content: '';
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    margin-left: -25px;
+    top:43%;
+    border-top:20px solid transparent;
+    border-bottom:20px solid transparent;
+    border-right:20px solid #fff;
+}
+.graph .ginfo .field {
+    margin: 0;
+    padding: 0 0 0 90px;
+    height: 26px;
+    line-height: 26px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border:1px solid transparent;
+    position: relative;
+}
+.graph .ginfo .field:hover {
+    border-color: #e0e0e0;
+}
+.graph .ginfo .cmw-form-editor {
+    width: 100%;
+    height: 26px;
+    line-height: 26px;
+    margin: -1px 0 0;
+    padding: 0;
+    text-align: left;
+    text-overflow: ellipsis;
+}
+.graph .ginfo .title .cmw-form-editor,
+.graph .ginfo .description .cmw-form-editor {
+    width: 100%;
+    margin: -1px 0 0;
+}
+.graph .ginfo .cmw-form-editor .cmw-label {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 26px;
+    line-height: 26px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.graph .ginfo .input {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 26px;
+    line-height: 26px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 4px;
+}
+.graph .ginfo input, .graph .ginfo input.input {
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+    display: block;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    height: 26px;
+    line-height: 26px;
+    margin: 0;
+    padding: 0 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border:1px solid #E7EFF9;
+}
+
+.graph .ginfo .field:hover input, .graph .ginfo .field:hover input.input {
+    border:1px solid transparent;
+    background: transparent;
+}
+.graph .ginfo .title {
+    padding-left: 0;
+}
+.graph .ginfo .title .input {
+    font-weight: bold;
+}
+
+.graph .ginfo .field.description {
+    padding-left: 0;
+    height: auto;
+    min-height: 26px;
+    max-height: 64px;
+    line-height: 14px;
+    white-space: normal;
+    margin: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.graph .ginfo .field.description .cmw-form-editor,
+.graph .ginfo .field.description .cmw-form-editor .input{
+    height: auto;
+    height: 64px !important;
+    line-height: 16px;
+    white-space: normal;
+    border:none;
+}
+
+.graph .ginfo textarea {
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 64px !important;
+    padding: 0 3px;
+    resize: none;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    line-height: 16px;
+}
+
+.graph .ginfo .field span {
+    color:#666;
+    position: absolute;
+    left:5px;
+}
+
+.graph .ginfo .empty {
+    color: #999;
+}
+.graph .ginfo .ginfo-link {
+    margin: 10px auto;
+    padding: 0;
+    display: block;
+    text-align: center;
+    line-height: 20px;
+}
+.ginfo-link:after {
+    content: '';
+    width: 12px;
+    height: 20px;
+    margin: 0 0 0 5px;
+    display: inline-block;
+    vertical-align: top;
+    background: no-repeat right center url(data:image/gif;base64,R0lGODlhDAAMANUjAN3l7+rw9kZsmae60OHo8Vt8pfb5/dPd6ebs9E9znk1xnZyxymaGq32YuLPD11+Ap7zL3G2Lr2mIrYmiv9rj7VF1n0FolqO2zkhums/Z56C0zPT3/MHO32SEqqW4z1h7o6y+0+/z+TFbjf///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACMALAAAAAAMAAwAAAZJwJFQGBgMj8fHJIQcQRYNiyjhYI5AGJF2K+oQQNyPQsQ4CD/aD8VQMA4L2swoxEFqtICmMFQRefRCAAICAYAjBBIRG4ZXFwhIQQA7);
+}
+/* /ginfo */
+ul.commandslist {
+    position: absolute;
+    border: 1px solid #fff;
+    box-shadow: 0 0 3px #999;
+    padding: 10px;
+    width: 250px;
+    max-height: 500px;
+    top: 2px;
+    left: 1px;
+    display: none;
+    background: white;
+    overflow: auto;
+    z-index: 99999;
+}
+
+
+ul.commandslist li {
+  font-size: 13px;
+  padding: 10px;
+  font-family: Verdana;
+  border-bottom: 1px solid #999;
+}
+
+ul.commandslist li:hover {
+  cursor: pointer;
+  background: #edf3fb;
+}
+
+ul.commandslist li span {
+  font-size: 11px;
+}
+
+.openitemselected { background:#FFE48A }
+.selectedPoint { width: 22px; height: 22px; background: green; position: absolute; display: none; z-index: 2; }
+
+.handnavigator {
+    border:1px solid #CED3D7;
+    background: #fff;
+    width: 300px;
+    height: 222px;
+    position: absolute;
+    right: 20px;
+    z-index: 9;
+    position: absolute;
+    top: 1px;
+}
+.handnavigator .navcanvas {
+    position: absolute;
+    z-index: 1;
+    top: 46px;
+}
+
+.handnavigator .wrapslider {
+    position: absolute;
+    left: 15px;
+    right: 30px;
+    top: 15px;
+}
+
+.handnavigator .wrapslider .slidervalue {
+    height: 10px;
+    position: relative;
+    padding: 8px;
+    top: -1px;
+    width: 52px;
+    float: left;
+    margin-right: 10px;
+    color:#333;
+    background: #fff;
+    border:1px solid #e7eff9;
+    outline: none;
+}
+.handnavigator .wrapslider .slidervalue:hover {
+    border-color:#CED3D7;
+}
+.handnavigator .wrapslider .slidervalue:focus{
+    border-color:#0575BD;
+    outline: none;
+}
+.handnavigator .wrapslider .scaleslider {
+    width: 120px;
+    float: left;
+    margin: 13px 7px 0;
+    background: #0575bd;
+    height: 1px;
+    border:none;
+}
+.handnavigator .wrapslider .ui-slider-handle {
+    width:8px;
+    height: 16px;
+    background: url('/resources/graph/img/navigator.png') -26px -2px no-repeat;
+    outline: none;
+    border:none;
+    border-radius: 0;
+    top:-8px
+}
+.handnavigator .wrapslider .ui-slider-handle:hover {
+    background-position: -26px -22px
+}
+
+.handnavigator .wrapslider .sleft,
+.handnavigator .wrapslider .sright {
+    height: 16px;
+    width: 16px;
+    font-size: 15px;
+    line-height: 100px;
+    cursor: pointer;
+    float: left;
+    overflow: hidden;
+    margin-top: 4px;
+    background: url('/resources/graph/img/navigator.png') -26px 0 no-repeat;
+}
+.handnavigator .wrapslider .sleft {
+    background-position: -2px -2px;
+}
+.handnavigator .wrapslider .sleft:hover {
+    background-position: -2px -22px;
+}
+.handnavigator .wrapslider .sleft:active {
+    background-position: -2px -42px;
+}
+.handnavigator .wrapslider .sright {
+    margin-top: 5px;
+    background-position: -42px -2px;
+}
+.handnavigator .wrapslider .sright:hover {
+    background-position: -42px -22px;
+}
+.handnavigator .wrapslider .sright:active {
+    background-position: -42px -42px;
+}
+
+.handnavigator .scaleslider {
+
+}
+
+.handnavigator .navhead {
+    position: absolute;
+    top: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #436690;
+}
+.handnavigator .closenav {
+    position: absolute;
+    display: block;
+    width:16px;
+    height:16px !important;
+    line-height: 100px;
+    overflow: hidden;
+    top: 5px;
+    right:5px;
+    text-decoration: none;
+    display: block;
+    background: url('/resources/graph/img/navigator.png') -82px -2px no-repeat;
+
+}
+.handnavigator .closenav:hover {
+     background-position: -82px -22px;
+}
+.handnavigator .closenav:active {
+    background-position: -82px -42px;
+}
+.handnavigator .openclose {
+     background-position: -62px -2px;
+}
+.handnavigator .openclose:hover {
+     background-position: -62px -22px;
+}
+.handnavigator .openclose:active {
+    background-position: -62px -42px;
+}
+.imgMainCanvas { display: none; }
+
+.wrapDraggedElement {
+    position: absolute;
+    top: 46px;
+    background-size: 3%;
+    background: #FFF;
+}
+
+.draggedElement {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 2px solid red;
+    cursor: move;
+    z-index: 2;
+}
+
+@media print {
+    body * {
+        display: none;
+    }
+
+    .imgMainCanvas {
+        display: block;
+    }
+}
+
+div.content { padding: 0; }
+
+
+.graph .windowsettings .iconForm {
+    position: relative;
+}
+
+.graph .windowsettings .iconForm .iconList {
+    padding: 10px;
+}
+
+.graph .windowsettings .iconForm .iconList > div {
+    margin-bottom: 3px;
+}
+
+.graph .windowsettings .iconForm .iconList .icon {
+    cursor: pointer;
+    border: 1px solid white;
+}
+
+.userPanel {
+  position: absolute;
+  width: 630px;
+  height: 100%;
+  right: 0;
+  background: white;
+  border-left: 1px solid #ced3d7;
+  z-index: 9;
+}
+
+.dropdownContainer {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    background: #fff;
+    border: 1px solid #fff;
+    box-shadow: 0 0 3px #999;
+    margin: 0;
+    min-width: 130px
+}
+.dropdownContainer::after{
+    position: absolute;
+    content: "";
+    display: inline-block;
+    top: -10px;
+    left: 17px;
+    border-bottom: 11px solid white;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+}
+
+.dropdownContainer .item {
+    padding:5px 10px 5px 8px;
+    white-space: nowrap;
+    min-height: 20px;
+    font-size:11px;
+    cursor: pointer
+}
+.dropdownContainer .item:hover {
+    background: #edf3fb
+}
+.dropdownContainer .item .icons {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+    float:left;
+    background-repeat: no-repeat;
+}
+.dropdownContainer .new .icons { background-position: 0 -40px }
+.dropdownContainer .open .icons{ background-position: -20px -40px }
+.dropdownContainer .save .icons{ background-position: -40px -40px }
+.dropdownContainer .saveas .icons{ background-position: -60px -40px }
+.dropdownContainer .print .icons{ background-position: -80px -40px }
+
+.dropdownContainer .item .titleItem {
+    margin: 3px 0 0;
+    float:left;
+}
+
+.nodecolors,  .nodecommands, .nodeicons{
+    width:100%;
+    clear:both;
+    float:left;
+    padding:0 10px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.nodecommands{
+    padding-top:10px;
+}
+.nodeicons{
+    padding-bottom: 10px;
+}
+.dropdownContainer h3{
+    color:#999;
+    font-size: 10px;
+    font-weight: bold;
+    padding:5px;
+    margin: 10px 0 0;
+}
+.iconitem {
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin: 1px;
+    border: 1px solid transparent;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+}
+.nodecolors .iconitem {
+    margin: 1px 0 1px 5px;
+    box-shadow: 0 0 2px #ccc;
+}
+.nodecommands {
+
+}
+.nodecommands a {
+    display: block;
+    float:left;
+    text-align: center;
+    text-decoration: none;
+    color: #1e395b;
+    font-size: 11px;
+    font-weight: bold;
+    margin: 0 10px 0 0;
+}
+.nodecommands a span{
+    display: block;
+    width:40px;
+    height: 40px;
+    background: #eee;
+    margin:0 auto 5px;
+}
+
+#topPanel { position: relative; }
+
+.graph .windowsettings .ok {
+    position: absolute;
+    bottom: 7px;
+    left: 10px;
+    cursor: pointer;
+}
+
+.graph .windowsettings .cancel {
+    position: absolute;
+    bottom: 7px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.graph .mainCanvas {
+    z-index: 1;
+    position: relative;
+}
+
+.graph .subTreeCanvas {
+  position: absolute;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.mask {
+    background: #04152A;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 3;
+    display: none;
+}
+
+.graph .textareaeditor {
+    border: 2px solid #1B6DE0;
+    white-space: nowrap;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    resize: none;
+    outline: none;
+    height: 17px;
+    padding: 9px 9px 1px 9px;
+    color: #5d7ba0;
+    font-weight: bold;
+    overflow: hidden;
+    display: none;
+    position: absolute;
+    z-index: 2;
+    background: white;
+}
+
+.tmpspan, .graph .textareaeditor {
+  font-family: "courier new";
+  font-size: 12px;
+  line-height: 17px;
+}
+
+.graph .head button, .graph .head .disabled:hover {
+    width: auto;
+    height: 26px;
+    cursor: pointer;
+    color: #0575BD;
+    font: normal 16px/23px 'Segoe UI', Verdana, Geneva, Arial, Helvetica, sans-serif;
+    display: inline-block;
+    overflow: hidden;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    border: 0;
+    outline: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    margin: 10px 10px 0 0;
+}
+.graph .head button:hover, .graph .head button.dept:hover  {
+    cursor: pointer;
+    color: #009bfe;
+}
+.graph .head button:active, .graph .head button.dept:active  {
+    color: #000;
+}
+.graph .head button.disable, .graph .head button.disable:hover  {
+    cursor: default;
+    opacity: 0.4;
+    background-color:transparent;
+}
+.graph .head button.dept  {
+    margin-right: 20px;
+    color: #182026;
+    font-size: 14px;
+    line-height: 26px;
+}
+
+.graph .head .searchcontainer {
+    float: right;
+    position: relative;
+    margin-left: 20px;
+    padding-right: 30px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.graph .head .graphsearch {
+    float: right;
+    width: 0;
+    overflow: hidden;
+    -webkit-transition: width 0.5s;
+    padding: 0;
+    position: relative;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+
+.graph .head .graphsearch.visible {
+  width: 272px;
+}
+
+.graph .head .graphsearch input {
+    position: relative;
+    top: 2px;
+    height: 26px;
+    width: 267px;
+    margin: 0;
+    padding: 0 80px 0 30px;
+    border: 1px solid #d3dce7;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: #fff url("/resources/shared/img/search_icons.png") no-repeat 5px 3px;
+    font: normal 12px/14px Verdana,​Geneva,​Arial,​Helvetica,​sans-serif;
+}
+.graph .head .graphsearch input:hover {
+    border-color: #CED3D7;
+}
+.graph .head .graphsearch input:focus {
+    border-color: #0575BD;
+}
+.graph .head .graphsearch .text {
+    display: none;
+    height: 12px;
+    width: 12px;
+    line-height: 26px;
+    cursor: pointer;
+    border-left: none;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAlUlEQVR42o2RSQrDMAxFc5KCD5MTBgw5ioejeFMoybYhyaLdqPpFKp9AaAwPeXgSQu5E5EvO%2BaZE5a6IxRH37rjYKyukI6WUDe%2FwvOKTBSalhIQFHuTBH7Baa9gj4siJA%2BSHwgJHbmeC%2FKLso8i8%2F1ZGz1w5Xuw5Qg42Hjmj1rrD%2B835LEHvd58z%2F2CwH5tNnO0c3PkAGud706ytt0YAAAAASUVORK5CYII%3D') 0 0 no-repeat;
+    color: #999;
+    position: absolute;
+    text-align: right;
+    top: 19px;
+    right: 10px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 0 5px;
+}
+
+.graph .head .button-icon_search{
+    position: absolute;
+    right: 0;
+    top:10px;
+}
+.graph .head .graphsearch .text.empty {
+    background: #feecec;
+    color: #e40000;
+}
+
+.graph .head .searchcontainer .top, .graph .head .searchcontainer .bottom {
+    display: none;
+    position: absolute;
+    top: 18px;
+    left: -36px;
+    width: 14px;
+    height: 14px;
+    background: url("/resources/graph/img/search_step.png") no-repeat 0 0;
+}
+
+.graph .head .graphsearch .matches {
+  position: absolute;
+  right: 25px;
+  white-space: nowrap;
+  top: 16px;
+}
+
+.graph .head .searchcontainer .top:hover {
+    background-position: 0 -14px;
+}
+.graph .head .searchcontainer .top:active {
+    background-position: 0 -28px;
+}
+.graph .head .searchcontainer .bottom {
+    left: -18px;
+    background-position: -14px 0;
+}
+.graph .head .searchcontainer .bottom:hover {
+    background-position: -14px -14px;
+}
+.graph .head .searchcontainer .bottom:active {
+    background-position: -14px -28px;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.graph button {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+.graph .head .buttonTitle .arrow{
+    display: none
+}
+.graph .head button {
+    float: left;
+    position: relative;
+}
+.graph .head button .icon {
+    height: 26px;
+    width: 26px;
+    overflow: hidden;
+    position: absolute;
+    left:0;
+    top: 0;
+    display: block;
+}
+.graph .head button.redo .icon, .graph .head button.dept .icon {
+    left: auto;
+    right:0;
+}
+.graph .head button.dept .icon {
+    width: 10px;
+}
+.graph .head button.undo {
+    padding-left: 35px;
+}
+.graph .head button.redo {
+    padding-right: 37px;
+}
+.graph .head button.dept  {
+    float: right;
+    padding-right: 13px;
+}
+
+.graph .head button.adduser {
+  width: 26px;
+  margin-right: 20px;
+}
+
+.graph .head button.adduser .icon {
+  background: url("img/adduser.png") no-repeat 0 0;
+}
+
+.graph .head button.adduser.show .icon {
+  background-position: -26px 0;
+}
+
+.graph .head button .undo.icon {background: url("/resources/graph/img/undo.png") no-repeat 0 0;}
+.graph .head button:hover .undo.icon {background: url("/resources/graph/img/undo.png") no-repeat 0 -26px;}
+.graph .head button:active .undo.icon {background: url("/resources/graph/img/undo.png") no-repeat 0 -52px;}
+.graph .head button .redo.icon {background: url("/resources/graph/img/redo.png") no-repeat 0 0;}
+.graph .head button:hover .redo.icon {background: url("/resources/graph/img/redo.png") no-repeat 0 -26px;}
+.graph .head button:active .redo.icon {background: url("/resources/graph/img/redo.png") no-repeat 0 -52px;}
+.graph button.disabled > span {opacity: 0.4;}
+.graph .head button.disabled:hover .undo.icon, .graph .head button.disabled:active .undo.icon {background-position: 0 0;}
+.graph .head button.disabled:hover .redo.icon, .graph .head button.disabled:active .redo.icon {background-position:  0 0;}
+.graph .head button .delete { background-position: -60px 0}
+.graph .head button .connector { background-position: -80px 0}
+.graph .head button .fill { background-position: -100px 0}
+.graph .head button .line { background-position: -120px 0}
+.graph .head button .align { background-position: -140px 0}
+.graph .head button .layers { background-position: -160px 0}
+.graph .head button .group { background-position: -180px 0}
+.graph .head button .navigator { background-position: -200px 0}
+
+.graph .head .arrow.file,
+.graph .head .arrow.fill,
+.graph .head .arrow.line,
+.graph .head .arrow.align{ display: inline-block !important; }
+
+
+.delimiter{ float:left; width:1px; height: 100%; background: #c7d5e5; border-right:1px solid #fff; margin:0 5px; display: none}
+/*-----//------*/
+
+/** korzio fix **/
+
+.explorer {
+    height: 420px !important;
+}
+
+.explorer .hboxChild {
+    background: white;
+}
+.explorer .header {
+    background: #6683A6;
+}
+
+.explorer .area {
+    width: 570px;
+}
+
+.explorer .scrollpane {
+    top: 0px !important;
+    left: 130px !important;
+    width: 570px !important;
+}
+
+.ui-icon-home.button.right.mode {
+    margin-right: 15px;
+    margin-top: 2px;
+    cursor:pointer;
+}
+
+/** korzio fix from project **/
+
+.short{
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 9px 10px 8px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.short .title, .pane .title{
+    font-weight: bolder;
+    color:#052242;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.short .pjdata, .pane .pjdata{
+    float:left;
+    margin:5px 20px 0 0;
+    font-size:11px;
+    color:#666
+}
+.pane .pjdata{
+    width:100%;
+    margin:5px 0 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.short .pjdata:last-child{
+    margin-right:0;
+}
+.scrollpane {
+    background: #fff;
+    padding: 0 !important;
+}
+.content .scrollpane{
+    background: transparent
+}
+
+.moduleNavigation .tab{
+    margin: 1px;
+    height:37px;
+    padding-left:43px;
+    position: relative;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer
+}
+.moduleNavigation .tab .inner{
+    position: absolute;
+    top:50%;
+    margin-top: -6px;
+    font-size: 10px;
+    font-weight: bold;
+}
+.moduleNavigation .tab .icons{
+    position: absolute;
+    width:20px;
+    height:20px;
+    overflow: hidden;
+    background: url("/resources/shared/img/icons_20x20.png") repeat -20px 0;
+    top:10px;
+    left:10px;
+}
+.moduleNavigation .tab .messages{background-position: -40px 0}
+.moduleNavigation .tab .tasks{background-position: -60px 0}
+.moduleNavigation .tab .dashboard{background-position: -80px 0}
+.moduleNavigation .tab .project{background-position: -100px 0}
+.moduleNavigation .tab .groups{background-position: -120px 0}
+.moduleNavigation .tab .people{background-position: -140px 0}
+.moduleNavigation .tab .documents{background-position: -160px 0}
+.moduleNavigation .tab .apps{background-position: -180px 0}
+
+.pane{
+    margin: 0 4px 4px 0;
+    padding: 15px;
+    float:left;
+    width: 40.50%;
+    background: #fff;
+}
+
+.dropMenu .menuIcon, .monthName span{
+    background: url("/resources/shared/img/icons_20x20.png") no-repeat 0 -20px;
+}
+
+.dropMenu .plain {background-position: -140px -20px;border: 0; box-shadow: none }
+.dropMenu .grid {background-position: -220px -20px;  }
+.dropMenu .pane {background-position: -180px -20px;  }
+
+.dropMenu{
+    min-width: 110px;
+    max-height: 500px;
+    font-size: 13px;
+    background: #fff;
+    border: 1px solid #fff;
+    -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
+    margin: 2px 3px 3px;
+}
+.dropMenu:after{
+    position: absolute;
+    content: "";
+    display: inline-block;
+    top: -16px;
+    right: 9px;
+    border: 8px solid rgba(0, 0, 0, 0);
+    border-bottom-color: #FFF;
+}
+.dropMenu:before {
+    position: absolute;
+    content: "";
+    display: inline-block;
+    top: -16px;
+    right: 9px;
+    border: 8px solid rgba(0, 0, 0, 0);
+    border-bottom-color: #999;
+}
+
+.dropMenu .menuItem {
+    padding:5px 10px;
+    white-space: nowrap;
+    min-height: 20px;
+}
+.dropMenu .menuIcon {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+    float:left;
+}
+.dropMenu .titleItem {
+    margin: 3px 0 0;
+    float:left;
+}
+
+
+
+
+
+
+/*------------------------------  Node menu  -------------------------------*/
+.nodeContextMenu {
+    position: absolute;
+    display: none;
+    padding: 5px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.dropdownContainer.nodeContextMenu::after {
+    left: 50%;
+    margin-left:-5px;
+    bottom: -11px;
+    border-top: 10px solid #fff;
+    border-bottom: none;
+    top: auto;
+}
+.dropdownContainer.nodeContextMenu::before {
+    left: 50%;
+    margin-left: -7px;
+    bottom: -13px;
+    border-top: 12px solid #ddd;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    top: auto;
+    position: absolute;
+    content: "";
+}
+.iconitem{
+    float: left;
+    width:24px;
+    height: 24px;
+    margin: 1px;
+    border:1px solid transparent;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+}
+.iconitem:hover{
+     border:1px solid #436690;
+     background-color: #edf3fb;
+ }
+.iconitem img{
+    margin-top:4px;
+}
+.iconitem.arrow_right img{
+    margin:-3px 0 0 -5px;
+}
+.iconitem.warning img{
+    width:19px;
+    margin:4px 0 0 -1px;
+}
+.iconitem.answeryes img{
+    margin:0 0 0 1px;
+}
+
+.labelAssignee {
+    display: none;
+}
+
+.editorAssignee .cmw-input, .editorAssignee input{
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+}
+.editorAssignee .cmw-input:before,
+.editorAssignee:before{
+    position: absolute;
+    content: "";
+    display: inline-block;
+    top: 6px;
+    left: -16px;
+    border: 8px solid rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+.editorAssignee .cmw-input:after,
+.editorAssignee:after{
+    position: absolute;
+    content: "";
+    display: inline-block;
+    top: 6px;
+    left: -15px;
+    border: 8px solid rgba(0, 0, 0, 0);
+    border-right-color: #FFF;
+    z-index: 2;
+}
+
+.handnavigator {
+    display: none !important;
+}
+
+/*-----//------*/

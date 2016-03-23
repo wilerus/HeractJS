@@ -1,0 +1,671 @@
+.calendar-wrp{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	padding-top: 40px;
+}
+
+
+
+/* ------------------------------ Calendar Header ------------------------------ */
+.calendar-header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 0 40px;
+	height: 40px;
+	border-bottom: 1px solid #d5d9dc;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+	font-size: 12px;
+	position: absolute;
+	top:0;
+	left: 0;
+}
+
+.new-session-btn{
+    display: inline-block;
+	font-size: 13px;
+	color:#646e75;
+	position: relative;
+	padding-left: 23px;
+	cursor: pointer;
+}
+.new-session-btn:before{
+    content: '';
+	position: absolute;
+	width: 2px;
+	height: 14px;
+	top:2px;
+	left:6px;
+	background: #646e75;
+}
+.new-session-btn:after{
+    content: '';
+	position: absolute;
+	width: 14px;
+	height: 2px;
+	top:8px;
+	left:0;
+	background: #646e75;
+}
+.new-session-btn:hover:before,
+.new-session-btn:hover:after{
+	background: #009bfe;
+}
+.new-session-btn:hover{
+	color: #009bfe;
+}
+
+.calendar-header__center{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding-left: 60px;
+}
+
+.calendar-header__btn{
+	cursor: pointer;
+	font-size: 12px;
+	color:#0376b8;
+	font-weight: 500;
+	padding-top: 2px;
+}
+
+.calendar-header__btn:hover{
+	color: #009bfe;
+}
+
+.calendar-header__btn_today{
+	margin-left: 60px;
+}
+
+
+.calendar-header__separate{
+	display: inline-block;
+	width: 1px;
+	height: 24px;
+	background: #c9cbcd;
+	margin: 0 20px;
+}
+
+.calendar-header__l{
+	display: inline-block;
+	color: #646e75;
+	margin:0 3px 0 60px;
+}
+.calendar-header__saving + .calendar-header__l{
+	margin-left: 0;
+}
+
+
+.calendar-header .popout__down > span{
+	color:#0376b8;
+	font-weight: 500;
+	font-size: 12px;
+}
+.calendar-header .popout__down > span:hover{
+	color: #009bfe;
+}
+
+
+.calendar-header__saving{
+	color: #A9ACAF;
+	cursor: default;
+	font-style: italic;
+	display: flex;
+	flex-grow: 1;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	transition: .5s;
+}
+.calendar-header__saving span{
+	font-weight: 600;
+	font-style: normal;
+}
+
+.calendar-header__saving_active{
+	opacity: 1;
+}
+
+
+@keyframes blink {
+	0% {
+		opacity: .2;
+	}
+	20% {
+		opacity: 1;
+	}
+	100% {
+		opacity: .2;
+	}
+}
+.calendar-header__saving span {
+	animation-name: blink;
+	animation-duration: 1.4s;
+	animation-iteration-count: infinite;
+	animation-fill-mode: both;
+}
+
+.calendar-header__saving span:nth-child(2) {
+	animation-delay: .2s;
+}
+
+.calendar-header__saving span:nth-child(3) {
+	animation-delay: .4s;
+}
+/*-----//------*/
+
+
+
+/* ------------------------------ Calendar Grid ------------------------------ */
+.calendar-grid-wrp{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.calendar-grid{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	overflow: hidden;
+	position: relative;
+	padding-top: 61px;
+}
+
+.calendar-grid__wells{
+	position: absolute;
+	top:0;
+	left:0;
+	right:6px;
+	bottom: 0;
+}
+
+.calendar-grid-well{
+	position: absolute;
+	top:0;
+	bottom: 0;
+	z-index: -1;
+	box-sizing: border-box;
+	background: #f9fafb;
+	color: #636363;
+	font-size: 10px;
+	line-height: 27px;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+.calendar-grid__hours{
+	position: absolute;
+	left:0;
+	right:6px;
+	top:27px;
+	bottom:0;
+	border-top:1px solid #eee;
+	border-bottom:1px solid #eee;
+
+}
+
+.calendar-grid__hours:after{
+	content: '';
+	position: absolute;
+	left:0;
+	right:0;
+	top:32px;
+	height: 1px;
+	background:#eee;
+
+}
+
+.calendar-grid__days{
+	flex-grow: 1;
+	overflow-y: auto;
+	position: relative;
+}
+
+.calendar-grid-day{
+	position: relative;
+	width: 100%;
+	height: 34px;
+	border-bottom:1px solid #eee;
+	text-align: center;
+}
+
+.calendar-grid-day_conflicts:after{
+	content: '';
+	display: block;
+	width: 4%;
+	height: 16px;
+	position: absolute;
+	left:0;
+	bottom:15px;
+	z-index: -1;
+	background: 50% 0 no-repeat url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAQCAMAAAA7+k+nAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2MUZCRkMyMkMwNDkxMUU1QjJGREFGQTdFMEM2MTBGRiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2MUZCRkMyM0MwNDkxMUU1QjJGREFGQTdFMEM2MTBGRiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjYxRkJGQzIwQzA0OTExRTVCMkZEQUZBN0UwQzYxMEZGIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjYxRkJGQzIxQzA0OTExRTVCMkZEQUZBN0UwQzYxMEZGIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+wE4QoQAAABtQTFRF+9HT7k1V+sfJ+cbI+9LU7lBX7k5V7DtD////0OjaKQAAAFpJREFUeNqUjkEOwCAIBAUU+P+La4C01AZN96CGyco0fSLpra0EyBKZYJ6MATh3bBC36BIpGh0CELx3DDpZ7YE5+1ceRgerwe30cVYpGh18Ys55x6D/upcAAwC89QsrP/e7PAAAAABJRU5ErkJggg==');
+}
+
+.calendar-grid-day_today .calendar-day-span {
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	color: #fff;
+	line-height: 22px;
+	text-align: center;
+	background: #FD3737;
+	border-radius: 50%;
+	font-size: 10px;
+	font-weight: 600;
+}
+
+
+.calendar-grid-time {
+	position: absolute;
+	top:0;
+	bottom:0;
+	box-sizing: border-box;
+	color:#817c7c;
+	font-size: 11px;
+	line-height: 34px;
+	text-align: center;
+	border-right: 1px solid #eee;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+.calendar-day{
+	position: absolute;
+	box-sizing: border-box;
+	color:#817c7c;
+	text-align: center;
+	font-size: 11px;
+	line-height: 34px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.calendar-session{
+	position: absolute;
+	box-sizing: border-box;
+	margin-top: 5px;
+	height: 24px;
+	line-height: 24px;
+	padding: 0;
+	background: #f6f8db;
+	border:1px solid #d0cb70;
+	border-radius: 3px;
+	font-size: 10px;
+	color:#333;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.calendar-session_noend{
+	border-radius: 3px 0 0 3px;
+	border-right: none;
+	padding-right: 15px;
+}
+.calendar-session_noend:before{
+	content: '';
+	position: absolute;
+	width:6px;
+	height: 9px;
+	top: 7px;
+	right:3px;
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAJCAMAAAAmRK2vAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5Q0QwMzA2MEMwNTQxMUU1OTNERUNGM0IyMkQzRkNDQyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo5Q0QwMzA2MUMwNTQxMUU1OTNERUNGM0IyMkQzRkNDQyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjlDRDAzMDVFQzA1NDExRTU5M0RFQ0YzQjIyRDNGQ0NDIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjlDRDAzMDVGQzA1NDExRTU5M0RFQ0YzQjIyRDNGQ0NDIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+WxSxuwAAACRQTFRF5+fn5OTkcnJyiYmJlpaWfX195eXllZWVcHBwioqK8/Pz////7ntMpwAAAAx0Uk5T//////////////8AEt/OzgAAADJJREFUeNpiYGPh4ubmZmDn4ATSDFycIJqBG0izsjEABZg4mCE8RpgcVCUbO0gfQIABADkCAdDx+AupAAAAAElFTkSuQmCC');
+}
+
+.calendar-session_nostart{
+	border-radius: 0 3px 3px 0;
+	border-left: none;
+	padding-left: 15px;
+}
+
+.calendar-session_nostart:after{
+	content: '';
+	position: absolute;
+	width:6px;
+	height: 9px;
+	top: 7px;
+	left:3px;
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAJCAMAAAAmRK2vAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBNTA5MzI0QUMwNTQxMUU1QjI0NEY4OTBCNTQwNjRENiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBNTA5MzI0QkMwNTQxMUU1QjI0NEY4OTBCNTQwNjRENiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkE1MDkzMjQ4QzA1NDExRTVCMjQ0Rjg5MEI1NDA2NEQ2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkE1MDkzMjQ5QzA1NDExRTVCMjQ0Rjg5MEI1NDA2NEQ2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+TnkXyAAAACRQTFRF5+fn5OTkcnJyiYmJlpaWfX195eXllZWVcHBwioqK8/Pz////7ntMpwAAAAx0Uk5T//////////////8AEt/OzgAAADBJREFUeNpi4Obm5mJhYwCSnBzsDCCSk4uBjRVIcjMwczABJWA8qBxMJZBmZwQIMAA5jQHQQggnvgAAAABJRU5ErkJggg==');
+}
+
+.calendar-session_nostart.calendar-session_noend{
+	border-radius: 0;
+}
+
+
+.calendar-session .popout__action-btn{
+	line-height: inherit;
+}
+.calendar-session .dropdown__anchor{
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+.calendar-grid__conflicts{
+
+}
+
+.calendar-conflicts{
+   position: absolute;
+	height: 100%;
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAMAAACeL25MAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxNjBCRjlGM0MwNDUxMUU1ODIxMUNGOUFFNTIxNjVCNiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxNjBCRjlGNEMwNDUxMUU1ODIxMUNGOUFFNTIxNjVCNiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjE2MEJGOUYxQzA0NTExRTU4MjExQ0Y5QUU1MjE2NUI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjE2MEJGOUYyQzA0NTExRTU4MjExQ0Y5QUU1MjE2NUI2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+9jh68wAAAAZQTFRF5Vhd7DxD7jQgmgAAABZJREFUeNpiYGRkZGAAYjAEMxkBAgwAAIwADRp9ansAAAAASUVORK5CYII=');
+	border:1px solid #000;
+	opacity: .3;
+}
+
+.calendar-session__i{
+	position: relative;
+	padding: 0 15px;
+}
+
+.calendar-session-title{
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+.session-dragger{
+ 	width: 12px;
+	height: 20px;
+	position: absolute;
+	top:1px;
+	left:1px;
+	background:50% 50% no-repeat url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAALCAMAAACETmeaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowRDY5MEY2REMwNUMxMUU1QkU4MEYzNjQwNzJCRDYwNiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDowRDY5MEY2RUMwNUMxMUU1QkU4MEYzNjQwNzJCRDYwNiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjBENjkwRjZCQzA1QzExRTVCRTgwRjM2NDA3MkJENjA2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjBENjkwRjZDQzA1QzExRTVCRTgwRjM2NDA3MkJENjA2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+TShocwAAAAZQTFRFAAAA////pdmf3QAAAAJ0Uk5T/wDltzBKAAAAHklEQVR42mJgBAMGBkyaAUIzQGgYgPHh8tj1AwQYAAm2ADcRxGpQAAAAAElFTkSuQmCC');
+	opacity: 0;
+	transition: opacity 0.3s;
+	cursor: w-resize;
+}
+
+.calendar-session__i:hover .session-dragger,
+.calendar-session__i:active .session-dragger{
+	opacity: .5;
+}
+
+.session-region_resizing .session-dragger{
+	opacity: 1;
+}
+
+.session-dragger:hover{
+	opacity: 1;
+}
+
+.session-dragger_right{
+	left:auto;
+	right:0;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAALCAMAAACETmeaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowODlGODExRUMwNUMxMUU1QTc0QkU1MkEwMTA1QjIwMCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDowODlGODExRkMwNUMxMUU1QTc0QkU1MkEwMTA1QjIwMCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjA4OUY4MTFDQzA1QzExRTVBNzRCRTUyQTAxMDVCMjAwIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjA4OUY4MTFEQzA1QzExRTVBNzRCRTUyQTAxMDVCMjAwIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Sj586QAAAAZQTFRFAAAA////pdmf3QAAAAJ0Uk5T/wDltzBKAAAAHklEQVR42mJgYAQDBmw0A4xmACIYgPGR5LHoBwgwAAmKADdB4sDaAAAAAElFTkSuQmCC');
+}
+
+/*-----//------*/
+
+/* ------------------------------ Session Popout ------------------------------ */
+.session-popout{
+	padding: 15px 30px;
+
+	text-align: left;
+}
+
+.session-popout__h1{
+	display: inline-block;
+	width: 100%;
+	font-size: 13px;
+	line-height: 17px;
+	white-space: normal;
+	font-weight: 500;
+	color: #000;
+	padding-bottom: 15px;
+	margin: 10px 0;
+	border-bottom: 1px solid #ccc;
+}
+
+.session-popout-table{
+	width: 100%;
+}
+
+.session-popout-table td{
+	vertical-align: top;
+	font-size: 12px;
+	line-height: 16px;
+	padding: 8px 0;
+	font-weight: 500;
+	color: #000;
+	white-space: normal;
+    min-width: 150px;
+    max-width: 300px;;
+}
+
+.session-popout-table tr td:first-child{
+	padding-right: 20px;
+}
+
+.session-popout-label{
+	display: block;
+	font-size: 11px;
+	font-weight: 400;
+	color:#636363;
+}
+
+
+.calendar-session__i .popout__up .dropdown__anchor::after{
+	top: -19px;
+}
+/*-----//------*/
+
+
+
+
+
+/* ------------------------------ Session Themes ------------------------------ */
+.calendar-session_sky{
+   background-color: #bbf1ff;
+	border-color: #99d6e6;
+}
+.calendar-session_peach{
+	background-color: #ffd7a7;
+	border-color: #eeac5e;
+}
+.calendar-session_grey{
+	background-color: #e5e8ea;
+	border-color: #c6cbcf;
+}
+.calendar-session_fresh{
+	background-color: #99f1b4;
+	border-color: #75c98f;
+}
+.calendar-session_green{
+	background-color: #64dbc3;
+	border-color: #2ba58d;
+}
+.calendar-session_achtung{
+	background-color: #fbd7d4;
+	border-color: #d89f99;
+}
+.calendar-session_brown{
+	background-color: #f4d893;
+	border-color: #AB904F;
+}
+.calendar-session_magic{
+	background-color: #fccff0;
+	border-color: #dea5cf;
+}
+.calendar-session_mud{
+	background-color: #c1d1fb;
+	border-color: #92a7de;
+}
+/*-----//------*/
+
+
+
+
+
+
+
+.dev-calendar-session_placeholder {
+	z-index: 10;
+	position: absolute;
+	box-sizing: border-box;
+	margin-top: 5px;
+	height: 24px;
+	line-height: 24px;
+	padding: 0;
+	background: #f6f8db;
+	border:1px solid #d0cb70;
+	border-radius: 3px;
+	font-size: 10px;
+	color:#333;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.dev-calendar-grid {
+	position: absolute;
+	top: 200px;
+	width: 100%;
+}
+
+.dev-calendar-grid__wells {
+	position: absolute;
+	top: 50px;
+	width: 100%;
+	height: 50px;
+}
+
+.dev-calendar-grid__hours {
+	position: absolute;
+	top: 100px;
+	width: 100%;
+	height: 50px;
+}
+
+.dev-calendar-grid__days {
+	position: absolute;
+	top: 150px;
+	width: 100%;
+}
+
+.dev-calendar-grid__days__day {
+	height: 20px;
+}
+
+.dev-calendar-grid__block {
+	position: absolute;
+	box-sizing: border-box;
+	border: 1px solid;
+	overflow: hidden;
+}
+
+.dev-calendar-grid__session-popout {
+	width: 100px;
+	height: 50px;
+}
+
+.dev-calendar-grid__session-popout-region {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+.dev-calendar-grid__session-popout-button_left,
+.dev-calendar-grid__session-popout-button_right {
+	position: absolute;
+	top: 0;
+	width: 0;
+	height: 100%;
+}
+
+.dev-calendar-grid__session-popout-button_left {
+	left: 20px;
+}
+
+.dev-calendar-grid__session-popout-button_right {
+	right: 20px;
+}
+
+.dev-calendar-grid-loader {
+	position: absolute;
+	top: 40px !important;
+}
+
+.dev-calendar-grid__session {
+	position: relative;
+	height: 100%;
+}
+
+.dev-calendar-grid__session__dragger {
+    width: 10px;
+    height: 100%;
+    background-color: red;
+    display: inline-block;
+}
+
+.dev-calendar-grid__session__dragger_left {
+    float: left;
+}
+
+.dev-calendar-grid__session__dragger_right {
+    float: right;
+}
+
+.dev-calendar-grid__session-region_resizing {
+    visibility: hidden;
+}
+
+.dev-calendar-grid__session-region_moving {
+    opacity: 0.4;
+}
+
+.dev-calendar__header__saving-indicator {
+    display: none;
+}
+
+.dev-calendar__header__saving-indicator_active {
+    display: block;
+}
+
+.dev-calendar-grid__session-region_has-conflicts .calendar-day {
+	background-color: red;
+}
+
+.dev-calendar-grid__session__prev-day-arrow {
+
+}
+
+.dev-calendar-grid__session__next-day-arrow {
+
+}
+
+.dev-calendar-conflicts-container {
+	z-index: -1;
+}
+
+.dev-calendar-conflict {
+    position: absolute;
+    height: 100%;
+    background-color: red;
+}
+
+.dev-calendar-grid__session-region_is-today .calendar-day {
+    color: red;
+}
+
+.dev-calendar-grid-well__text {
+    z-index: initial;
+    bottom: initial;
+    height: 27px;
+}

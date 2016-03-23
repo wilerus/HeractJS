@@ -1,0 +1,486 @@
+﻿.toolbar {
+    height: 45px;
+    padding: 10px 0 9px;
+    line-height: 26px;
+    font-size: 12px;
+    white-space: nowrap;
+    position: absolute;
+    top: 0;
+    right: 20px;
+    left: 20px;
+    background: #fff;
+    -webkit-box-shadow: 0 2px 0 -1px #CED3D7;
+    box-shadow: 0 2px 0 -1px #CED3D7;
+    z-index: 55; /*bigger then grid*/
+}
+
+.toolbar_fr {
+    position: static;
+    width: calc(60% - 18px);
+    margin: 0 auto;
+    max-width: 980px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    padding: 0;
+    line-height: inherit;
+}
+
+.toolbar_fr .button-txt{
+   line-height: inherit;
+}
+
+
+.toolbar_one-column{
+    left:20%;
+    right:20%;
+}
+
+.toolbar_center {
+    text-align: center;
+}
+
+.toolbar_mselect {
+    height: 40px;
+    padding: 9px 0 0px;
+    position: static;
+}
+
+.toolbar_rule{
+    left:15%;
+    right:15%;
+}
+
+.toolbar_project-active {
+    right: 50px;
+    left: 50px;
+}
+
+.size-small .toolbar_project-active {
+    right: 35px;
+    left: 35px;
+}
+
+.size-middle .toolbar_project-active {
+    right: 35px;
+    left: 35px;
+}
+
+.toolbar .dropdown__action {
+    font-size: inherit;
+}
+.toolbar__fn {
+    padding-right: 15px;
+    line-height: 26px;
+    display: inline-block;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #bcc6cf;
+}
+
+.toolbar__follow {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.toolbar__i {
+    height: 100%;
+    padding: 0 15px 7px;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+.toolbar__i_current {
+    border-bottom: 3px solid #2b81c2;
+}
+.toolbar__i_action {
+    margin-left: 15px;
+    padding: 0 9px;
+    float: right;
+}
+.toolbar__i_action-case{
+    margin: 0;
+    padding: 0;
+    float: right;
+}
+.toolbar__i_mselect {
+    margin-left: 15px;
+    padding: 0 9px;
+    float: right;
+}
+.toolbar__i-filters {
+    display: inline-block;
+}
+
+.toolbar__btns{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    flex: 1 1 auto;
+    margin: 2px 10px 0;
+}
+
+.toolbar__btn{
+    margin: 0;
+    padding: 0;
+}
+
+.toolbar__btn + .toolbar__btn{
+    margin-left: 20px;
+}
+
+.toolbar__btn_save{
+
+}
+
+.toolbar__i_action::after {
+    content: '';
+    width: 1px;
+    height: 26px;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: #ced3d7;
+}
+.toolbar__i_action-case::after {
+    content: '';
+    width: 1px;
+    height: 26px;
+    display: block;
+    position: absolute;
+    right: 28px;
+    top: 0;
+    bottom: 0;
+    background: #ced3d7;
+}
+.toolbar__i_right {
+    padding-right: 0;
+    float: right;
+}
+.toolbar__i_left {
+    padding-left: 0;
+    float: left;
+}
+
+.toolbar__link {
+    margin-right: 5px;
+    color: #838c93;
+    font-size: 12px;
+    font-weight: 500;
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.toolbar__i_current .toolbar__link {
+    color: #2b81c2;
+}
+
+.toolbar__link:hover {
+    color: #009bfe;
+    text-decoration: none;
+}
+
+.toolbar__assignee {
+
+}
+
+.toolbar-assignee {
+    min-width: 100px;
+    text-align: left;
+}
+.size-small .toolbar-assignee {
+    min-width: 0;
+}
+.toolbar-assignee_empty {
+}
+.toolbar-assignee__info {
+    margin: 0 0 0 5px;
+    display: inline-block;
+    text-align: left;
+}
+.toolbar-assignee__title {
+    font-size: 9px;
+    line-height: 14px;
+    font-weight: 600;
+    color: #9a9b9c;
+    display: block;
+}
+.toolbar-assignee__txt {
+    max-width: 150px;
+    height: 18px;
+    padding-right: 20px;
+    line-height: 12px;
+    font-size: 11px;
+    color: #0075bb;
+    font-weight: 500;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+}
+.toolbar-assignee__txt:hover {
+    color: #009BFE;
+}
+.size-middle .toolbar-assignee__txt {
+    max-width: 110px;
+}
+.size-small .toolbar-assignee__info {
+    display: none;
+}
+.toolbar-assignee_empty .button-delete {
+    visibility: hidden !important;
+}
+
+.toolbar__field {
+    width: 130px;
+    /* max-width: 130px;
+    min-width: 90px; */
+    padding: 0 5px;
+    line-height: 10px;
+    text-align: left;
+    display: inline-block;
+    vertical-align: top;
+}
+.size-small .toolbar__field {
+    width: 90px;
+}
+.toolbar__field .form-editor_date {
+    width: 100%;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+    line-height: 18px;
+    font-size: 12px;
+    display: inline-block;    
+    outline: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.toolbar__field .form-editor_date:after, .toolbar__field .form-editor_date:hover:after {
+    background: transparent;
+    border-color: transparent;
+}
+.toolbar__field .form-editor_date .form-input {
+    padding: 0;
+    color: #0575bd;
+    font-weight: 500;
+    line-height: inherit;
+}
+.toolbar__field .form-editor_date:hover .form-input {
+    color: #009bfe;
+}
+.toolbar__field  .button-delete_date {
+    left: 72px;
+}
+.toolbar__field .dropdown__action-btn {
+    white-space: normal;
+    position: static;
+    line-height: inherit;
+}
+.toolbar__field .toolbar__ts-value {
+    line-height: 18px;
+    font-size: 12px;
+    font-weight: 500;
+    vertical-align: baseline;
+    display: block;
+    color: #0575bd;
+}
+.toolbar__field .toolbar__ts-value:hover {
+    color: #009bfe;
+}
+
+/* !!! */
+
+.toolbar_field {
+    display: inline-block;
+    /* width: 130px; */
+    max-width: 130px;
+    min-width: 90px;
+    padding-right: 10px;
+    white-space: normal;
+    line-height: 12px;
+    text-align: left;
+}
+.toolbar_field__label{
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 9px;
+    line-height: 11px;
+    font-weight: 600;
+    color: #9a9b9c;
+}
+.toolbar_field .form-editor_date {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    outline:none;
+    height: 18px;
+    line-height: 18px;
+    font-size: 12px;
+    display: inline-block;
+    outline: none;
+}
+.toolbar_field .form-editor_date:after, .toolbar_field .form-editor_date:hover:after{
+    background:transparent;
+    border-color:transparent;
+}
+.toolbar_field .form-editor_date .form-input{
+    color: #0575bd;
+    font-weight: 500;
+    padding: 0;
+    line-height:inherit;
+}
+.toolbar_field .form-editor_date:hover .form-input{
+    color: #009bfe;
+}
+.toolbar_field  .button-delete_date{
+    left:72px;
+}
+.toolbar_field .dropdown__action-btn{
+    white-space: normal;
+    position: static;
+    line-height: inherit;
+}
+.toolbar_field .dropdown__anchor{
+    line-height: 18px;
+    font-size: 12px;
+    font-weight: 500;
+    vertical-align: baseline;
+    display: inline-block;
+    color: #0575bd;
+}
+.toolbar_field .dropdown__anchor:hover{
+    color: #009bfe;
+}
+
+/* dropdown (dd) timespent */
+.dd-timespent {
+    width: 550px;
+    height: 350px;
+    padding: 25px 20px;
+    right: 100px;
+}
+.dd-timespent__title {
+    margin: 0 0 15px;
+    line-height: 1.6;
+    font-weight: 500;
+    color: #000;
+    overflow: hidden;
+}
+.dd-timespent__timesheets {
+    display: inline-block;
+    float: right;
+}
+.dd-timespent__date {
+    display: inline-block;
+    vertical-align: middle;
+}
+.dd-timespent__date .form-editor_date {
+    width: 120px;
+    padding-right: 20px;
+    font-size: 16px;
+    position: relative;
+}
+.dd-timespent__tbl {
+    width: 100%;
+    margin-bottom: 20px;
+    display: table;
+    border-bottom: solid 1px #c2c2c2;
+}
+.dd-timespent__tr {
+    display: table-row;
+}
+.dd-timespent__td {
+    padding-bottom: 10px;
+    display: table-cell;
+}
+.dd-timespent__td_total {
+    text-align: right;
+    color: #838c93;
+    font-size: 16px;
+}
+.dd-timespent__duration {
+    margin: 0 0 10px;
+    padding: 0 0 5px 5px;
+}
+
+
+
+/*  ---------------- Toolbar field in My Work -----------------*/
+.toolbar__field-date .field-user{
+    height: inherit;
+    margin: 0;
+    font-size: 12px;
+    line-height: inherit;
+    box-sizing: border-box;
+}
+
+.toolbar__field-date .l-field{
+    height: inherit;
+    margin: 0;
+    font-size: 12px;
+    line-height: inherit;
+    box-sizing: border-box;
+}
+
+
+.toolbar__field-date .field, .toolbar__field-date .field:focus{
+    outline: none;
+    color: #0575bd;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 500;
+}
+.toolbar__field-date .field:hover{
+    color: #009BFE;
+    outline: none;
+}
+
+.field-overdue .toolbar__field-date .field{
+    color: #CE2B04;
+}
+
+.toolbar__field-date .field_date,
+.toolbar__field-date .date-time .field_date{
+    width: 85px;
+    background: none;
+    line-height: 16px;
+    padding: 0;
+}
+.toolbar__field-date .date-time .time-view{
+   margin-left: 0;
+}
+.toolbar__field-date .field_time,
+.toolbar__field-date .date-time .field_time{
+    width: 85px;
+    background: none;
+    line-height: 16px;
+    margin-right: 0;
+}
+
+.toolbar__field-date .button-delete_absolute{
+    margin-top: -7px;
+}
+.action-case__txt{
+    margin-right: 10px;
+    color: #0075bb;
+    font-size: 11px;
+    font-weight: 500;
+}
+.action-case__txt:hover{
+    color: #009bfe;
+}
+/* End Toolbar field in My Work */

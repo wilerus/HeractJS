@@ -1,0 +1,142 @@
+.lineDown, .lineBottom {
+    border-color: #070;
+    position: absolute;
+}
+
+.lineDown {
+    width: 1px;
+    border-left: 1px solid;
+}
+
+.lineBottom {
+    height: 1px;
+    border-top: 1px solid;
+}
+
+.collapser {
+    border: 1px solid #777;
+    border-radius: 100%;
+    cursor: pointer;
+
+}
+.collapser:after {
+    position: relative;
+    top: -4px;
+    content: '–';
+}
+.collapser.collapsed:after {
+    content: '+'
+}
+
+.toolbar {
+    height: 60px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    /*background: #6683a6;
+    margin: 2px;
+    border: 1px solid #EEE;
+    box-shadow: 0 0 2px #CCC;*/
+}
+
+.mainArea {
+/*
+    border: 1px solid #FFFFFF;
+    box-shadow: 0 0 2px #CCCCCC; */
+}
+
+.mainAreaWrap {
+    padding: 2px 4px 3px 3px;
+
+}
+.wsxNode {
+    width: 150px;
+    background: #b498d3;
+    cursor: pointer;
+    color: white;
+    font-family: tahoma;
+}
+
+.wsxNodeRoot {
+    background: #c0504e;
+}
+
+.wsxNodeLeaf {
+    background: #47a9c2;
+}
+
+.wsxNode input {
+    border: 0;
+    background: transparent;
+}
+
+.selected {
+    background: #dbffb3;
+    color: gray;
+}
+
+.enumerator {
+    font-size: 0.8em;
+}
+
+.toolbar .button{
+    /*float: left;
+    min-width: 35px;
+    height: 56px;
+    overflow: hidden;
+    text-align: center;
+    margin: 1px;
+    padding:0 5px;
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+    line-height: 30px;
+    cursor: pointer;*/
+    margin: 10px 0 0 10px;
+    padding-left: 45px;
+    position: relative;
+}
+.toolbar .button.disabled{
+    opacity: 0.5;
+    cursor: auto;
+}
+.toolbar .button.disabled:hover{
+    background: transparent;
+}
+.toolbar .button.right {
+    float: right
+}
+
+
+.toolbar .button img {
+   /* height:20px;
+    width:20px;
+    overflow: hidden;
+    margin:9px auto 0;
+    display: block;*/
+    height: 20px;
+    width: 20px;
+    overflow: hidden;
+    position: absolute;
+    left: 15px;
+    top: 5px;
+    display: block;
+    background: url(/resources/ganttchart/img/ganttchart_20x20.png?is20140903) no-repeat 0 0;
+}
+
+.toolbar .file img{background-position: 0 0}
+.toolbar .add img{background-position: -180px -40px}
+.toolbar .remove img{background-position: -60px 0}
+.toolbar .moveRight img{background-position:0 -20px}
+.toolbar .moveLeft img{background-position:-20px -20px}
+.toolbar .autoschedule img{background-position:-60px -20px}
+.toolbar .inactive img{background-position:-120px 0}
+.toolbar .link img{background-position:-80px 0}
+.toolbar .unlink img{background-position:-100px 0}
+.toolbar .color img{background-position:-80px -20px}
+.toolbar .fill img{background-position:-100px -20px}
+.toolbar .bold img{background-position:-120px -20px}
+.toolbar .italic img{background-position:-140px -20px}
+.toolbar .underline img{background-position:-160px -20px}
+.toolbar .strike img{background-position:-180px -20px}
+.toolbar .newwork img { background-position: -120px -40px; }
+

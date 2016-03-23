@@ -1,0 +1,689 @@
+.gridRow {
+    height: 27px
+}
+
+
+.mainBox{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    min-width:980px;
+    z-index:1;
+    position:absolute;
+}
+.floats{
+    right:auto;
+    bottom:auto;
+}
+.floats {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right:auto;
+    bottom:auto;
+}
+.floatContent {
+    position:relative;
+    height:100%;
+}
+
+.hbox {
+    height: 100%
+}
+.hboxChild {
+    height: 100%;
+    float: left;
+    background: none;
+    overflow: hidden;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.vboxChild.content{
+    top:0;
+    left:0;
+    padding:2px 4px 3px 3px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.default_background{
+    background: url("/resources/shared/img/background_opacity75.png") repeat scroll 0 0;
+}
+.stretch {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+.hTabContainer {
+    list-style : none;
+    margin-top : 4px;
+}
+
+
+
+
+.content .toolbar{
+    height: 60px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    margin: 2px;
+}
+.content .toolbar .button{
+    float: left;
+    min-width: 35px;
+    height: 56px;
+    overflow: hidden;
+    text-align: center;
+    margin: 1px;
+    padding:0 5px;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.toolbar .button.right {
+    float: right
+}
+
+.toolbar .button img{
+    height:20px;
+    width:20px;
+    overflow: hidden;
+    background-color: #fff;
+    margin-top:9px;
+}
+.toolbar .button img {
+    height:20px;
+    width:20px;
+    overflow: hidden;
+    margin:9px auto 0;
+    display: block;
+    background: url("/resources/ganttchart/img/ganttchart_20x20.png") no-repeat 0 0;
+}
+
+.toolbar .file img{background-position: 0 0}
+.toolbar .add img{background-position: -180px -40px}
+.toolbar .remove img{background-position: -60px 0}
+.toolbar .moveRight img{background-position:0 -20px}
+.toolbar .moveLeft img{background-position:-20px -20px}
+.toolbar .autoschedule img{background-position:-60px -20px}
+.toolbar .inactive img{background-position:-120px 0}
+.toolbar .link img{background-position:-80px 0}
+.toolbar .unlink img{background-position:-100px 0}
+.toolbar .color img{background-position:-80px -20px}
+.toolbar .fill img{background-position:-100px -20px}
+.toolbar .bold img{background-position:-120px -20px}
+.toolbar .italic img{background-position:-140px -20px}
+.toolbar .underline img{background-position:-160px -20px}
+.toolbar .strike img{background-position:-180px -20px}
+
+.scrollpane .gridManipulator{
+    padding:0 2px 0 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+/*Calendar*/
+.gantchart_calendar{
+    cursor :e-resize;
+    overflow: visible !important;
+}
+.calendarTitle{
+    display: inline-block;
+    margin:3px 0 0;
+    text-align:center;
+    font-size:14px;
+    height: 38px;
+}
+
+.calendarTD{
+    float:left;
+    text-align:center;
+    font-size:10px;
+
+    margin-top: 5px;
+}
+.calendarTD.weekend{
+    height: 2000px;
+}
+.calendarTD.today{
+    height: 2000px;
+    margin-right: -1px;
+}
+/*Grid*/
+.gridrow, .gridRow {
+    height: 27px;
+    overflow: auto;
+}
+.gridRow div {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 7px 1px 3px 5px;
+    position:absolute;
+    margin: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /*border-left: 1px solid #eee;*/
+    border-left: none;
+    min-height: 27px;
+    font-size:11px;
+}
+.gridRow div.edit div:first-child {
+    width:100%
+}
+.gridRow div:first-child, .gridTitle.gridRow div:first-child {
+    border-left: none;
+}
+
+.gridTitle {
+    border: none;
+    height: 45px !important;
+    overflow: auto;
+}
+.gridTitle.gridRow {
+
+    margin-right: 0;
+    overflow: hidden;
+    position: relative;
+
+}
+.gridTitle.gridRow div {
+    font-size: 11px;
+    padding: 24px 1px 0 5px;
+    bottom: 0;
+    height: 41px;
+}
+
+.gridRow .edit, .gridRow .edit div{
+    padding: 0;
+    height: 27px;
+    margin: 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.gridRow .edit input, .gridRowInput{
+    outline: none;
+    height: 27px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding:0 0 0 4px;
+    width:100%;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border: 1px solid #A8BAD0;
+    box-shadow: 0 1px 1px #dde5ef inset, 1px 0 1px #dde5ef inset, -1px 0 1px #dde5ef inset
+}
+
+.gridIcon {
+    float: left;
+    height: 70px;
+    width: 70px;
+}
+.groupEl {
+    background: #abc ;/*-moz-linear-gradient(center top , #667788, #889999) repeat scroll 0 0 #667788;*/
+    color: #fff;
+}
+
+
+/*GantrChart group*/
+
+.gantchart_group{
+    position: absolute;
+    height: 16px;
+}
+.gantchart_group_text{
+    padding: 0 6px;
+    position: absolute;
+    white-space: nowrap;
+    right: 0;
+    left: 1px;
+    top: -1px;
+    bottom:0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    z-index: 2;
+    font-size:11px;
+}
+.gantchart_group_background{
+
+    bottom: -3px;
+
+    left: -1px;
+    position: absolute;
+    top: 14px;
+    z-index: 1;
+}
+.gantchart_group_corner{
+    display: block;
+    width:10px;
+    height: 13px;
+    background: url("/resources/ganttchart/img/ganttchart_20x20.png") no-repeat -161px -41px;
+    position: absolute;
+    bottom:-9px;
+    left:-4px;
+    z-index: 3
+}
+
+
+/*GantrChart task*/
+.gantchart_task{
+    position: absolute;
+    height: 19px;
+
+    cursor: move;
+    margin-top: 4px;
+}
+.gantchart_task_text{
+    padding: 1px 5px;
+    position: absolute;
+    white-space: nowrap;
+    right: 0;
+    left: 0;
+    top: 1px;
+    bottom:0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    z-index: 2;
+    font-size:11px;
+
+}
+.gantchart_task_background{
+    left: 1px;
+    top: 1px;
+    bottom: 1px;
+    position: absolute;
+
+    z-index: 1
+}
+.gantchart_task .dragLeft, .gantchart_task  .dragRight{
+    display: block;
+    position: absolute;
+    width: 10px;
+    height: 16px;
+    left:-10px;
+    cursor: ew-resize;
+    background: url("/resources/ganttchart/img/ganttchart_20x20.png") no-repeat -201px -22px;
+    visibility: hidden;
+}
+.gantchart_task .dragRight{
+    left:auto;
+    right:-10px;
+    background-position:  -209px -22px;
+}
+.gantchart_task:hover .dragLeft, .gantchart_task:hover .dragRight,
+.gantchart_task .dragLeft:hover, .gantchart_task .dragRight:hover{
+    visibility: visible;
+}
+
+
+
+/*Timeline*/
+.timelineContent{
+    margin: 0;
+    box-shadow: none;
+}
+
+.timeLineWrapper{
+    /*margin: 0 20px;*/
+    height:40px;
+    position: relative;
+}
+.timeLine{
+    width:100%;
+    height: 40px;
+    position: absolute;
+    z-index:100;
+    cursor:default;
+}
+.scrollBox{
+    top:11px;
+    width:100%;
+    height: 15px;
+    position: absolute;
+    overflow:hidden
+}
+.scroller{
+    position:absolute;
+    height:13px;
+    top:1px;
+    margin-left:-2px;
+}
+.startDiv, .endDiv{
+    position:absolute;
+    height:17px;
+    left:0;
+    text-align:right;
+    top:11px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border-right: none;
+}
+.endDiv{
+    left:auto;
+    right:-1px;
+    border-left: none;
+}
+.startDiv span, .endDiv span{
+    display: block;
+    padding-right:3px;
+    height:13px;
+    font-size:10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.endDiv span{
+    padding-right:0;
+    padding-left: 3px;
+    text-align: left;
+}
+.start_end_line{
+    position:absolute;
+    height:17px;
+    top:11px
+}
+.dateTimeLine{
+    position:absolute;
+    height:12px;
+    width:20%;
+    margin:auto;
+    text-align:center;
+    font-size:10px;
+    margin-top:-25px;
+}
+.lineTimeLine{
+    position:absolute;
+    top:28px;
+}
+.todayLine{
+    position:absolute;
+    height:9px;
+    top:15px;
+    width:9px;
+    margin-left:-5px;
+    z-index: 100
+}
+.todayDiv{
+    position:absolute;
+    height:12px;
+    text-align:center;
+    font-size:10px;
+    top:-16px;
+    margin-left:-50%;
+}
+.todayDiv span{
+    margin-left:-50%;
+}
+.todayLine .todayDiv{
+    visibility: hidden;
+}
+.todayLine:hover .todayDiv{
+    visibility: visible
+}
+.timeSpend{
+    width:22px;
+    height: 22px;
+    position: absolute;
+    right:0;
+    bottom:0;
+    padding:1px;
+}
+.timeSpend span{
+    width:20px;
+    height: 20px;
+    display: block;
+    /*border: 1px solid #eaeff8;*/
+    background: #fff url("/resources/ganttchart/img/ganttchart_20x20.png") no-repeat -100px -40px;
+    cursor: pointer
+}
+.timeSpend span:hover{
+    background: #6683A6 url("/resources/ganttchart/img/ganttchart_20x20.png") no-repeat -120px -40px;
+    /*border-color: #6683A6;*/
+}
+/*-----//------*/
+
+
+.dropMenu .menuItem .menuIcon {
+   background: url("/resources/ganttchart/img/ganttchart_20x20.png") no-repeat 0 -40px;
+}
+.dropMenu .menuItem .new { background-position: 0 -40px }
+.dropMenu .menuItem .open { background-position: -20px -40px }
+.dropMenu .menuItem .save { background-position: -40px -40px }
+.dropMenu .menuItem .saveAs { background-position: -60px -40px }
+.dropMenu .menuItem .print { background-position: -80px -40px }
+
+
+/* please move duration to global, because it's global editor*/
+.gridRow div {
+    min-height: 27px;
+}
+
+.Tbl0_1 {
+    right: auto !important;
+    width: 40px;
+}
+
+
+.Tbl0_2 {
+    left: 40px !important;
+    right: 60% !important;
+}
+/*
+.Tbl0_3 {
+    left: 40% !important;
+}
+*/
+
+.gridTitle .delimiter:hover
+{
+    cursor : e-resize;
+}
+
+.gridTitle .delimiter
+{
+    border-left: 1px solid #DDD;
+    width: 1px;
+    margin: 0;
+    z-index: 20;
+}
+
+.gridTitle.gridRow div {
+  text-overflow: clip;
+  white-space: normal;
+  font-size: 14px !important;
+  padding: 18px 1px 0 5px !important;
+}
+
+/* colors */
+
+//@normal: #0596FF;
+//@dark: #f85f1f;/*desaturate(darken(@normal, 20%),50%); /*#6683a6*/
+//@darker: darken(@dark,20%);
+//@dark-near-gray: lighten(@dark, 42%);
+//@dark-near-gray-lighter: lighten(@dark, 39%);
+//@dark-near-gray-darker: lighten(@dark, 20%);
+//@lighter: fade(@dark, 20%);
+//@light: lighten(@dark,43%);
+//
+//@highlight: saturate(spin( @dark, 180 ),80%); //#F69600
+//@highlight-dark: darken(desaturate( @highlight, 40%),40%);
+//
+//@subColor1: saturate(spin( @dark, 200 ),80%);
+//@subColor1-dark: darken(desaturate( @subColor1, 40%),40%);
+//
+//@grey: lighten(@dark,43%);
+
+
+@normal: #8fbdff;
+@normal-dark: mix(desaturate(@normal, 40%),#000,94%);
+@normal-darker: mix(@normal,#000, 65%);
+@normal-light: lighten(desaturate(@normal, 16%), 15%);
+/*@normal-lighter: lighten(desaturate(@normal, 22%),24%);*/
+
+@normal-light-bg: lighten(desaturate(@normal, 60%),15%);
+@normal-lighter-bg: lighten(desaturate(@normal, 60%),30%);
+@normal-lighter: @normal-light-bg;
+
+@normal-darker-text: mix(@normal,#000, 40%);
+
+@grey: desaturate(@normal,10%);
+@dark-near-gray: desaturate(@normal,10%);
+@dark-near-gray-darker: darker(@dark-near-gray,20%);
+@dark-near-gray-lighter: lighter(@dark-near-gray,20%);
+
+@highlight: saturate(spin( @normal, 180 ),80%);
+@select-light: mix(@highlight,#fff, 20%);
+
+@subColor1: spin(@normal,200);
+@subColor1-light: mix(@subColor1,#fff, 20%);
+@subColor1-dark: darken(desaturate( @subColor1, 40%),40%);
+
+.gantchart_task{
+    background: @normal-light;
+    border: 1px solid @normal-dark;
+}
+.gantchart_task_text{
+    color: @normal-darker-text;
+//    border: 1px solid #fff;
+}
+.gantchart_group_text{
+    color: @normal-darker-text;
+    border-bottom:0px solid @normal;
+}
+.gantchart_group_background{
+    background: @normal-lighter !important;
+    border: 1px 0 solid @normal-darker !important;
+}
+.gantchart_group{
+    border-bottom: 1px solid @normal-darker;
+}
+.gridTitle {
+    border-bottom: 1px solid #ddd;/*#9EB2CC;*/
+}
+.gridTitle.gridRow {
+    border-bottom: 1px solid #ddd;
+    background: @normal-lighter;
+}
+
+.gridTitle.gridRow div {
+    color: #666;
+    border-left: none;
+}
+.gridrow, .gridRow {
+    background: #fff;
+    border-bottom: 1px solid @dark-near-gray;
+}
+.calendarTD.today{
+    border-left: @highlight 1px solid;
+}
+.gantchart_calendar{
+    /*border-bottom: 1px solid @dark-near-gray-darker;*/
+}
+.calendarTD{
+    color:#666;
+}
+.calendarTD.weekend{
+    background: @normal-lighter;
+    opacity: 0.5;
+}
+.calendarTitle {
+    border-left:1px solid #ddd;
+    color:#666;
+}
+.squama{
+    /*box-shadow: -1px 0 0 #ddd;*/
+}
+.content .toolbar{
+    background: @normal-darker;
+    /*border: 1px solid @dark-near-gray;*/
+    /*box-shadow: 0 0 2px @grey;*/
+}
+.content .toolbar .button{
+    color: white;
+}
+.vboxChild.content .vbox{
+    border: 1px solid #fff;
+    /*box-shadow: 0 0 2px @grey;*/
+    background:#fff
+}
+.timelineContent{
+    background: #fff;
+    /*border-bottom: 1px solid @grey;*/
+}
+.scrollBox{
+  border-bottom: 1px solid @normal-darker;
+  border-top: 1px solid transparent;
+}
+.scroller{
+  background: @normal-light;
+/*  border-left: 1px solid @normal-dark;
+  border-right: 1px solid @normal-dark;*/
+}
+
+.startDiv, .endDiv{
+    color:#fff;
+    border-bottom: 1px solid @normal-darker;
+}
+.startDiv span, .endDiv span{
+
+    color:  @normal-darker;
+}
+.start_end_line, .lineTimeLine{
+    border-right:1px solid @normal-darker;
+}
+.dateTimeLine{
+    color: @normal-darker;
+}
+
+.todayLine{
+    background: @subColor1;
+    border:1px solid @normal-darker;
+}
+.todayDiv{
+    color:#666;
+}
+.timeSpend{
+    background: transparent;
+}
+.gantchart_calendar {
+    /*background: @normal-lighter*/
+}
+
+.gridTitle.gridRow, .gridTitle.gridRow:hover {
+  background: transparent !important;
+    /*background: none repeat scroll 0 0 @normal-light-bg !important;*/
+}
+.selected .Tbl0_1 {
+  background: @normal-light-bg;
+
+}
+.gridRow.related {
+  background: @normal-lighter-bg;
+}
+.Tbl0_1 {
+  /*background: @normal-lighter;*/
+  border-right: 1px solid #eee;
+}
+.gridRow div {
+  /*border-left: 1px solid @dark-near-gray;*/
+}
+.gridrow, .gridRow {
+  background: none repeat scroll 0 0 #FFFFFF;
+
+}
+.gridTitle.gridRow > div {
+  border-left: 1px solid @normal-lighter !important;
+}
+.gridTitle.gridRow div:hover {
+  background: @select-light !important;
+}
+.gridRow:hover {
+  background: @select-light !important;
+}
+.gridRow.selected.selected.selected.selected.selected.selected.selected {
+  background: @subColor1-light;
+}
