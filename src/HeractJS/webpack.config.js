@@ -1,5 +1,5 @@
-﻿/// <reference path="scripts/lib/prism/prism.js" />
-var path = require('path');
+﻿var path = require('path');
+
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
