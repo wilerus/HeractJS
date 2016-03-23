@@ -32,3 +32,71 @@ textarea {
         z-index: 10 !important;
     }
 }
+
+/* Bar chart */
+.barChartBody {
+    position: absolute;
+    border-radius: 2px;
+    height: 20px;  
+    height: 20px;
+    fill: rgba(150,200,150,0.2);
+    stroke-width:1px;   
+}
+
+.barChartFillBody {
+    position: absolute;
+    border-radius: 2px;
+    height: 20px;
+    background-color: #3db9d3;
+    box-shadow: 0 0 5px #299cb4;    
+    height: 20px;
+    fill: rgb(120,190,120);
+}
+
+.barTitle{
+    fill: rgb(80,130,170);
+    height: 20px;
+    text-align: center;   
+     -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;    
+  text-anchor:middle;
+}
+
+.barDragging {
+    
+}
+
+.ganttChartView {
+    user-select: none; 
+    position: absolute;
+    width: 5100px;
+    height: 5000px;
+    z-index: 10;
+    top:0;
+    left:140px;
+}
+
+.container .body-content {
+    width: 100%;
+    height: 100%;
+}
+
+.barExchanging{
+    opacity:0.5;
+}
+
+/* Bar chart */
+
+.group1{
+    stroke: rgb(120,190,120);
+}
+
+.group2{
+    stroke: rgb(120,190,120);
+}
+
+.group3{
+    stroke: rgb(120,190,120);
+}

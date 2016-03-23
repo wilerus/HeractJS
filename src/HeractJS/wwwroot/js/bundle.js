@@ -52,166 +52,464 @@
 	};
 	var React = __webpack_require__(1);
 	var DOM = __webpack_require__(158);
-	var ganttBar = (function (_super) {
-	    __extends(ganttBar, _super);
-	    function ganttBar() {
-	        _super.call(this);
-	        this.state = {
-	            width: 100,
-	            marginLeft: 10,
-	            fillDivWidth: 10,
-	            elementText: 'Task 10'
-	        };
-	    }
-	    ganttBar.prototype.componentDidMount = function () {
-	        this.setState({ marginLeft: this.props.style.marginLeft });
-	    };
-	    ganttBar.prototype.onDragRight = function (e) {
-	        var newWidth = e.pageX - this.state.marginLeft;
-	        if (newWidth !== 0 && e.pageX !== 0) {
-	            this.setState({
-	                width: newWidth
-	            });
-	        }
-	    };
-	    ganttBar.prototype.onDragLeft = function (e) {
-	        var newMarginLeft = e.pageX;
-	        var newWidth = this.state.width - (e.pageX - this.state.marginLeft);
-	        if (newMarginLeft !== 0 && e.pageX !== 0) {
-	            this.setState({
-	                marginLeft: newMarginLeft,
-	                width: newWidth
-	            });
-	        }
-	    };
-	    ganttBar.prototype.onDragFill = function (e) {
-	        var newFillDivWidth = e.pageX - this.state.marginLeft;
-	        if (newFillDivWidth !== 0 && e.pageX !== 0) {
-	            this.setState({
-	                fillDivWidth: newFillDivWidth
-	            });
-	        }
-	    };
-	    ganttBar.prototype.render = function () {
-	        var el = React.createElement("div", {
-	            style: {
-	                position: 'relative',
-	                marginTop: '20px',
-	                marginBottom: '20px',
-	                top: this.props.style.top
-	            }
-	        }, React.createElement("div", {
-	            style: {
-	                position: 'absolute',
-	                borderRadius: '2px',
-	                width: this.state.width,
-	                marginLeft: this.state.marginLeft,
-	                height: '20px',
-	                backgroundColor: '#3db9d3',
-	                boxShadow: '0 0 5px #299cb4',
-	                border: '1px solid #2898b0'
-	            }
-	        }), React.createElement('div', {
-	            style: {
-	                position: 'absolute',
-	                color: 'rgb(255,255,255)',
-	                textShadow: '2px 2px rgb(0,0,0)',
-	                borderTopLeftRadius: '5px',
-	                borderBottomLeftRadius: '5px',
-	                width: this.state.fillDivWidth,
-	                marginLeft: this.state.marginLeft,
-	                height: '21px',
-	                textAlign: 'center',
-	                backgroundColor: '#299cb4'
-	            }
-	        }), React.createElement("div", {
-	            style: {
-	                position: 'absolute',
-	                color: 'rgb(255,255,255)',
-	                width: this.state.width,
-	                marginLeft: this.state.marginLeft,
-	                marginTop: '2px',
-	                height: '20px',
-	                backgroundColor: 'transparent',
-	                textAlign: 'center'
-	            }
-	        }, this.props.text), React.createElement('div', {
-	            onDrag: this.onDragRight.bind(this),
-	            draggable: 'true',
-	            style: {
-	                position: 'absolute',
-	                color: 'rgb(255,255,255)',
-	                textShadow: '2px 2px rgb(0,0,0)',
-	                borderTopRightRadius: '5px',
-	                borderBottomRightRadius: '5px',
-	                width: '10px',
-	                marginLeft: this.state.width + this.state.marginLeft - 10,
-	                textAlign: 'center',
-	                backgroundColor: 'rgba(155,100,100,0)'
-	            }
-	        }, '||'), React.createElement('div', {
-	            onDrag: this.onDragLeft.bind(this),
-	            draggable: 'true',
-	            style: {
-	                position: 'absolute',
-	                color: 'rgb(255,255,255)',
-	                textShadow: '2px 2px rgb(0,0,0)',
-	                borderTopLeftRadius: '5px',
-	                borderBottomLeftRadius: '5px',
-	                width: '10px',
-	                marginLeft: this.state.marginLeft,
-	                textAlign: 'center',
-	                backgroundColor: 'rgba(155,100,100,0)'
-	            }
-	        }, '||'), React.createElement('div', {
-	            onDrag: this.onDragFill.bind(this),
-	            draggable: 'true',
-	            style: {
-	                position: 'absolute',
-	                color: 'rgba(0,0,0)',
-	                fontSize: '26px',
-	                marginTop: '19px',
-	                width: '20px',
-	                marginLeft: this.state.marginLeft + this.state.fillDivWidth - 10,
-	                textAlign: 'center',
-	                backgroundColor: 'rgba(155,100,100)'
-	            }
-	        }, '^'));
-	        return el;
-	    };
-	    return ganttBar;
-	}(React.Component));
-	;
-	var ganttChartBar = React.createFactory(ganttBar);
+	var globalStore = __webpack_require__(159);
+	var globalStoreClass = new globalStore.globalStore();
+	var amountOfElements = 100;
+	var svgGridWidth = 100;
 	var ganttBars = [];
-	for (var i = 0; i < 10; i++) {
+	var counter = 0;
+	for (var i = 0; i < amountOfElements; i++) {
+	    if (i % 2 === 0) {
+	        counter++;
+	    }
 	    var topMargin = 50 * i;
 	    var text = 'Task ' + i.toString();
-	    var leftMargin = 30 * i;
-	    ganttBars.push(ganttChartBar({
-	        id: 'id1',
+	    var leftMargin = svgGridWidth * counter;
+	    var barClass = 'group1';
+	    if (counter < 6) {
+	        barClass = 'group1';
+	    }
+	    else if (counter >= 6 && counter <= 11) {
+	        barClass = 'group2';
+	    }
+	    else {
+	        barClass = 'group3';
+	    }
+	    ganttBars.push({
+	        id: 'bar' + i,
+	        barClass: barClass,
+	        type: 'bar',
 	        text: text,
 	        style: {
 	            top: topMargin,
 	            marginLeft: leftMargin
 	        }
-	    }));
+	    });
 	}
 	var ganttChartView = (function (_super) {
 	    __extends(ganttChartView, _super);
 	    function ganttChartView() {
 	        _super.apply(this, arguments);
 	    }
+	    ganttChartView.prototype.componentWillMount = function () {
+	        this.setState({
+	            items: this.props.data
+	        });
+	    };
 	    ganttChartView.prototype.render = function () {
-	        return React.createElement('div', {
-	            id: 'wrap'
-	        }, ganttBars);
+	        return React.createElement('svg', {
+	            className: 'ganttChartView',
+	            id: 'ganttChartView'
+	        }, React.createElement('pattern', {
+	            id: "grid",
+	            width: svgGridWidth,
+	            height: "50",
+	            patternUnits: "userSpaceOnUse"
+	        }, React.createElement('rect', {
+	            width: svgGridWidth,
+	            height: "20",
+	            fill: "url(#smallGrid)",
+	            stroke: "#aaaaaa",
+	            strokeWidth: "0.5"
+	        })), React.createElement('rect', {
+	            width: "100%",
+	            height: "100%",
+	            fill: "url(#grid)"
+	        }), this.state.items.map(function (ganttBar) {
+	            if (ganttBar.type === 'bar') {
+	                return React.createElement(ganttChartBar, {
+	                    key: ganttBar.id,
+	                    data: ganttBar
+	                });
+	            }
+	            else if (ganttBar.type === 'connection') {
+	                return React.createElement(ganttChartConnection, {
+	                    ref: ganttBar.id,
+	                    key: ganttBar.id,
+	                    data: ganttBar
+	                });
+	            }
+	        }));
 	    };
 	    return ganttChartView;
 	}(React.Component));
 	;
-	DOM.render(React.createElement(ganttChartView), document.getElementById('content'));
-	module.exports = ganttBar;
+	var ganttChartBar = (function (_super) {
+	    __extends(ganttChartBar, _super);
+	    function ganttChartBar() {
+	        _super.call(this);
+	        this.globalStorePoints = globalStoreClass;
+	        this.state = {
+	            width: svgGridWidth,
+	            marginLeft: 10,
+	            top: 10,
+	            fillWidth: 10,
+	            connectionsIds: [],
+	            connections: []
+	        };
+	    }
+	    ganttChartBar.prototype.componentDidMount = function () {
+	        this.setState({
+	            marginLeft: this.props.data.style.marginLeft,
+	            top: this.props.data.style.top
+	        });
+	    };
+	    ganttChartBar.prototype.onDragRight = function (e) {
+	        var eventTarget = e.target;
+	        var startWidth = eventTarget.getBoundingClientRect().width;
+	        document.onmousemove = function (event) {
+	            var newWidth = event.pageX - eventTarget.getAttribute('x') - 140;
+	            var correctWidth = (Math.floor(Math.floor((newWidth + svgGridWidth)) / svgGridWidth)) * 100;
+	            if (eventTarget && correctWidth.toString() !== eventTarget.getAttribute('width') && correctWidth >= 100) {
+	                var animation = eventTarget.animate([{ width: eventTarget.getAttribute('width') + 'px' }, { width: correctWidth + 'px' }], 100);
+	                animation.addEventListener('finish', function () {
+	                    eventTarget.setAttribute('width', correctWidth);
+	                });
+	            }
+	            this.setState({ width: correctWidth });
+	        }.bind(this);
+	    };
+	    ganttChartBar.prototype.onDragLeft = function (e) {
+	        var eventTarget = e.target;
+	        var startWidth = this.state.width;
+	        document.onmousemove = function (event) {
+	            var newMargin = (event.pageX - 135);
+	            var newWidth = this.state.width - (newMargin - this.state.marginLeft);
+	            var correctWidth = (Math.floor(Math.floor((newWidth + svgGridWidth)) / svgGridWidth)) * 100;
+	            var correctMargin = (Math.floor(Math.floor((newMargin + svgGridWidth)) / svgGridWidth)) * 100 - 100;
+	            if (this.state.width !== correctWidth && eventTarget && eventTarget.tagName === 'rect' && newWidth >= 60) {
+	                this.setState({
+	                    marginLeft: correctMargin,
+	                    width: correctWidth
+	                });
+	            }
+	        }.bind(this);
+	    };
+	    ganttChartBar.prototype.onDragFill = function (e) {
+	        if (e.pageX !== 0) {
+	            this.setState({
+	                fillDivWidth: e.pageX - this.state.marginLeft
+	            });
+	        }
+	    };
+	    ganttChartBar.prototype.addNewConnection = function (targetCoords) {
+	        this.globalStorePoints.endPointX = targetCoords.left;
+	        this.globalStorePoints.endPointY = targetCoords.top;
+	        var firstPoint = (this.globalStorePoints.startPointX - 130) + ',' + this.globalStorePoints.startPointY;
+	        var secondPoint = this.globalStorePoints.startPointX + ',' + (this.globalStorePoints.startPointY - 20) + '';
+	        var thirdPoint = '' + targetCoords.left + ',' + (this.globalStorePoints.startPointY - 20) + '';
+	        var endPoint = "" + (targetCoords.left - 130) + ',' + targetCoords.top + '';
+	        this.globalStorePoints.isNewConnection = false;
+	        var currentItems = ganttChartViewComp.state.items;
+	        var topMargin = 50 * i;
+	        var text = 'Task ' + i.toString();
+	        var leftMargin = 60 * i;
+	        var barClass = 'group1';
+	        var newId = 'id' + (currentItems.length + 1);
+	        currentItems.push({
+	            id: newId,
+	            text: text,
+	            barClass: 'group1',
+	            firstP: this.globalStorePoints.connectionFirstPoint,
+	            endP: this,
+	            firstPoint: firstPoint,
+	            secondPoint: secondPoint,
+	            thirdPoint: thirdPoint,
+	            endPoint: endPoint,
+	            type: 'connection',
+	            style: {
+	                top: topMargin,
+	                marginLeft: leftMargin
+	            }
+	        });
+	        ganttChartViewComp.setState({ items: currentItems });
+	        var newConnections = this.globalStorePoints.connectionFirstPoint.state.connections;
+	        newConnections.push(ganttChartViewComp.refs[newId]);
+	        this.globalStorePoints.connectionFirstPoint.setState({
+	            connections: newConnections
+	        });
+	        var newConnections2 = this.state.connections;
+	        newConnections2.push(ganttChartViewComp.refs[newId]);
+	        this.setState({
+	            connections: newConnections2
+	        });
+	        document.onmousemove = null;
+	        this.globalStorePoints.connectionFirstPoint = null;
+	        document.getElementById('ganttChartView').removeChild(this.globalStorePoints.tempLine);
+	        this.globalStorePoints.tempLine = null;
+	    };
+	    ganttChartBar.prototype.handleElementDragDrop = function (event) {
+	        var eventTarget = event.target;
+	        this.globalStorePoints.currentDraggingElement = this;
+	        var dropTarget = eventTarget;
+	        if (eventTarget.tagName === 'rect') {
+	            dropTarget = dropTarget.parentNode;
+	        }
+	        if (eventTarget.parentNode) {
+	            if (dropTarget.classList.length === 3) {
+	                dropTarget.setAttribute('class', 'barDragging barChartBody ' + eventTarget.classList[2]);
+	            }
+	            else {
+	                dropTarget.setAttribute('class', 'barDragging barChartBody ' + eventTarget.classList[1]);
+	            }
+	            document.onmousemove = function (event) {
+	                var transform = dropTarget.parentNode.createSVGMatrix();
+	                dropTarget.transform.baseVal.getItem(0).setMatrix(transform.translate(event.clientX - eventTarget.parentNode.getAttribute('x'), event.clientY - eventTarget.parentNode.getAttribute('y')));
+	            };
+	        }
+	    };
+	    ganttChartBar.prototype.handleRectDrop = function (event) {
+	        document.onmousemove = null;
+	        document.onmouseup = null;
+	        if (this.globalStorePoints.currentDraggingElement) {
+	            var transform = event.target.parentNode.createSVGMatrix ? event.target.parentNode.createSVGMatrix() : event.target.parentNode.parentNode.createSVGMatrix();
+	            var currentDraggingElement = DOM.findDOMNode(this.globalStorePoints.currentDraggingElement);
+	            if (this.globalStorePoints.currentDropTarger && this.globalStorePoints.isCurrentlyDragging) {
+	                var moveToSateX = this.globalStorePoints.currentDropTarger.state.marginLeft;
+	                var moveToSateY = this.globalStorePoints.currentDropTarger.state.top;
+	                var exchToSateX = this.globalStorePoints.currentDraggingElement.state.marginLeft;
+	                var exchToSateY = this.globalStorePoints.currentDraggingElement.state.top;
+	                this.globalStorePoints.currentDraggingElement.setState({ marginLeft: moveToSateX });
+	                this.globalStorePoints.currentDraggingElement.setState({ top: moveToSateY });
+	                var currentDropTarget = DOM.findDOMNode(this.globalStorePoints.currentDropTarger);
+	                currentDraggingElement.setAttribute('class', 'barChartBody ' + currentDropTarget.classList[1]);
+	                this.globalStorePoints.currentDropTarger.setState({ marginLeft: exchToSateX });
+	                this.globalStorePoints.currentDropTarger.setState({ top: exchToSateY });
+	                currentDropTarget.setAttribute('transform', 'translate(0, 0)');
+	            }
+	            currentDraggingElement.setAttribute('transform', 'translate(0, 0)');
+	        }
+	        var connections = this.state.connections;
+	        var length = connections.length;
+	        for (var i_1 = 0; i_1 < length; i_1++) {
+	            connections[i_1].update();
+	        }
+	        if (this.globalStorePoints.isCurrentlySizing) {
+	        }
+	        this.globalStorePoints.isCurrentlyDragging = false;
+	        this.globalStorePoints.isCurrentlySizing = false;
+	    };
+	    ganttChartBar.prototype.handleRectHover = function (event) {
+	        this.clearTempElements();
+	        var eventTarget = event.target;
+	        if (this.globalStorePoints.isCurrentlyDragging && eventTarget.classList[0] !== 'barDragging') {
+	            var currentDropTarget_1 = DOM.findDOMNode(this);
+	            this.globalStorePoints.currentDropTarger = this;
+	            currentDropTarget_1.animate([
+	                { transform: 'translate(0)' },
+	                { transform: 'translate(30px, 30px)' }
+	            ], 100);
+	            setTimeout(function () {
+	                if (currentDropTarget_1.getAttribute('transform') !== 'translate(0, 0)') {
+	                    currentDropTarget_1.animate([
+	                        { transform: 'translate(30px, 30px)' },
+	                        { transform: 'translate(0, 0)' }
+	                    ], 100);
+	                }
+	            }, 1000);
+	        }
+	        else {
+	            if (!this.globalStorePoints.isCurrentlyDragging && !this.globalStorePoints.isCurrentlySizing && eventTarget.tagName === 'rect') {
+	                var leftCircle = document.createElementNS('http://www.w3.org/2000/svg', "circle");
+	                var rightCircle = document.createElementNS('http://www.w3.org/2000/svg', "circle");
+	                var rect = event.target.getBoundingClientRect();
+	                leftCircle.setAttribute("id", "leftTempCircle");
+	                leftCircle.setAttribute('cy', (rect.top + 10).toString());
+	                leftCircle.setAttribute('strokeWidth', '1');
+	                leftCircle.setAttribute('cx', (rect.left - 155).toString());
+	                leftCircle.setAttribute('r', '8');
+	                leftCircle.setAttribute('fill', '#ffeeee');
+	                leftCircle.setAttribute('stroke', '#299cb4');
+	                rightCircle.setAttribute("id", "rightTempCircle");
+	                rightCircle.setAttribute('cy', (rect.top + 10).toString());
+	                rightCircle.setAttribute('strokeWidth', '1');
+	                rightCircle.setAttribute('cx', (rect.left + rect.width - 130).toString());
+	                rightCircle.setAttribute('r', '8');
+	                rightCircle.setAttribute('fill', '#ffeeee');
+	                rightCircle.setAttribute('stroke', '#299cb4');
+	                document.getElementById('ganttChartView').appendChild(rightCircle);
+	                document.getElementById('ganttChartView').appendChild(leftCircle);
+	                var self_1 = this;
+	                leftCircle.addEventListener('mousedown', function (event) {
+	                    self_1.handleircleClick(event, this);
+	                });
+	                rightCircle.addEventListener('mousedown', function (event) {
+	                    self_1.handleircleClick(event, this);
+	                });
+	                leftCircle.addEventListener('mouseup', function (event) {
+	                    self_1.handleircleClick(event, this);
+	                });
+	                rightCircle.addEventListener('mouseup', function (event) {
+	                    self_1.handleircleClick(event, this);
+	                });
+	            }
+	        }
+	    };
+	    ganttChartBar.prototype.handleRectSizing = function (event) {
+	        var elementRect = event.target.getBoundingClientRect();
+	        var clickCoordX = event.clientX;
+	        var clickCoordY = event.clientY;
+	        this.clearTempElements();
+	        if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
+	            this.handleElementDragDrop(event);
+	            document.onmouseup = function (event) {
+	                this.handleRectDrop(event);
+	            }.bind(this);
+	            this.globalStorePoints.isCurrentlyDragging = true;
+	        }
+	        else if (clickCoordX > elementRect.right - 15) {
+	            this.onDragRight(event);
+	            document.onmouseup = function (event) {
+	                this.handleRectDrop(event);
+	            }.bind(this);
+	            this.globalStorePoints.isCurrentlySizing = true;
+	        }
+	        else if (clickCoordX < elementRect.left + 15) {
+	            this.onDragLeft(event);
+	            document.onmouseup = function (event) {
+	                this.handleRectDrop(event);
+	            }.bind(this);
+	            this.globalStorePoints.isCurrentlySizing = true;
+	        }
+	    };
+	    ganttChartBar.prototype.handleFillSizing = function (event) {
+	    };
+	    ganttChartBar.prototype.handleMouseOut = function (event) {
+	        var eventTarget = event.target;
+	        if (eventTarget.tagName === 'rect' && eventTarget.classList[0] === 'barExchanging') {
+	            setTimeout(function () {
+	                if (eventTarget.classList[0] === 'barExchanging') {
+	                    eventTarget.setAttribute('class', 'barChartBody ' + eventTarget.classList[2]);
+	                    var transformeMatrix = eventTarget.parentNode.createSVGMatrix();
+	                    transformeMatrix = transformeMatrix.translate(0, 0);
+	                    if (eventTarget.transform.baseVal.length === 0 && eventTarget.parentNode.createSVGMatrix) {
+	                        eventTarget.transform.baseVal.appendItem(eventTarget.parentNode.createSVGTransformFromMatrix(transformeMatrix));
+	                    }
+	                    else {
+	                        eventTarget.transform.baseVal.getItem(0).setMatrix(transformeMatrix);
+	                    }
+	                }
+	            }.bind(this), 1000);
+	        }
+	        if (document.getElementById("leftTempCircle")) {
+	        }
+	    };
+	    ganttChartBar.prototype.handleircleClick = function (e, parentElement) {
+	        var targetCoords = e.target.getBoundingClientRect();
+	        this.globalStorePoints.isLineDrawStarted = true;
+	        var eventTarget = e.target;
+	        if (!this.globalStorePoints.isNewConnection) {
+	            this.globalStorePoints.isNewConnection = true;
+	            this.globalStorePoints.startPointX = targetCoords.left;
+	            this.globalStorePoints.startPointY = targetCoords.top;
+	            var firstPoint = this.globalStorePoints.startPointX + ',' + this.globalStorePoints.startPointY;
+	            var tempLine_1 = document.createElementNS('http://www.w3.org/2000/svg', "line");
+	            var rect = eventTarget.getBoundingClientRect();
+	            tempLine_1.setAttribute("id", "tempLine");
+	            tempLine_1.setAttribute('x1', (eventTarget.getAttribute('cx')).toString());
+	            tempLine_1.setAttribute('strokeWidth', '1');
+	            tempLine_1.setAttribute('y1', (eventTarget.getAttribute('cy')).toString());
+	            tempLine_1.setAttribute('stroke', '#299cb4');
+	            document.onmousemove = function (event) {
+	                var eventTarget = event.target;
+	                tempLine_1.setAttribute('x2', (event.clientX - 135).toString());
+	                tempLine_1.setAttribute('y2', event.clientY.toString());
+	            };
+	            this.globalStorePoints.tempLine = tempLine_1;
+	            document.getElementById('ganttChartView').appendChild(tempLine_1);
+	            if (!this.globalStorePoints.connectionFirstPoint) {
+	                this.globalStorePoints.connectionFirstPoint = this;
+	            }
+	            document.onmouseup = function (event) {
+	                this.clearTempLine();
+	            }.bind(this);
+	        }
+	        else {
+	            this.addNewConnection(targetCoords);
+	        }
+	    };
+	    ganttChartBar.prototype.clearTempElements = function () {
+	        if (document.getElementById("leftTempCircle")) {
+	            document.getElementById("ganttChartView").removeChild(document.getElementById("leftTempCircle"));
+	            document.getElementById("ganttChartView").removeChild(document.getElementById("rightTempCircle"));
+	        }
+	    };
+	    ganttChartBar.prototype.clearTempLine = function () {
+	        if (this.globalStorePoints.tempLine) {
+	            document.getElementById('ganttChartView').removeChild(this.globalStorePoints.tempLine);
+	            this.globalStorePoints.tempLine = null;
+	        }
+	    };
+	    ganttChartBar.prototype.render = function () {
+	        return React.createElement('g', {
+	            onMouseEnter: this.handleRectHover.bind(this),
+	            onMouseOut: this.handleMouseOut.bind(this),
+	            onMouseDown: this.handleRectSizing.bind(this),
+	            transform: 'translate(0 ,0)',
+	            y: this.state.top,
+	            x: this.state.marginLeft,
+	            width: this.state.width
+	        }, React.createElement('rect', {
+	            className: 'barChartFillBody ',
+	            group: this.props.data.barClass,
+	            y: this.state.top,
+	            x: this.state.marginLeft,
+	            width: this.state.fillWidth
+	        }), React.createElement('rect', {
+	            className: 'barChartBody ' + this.props.data.barClass,
+	            group: this.props.data.barClass,
+	            id: this.props.data.id,
+	            y: this.state.top,
+	            x: this.state.marginLeft,
+	            width: this.state.width
+	        }), React.createElement('text', {
+	            className: 'barTitle',
+	            x: this.state.marginLeft + this.state.width * 0.5,
+	            y: this.state.top + 15
+	        }, this.props.data.text));
+	    };
+	    return ganttChartBar;
+	}(React.Component));
+	;
+	var ganttChartConnection = (function (_super) {
+	    __extends(ganttChartConnection, _super);
+	    function ganttChartConnection() {
+	        _super.call(this);
+	    }
+	    ganttChartConnection.prototype.componentWillMount = function () {
+	        this.state = {
+	            firstPoint: this.props.data.firstPoint,
+	            firstP: this.props.data.firstP,
+	            endP: this.props.data.endP,
+	            endPoint: this.props.data.endPoint,
+	        };
+	    };
+	    ganttChartConnection.prototype.update = function (event) {
+	        var first = DOM.findDOMNode(this.state.firstP);
+	        var second = DOM.findDOMNode(this.state.endP);
+	        var firstCoords = first.getBoundingClientRect();
+	        var secondCoords = second.getBoundingClientRect();
+	        this.setState({
+	            firstPoint: (firstCoords.left - 30) + ' ' + (firstCoords.top + 10),
+	            endPoint: (secondCoords.left - 30) + ' ' + (secondCoords.top + 10)
+	        });
+	    };
+	    ganttChartConnection.prototype.render = function () {
+	        return React.createElement('polyline', {
+	            points: this.state.firstPoint + ' ' + this.state.endPoint,
+	            strokeWidth: "3",
+	            stroke: "#888888",
+	            strokeLinecap: "round",
+	            strokeDasharray: "10,10",
+	            strokeLinejoin: "round",
+	            fill: "none"
+	        });
+	    };
+	    return ganttChartConnection;
+	}(React.Component));
+	;
+	var ganttChartViewComp = DOM.render(React.createElement(ganttChartView, { data: ganttBars }), document.getElementById('gantChartView'));
+	module.exports = ganttChartView;
 
 
 /***/ },
@@ -19813,6 +20111,20 @@
 	'use strict';
 
 	module.exports = __webpack_require__(3);
+
+
+/***/ },
+/* 159 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var globalStore = (function () {
+	    function globalStore() {
+	        this.newSvgPaletId = 0;
+	    }
+	    return globalStore;
+	}());
+	exports.globalStore = globalStore;
 
 
 /***/ }
