@@ -1,4 +1,7 @@
 .vs/
 src/HeractJS/node_modules/
 src/HeractJS/HeractJS.xproj.user
-src/HeractJS/Scripts/app/**.js
+src/HeractJS/Scripts/app/*.js
+src/HeractJS/wwwroot/js/commons.js
+src/HeractJS/wwwroot/js/*.bundle.js
+src/HeractJS/wwwroot/js/*.map
