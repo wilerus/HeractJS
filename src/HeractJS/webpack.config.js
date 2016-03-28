@@ -9,7 +9,7 @@ var AggressiveMergingPlugin = require('webpack/lib/optimize/AggressiveMergingPlu
 module.exports = {
     console: true,
     entry: {
-        'gantt': './Scripts/app/App.ts',
+        'gantt': './Scripts/GanttChart/GCMainView.ts',
       //  'shared': './scripts/project/shared/bootstrap.js',
       //  'navigation': './scripts/project/navigation/module.js',
         'project': './Scripts/project/Application.js',

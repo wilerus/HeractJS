@@ -1,6 +1,5 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    margin: 0;
 }
 
 /* Wrapping element */
@@ -8,13 +7,6 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-}
-
-/* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
-    max-width: 280px;
 }
 
 /* Carousel */
@@ -37,10 +29,11 @@ textarea {
 .barChartBody {
     position: absolute;
     border-radius: 2px;
-    height: 20px;  
+    height: 20px;
     height: 20px;
     fill: rgba(150,200,150,0.2);
-    stroke-width:1px;   
+    stroke-width: 1px;
+    stroke: rgb(120,190,120);
 }
 
 .barChartFillBody {
@@ -48,34 +41,34 @@ textarea {
     border-radius: 2px;
     height: 20px;
     background-color: #3db9d3;
-    box-shadow: 0 0 5px #299cb4;    
+    box-shadow: 0 0 5px #299cb4;
     height: 20px;
-    fill: rgb(120,190,120);
+    fill: rgb(120,190,120);  
 }
 
-.barTitle{
+.barTitle {
     fill: rgb(80,130,170);
     height: 20px;
-    text-align: center;   
-     -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
-  user-select: none;    
-  text-anchor:middle;
+    text-align: center;
+    -webkit-user-select: none; /* Chrome all / Safari all */
+    -moz-user-select: none; /* Firefox all */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none;
+    text-anchor: middle;
+    pointer-events:none;
 }
 
 .barDragging {
-    
 }
 
 .ganttChartView {
-    user-select: none; 
+    user-select: none;
     position: absolute;
     width: 5100px;
     height: 5000px;
     z-index: 10;
-    top:0;
-    left:140px;
+    top: 100px;
+    left: 15px;
 }
 
 .container .body-content {
@@ -83,20 +76,128 @@ textarea {
     height: 100%;
 }
 
-.barExchanging{
-    opacity:0.5;
+.barExchanging {
+    opacity: 0.5;
 }
 
 /* Bar chart */
 
-.group1{
+.group1 {
     stroke: rgb(120,190,120);
 }
 
-.group2{
+.group2 {
     stroke: rgb(120,190,120);
 }
 
-.group3{
+.group3 {
     stroke: rgb(120,190,120);
 }
+
+.ganttChartTimeline {
+    width: 100%;
+    position: absolute;
+}
+
+.timeLineText {
+    text-anchor: middle;
+}
+/*infoPopup*/
+
+.infoPopup {
+    width: 200px;
+    height: 150px;
+    background-color: white;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    position: absolute;
+    z-index: 20;
+    display: none;
+    pointer-events:none;
+}
+.infoPopupTitle{
+    width:100%;
+    height:20px;
+    text-align:center;
+    padding:5px;
+}
+.infoPopupText{
+    width:100%;
+    height:20px;
+    padding:5px;
+}
+/*modalWindow*/
+.modalWindowWrapper {
+    position: fixed;
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.1);
+    display:flex;
+    align-items:center;
+    align-content:center;
+    justify-content:center;
+    flex-direction:row;
+    display: none;
+    z-index:30;
+    backdrop-filter: blur(10px);
+}
+.modalWindow {
+    width: 400px;
+    height: 400px;
+    background-color: white;
+    box-shadow: 0 0 8px rgba(0,0,0,0.6);
+    z-index: 20;
+}
+.modalWindowInput{
+    width:320px;
+    height:34px;
+    border:none;
+    padding:5px;
+    box-sizing: border-box;
+}
+.modalWindowButtonOk {    
+    width:68px;
+    height:22px;
+    bottom:0;
+    left:0;
+    background-color:rgb(200,200,255);
+    border:1px solid black;
+    border:none;
+    color:white;
+    box-shadow: 0 0 4px rgba(0,0,0,1);
+}
+.modalWindowButtonCancel {
+    bottom:0;
+    width:68px;
+    height:22px;
+    right:0;
+    background-color:rgb(255,255,255);
+    border:none;
+    box-shadow: 0 0 4px rgba(0,0,0,1);
+}
+/*infoPopup animation*/
+.example-enter {
+    opacity: 0.01;
+}
+
+    .example-enter.example-enter-active {
+        opacity: 1;
+        transition: opacity 500ms ease-in;
+    }
+
+.example-leave {
+    opacity: 1;
+}
+
+    .example-leave.example-leave-active {
+        opacity: 0.01;
+        transition: opacity 300ms ease-in;
+    }
+
+.example-appear {
+    opacity: 0.01;
+}
+
+    .example-appear.example-appear-active {
+        opacity: 1;
+        transition: opacity .5s ease-in;
+    }
