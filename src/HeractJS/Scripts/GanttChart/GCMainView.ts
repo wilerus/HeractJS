@@ -90,7 +90,7 @@ class ganttChartView extends React.Component<any, any> {
                     height: '100%',
                     fill: 'url(#grid)'
                 }),
-                this.state.ganttBars.map(function (ganttBar) { // creating multiple elements from data
+                this.state.ganttBars.map(function (ganttBar) {
                     if (ganttBar.type === 'bar') {
                         return React.createElement(ganttChartBar, {
                             key: ganttBar.id,

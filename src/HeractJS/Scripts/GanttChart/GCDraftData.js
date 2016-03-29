@@ -50,9 +50,9 @@ var ganttChartData = (function () {
                 complition: 20,
                 duration: 80 + this.counter + i,
                 text: text,
+                startDate: leftMargin,
                 style: {
                     top: topMargin,
-                    marginLeft: leftMargin
                 }
             });
         }
@@ -104,11 +104,60 @@ var ganttChartData = (function () {
                 });
             }
         }
+        for (var i_3 = 0; i_3 <= 11; i_3++) {
+            ganttChartData.timelineMonth.push({
+                id: 'timeline12' + i_3,
+                text: this.monthData[i_3],
+                style: {
+                    top: 0,
+                    height: 30,
+                    width: 400,
+                    marginLeft: 400 * i_3
+                }
+            });
+            for (var n = 0; n <= 9; n++) {
+                ganttChartData.timelineMonth.push({
+                    id: 'timeline122' + n + i_3,
+                    text: (n * 3).toString(),
+                    style: {
+                        top: 30,
+                        height: 30,
+                        width: 40,
+                        marginLeft: 400 * i_3 + 40 * n
+                    }
+                });
+            }
+        }
+        for (var i_4 = 0; i_4 <= 11; i_4++) {
+            ganttChartData.timelineMonth.push({
+                id: 'timeline12' + i_4,
+                text: this.monthData[i_4],
+                style: {
+                    top: 0,
+                    height: 30,
+                    width: 400,
+                    marginLeft: 400 * i_4
+                }
+            });
+            for (var n = 0; n <= 9; n++) {
+                ganttChartData.timelineMonth.push({
+                    id: 'timeline122' + n + i_4,
+                    text: (n * 3).toString(),
+                    style: {
+                        top: 30,
+                        height: 30,
+                        width: 40,
+                        marginLeft: 400 * i_4 + 40 * n
+                    }
+                });
+            }
+        }
     }
     ganttChartData.timelineWeek = [];
     ganttChartData.timelineMonth = [];
+    ganttChartData.timelineDay = [];
+    ganttChartData.timelineQuad = [];
     ganttChartData.ganttBars = [];
     return ganttChartData;
 })();
 exports.ganttChartData = ganttChartData;
-;

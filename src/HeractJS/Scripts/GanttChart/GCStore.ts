@@ -1,11 +1,5 @@
 ﻿
 export class globalStore {
-   static startPointX: number
-   static startPointY: number
-   static endPointX: number
-   static endPointY: number
-   static isNewConnection: boolean
-
    static isCurrentlyDragging: boolean
    static isDrawingConnection: boolean
    static isCurrentlySizing: boolean
@@ -17,6 +11,7 @@ export class globalStore {
    static svgGridWidth: number = 50
    static ganttChartView: any
    static cellCapacity: number = 24
+   static cellSize: number = 50/24
 
    static connectionFirstPoint: any
    static connectionEndPoint: any

@@ -11,7 +11,7 @@ export class ganttChartBar extends React.Component<any, any> {
         super()
         this.state = {
             width: globalStore.svgGridWidth,
-            marginLeft: 10,
+            startDate: 10,
             top: 10,
             fillWidth: 10,
             connectionsIds: [],
@@ -21,116 +21,15 @@ export class ganttChartBar extends React.Component<any, any> {
 
     componentWillMount() {
         this.setState({
-            marginLeft: this.props.data.style.marginLeft,
+            startDate: this.props.data.startDate,
             top: this.props.data.style.top,
             title: this.props.data.text,
             complition: this.props.data.complition,
-            duration: (this.props.data.duration / globalStore.cellCapacity) * globalStore.svgGridWidth,
-            gridWidth: globalStore.svgGridWidth
+            duration: this.props.data.duration
         })
     }
 
-    changeСompleteDate(e) {
-        let eventTarget = e.target;
-
-        let startWidth = eventTarget.getBoundingClientRect().width;
-        document.onmousemove = function (event) {
-            let newWidth = event.pageX - eventTarget.getAttribute('x');
-            let correctWidth = (Math.floor(Math.floor((newWidth)) / globalStore.svgGridWidth)) * globalStore.svgGridWidth;
-
-            if (eventTarget && correctWidth.toString() !== eventTarget.getAttribute('width') && correctWidth >= globalStore.svgGridWidth) {
-                //let animation = eventTarget.animate([{ width: this.state.width + 'px' }, { width: correctWidth + 'px' }], 100);
-                // animation.addEventListener('finish', function () {
-                eventTarget.setAttribute('width', correctWidth)
-
-                correctWidth = (correctWidth / globalStore.cellCapacity) * globalStore.svgGridWidth
-
-                this.setState({ duration: correctWidth })
-                //  }.bind(this));
-            }
-        }.bind(this)
-    }
-
-    changeStartDate(e) {
-        if (!document.onmousemove) {
-            document.onmousemove = function (event) {
-                let newMargin = event.pageX
-                let correctMargin = (Math.floor(newMargin / globalStore.svgGridWidth)) * globalStore.svgGridWidth;
-                let newWidth = this.state.duration + this.state.marginLeft - correctMargin;
-
-                if (this.state.marginLeft !== correctMargin && newWidth >= globalStore.svgGridWidth) {
-                    this.setState({
-                        marginLeft: correctMargin,
-                        duration: newWidth
-                    })
-                }
-            }.bind(this)
-        }
-    }
-
-    addNewConnection() {
-        let targetElement = DOM.findDOMNode(globalStore.currentDropTarget) as any;
-        let targetCoords = targetElement.getBoundingClientRect();
-        globalStore.endPointX = targetCoords.left;
-        globalStore.endPointY = targetCoords.top;
-
-        let firstPoint = globalStore.startPointX + ',' + (globalStore.startPointY - 100)
-        let secondPoint = globalStore.startPointX + ',' + (globalStore.startPointY - 20)
-        let thirdPoint = targetCoords.left + ',' + (globalStore.startPointY - 20)
-        let endPoint = targetCoords.left + ',' + (targetCoords.top - 100);
-
-        globalStore.isNewConnection = false;
-
-        let currentItems = globalStore.ganttChartView.state.ganttBars;
-
-        let topMargin = 50 * 1
-        let text = 'Task ' + 1
-        let leftMargin = 60 * 1
-        let barClass = 'group1'
-        let newId = 'id' + (currentItems.length + 1);
-
-        currentItems.push({
-            id: newId,
-            text: text,
-            barClass: 'group1',
-            firstP: globalStore.currentDraggingElement,
-            endP: globalStore.currentDropTarget,
-            firstPoint: firstPoint,
-            secondPoint: secondPoint,
-            thirdPoint: thirdPoint,
-            endPoint: endPoint,
-            type: 'connection',
-            style: {
-                top: topMargin,
-                marginLeft: leftMargin
-            }
-        });
-        globalStore.ganttChartView.setState({ ganttBars: currentItems })
-
-        let newConnections = globalStore.connectionFirstPoint.state.connections
-        newConnections.push(globalStore.ganttChartView.refs[newId])
-        globalStore.connectionFirstPoint.setState({
-            connections: newConnections
-        })
-        let newConnections2 = this.state.connections
-
-        newConnections2.push(globalStore.ganttChartView.refs[newId])
-        this.setState({
-            connections: newConnections2
-        })
-        document.onmousemove = null;
-        globalStore.connectionFirstPoint = null;
-        document.getElementById('ganttChartView').removeChild(globalStore.tempLine);
-        globalStore.tempLine = null;
-
-        globalStore.isCurrentlyDragging = false;
-        globalStore.isCurrentlySizing = false;
-        globalStore.isDrawingConnection = false;
-        globalStore.currentDropTarget = null;
-        globalStore.currentDraggingElement = null;
-    }
-
-    barRelocation(event) {
+    startBarRelocation(event) {
         var eventTarget = event.target;
         globalStore.currentDraggingElement = this
         let dropTarget = eventTarget;
@@ -145,6 +44,9 @@ export class ganttChartBar extends React.Component<any, any> {
         var x = startX - dim.left;
         var y = startY - dim.top;
 
+        if (eventTarget.getAttribute('class') === 'barChartBody') {
+            eventTarget.setAttribute('class', 'barChartBody barOver')
+        }
         document.onmousemove = function (event) {
             let transform = dropTarget.parentNode.createSVGMatrix();
             if (Math.abs(event.clientX - startX) > 30 && !globalStore.isDrawingConnection) {
@@ -155,9 +57,6 @@ export class ganttChartBar extends React.Component<any, any> {
             }
             if (Math.abs(event.clientY - startY) > 30 && !globalStore.isCurrentlyDragging) {
                 globalStore.isDrawingConnection = true;
-                globalStore.startPointX = eventTarget.getBoundingClientRect().left
-                globalStore.startPointY = eventTarget.getBoundingClientRect().top
-                let firstPoint = globalStore.startPointX + ',' + globalStore.startPointY
 
                 let tempLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 
@@ -191,7 +90,191 @@ export class ganttChartBar extends React.Component<any, any> {
         }.bind(this)
     }
 
-    finishBarRelocation(event) {
+    startBarUpdate(event) {
+        if (event.button !== 2 && !document.onmousemove) {
+            let eventTarget = event.target
+            let elementRect = eventTarget.getBoundingClientRect()
+            let clickCoordX = event.clientX
+            let clickCoordY = event.clientY
+            this.clearTempElements()
+
+            if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
+                this.startBarRelocation(event);
+                document.onmouseup = function (event) {
+                    this.completeBarRelocation(event)
+                }.bind(this)
+            } else if (clickCoordX > elementRect.right - 15) {
+                this.updateСompleteDate(event);
+                document.onmouseup = function (event) {
+                    this.completeBarRelocation(event)
+                }.bind(this)
+                globalStore.isCurrentlySizing = true;
+            } else if (clickCoordX < elementRect.left + 15) {
+                this.updateStartDate(event);
+                document.onmouseup = function (event) {
+                    this.completeBarRelocation(event)
+                }.bind(this)
+                globalStore.isCurrentlySizing = true;
+            }
+        }
+    }
+
+    updateСompleteDate(event) {
+        let startX = event.target.getAttribute('x')
+        document.onmousemove = function (event) {
+            let newDuration = (event.pageX - startX - 15) / globalStore.cellSize;
+
+            if (newDuration ) {
+                this.setState({
+                    duration: newDuration
+                })
+            }
+        }.bind(this)
+    }
+
+    updateStartDate(e) {
+        if (!document.onmousemove) {
+            document.onmousemove = function (event) {
+                let newStartDate = event.pageX
+                let newDuration = (this.state.startDate - newStartDate) / globalStore.cellSize + this.state.duration
+
+                if (this.state.startDate !== newStartDate && newDuration) {
+                    this.setState({
+                        startDate: newStartDate,
+                        duration: newDuration
+                    })
+                }
+            }.bind(this)
+        }
+    }
+
+    updateComplitionState(event) {
+        let eventTarget = event.target;
+
+        let elementRect = eventTarget.getBoundingClientRect()
+        let clickCoordX = event.clientX
+        let clickCoordY = event.clientY
+        this.clearTempElements()
+        if (clickCoordX > elementRect.right - 15) {
+            document.onmousemove = function (event) {
+                let newComplition = event.pageX - event.target.getAttribute('x');
+
+                newComplition = newComplition / globalStore.cellSize;
+                if (newComplition <= 0) {
+                    newComplition = 0
+                } else if (this.state.duration < newComplition) {
+                    newComplition = this.state.duration
+                }
+                this.setState({
+                    complition: newComplition
+                })
+            }.bind(this)
+
+            document.onmouseup = function (event) {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+            document.onmouseup = function (event) {
+                this.completeBarRelocation(event)
+            }.bind(this)
+        }
+    }
+
+    addNewConnection() {
+        let targetElement = DOM.findDOMNode(globalStore.currentDropTarget) as any;
+        let targetCoords = targetElement.getBoundingClientRect();
+
+        let currentItems = globalStore.ganttChartView.state.ganttBars;
+
+        let topMargin = 50 * 1
+        let text = 'Task ' + 1
+        let leftMargin = 60 * 1
+        let barClass = 'group1'
+        let newId = 'id' + (currentItems.length + 1);
+
+        currentItems.push({
+            id: newId,
+            text: text,
+            barClass: 'group1',
+            firstP: globalStore.currentDraggingElement,
+            endP: globalStore.currentDropTarget,
+            type: 'connection',
+            style: {
+                top: topMargin,
+                startDate: leftMargin
+            }
+        });
+        globalStore.ganttChartView.setState({ ganttBars: currentItems })
+
+        let newConnections = globalStore.connectionFirstPoint.state.connections
+        newConnections.push(globalStore.ganttChartView.refs[newId])
+        globalStore.connectionFirstPoint.setState({
+            connections: newConnections
+        })
+        let newConnections2 = this.state.connections
+
+        newConnections2.push(globalStore.ganttChartView.refs[newId])
+        this.setState({
+            connections: newConnections2
+        })
+        document.onmousemove = null;
+        globalStore.connectionFirstPoint = null;
+        document.getElementById('ganttChartView').removeChild(globalStore.tempLine);
+        globalStore.tempLine = null;
+
+        globalStore.isCurrentlyDragging = false;
+        globalStore.isCurrentlySizing = false;
+        globalStore.isDrawingConnection = false;
+        globalStore.currentDropTarget = null;
+        globalStore.currentDraggingElement = null;
+    }
+
+    handleRectHover(event) {
+        this.clearTempElements()
+        var eventTarget = event.target;
+
+        if ((globalStore.isCurrentlyDragging || globalStore.isDrawingConnection) && this !== globalStore.currentDraggingElement) {
+            globalStore.currentDropTarget = this;
+            if (eventTarget.getAttribute('class') === 'barChartBody') {
+                eventTarget.setAttribute('class', 'barChartBody barOver')
+            }
+        } else {
+            if (!globalStore.isCurrentlyDragging && !globalStore.isCurrentlySizing && eventTarget.classList[0] === 'barChartBody') {
+                let node = DOM.findDOMNode(this)
+                let coords = eventTarget.getBoundingClientRect();
+                let hoverElement = event.target;
+
+                setTimeout(function (hoverElement) {
+                    if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
+                        !globalStore.isCurrentlyDragging) {
+                        globalStore.ganttChartView.refs.infoPopup.setState({
+                            left: parseInt(node.getAttribute('x')) + coords.width / 2 - 100,
+                            top: parseInt(node.getAttribute('y')) - 55,
+                            title: this.state.title,
+                            startDate: this.state.startDate,
+                            endDate: this.state.startDate + this.state.duration,
+                            duration: this.state.duration 
+                        })
+                        globalStore.ganttChartView.refs.infoPopup.show();
+                    }
+                }.bind(this, hoverElement), 500);
+
+                let elementRect = event.target.getBoundingClientRect()
+                let clickCoordX = event.clientX
+                let el = DOM.findDOMNode(this) as any;
+                this.clearTempElements()
+                if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
+                    el.style.cursor = 'move';
+                } else if (clickCoordX > elementRect.right - 15) {
+                    el.style.cursor = 'e-resize';
+                } else if (clickCoordX < elementRect.left + 15) {
+                    el.style.cursor = 'e-resize';
+                }
+            }
+        }
+    }
+
+    completeBarRelocation(event) {
         document.onmousemove = null;
         document.onmouseup = null;
         if (globalStore.currentDraggingElement) {
@@ -199,32 +282,31 @@ export class ganttChartBar extends React.Component<any, any> {
             let currentDraggingElement = DOM.findDOMNode(globalStore.currentDraggingElement) as any
             if (globalStore.currentDropTarget && globalStore.isCurrentlyDragging) {
 
-                let moveToSateX = globalStore.currentDropTarget.state.marginLeft;
+                let moveToSateX = globalStore.currentDropTarget.state.startDate;
                 let moveToSateY = globalStore.currentDropTarget.state.top;
 
-                let exchToSateX = globalStore.currentDraggingElement.state.marginLeft;
+                let exchToSateX = globalStore.currentDraggingElement.state.startDate;
                 let exchToSateY = globalStore.currentDraggingElement.state.top;
 
-                globalStore.currentDraggingElement.setState({ marginLeft: moveToSateX })
+                globalStore.currentDraggingElement.setState({ startDate: moveToSateX })
                 globalStore.currentDraggingElement.setState({ top: moveToSateY })
 
                 let currentDropTarget = DOM.findDOMNode(globalStore.currentDropTarget) as any
 
-                globalStore.currentDropTarget.setState({ marginLeft: exchToSateX })
+                globalStore.currentDropTarget.setState({ startDate: exchToSateX })
                 globalStore.currentDropTarget.setState({ top: exchToSateY })
 
                 currentDropTarget.setAttribute('transform', 'translate(0, 0)')
                 currentDraggingElement.setAttribute('transform', 'translate(0, 0)')
             } else {
-                let currentMargin = globalStore.currentDraggingElement.state.marginLeft;
+                let currentMargin = globalStore.currentDraggingElement.state.startDate;
                 let delta = currentDraggingElement.transform.baseVal[0].matrix.e;
 
-                globalStore.currentDraggingElement.setState({ marginLeft: currentMargin + delta })
+                globalStore.currentDraggingElement.setState({ startDate: currentMargin + delta })
 
                 currentDraggingElement.setAttribute('transform', 'translate(0, 0)')
             }
         }
-
         let connections = this.state.connections;
         if (connections) {
             let length = connections.length
@@ -239,167 +321,22 @@ export class ganttChartBar extends React.Component<any, any> {
         globalStore.isDrawingConnection = false;
         globalStore.currentDropTarget = null;
         globalStore.currentDraggingElement = null;
-    }
 
-    handleRectHover(event) {
-        this.clearTempElements()
-        var eventTarget = event.target;
-
-        if ((globalStore.isCurrentlyDragging || globalStore.isDrawingConnection) && this !== globalStore.currentDraggingElement) {
-            let currentDropTarget = DOM.findDOMNode(this) as any
-            globalStore.currentDropTarget = this;
-            //currentDropTarget.animate([
-            //    { transform: 'translate(0, 0)' },
-            //    { transform: 'translate(30px, 30px)' }
-            //], 100);
-
-            //setTimeout(function () {
-            //    if (currentDropTarget.getAttribute('transform') !== 'translate(0, 0)') {
-            //        currentDropTarget.animate([
-            //            { transform: 'translate(30px, 30px)' },
-            //            { transform: 'translate(0, 0)' }
-            //        ], 100);
-            //    }
-            //}, 1000)
-        } else {
-            if (!globalStore.isCurrentlyDragging && !globalStore.isCurrentlySizing && eventTarget.classList[0] === 'barChartBody') {
-                let leftCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                let rightCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-
-                let node = DOM.findDOMNode(this);
-
-                var rect = event.target.getBoundingClientRect();
-                leftCircle.setAttribute('id', 'leftTempCircle');
-
-                leftCircle.setAttribute('cy', (parseInt(node.getAttribute('y')) + 10).toString());
-                leftCircle.setAttribute('strokeWidth', '1');
-                leftCircle.setAttribute('cx', (parseInt(node.getAttribute('x')) - 10).toString());
-                leftCircle.setAttribute('r', '8');
-                leftCircle.setAttribute('fill', '#ffeeee');
-                leftCircle.setAttribute('stroke', '#299cb4');
-
-                rightCircle.setAttribute('id', 'rightTempCircle');
-                rightCircle.setAttribute('cy', (parseInt(node.getAttribute('y')) + 10).toString());
-                rightCircle.setAttribute('strokeWidth', '1');
-                rightCircle.setAttribute('cx', (parseInt(node.getAttribute('x')) + rect.width + 10).toString());
-                rightCircle.setAttribute('r', '8');
-                rightCircle.setAttribute('fill', '#ffeeee');
-                rightCircle.setAttribute('stroke', '#299cb4');
-
-                document.getElementById('ganttChartView').appendChild(rightCircle);
-
-                document.getElementById('ganttChartView').appendChild(leftCircle);
-
-                let self = this;
-
-                leftCircle.addEventListener('mousedown', function (event) {
-                    self.handleircleClick(event, this)
-                })
-
-                rightCircle.addEventListener('mousedown', function (event) {
-                    self.handleircleClick(event, this)
-                })
-
-                leftCircle.addEventListener('mouseup', function (event) {
-                    self.handleircleClick(event, this)
-                })
-
-                rightCircle.addEventListener('mouseup', function (event) {
-                    self.handleircleClick(event, this)
-                })
-
-                let coords = eventTarget.getBoundingClientRect();
-
-                let hoverElement = event.target;
-                setTimeout(function (hoverElement) {
-                    if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
-                        !globalStore.isCurrentlyDragging) {
-                        globalStore.ganttChartView.refs.infoPopup.setState({
-                            left: parseInt(node.getAttribute('x')) - coords.width / 2,
-                            top: parseInt(node.getAttribute('y')) - 55,
-                            title: this.state.title,
-                            startDate: 'Placeholder',
-                            endDate: 'Placeholder',
-                            duration: 'Placeholder'
-                        })
-                        globalStore.ganttChartView.refs.infoPopup.show();
-                    }
-                }.bind(this, hoverElement), 500);
-
-                let elementRect = event.target.getBoundingClientRect()
-                let clickCoordX = event.clientX
-                let clickCoordY = event.clientY
-                let el = DOM.findDOMNode(this) as any;
-                this.clearTempElements()
-                if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
-                    el.style.cursor = 'move';
-                } else if (clickCoordX > elementRect.right - 15) {
-                    el.style.cursor = 'e-resize';
-                } else if (clickCoordX < elementRect.left + 15) {
-                    el.style.cursor = 'e-resize';
-                }
-            }
+        if (event.target.getAttribute('class') === 'barChartBody barOver') {
+            event.target.setAttribute('class', 'barChartBody');
         }
     }
 
-    handleRectSizing(event) {
-        if (event.button !== 2) {
-            let eventTarget
-            let isFillTouched: boolean = false
-            if (event.target.getAttribute('class') === 'barChartFillBody') {
-                eventTarget = event.target.parentElement;
-                isFillTouched = true
-            } else {
-                eventTarget = event.target;
-            }
-            let elementRect = eventTarget.getBoundingClientRect()
-            let clickCoordX = event.clientX
-            let clickCoordY = event.clientY
-            this.clearTempElements()
-            if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
-                this.barRelocation(event);
-                document.onmouseup = function (event) {
-                    this.finishBarRelocation(event)
-                }.bind(this)
-            } else if (clickCoordX > elementRect.right - 15 && !isFillTouched) {
-                this.changeСompleteDate(event);
-                document.onmouseup = function (event) {
-                    this.finishBarRelocation(event)
-                }.bind(this)
-                globalStore.isCurrentlySizing = true;
-            } else if (clickCoordX < elementRect.left + 15) {
-                this.changeStartDate(event);
-                document.onmouseup = function (event) {
-                    this.finishBarRelocation(event)
-                }.bind(this)
-                globalStore.isCurrentlySizing = true;
-            }
-        }
-    }
-
-    updateComplitionState(event) {
-        document.onmousemove = function (event) {
-            let newWidth = event.pageX - event.target.getAttribute('x');
-            if (newWidth >= 0 && (this.state.duration / globalStore.cellCapacity) * globalStore.svgGridWidth >= ((this.state.duration / globalStore.cellCapacity) * globalStore.svgGridWidth) * newWidth / 100) {
-                this.setState({
-                    complition: newWidth
-                })
-            }
-        }.bind(this)
-
-        document.onmouseup = function (event) {
-            document.onmousemove = null;
-            document.onmouseup = null;
-        }
-    }
-
-    handleMouseOut(event) {
+    completeBarUpdate(event) {
         let eventTarget = event.target
+        if (eventTarget.getAttribute('class') === 'barChartBody barOver' && !globalStore.isCurrentlyDragging) {
+            eventTarget.setAttribute('class', 'barChartBody');
+        }
         if (event.relatedTarget.id === 'gridPattern') {
             if (eventTarget.classList[0] === 'barExchanging') {
                 setTimeout(function () {
                     if (eventTarget.classList[0] === 'barExchanging') {
-                        eventTarget.setAttribute('class', 'barChartBody ' + eventTarget.classList[2])
+                        eventTarget.setAttribute('class', 'barChartBody{}' + eventTarget.classList[2])
 
                         let transformeMatrix = eventTarget.parentNode.createSVGMatrix();
                         transformeMatrix = transformeMatrix.translate(0, 0);
@@ -412,50 +349,6 @@ export class ganttChartBar extends React.Component<any, any> {
                 }.bind(this), 1000);
             }
             this.clearTempElements()
-        }
-        //if (document.getElementById('leftTempCircle')) {
-        //setTimeout(function () {
-        //  }.bind(this), 1000);
-        //  }
-    }
-
-    handleircleClick(e, parentElement) {
-        let targetCoords = e.target.getBoundingClientRect();
-        globalStore.isLineDrawStarted = true;
-        const eventTarget = e.target as any;
-        if (!globalStore.isNewConnection) {
-            globalStore.isNewConnection = true;
-
-            globalStore.startPointX = targetCoords.left
-            globalStore.startPointY = targetCoords.top
-
-            let firstPoint = globalStore.startPointX + ',' + globalStore.startPointY
-
-            let tempLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-
-            var rect = eventTarget.getBoundingClientRect();
-            tempLine.setAttribute('id', 'tempLine');
-
-            tempLine.setAttribute('x1', (eventTarget.getAttribute('cx')).toString());
-            tempLine.setAttribute('strokeWidth', '1');
-            tempLine.setAttribute('y1', (eventTarget.getAttribute('cy')).toString());
-            tempLine.setAttribute('stroke', '#299cb4');
-
-            document.onmousemove = function (event) {
-                const eventTarget = event.target as any;
-                tempLine.setAttribute('x2', (event.clientX - 135).toString());
-                tempLine.setAttribute('y2', event.clientY.toString());
-            }
-            globalStore.tempLine = tempLine
-            document.getElementById('ganttChartView').appendChild(tempLine);
-            if (!globalStore.connectionFirstPoint) {
-                globalStore.connectionFirstPoint = this;
-            }
-            document.onmouseup = function (event) {
-                this.clearTempLine()
-            }.bind(this)
-        } else {
-            // this.addNewConnection(targetCoords);
         }
     }
 
@@ -481,39 +374,46 @@ export class ganttChartBar extends React.Component<any, any> {
     }
 
     showModalWindow() {
-        globalStore.ganttChartView.refs.modalWindow.show();
+        let modalWindow = globalStore.ganttChartView.refs.modalWindow;
+        modalWindow.setState({
+            title: this.state.title,
+            startDate: this.state.startDate,
+            endDate: this.state.startDate + this.state.duration,
+            duration: this.state.duration
+        })
+        modalWindow.show();
     }
 
     render() {
-        return React.createElement('g', { // group for svg elements
+        return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
-            onMouseOut: this.handleMouseOut.bind(this),
-            onMouseDown: this.handleRectSizing.bind(this),
+            onMouseOut: this.completeBarUpdate.bind(this),
+            onMouseDown: this.startBarUpdate.bind(this),
             onContextMenu: this.contextMenu.bind(this),
             onDoubleClick: this.showModalWindow.bind(this),
             y: this.state.top,
-            x: this.state.marginLeft,
+            x: this.state.startDate,
             transform: 'translate(0, 0)'
         },
             React.createElement('rect', { // main element
-                className: 'barChartBody ',
+                className: 'barChartBody',
                 group: this.props.data.barClass,
                 id: this.props.data.id,
                 y: this.state.top,
-                x: this.state.marginLeft,
-                width: this.state.duration
+                x: this.state.startDate,
+                width: this.state.duration * globalStore.cellSize
             }),
-            React.createElement('rect', { // fill element
+            React.createElement('rect', { // complition element
                 onMouseDown: this.updateComplitionState.bind(this),
                 className: 'barChartFillBody',
                 group: this.props.data.barClass,
                 y: this.state.top,
-                x: this.state.marginLeft,
-                width: ((this.state.duration / globalStore.cellCapacity) * globalStore.svgGridWidth) * this.state.complition / 100
+                x: this.state.startDate,
+                width: this.state.complition * globalStore.cellSize,
             }),
-            React.createElement('text', {// title element
+            React.createElement('text', {
                 className: 'barTitle',
-                x: this.state.marginLeft + this.state.width * 0.5,
+                x: this.state.startDate + (this.state.duration / globalStore.cellCapacity) * globalStore.svgGridWidth * 0.5,
                 y: this.state.top + 15
             }, this.state.title)
         )
@@ -535,17 +435,16 @@ export class ganttChartConnection extends React.Component<any, any> {
         if (firstPointCoordsX < secondPointCoordsX - 10) {
             this.state = {
                 firstPoint: (firstPointCoordsX + firstPointCoordsWidth) + ' , ' + (firstPointCoordsY + 10),
-                secondPoint: (secondPointCoordsX + secondPointCoordsWidth / 2 + 10) + ' , ' + (firstPointCoordsY + 10),
-                thirdPoint: (secondPointCoordsX + secondPointCoordsWidth / 2 + 10) + ' , ' + secondPointCoordsY,
-                endPoint: (secondPointCoordsX + secondPointCoordsWidth / 2 + 10) + ' , ' + secondPointCoordsY
+                secondPoint: (secondPointCoordsX + secondPointCoordsWidth + 30 ) + ' , ' + (firstPointCoordsY + 10),
+                thirdPoint: (secondPointCoordsX + secondPointCoordsWidth + 30 ) + ' , ' + (secondPointCoordsY + 10),
+                endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
             }
-
         } else if (firstPointCoordsX - 10 > secondPointCoordsX) {
             this.state = {
                 firstPoint: (firstPointCoordsX) + ' , ' + (firstPointCoordsY + 10),
-                secondPoint: (secondPointCoordsX + secondPointCoordsWidth / 2) + ' , ' + (firstPointCoordsY + 10),
-                thirdPoint: (secondPointCoordsX + secondPointCoordsWidth / 2) + ' , ' + (secondPointCoordsY + 20),
-                endPoint: (secondPointCoordsX + secondPointCoordsWidth / 2) + ' , ' + (secondPointCoordsY + 20)
+                secondPoint: (secondPointCoordsX - 30) + ' , ' + (firstPointCoordsY + 10),
+                thirdPoint: (secondPointCoordsX - 30) + ' , ' + (secondPointCoordsY + 10),
+                endPoint: (secondPointCoordsX) + ' , ' + (secondPointCoordsY + 10)
             }
         } else {
             this.state = {

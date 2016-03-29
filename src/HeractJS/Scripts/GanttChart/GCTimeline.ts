@@ -45,6 +45,7 @@ export class ganttChartTimeline extends React.Component<any, any> {
                         globalStore.timelineStep = 1
                         globalStore.svgGridWidth = 40
                         globalStore.cellCapacity = 72
+                        globalStore.cellSize = 40 / 72
                         globalStore.ganttChartView.setState({
                             timeLine: ganttChartData.timelineMonth
                         })
@@ -53,6 +54,7 @@ export class ganttChartTimeline extends React.Component<any, any> {
                         globalStore.timelineStep = 0
                         globalStore.svgGridWidth = 60
                         globalStore.cellCapacity = 24
+                        globalStore.cellSize = 60 / 24
                         globalStore.ganttChartView.setState({
                             timeLine: ganttChartData.timelineWeek
                         })
@@ -76,7 +78,7 @@ export class ganttChartTimeline extends React.Component<any, any> {
                 width: this.state.width,
                 height: this.state.height,
                 stroke: 'rgb(100,100,100)',
-                strokeDasharray: "0, 90, 60, 90",
+                strokeDasharray: '0, 90, 60, 90',
                 strokeWidth: 0.5,
                 fill: 'none'
             }),

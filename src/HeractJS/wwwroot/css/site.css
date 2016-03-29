@@ -61,6 +61,11 @@
 .barDragging {
 }
 
+.barOver {
+    stroke-width:1px;
+    stroke: rgb(80,80,220);
+}
+
 .ganttChartView {
     user-select: none;
     position: absolute;

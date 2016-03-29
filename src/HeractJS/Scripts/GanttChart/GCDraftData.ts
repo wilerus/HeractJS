@@ -8,6 +8,8 @@ export class ganttChartData {
 
     static timelineWeek = []
     static timelineMonth = []
+    static timelineDay = []
+    static timelineQuad = []
     static ganttBars = []
 
     timelineMonth
@@ -62,9 +64,9 @@ export class ganttChartData {
                 complition: 20,
                 duration: 80 + this.counter + i,
                 text: text,
+                startDate: leftMargin,
                 style: {
                     top: topMargin,
-                    marginLeft: leftMargin
                 }
             });
         }//ganttBars
@@ -119,5 +121,57 @@ export class ganttChartData {
                 });
             }
         }//timelineMonth
+
+        for (let i = 0; i <= 11; i++) {
+            ganttChartData.timelineMonth.push({
+                id: 'timeline12' + i,
+                text: this.monthData[i],
+                style: {
+                    top: 0,
+                    height: 30,
+                    width: 400,
+                    marginLeft: 400 * i
+                }
+            });
+
+            for (let n = 0; n <= 9; n++) {
+                ganttChartData.timelineMonth.push({
+                    id: 'timeline122' + n + i,
+                    text: (n * 3).toString(),
+                    style: {
+                        top: 30,
+                        height: 30,
+                        width: 40,
+                        marginLeft: 400 * i + 40 * n
+                    }
+                });
+            }
+        }//timelineDay
+
+        for (let i = 0; i <= 11; i++) {
+            ganttChartData.timelineMonth.push({
+                id: 'timeline12' + i,
+                text: this.monthData[i],
+                style: {
+                    top: 0,
+                    height: 30,
+                    width: 400,
+                    marginLeft: 400 * i
+                }
+            });
+
+            for (let n = 0; n <= 9; n++) {
+                ganttChartData.timelineMonth.push({
+                    id: 'timeline122' + n + i,
+                    text: (n * 3).toString(),
+                    style: {
+                        top: 30,
+                        height: 30,
+                        width: 40,
+                        marginLeft: 400 * i + 40 * n
+                    }
+                });
+            }
+        }//timelineQuad
     }
 }

@@ -40,11 +40,13 @@ var ganttChartInfoPopup = (function (_super) {
             className: 'infoPopupTitle',
         }, this.state.title), React.createElement('div', {
             className: 'infoPopupText',
-        }, this.state.startDate), React.createElement('div', {
+        }, 'Description'), React.createElement('div', {
             className: 'infoPopupText',
-        }, this.state.endDate), React.createElement('div', {
+        }, 'Start date ' + this.state.startDate + ' hours'), React.createElement('div', {
             className: 'infoPopupText',
-        }, this.state.duration));
+        }, 'Complete date ' + this.state.endDate + ' hours'), React.createElement('div', {
+            className: 'infoPopupText',
+        }, 'Duration ' + this.state.duration + ' hours'));
     };
     return ganttChartInfoPopup;
 })(React.Component);
@@ -96,18 +98,21 @@ var ganttChartModalWindow = (function (_super) {
             id: 'modalWindowInputStart',
             type: 'datetime-local',
             className: 'modalWindowInput',
+            value: this.state.startDate
         }), React.createElement('label', {
             htmlFor: 'modalWindowInputFinish',
         }, 'Task finish: '), React.createElement('input', {
             id: 'modalWindowInputFinish',
             type: 'datetime-local',
             className: 'modalWindowInput',
+            value: this.state.completeDate
         }), React.createElement('label', {
             htmlFor: 'modalWindowInputDuration',
         }, 'Task duration: '), React.createElement('input', {
             id: 'modalWindowInputDuration',
             type: 'datetime-local',
             className: 'modalWindowInput',
+            value: this.state.completeDate
         }), React.createElement('button', {
             onMouseDown: this.hide.bind(this),
             id: 'modalWindowButtonOk',

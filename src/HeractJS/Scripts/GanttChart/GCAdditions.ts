@@ -42,13 +42,16 @@ export class ganttChartInfoPopup extends React.Component<any, any> {
             }, this.state.title),
             React.createElement('div', {
                 className: 'infoPopupText',
-            }, this.state.startDate),
+            }, 'Description'  /* + this.state.description*/),
             React.createElement('div', {
                 className: 'infoPopupText',
-            }, this.state.endDate),
+            }, 'Start date ' + this.state.startDate + ' hours'),
             React.createElement('div', {
                 className: 'infoPopupText',
-            }, this.state.duration)
+            }, 'Complete date ' + this.state.endDate + ' hours'),
+            React.createElement('div', {
+                className: 'infoPopupText',
+            }, 'Duration ' + this.state.duration + ' hours')
         )
     }
 };
@@ -64,12 +67,12 @@ export class ganttChartModalWindow extends React.Component<any, any> {
     }
 
     componentDidMount() {
-       
+
     }
 
     hide() {
-            let item = DOM.findDOMNode(this) as any
-            item.style.display = 'none';
+        let item = DOM.findDOMNode(this) as any
+        item.style.display = 'none';
     }
 
     show() {
@@ -104,6 +107,7 @@ export class ganttChartModalWindow extends React.Component<any, any> {
                     id: 'modalWindowInputStart',
                     type: 'datetime-local',
                     className: 'modalWindowInput',
+                    value: this.state.startDate
                 }),
                 React.createElement('label', {
                     htmlFor: 'modalWindowInputFinish',
@@ -112,6 +116,7 @@ export class ganttChartModalWindow extends React.Component<any, any> {
                     id: 'modalWindowInputFinish',
                     type: 'datetime-local',
                     className: 'modalWindowInput',
+                    value: this.state.completeDate
                 }),
                 React.createElement('label', {
                     htmlFor: 'modalWindowInputDuration',
@@ -120,6 +125,7 @@ export class ganttChartModalWindow extends React.Component<any, any> {
                     id: 'modalWindowInputDuration',
                     type: 'datetime-local',
                     className: 'modalWindowInput',
+                    value: this.state.completeDate
                 }),
                 React.createElement('button', {
                     onMouseDown: this.hide.bind(this),

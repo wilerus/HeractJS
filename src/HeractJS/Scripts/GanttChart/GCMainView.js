@@ -16,7 +16,8 @@ GCStore_1.globalStore.timelineStep = 0;
 var ganttChartView = (function (_super) {
     __extends(ganttChartView, _super);
     function ganttChartView() {
-        _super.apply(this, arguments);
+        _super.call(this);
+        new GCDraftData_1.ganttChartData();
     }
     ganttChartView.prototype.componentWillMount = function () {
         this.setState({

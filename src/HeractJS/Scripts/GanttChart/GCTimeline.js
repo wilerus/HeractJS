@@ -45,6 +45,7 @@ var ganttChartTimeline = (function (_super) {
                         GCStore_1.globalStore.timelineStep = 1;
                         GCStore_1.globalStore.svgGridWidth = 40;
                         GCStore_1.globalStore.cellCapacity = 72;
+                        GCStore_1.globalStore.cellSize = 40 / 72;
                         GCStore_1.globalStore.ganttChartView.setState({
                             timeLine: GCDraftData_1.ganttChartData.timelineMonth
                         });
@@ -53,6 +54,7 @@ var ganttChartTimeline = (function (_super) {
                         GCStore_1.globalStore.timelineStep = 0;
                         GCStore_1.globalStore.svgGridWidth = 60;
                         GCStore_1.globalStore.cellCapacity = 24;
+                        GCStore_1.globalStore.cellSize = 60 / 24;
                         GCStore_1.globalStore.ganttChartView.setState({
                             timeLine: GCDraftData_1.ganttChartData.timelineWeek
                         });
@@ -73,7 +75,7 @@ var ganttChartTimeline = (function (_super) {
             width: this.state.width,
             height: this.state.height,
             stroke: 'rgb(100,100,100)',
-            strokeDasharray: "0, 90, 60, 90",
+            strokeDasharray: '0, 90, 60, 90',
             strokeWidth: 0.5,
             fill: 'none'
         }), React.createElement('text', {
