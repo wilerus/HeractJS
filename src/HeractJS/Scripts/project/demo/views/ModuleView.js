@@ -11,7 +11,7 @@
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define(['text!../templates/moduleView.html', './GroupsListView', './CasesListView', '../collections/CasesCollection',
+define(['../templates/moduleView.html', './GroupsListView', './CasesListView', '../collections/CasesCollection',
         '../collections/GroupsCollection', '../CasesConfig', './CaseModuleView'],
     function(template, GroupsListView, CasesListView, CasesCollection, GroupsCollection, config, CaseModuleView) {
         'use strict';

@@ -29,10 +29,10 @@ define([
 	'app/room/showall/Config',
     'app/timesheets/approval/Config',
     'app/timesheets/submit/Config',
-    'app/timesheets/reports/Config',
-    'app/profile/profile/Config',
-    'app/profile/notificationSettings/Config',
-    'app/profile/aboutandextras/Config',*/
+    'app/timesheets/reports/Config',*/
+    'rootpath/profile/profile/Config',
+    'rootpath/profile/notificationSettings/Config',
+    'rootpath/profile/aboutandextras/Config',
     'rootpath/demo/Config'
 ], function () {
     "use strict";

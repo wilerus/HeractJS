@@ -11,7 +11,7 @@
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define(['text!../templates/casesList.html', './CaseView'],
+define(['../templates/casesList.html', './CaseView'],
     function (template, CaseView) {
         'use strict';
         return Marionette.CompositeView.extend({

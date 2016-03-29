@@ -11,7 +11,7 @@
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define(['text!../templates/groupsList.html', './GroupView'],
+define(['../templates/groupsList.html', './GroupView'],
     function (template, GroupView) {
         'use strict';
         return Marionette.CompositeView.extend({

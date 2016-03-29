@@ -13,7 +13,7 @@
 
 define([
     'comindware/core',
-    'text!../templates/navigation.html'
+    '../templates/navigation.html'
 ], function (core, template) {
     'use strict';
     return Marionette.ItemView.extend({

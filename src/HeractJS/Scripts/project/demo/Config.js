@@ -11,15 +11,18 @@
 
 /* global define, require */
 
-define(['demoInitializer'], {
-    id: 'module:demo:core',
-    module: require('demoInitializer'),
-    navigationUrl: {
-        default: 'demo/core',
-        case: 'demo/core/:section/:group/:case'
-    },
-    routes: {
-        'demo/core': 'navigate',
-        'demo/core/:sectionId/:groupId/:caseId': 'navigateToCase'
+define(['demoInitializer'], function(demoInitializer) {
+    
+    return {
+        id: 'module:demo:core',
+        module: demoInitializer,
+        navigationUrl: {
+            default: 'demo/core',
+            case: 'demo/core/:section/:group/:case'
+        },
+        routes: {
+            'demo/core': 'navigate',
+            'demo/core/:sectionId/:groupId/:caseId': 'navigateToCase'
+        }
     }
 });

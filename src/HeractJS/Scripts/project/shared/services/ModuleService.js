@@ -79,7 +79,6 @@ define([
 
             getModuleUrlByName: function (urlName, moduleId, options) {
                 //return '#' + moduleId + '/' + urlName;
-                debugger;
 
                 options = options || {};
                 var moduleConfig = _.findWhere(configs, { id : moduleId });
