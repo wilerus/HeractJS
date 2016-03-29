@@ -41,7 +41,8 @@ define([
             SETTINGS: "cmw.workspace.SettingsItem",
             GLOBAL_FUNCTIONS: "cmw.workspace.GlobalFunctionsItem",
             COMMUNICATION_CHANNELS: "cmw.workspace.CommunicationChannelsItem",
-            COMMUNICATION_ROUTES: "cmw.workspace.CommunicationRoutesItem"
+            COMMUNICATION_ROUTES: "cmw.workspace.CommunicationRoutesItem",
+            GRID: "cmw.workspace.GridItem"
         };
 
         var configItems = [systemItems.ARCHITECTURE, systemItems.PROCESS_MONITOR, systemItems.DATA_MODEL, 
@@ -59,6 +60,7 @@ define([
         systemItemMap[systemItems.GLOBAL_FUNCTIONS] = 'globalFunctions';
         systemItemMap[systemItems.COMMUNICATION_CHANNELS] = 'communicationChannels';
         systemItemMap[systemItems.COMMUNICATION_ROUTES] = 'communicationRoutes';
+        systemItemMap[systemItems.GRID] = 'grid';
 
         return {
             createModel: function (attributes) {
@@ -155,6 +157,12 @@ define([
                     result.url = shared.services.ModuleService.getDefaultModuleUrl(shared.services.ModuleService.modules.SUPPORT_COMMUNICATION_ROUTES);
                     result.name = Localizer.get('TEAMNETWORK.WORKSPACE.COMMUNICATIONROUTES.NAME');
                     result.tooltip = Localizer.get('TEAMNETWORK.WORKSPACE.COMMUNICATIONROUTES.TIP');
+                    break;
+
+                case systemItems.GRID:
+                    result.url = shared.services.ModuleService.getDefaultModuleUrl(shared.services.ModuleService.modules.GRID);
+                    result.name = 'Grid view';
+                    result.tooltip = 'Grid view';
                     break;
 
                 }

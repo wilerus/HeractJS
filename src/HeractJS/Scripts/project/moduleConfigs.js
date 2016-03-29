@@ -33,7 +33,8 @@ define([
     'rootpath/profile/profile/Config',
     'rootpath/profile/notificationSettings/Config',
     'rootpath/profile/aboutandextras/Config',
-    'rootpath/demo/Config'
+    'rootpath/demo/Config',
+    'rootpath/list/Config'
 ], function () {
     "use strict";
 

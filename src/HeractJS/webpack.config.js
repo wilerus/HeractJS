@@ -30,6 +30,7 @@ module.exports = {
             'shared': path.resolve(__dirname + '/scripts/project/shared/bootstrap.js'),
             'demoPage': path.resolve(__dirname + '/scripts/project/demo/helpers'),
             'demoInitializer': path.resolve(__dirname + '/scripts/project/demo/Initializer'),
+            'listInitializer': path.resolve(__dirname + '/scripts/project/list/Initializer'),
             'profileAboutInitializer': path.resolve(__dirname + '/scripts/project/profile/aboutandextras/Initializer'),
             'profileNotificationInitializer': path.resolve(__dirname + '/scripts/project/profile/notificationSettings/Initializer'),
             'profileProfileInitializer': path.resolve(__dirname + '/scripts/project/profile/profile/Initializer'),
@@ -75,4 +76,4 @@ module.exports = {
         path.resolve(__dirname + '/Scripts/'),
         path.resolve(__dirname + '/wwwroot/js/')
     ]
-}
+};
