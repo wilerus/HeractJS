@@ -2,10 +2,10 @@
  * Created by admin on 10/20/2015.
  */
 
-define(['./tpl/ProfileAboutAndExtras.html'], function(template) {
+define(['./tpl/ProfileAboutAndExtras.hbs'], function (template) {
     return Marionette.ItemView.extend({
         className: 'one-column-wrp_about-and-extra',
-        template: Handlebars.compile(template),
+        template: template,
 
         setModuleLoading: function() {
 

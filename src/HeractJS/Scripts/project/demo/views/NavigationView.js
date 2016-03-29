@@ -13,12 +13,12 @@
 
 define([
     'comindware/core',
-    '../templates/navigation.html'
+    '../templates/navigation.hbs'
 ], function (core, template) {
     'use strict';
     return Marionette.ItemView.extend({
         className: "demo-nav-wrapper",
 
-        template: Handlebars.compile(template)
+        template: template
     });
 });

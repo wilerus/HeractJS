@@ -11,12 +11,12 @@
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define(['../templates/casesList.html', './CaseView'],
+define(['../templates/casesList.hbs', './CaseView'],
     function (template, CaseView) {
         'use strict';
         return Marionette.CompositeView.extend({
 
-            template: Handlebars.compile(template),
+            template: template,
 
             ui: {},
 

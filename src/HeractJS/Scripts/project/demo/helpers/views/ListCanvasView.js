@@ -13,14 +13,14 @@
 
 define([
     'comindware/core',
-    'text!../templates/listCanvas.html'
+    '../templates/listCanvas.hbs'
 ], function (core, template) {
     'use strict';
     return Marionette.LayoutView.extend({
         initialize: function () {
         },
 
-        template: Handlebars.compile(template),
+        template: template,
 
         regions: {
             contentRegion: '.js-content-region',

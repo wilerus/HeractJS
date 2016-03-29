@@ -13,7 +13,7 @@
 
 define([
     'comindware/core',
-    'text!../templates/canvas.html'
+    '../templates/canvas.hbs'
 ], function (core, template) {
     'use strict';
 
@@ -22,7 +22,7 @@ define([
             core.utils.helpers.ensureOption(options, 'view');
         },
 
-        template: Handlebars.compile(template),
+        template: template,
 
         regions: {
             view: '.js-view-region'

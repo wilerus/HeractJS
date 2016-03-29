@@ -11,9 +11,10 @@
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define(['../templates/moduleView.html', './GroupsListView', './CasesListView', '../collections/CasesCollection',
-        '../collections/GroupsCollection', '../CasesConfig', './CaseModuleView'],
-    function(template, GroupsListView, CasesListView, CasesCollection, GroupsCollection, config, CaseModuleView) {
+define(['../templates/moduleView.hbs',
+        'rootpath/demo/CasesConfig',
+        './GroupsListView', './CasesListView', '../collections/CasesCollection', '../collections/GroupsCollection', './CaseModuleView'],
+    function (template, config, GroupsListView, CasesListView, CasesCollection, GroupsCollection, CaseModuleView) {
         'use strict';
 
         return Marionette.LayoutView.extend({
@@ -25,7 +26,7 @@ define(['../templates/moduleView.html', './GroupsListView', './CasesListView', '
 
             className: 'demo-page',
 
-            template: Handlebars.compile(template),
+            template: template,
 
             regions: {
                 groupsList: '.js-groups-list-region',

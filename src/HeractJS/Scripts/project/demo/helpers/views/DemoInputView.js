@@ -13,12 +13,12 @@
 
 define([
     'comindware/core',
-    'text!../templates/demoInput.html'
+    '../templates/demoInput.hbs'
 ], function (core, template) {
     'use strict';
 
     return Marionette.ItemView.extend({
-        template: Handlebars.compile(template),
+        template: template,
 
         onRender: function () {
             this.$el.css({

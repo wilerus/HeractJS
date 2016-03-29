@@ -13,12 +13,12 @@
 
 define([
     'comindware/core',
-    'text!../templates/demoDropdownItem.html'
+    '../templates/demoDropdownItem.hbs'
 ], function (core, template) {
     'use strict';
 
     return Marionette.ItemView.extend({
-        template: Handlebars.compile(template),
+        template: template,
 
         className: 'dropdown-list__i'
     });

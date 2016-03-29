@@ -12,12 +12,12 @@
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
 define([
-    '../templates/demoContent.html',
+    '../templates/demoContent.hbs',
     'shared'
 ], function (template, shared) {
     'use strict';
     return Marionette.LayoutView.extend({
-        template: Handlebars.compile(template),
+        template: template,
 
         className: 'content-view',
 

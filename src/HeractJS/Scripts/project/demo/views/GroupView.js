@@ -13,7 +13,7 @@
 
 define([
         'comindware/core',
-        '../templates/group.html'
+        '../templates/group.hbs'
     ],
     function (core, template) {
         'use strict';
@@ -24,7 +24,7 @@ define([
 
         return Marionette.ItemView.extend({
 
-            template: Handlebars.compile(template),
+            template: template,
 
             tagName: 'li',
 
