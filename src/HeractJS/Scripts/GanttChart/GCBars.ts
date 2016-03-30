@@ -10,7 +10,7 @@ export class ganttChartBar extends React.Component<any, any> {
     constructor() {
         super()
         this.state = {
-            width: globalStore.svgGridWidth,
+            width: 50,
             startDate: 10,
             top: 10,
             fillWidth: 10,
@@ -25,11 +25,16 @@ export class ganttChartBar extends React.Component<any, any> {
             top: this.props.data.style.top,
             title: this.props.data.text,
             complition: this.props.data.complition,
-            duration: this.props.data.duration
+            duration: this.props.data.duration,
+            description: this.props.data.description
         })
     }
 
-    startBarRelocation(event) {
+    private shouldComponentUpdate(nextState) {
+        return this.state !== nextState ? true : false
+    }
+
+    private startBarRelocation(event) {
         var eventTarget = event.target;
         globalStore.currentDraggingElement = this
         let dropTarget = eventTarget;
@@ -42,7 +47,6 @@ export class ganttChartBar extends React.Component<any, any> {
         var startY = event.clientY;
         var startX = event.clientX;
         var x = startX - dim.left;
-        var y = startY - dim.top;
 
         if (eventTarget.getAttribute('class') === 'barChartBody') {
             eventTarget.setAttribute('class', 'barChartBody barOver')
@@ -60,26 +64,26 @@ export class ganttChartBar extends React.Component<any, any> {
 
                 let tempLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 
-                var rect = eventTarget.getBoundingClientRect();
                 tempLine.setAttribute('id', 'tempLine');
                 eventTarget.parentNode.setAttribute('transform', 'translate(0, 0)')
 
-                tempLine.setAttribute('x1', (eventTarget.getAttribute('x')).toString());
-                tempLine.setAttribute('strokeWidth', '1');
+                tempLine.setAttribute('x1', (parseInt(eventTarget.getAttribute('x')) + eventTarget.getAttribute('width') / 2).toString());
+                tempLine.setAttribute('strokeWidth', '2');
                 tempLine.setAttribute('y1', (eventTarget.getAttribute('y')).toString());
-                tempLine.setAttribute('stroke', '#299cb4');
+                tempLine.setAttribute('stroke', 'rgb(80,80,220)');
+
+                if (eventTarget.getAttribute('class') === 'barChartBody') {
+                    eventTarget.setAttribute('class', 'barChartBody barOver')
+                }
 
                 document.onmousemove = function (event) {
-                    const eventTarget = event.target as any;
                     tempLine.setAttribute('x2', (event.clientX - 10).toString());
                     tempLine.setAttribute('y2', (event.clientY - 110).toString());
                 }
                 globalStore.tempLine = tempLine
                 document.getElementById('ganttChartView').appendChild(tempLine);
-                if (!globalStore.connectionFirstPoint) {
-                    globalStore.connectionFirstPoint = this;
-                }
-                document.onmouseup = function (event) {
+
+                document.onmouseup = function () {
                     if (globalStore.isDrawingConnection) {
                         document.onmouseup = null;
                         this.addNewConnection();
@@ -90,15 +94,25 @@ export class ganttChartBar extends React.Component<any, any> {
         }.bind(this)
     }
 
-    startBarUpdate(event) {
-        if (event.button !== 2 && !document.onmousemove) {
+    private startBarUpdate(event) {
+        document.onmousemove = null;
+        if (event.button !== 2) {
             let eventTarget = event.target
+            let parentElement
+            let parentCoords
+            if (eventTarget.getAttribute('class') === 'barChartFillBody') {
+                parentElement = eventTarget
+                eventTarget = eventTarget.parentNode
+                parentCoords = parentElement.getBoundingClientRect()
+            }
+
             let elementRect = eventTarget.getBoundingClientRect()
             let clickCoordX = event.clientX
-            let clickCoordY = event.clientY
             this.clearTempElements()
 
-            if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
+            if (parentElement && clickCoordX > parentCoords.right - 15) {
+                this.updateComplitionState(event);
+            } else if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
                 this.startBarRelocation(event);
                 document.onmouseup = function (event) {
                     this.completeBarRelocation(event)
@@ -119,12 +133,19 @@ export class ganttChartBar extends React.Component<any, any> {
         }
     }
 
-    updateСompleteDate(event) {
+    private updateСompleteDate(event) {
         let startX = event.target.getAttribute('x')
         document.onmousemove = function (event) {
-            let newDuration = (event.pageX - startX - 15) / globalStore.cellSize;
+            let newDuration = (event.pageX - startX - 15) / globalStore.cellCapacity;
 
-            if (newDuration ) {
+            if (newDuration) {
+                let newCompletion = this.state.complition / globalStore.cellCapacity;
+                if (newCompletion > newDuration || newCompletion === this.state.duration) {
+                    newCompletion = newDuration
+                    this.setState({
+                        complition: newCompletion
+                    })
+                }
                 this.setState({
                     duration: newDuration
                 })
@@ -132,34 +153,38 @@ export class ganttChartBar extends React.Component<any, any> {
         }.bind(this)
     }
 
-    updateStartDate(e) {
+    private updateStartDate(e) {
         if (!document.onmousemove) {
             document.onmousemove = function (event) {
                 let newStartDate = event.pageX
-                let newDuration = (this.state.startDate - newStartDate) / globalStore.cellSize + this.state.duration
+                let newDuration = (this.state.startDate - newStartDate) / globalStore.cellCapacity + this.state.duration
 
                 if (this.state.startDate !== newStartDate && newDuration) {
+                        let newCompletion = this.state.complition;
+                        if (newCompletion > newDuration || newCompletion === this.state.duration) {
+                            newCompletion = newDuration
+                        } 
                     this.setState({
                         startDate: newStartDate,
-                        duration: newDuration
+                        duration: newDuration,
+                        complition: newCompletion
                     })
                 }
             }.bind(this)
         }
     }
 
-    updateComplitionState(event) {
-        let eventTarget = event.target;
-
+    private updateComplitionState(event) {
+        let eventTarget = event.target
         let elementRect = eventTarget.getBoundingClientRect()
         let clickCoordX = event.clientX
-        let clickCoordY = event.clientY
+
         this.clearTempElements()
         if (clickCoordX > elementRect.right - 15) {
             document.onmousemove = function (event) {
                 let newComplition = event.pageX - event.target.getAttribute('x');
 
-                newComplition = newComplition / globalStore.cellSize;
+                newComplition = newComplition / globalStore.cellCapacity;
                 if (newComplition <= 0) {
                     newComplition = 0
                 } else if (this.state.duration < newComplition) {
@@ -180,48 +205,42 @@ export class ganttChartBar extends React.Component<any, any> {
         }
     }
 
-    addNewConnection() {
-        let targetElement = DOM.findDOMNode(globalStore.currentDropTarget) as any;
-        let targetCoords = targetElement.getBoundingClientRect();
-
-        let currentItems = globalStore.ganttChartView.state.ganttBars;
-
-        let topMargin = 50 * 1
-        let text = 'Task ' + 1
-        let leftMargin = 60 * 1
-        let barClass = 'group1'
-        let newId = 'id' + (currentItems.length + 1);
+    private addNewConnection() {
+        let currentItems = globalStore.ganttChartView.state.ganttBars
+        let newId = 'connection ' + (currentItems.length + 1)
 
         currentItems.push({
             id: newId,
-            text: text,
-            barClass: 'group1',
             firstP: globalStore.currentDraggingElement,
             endP: globalStore.currentDropTarget,
-            type: 'connection',
-            style: {
-                top: topMargin,
-                startDate: leftMargin
-            }
+            type: 'connection'
         });
         globalStore.ganttChartView.setState({ ganttBars: currentItems })
 
-        let newConnections = globalStore.connectionFirstPoint.state.connections
+        let newConnections = globalStore.currentDraggingElement.state.connections
         newConnections.push(globalStore.ganttChartView.refs[newId])
-        globalStore.connectionFirstPoint.setState({
+        globalStore.currentDraggingElement.setState({
             connections: newConnections
         })
-        let newConnections2 = this.state.connections
 
+        let newConnections2 = globalStore.currentDropTarget.state.connections
         newConnections2.push(globalStore.ganttChartView.refs[newId])
         this.setState({
             connections: newConnections2
         })
+
         document.onmousemove = null;
-        globalStore.connectionFirstPoint = null;
         document.getElementById('ganttChartView').removeChild(globalStore.tempLine);
         globalStore.tempLine = null;
 
+        let el = DOM.findDOMNode(globalStore.currentDraggingElement).getElementsByClassName('barChartBody barOver');
+        if (el.length ) {
+            el[0].setAttribute('class', 'barChartBody')
+        }
+        el = DOM.findDOMNode(globalStore.currentDropTarget).getElementsByClassName('barChartBody barOver');
+        if (el.length) {
+            el[0].setAttribute('class', 'barChartBody')
+        }
         globalStore.isCurrentlyDragging = false;
         globalStore.isCurrentlySizing = false;
         globalStore.isDrawingConnection = false;
@@ -229,7 +248,7 @@ export class ganttChartBar extends React.Component<any, any> {
         globalStore.currentDraggingElement = null;
     }
 
-    handleRectHover(event) {
+    private handleRectHover(event) {
         this.clearTempElements()
         var eventTarget = event.target;
 
@@ -240,7 +259,6 @@ export class ganttChartBar extends React.Component<any, any> {
             }
         } else {
             if (!globalStore.isCurrentlyDragging && !globalStore.isCurrentlySizing && eventTarget.classList[0] === 'barChartBody') {
-                let node = DOM.findDOMNode(this)
                 let coords = eventTarget.getBoundingClientRect();
                 let hoverElement = event.target;
 
@@ -248,37 +266,39 @@ export class ganttChartBar extends React.Component<any, any> {
                     if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
                         !globalStore.isCurrentlyDragging) {
                         globalStore.ganttChartView.refs.infoPopup.setState({
-                            left: parseInt(node.getAttribute('x')) + coords.width / 2 - 100,
-                            top: parseInt(node.getAttribute('y')) - 55,
+                            left: parseInt(hoverElement.getAttribute('x')) + coords.width / 2 - 84,
+                            top: parseInt(hoverElement.getAttribute('y')) - 55,
                             title: this.state.title,
                             startDate: this.state.startDate,
                             endDate: this.state.startDate + this.state.duration,
-                            duration: this.state.duration 
+                            duration: this.state.duration,
+                            description: this.state.description 
                         })
                         globalStore.ganttChartView.refs.infoPopup.show();
                     }
                 }.bind(this, hoverElement), 500);
-
-                let elementRect = event.target.getBoundingClientRect()
-                let clickCoordX = event.clientX
                 let el = DOM.findDOMNode(this) as any;
                 this.clearTempElements()
-                if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
-                    el.style.cursor = 'move';
-                } else if (clickCoordX > elementRect.right - 15) {
-                    el.style.cursor = 'e-resize';
-                } else if (clickCoordX < elementRect.left + 15) {
-                    el.style.cursor = 'e-resize';
+                let elementRect = event.target.getBoundingClientRect()
+
+                document.onmousemove = function (event)  {
+                    let clickCoordX = event.clientX
+                    if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
+                        el.style.cursor = 'move';
+                    } else if (clickCoordX > elementRect.right - 15) {
+                        el.style.cursor = 'e-resize';
+                    } else if (clickCoordX < elementRect.left + 15) {
+                        el.style.cursor = 'e-resize';
+                    }
                 }
             }
         }
     }
 
-    completeBarRelocation(event) {
+    private completeBarRelocation(event) {
         document.onmousemove = null;
         document.onmouseup = null;
         if (globalStore.currentDraggingElement) {
-            let transform = event.target.parentNode.createSVGMatrix ? event.target.parentNode.createSVGMatrix() : event.target.parentNode.parentNode.createSVGMatrix();
             let currentDraggingElement = DOM.findDOMNode(globalStore.currentDraggingElement) as any
             if (globalStore.currentDropTarget && globalStore.isCurrentlyDragging) {
 
@@ -307,12 +327,25 @@ export class ganttChartBar extends React.Component<any, any> {
                 currentDraggingElement.setAttribute('transform', 'translate(0, 0)')
             }
         }
-        let connections = this.state.connections;
-        if (connections) {
-            let length = connections.length
+        if (globalStore.currentDraggingElement) {
+            let connectionsDropTarget = globalStore.currentDraggingElement.state.connections;
+            if (connectionsDropTarget) {
+                let length = connectionsDropTarget.length
 
-            for (let i = 0; i < length; i++) {
-                connections[i].update();
+                for (let i = 0; i < length; i++) {
+                    connectionsDropTarget[i].update();
+                }
+            }
+        }
+
+        if (globalStore.currentDropTarget) {
+            let connectionsDraggingElement = globalStore.currentDropTarget.state.connections;
+            if (connectionsDraggingElement) {
+                let length = connectionsDraggingElement.length
+
+                for (let i = 0; i < length; i++) {
+                    connectionsDraggingElement[i].update();
+                }
             }
         }
 
@@ -327,7 +360,7 @@ export class ganttChartBar extends React.Component<any, any> {
         }
     }
 
-    completeBarUpdate(event) {
+    private completeBarUpdate(event) {
         let eventTarget = event.target
         if (eventTarget.getAttribute('class') === 'barChartBody barOver' && !globalStore.isCurrentlyDragging) {
             eventTarget.setAttribute('class', 'barChartBody');
@@ -352,7 +385,7 @@ export class ganttChartBar extends React.Component<any, any> {
         }
     }
 
-    clearTempElements() {
+    private clearTempElements() {
         if (document.getElementById('leftTempCircle')) {
             document.getElementById('ganttChartView').removeChild(document.getElementById('leftTempCircle'))
             document.getElementById('ganttChartView').removeChild(document.getElementById('rightTempCircle'))
@@ -360,28 +393,31 @@ export class ganttChartBar extends React.Component<any, any> {
         globalStore.ganttChartView.refs.infoPopup.hide();
     }
 
-    clearTempLine() {
+    private clearTempLine() {
         if (globalStore.tempLine) {
             document.getElementById('ganttChartView').removeChild(globalStore.tempLine);
             globalStore.tempLine = null;
         }
     }
 
-    contextMenu(event) {
+    private contextMenu(event) {
         console.log(event);
         event.preventDefault();
         event.stopPropagation();
     }
 
-    showModalWindow() {
+    private showModalWindow() {
+        globalStore.ganttChartView.refs.infoPopup.hide();
         let modalWindow = globalStore.ganttChartView.refs.modalWindow;
+        modalWindow.show();
+
         modalWindow.setState({
             title: this.state.title,
+            description: this.state.description,
             startDate: this.state.startDate,
             endDate: this.state.startDate + this.state.duration,
             duration: this.state.duration
         })
-        modalWindow.show();
     }
 
     render() {
@@ -401,19 +437,18 @@ export class ganttChartBar extends React.Component<any, any> {
                 id: this.props.data.id,
                 y: this.state.top,
                 x: this.state.startDate,
-                width: this.state.duration * globalStore.cellSize
+                width: this.state.duration * globalStore.cellCapacity
             }),
             React.createElement('rect', { // complition element
-                onMouseDown: this.updateComplitionState.bind(this),
                 className: 'barChartFillBody',
                 group: this.props.data.barClass,
                 y: this.state.top,
                 x: this.state.startDate,
-                width: this.state.complition * globalStore.cellSize,
+                width: this.state.complition * globalStore.cellCapacity,
             }),
             React.createElement('text', {
                 className: 'barTitle',
-                x: this.state.startDate + (this.state.duration / globalStore.cellCapacity) * globalStore.svgGridWidth * 0.5,
+                x: this.state.startDate + this.state.duration * globalStore.cellCapacity * 0.5,
                 y: this.state.top + 15
             }, this.state.title)
         )
@@ -433,26 +468,26 @@ export class ganttChartConnection extends React.Component<any, any> {
         let secondPointCoordsWidth = secondPoint.getBoundingClientRect().width
 
         if (firstPointCoordsX < secondPointCoordsX - 10) {
-            this.state = {
+            this.setState ({
                 firstPoint: (firstPointCoordsX + firstPointCoordsWidth) + ' , ' + (firstPointCoordsY + 10),
                 secondPoint: (secondPointCoordsX + secondPointCoordsWidth + 30 ) + ' , ' + (firstPointCoordsY + 10),
                 thirdPoint: (secondPointCoordsX + secondPointCoordsWidth + 30 ) + ' , ' + (secondPointCoordsY + 10),
                 endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
-            }
+            })
         } else if (firstPointCoordsX - 10 > secondPointCoordsX) {
-            this.state = {
+            this.setState({
                 firstPoint: (firstPointCoordsX) + ' , ' + (firstPointCoordsY + 10),
                 secondPoint: (secondPointCoordsX - 30) + ' , ' + (firstPointCoordsY + 10),
                 thirdPoint: (secondPointCoordsX - 30) + ' , ' + (secondPointCoordsY + 10),
                 endPoint: (secondPointCoordsX) + ' , ' + (secondPointCoordsY + 10)
-            }
+            })
         } else {
-            this.state = {
+            this.setState({
                 firstPoint: (firstPointCoordsX + firstPointCoordsWidth) + ' , ' + (firstPointCoordsY + 10),
                 secondPoint: (secondPointCoordsX + secondPointCoordsWidth + 30) + ' , ' + (firstPointCoordsY + 10),
                 thirdPoint: (secondPointCoordsX + secondPointCoordsWidth + 30) + ' , ' + (secondPointCoordsY + 10),
                 endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
-            }
+            })
         }
     }
 
@@ -468,7 +503,7 @@ export class ganttChartConnection extends React.Component<any, any> {
         return React.createElement('polyline', {
             points: this.state.firstPoint + ' ' + this.state.secondPoint + ' ' + this.state.thirdPoint + ' ' + this.state.endPoint,
             strokeWidth: 2,
-            stroke: '#888888',
+            stroke: 'rgb(80,80,220)',
             strokeLinecap: 'round',
             strokeLinejoin: 'round',
             markerEnd: 'url(#triangle)',

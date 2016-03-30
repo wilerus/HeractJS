@@ -9,7 +9,7 @@ export class ganttChartData {
     static timelineWeek = []
     static timelineMonth = []
     static timelineDay = []
-    static timelineQuad = []
+    static timelineYear = []
     static ganttBars = []
 
     timelineMonth
@@ -37,6 +37,16 @@ export class ganttChartData {
         'November',
         'December'
     ]
+    yearData = [
+        '2016',
+        '2017',
+        '2018',
+        '2019',
+        '2020',
+        '2021',
+        '2022',
+        '2023'
+    ]
 
     constructor() {
         for (var i = 0; i < this.amountOfElements; i++) {
@@ -46,16 +56,8 @@ export class ganttChartData {
 
             let topMargin = 50 * i
             let text = 'Task ' + i.toString()
-            let leftMargin = globalStore.svgGridWidth * this.counter
+            let leftMargin = 50 * this.counter
             let barClass = 'group1'
-
-            if (this.counter < 6) {
-                barClass = 'group1'
-            } else if (this.counter >= 6 && this.counter <= 11) {
-                barClass = 'group2'
-            } else {
-                barClass = 'group3'
-            }
 
             ganttChartData.ganttBars.push({
                 id: 'bar' + i,
@@ -64,6 +66,7 @@ export class ganttChartData {
                 complition: 20,
                 duration: 80 + this.counter + i,
                 text: text,
+                description:'Description for ' + text,
                 startDate: leftMargin,
                 style: {
                     top: topMargin,
@@ -73,7 +76,7 @@ export class ganttChartData {
 
         for (let i = 0; i <= 10; i++) {
             ganttChartData.timelineWeek.push({
-                id: 'timeline1' + i,
+                id: 'timelineWeek' + i,
                 text: 'Week ' + i,
                 style: {
                     top: 0,
@@ -84,7 +87,7 @@ export class ganttChartData {
             });
             for (let n = 0; n < this.weekData.length; n++) {
                 ganttChartData.timelineWeek.push({
-                    id: 'timeline11' + n + i,
+                    id: 'timelineWeekM' + n + i,
                     text: this.weekData[n],
                     style: {
                         top: 30,
@@ -98,7 +101,7 @@ export class ganttChartData {
 
         for (let i = 0; i <= 11; i++) {
             ganttChartData.timelineMonth.push({
-                id: 'timeline12' + i,
+                id: 'timelineMonth' + i,
                 text: this.monthData[i],
                 style: {
                     top: 0,
@@ -110,7 +113,7 @@ export class ganttChartData {
 
             for (let n = 0; n <= 9; n++) {
                 ganttChartData.timelineMonth.push({
-                    id: 'timeline122' + n + i,
+                    id: 'timelineMonthM' + this.monthData[i] + n,
                     text: (n * 3).toString(),
                     style: {
                         top: 30,
@@ -121,11 +124,11 @@ export class ganttChartData {
                 });
             }
         }//timelineMonth
-
-        for (let i = 0; i <= 11; i++) {
-            ganttChartData.timelineMonth.push({
-                id: 'timeline12' + i,
-                text: this.monthData[i],
+        
+        for (let i = 0; i < 6; i++) {
+            ganttChartData.timelineDay.push({
+                id: 'timelineDay' + i,
+                text: this.weekData[i],
                 style: {
                     top: 0,
                     height: 30,
@@ -134,44 +137,44 @@ export class ganttChartData {
                 }
             });
 
-            for (let n = 0; n <= 9; n++) {
-                ganttChartData.timelineMonth.push({
-                    id: 'timeline122' + n + i,
-                    text: (n * 3).toString(),
+            for (let n = 0; n < 8; n++) {
+                ganttChartData.timelineDay.push({
+                    id: 'timelineDay' + n + i,
+                    text: 'H'+(n * 3).toString(),
                     style: {
                         top: 30,
                         height: 30,
-                        width: 40,
-                        marginLeft: 400 * i + 40 * n
+                        width: 50,
+                        marginLeft: 400 * i + 50 * n
                     }
                 });
             }
         }//timelineDay
-
-        for (let i = 0; i <= 11; i++) {
-            ganttChartData.timelineMonth.push({
-                id: 'timeline12' + i,
-                text: this.monthData[i],
+        
+        for (let i = 0; i <= 8; i++) {
+            ganttChartData.timelineYear.push({
+                id: 'timelineYear' + i,
+                text: this.yearData[i], 
                 style: {
                     top: 0,
                     height: 30,
-                    width: 400,
-                    marginLeft: 400 * i
+                    width: 600,
+                    marginLeft: 600 * i
                 }
             });
 
-            for (let n = 0; n <= 9; n++) {
-                ganttChartData.timelineMonth.push({
-                    id: 'timeline122' + n + i,
-                    text: (n * 3).toString(),
+            for (let n = 0; n <= 11; n++) {
+                ganttChartData.timelineYear.push({
+                    id: 'timelineYearM' + n + i,
+                    text: this.monthData[n],
                     style: {
                         top: 30,
                         height: 30,
-                        width: 40,
-                        marginLeft: 400 * i + 40 * n
+                        width: 50,
+                        marginLeft: 600 * i + 50 * n
                     }
                 });
             }
-        }//timelineQuad
+        }//timelineYear
     }
 }

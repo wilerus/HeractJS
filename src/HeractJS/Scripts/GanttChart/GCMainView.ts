@@ -22,12 +22,27 @@ class ganttChartView extends React.Component<any, any> {
     componentWillMount() {
         this.setState({
             ganttBars: this.props.ganttBars,
-            timeLine: this.props.timeLine,
-            gridWidth: globalStore.svgGridWidth
+            timeLine: this.props.timeLine
         })
     }
 
     render() {
+        let items = this.state.ganttBars.map(function (ganttBar) {
+            if (ganttBar.type === 'bar') {
+                return React.createElement(ganttChartBar, {
+                    key: ganttBar.id,
+                    data: ganttBar,
+                    gridWidth: this.state.gridWidth
+                })
+            } else if (ganttBar.type === 'connection') {
+                return React.createElement(ganttChartConnection, {
+                    ref: ganttBar.id,
+                    key: ganttBar.id,
+                    data: ganttBar
+                })
+            }
+        }.bind(this))
+
         return React.createElement('div', {
             style: {
                 width: '100%',
@@ -73,11 +88,11 @@ class ganttChartView extends React.Component<any, any> {
             })),
                 React.createElement('pattern', {
                     id: 'grid',
-                    width: this.state.gridWidth,
+                    width: globalStore.svgGridWidth,
                     height: 50,
                     patternUnits: 'userSpaceOnUse'
                 }, React.createElement('rect', {
-                    width: this.state.gridWidth,
+                    width: globalStore.svgGridWidth,
                     height: 20,
                     fill: 'url(#smallGrid)',
                     stroke: '#aaaaaa',
@@ -90,21 +105,15 @@ class ganttChartView extends React.Component<any, any> {
                     height: '100%',
                     fill: 'url(#grid)'
                 }),
-                this.state.ganttBars.map(function (ganttBar) {
-                    if (ganttBar.type === 'bar') {
-                        return React.createElement(ganttChartBar, {
-                            key: ganttBar.id,
-                            data: ganttBar,
-                            gridWidth: this.state.gridWidth
-                        })
-                    } else if (ganttBar.type === 'connection') {
-                        return React.createElement(ganttChartConnection, {
-                            ref: ganttBar.id,
-                            key: ganttBar.id,
-                            data: ganttBar
-                        })
-                    }
-                }.bind(this))
+                //React.createElement('ReactCSSTransitionGroup', {
+                //    width: '1000px',
+                //    height: '1000px',
+                //    transitionName: "example",
+                //    transitionEnterTimeout: 500,
+                //    transitionLeaveTimeout: 500
+                //}, 
+                items
+           // )
             )
         )
     }
@@ -114,4 +123,3 @@ globalStore.ganttChartView = DOM.render(React.createElement(ganttChartView, {
     ganttBars: ganttChartData.ganttBars,
     timeLine: ganttChartData.timelineWeek
 }), document.getElementById('gantChartView')) as any
-globalStore.cellCapacity = 24

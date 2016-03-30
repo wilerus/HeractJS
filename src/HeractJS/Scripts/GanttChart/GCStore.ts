@@ -1,4 +1,5 @@
-﻿
+﻿import React = require('react')
+
 export class globalStore {
    static isCurrentlyDragging: boolean
    static isDrawingConnection: boolean
@@ -10,16 +11,10 @@ export class globalStore {
 
    static svgGridWidth: number = 50
    static ganttChartView: any
-   static cellCapacity: number = 24
-   static cellSize: number = 50/24
+   static cellCapacity: number = 50 / 24
+   
+   static currentDropTarget: React.Component<any, any>
+   static currentDraggingElement: React.Component<any, any>
 
-   static connectionFirstPoint: any
-   static connectionEndPoint: any
-
-   static currentDropTarget: any
-   static currentDraggingElement: any
-
-   static newSvgPaletId: number
    static tempLine: any
-   static tempFunc: any
 }

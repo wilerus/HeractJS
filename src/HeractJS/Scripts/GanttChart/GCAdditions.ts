@@ -14,7 +14,8 @@ export class ganttChartInfoPopup extends React.Component<any, any> {
             title: 'title',
             startDate: 'Placeholder',
             endDate: 'Placeholder',
-            duration: 'Placeholder'
+            duration: 'Placeholder',
+            description: 'description'
         }
     }
 
@@ -42,7 +43,7 @@ export class ganttChartInfoPopup extends React.Component<any, any> {
             }, this.state.title),
             React.createElement('div', {
                 className: 'infoPopupText',
-            }, 'Description'  /* + this.state.description*/),
+            }, this.state.description),
             React.createElement('div', {
                 className: 'infoPopupText',
             }, 'Start date ' + this.state.startDate + ' hours'),
@@ -62,12 +63,9 @@ export class ganttChartModalWindow extends React.Component<any, any> {
             title: 'title',
             startDate: 'Placeholder',
             endDate: 'Placeholder',
-            duration: 'Placeholder'
+            duration: 'Placeholder',
+            description: 'description'
         }
-    }
-
-    componentDidMount() {
-
     }
 
     hide() {
@@ -83,61 +81,60 @@ export class ganttChartModalWindow extends React.Component<any, any> {
     render() {
         return React.createElement('div', {
             id: 'modalWindowWrapper',
-            className: 'modalWindowWrapper',
-            style: {
-                left: this.state.left,
-                top: this.state.top
-            }
+            className: 'modalWindowWrapper'
         },
             React.createElement('div', {
                 id: 'modalWindow',
-                className: 'modalWindow',
-                style: {
-                    left: this.state.left,
-                    top: this.state.top
-                }
+                className: 'modalWindow'
             },
-                React.createElement('div', {
+                React.createElement('input', {
+                    type:'text',
                     className: 'infoPopupTitle',
-                }, this.state.title),
-                React.createElement('label', {
-                    htmlFor: 'modalWindowInputStart',
+                    value: this.state.title
+                }),
+                React.createElement('input', {
+                    type: 'text',
+                    className: 'infoPopupDescription',
+                    value: this.state.description
+                }),
+                React.createElement('span', {
+                    className: 'GCInputLabel'
                 }, 'Task start: '),
                 React.createElement('input', {
                     id: 'modalWindowInputStart',
                     type: 'datetime-local',
                     className: 'modalWindowInput',
-                    value: this.state.startDate
+                    defaultValue: this.state.startDate
                 }),
-                React.createElement('label', {
-                    htmlFor: 'modalWindowInputFinish',
+                React.createElement('span', {
+                    className: 'GCInputLabel'
                 }, 'Task finish: '),
                 React.createElement('input', {
                     id: 'modalWindowInputFinish',
                     type: 'datetime-local',
                     className: 'modalWindowInput',
-                    value: this.state.completeDate
+                    defaultValue: this.state.completeDate
                 }),
-                React.createElement('label', {
-                    htmlFor: 'modalWindowInputDuration',
+                React.createElement('span', {
+                    className: 'GCInputLabel'
                 }, 'Task duration: '),
                 React.createElement('input', {
                     id: 'modalWindowInputDuration',
                     type: 'datetime-local',
                     className: 'modalWindowInput',
-                    value: this.state.completeDate
+                    defaultValue: this.state.completeDate
                 }),
                 React.createElement('button', {
                     onMouseDown: this.hide.bind(this),
                     id: 'modalWindowButtonOk',
                     type: 'datetime-local',
-                    className: 'modalWindowButtonOk',
+                    className: 'modalWindowButtonOk'
                 }, 'Ok'),
                 React.createElement('button', {
                     onMouseDown: this.hide.bind(this),
                     id: 'modalWindowButtonCancel',
                     type: 'datetime-local',
-                    className: 'modalWindowButtonCancel',
+                    className: 'modalWindowButtonCancel'
                 }, 'Cancel')
             )
         )

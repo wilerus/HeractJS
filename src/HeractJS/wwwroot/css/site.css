@@ -43,7 +43,7 @@
     background-color: #3db9d3;
     box-shadow: 0 0 5px #299cb4;
     height: 20px;
-    fill: rgb(120,190,120);  
+    fill: rgb(120,190,120);
 }
 
 .barTitle {
@@ -55,14 +55,14 @@
     -ms-user-select: none; /* IE 10+ */
     user-select: none;
     text-anchor: middle;
-    pointer-events:none;
+    pointer-events: none;
 }
 
 .barDragging {
 }
 
 .barOver {
-    stroke-width:1px;
+    stroke-width: 1px;
     stroke: rgb(80,80,220);
 }
 
@@ -117,67 +117,92 @@
     position: absolute;
     z-index: 20;
     display: none;
-    pointer-events:none;
+    pointer-events: none;
 }
-.infoPopupTitle{
-    width:100%;
-    height:20px;
-    text-align:center;
-    padding:5px;
+
+.infoPopupTitle {
+    width: 100%;
+    height: 20px;
+    text-align: center;
+    padding: 0;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
 }
-.infoPopupText{
-    width:100%;
-    height:20px;
-    padding:5px;
+
+.infoPopupDescription {
+    width: 100%;
+    height: 20px;
+    text-align: center;
+    padding: 0;
+    font-size: 16px;
+    border: none;
+}
+
+.infoPopupText {
+    width: 100%;
+    height: 20px;
+    padding: 5px;
 }
 /*modalWindow*/
 .modalWindowWrapper {
     position: fixed;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0,0,0,0.1);
-    display:flex;
-    align-items:center;
-    align-content:center;
-    justify-content:center;
-    flex-direction:row;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-direction: row;
     display: none;
-    z-index:30;
+    z-index: 30;
     backdrop-filter: blur(10px);
 }
+
 .modalWindow {
     width: 400px;
     height: 400px;
     background-color: white;
     box-shadow: 0 0 8px rgba(0,0,0,0.6);
     z-index: 20;
+    display: block;
+    position: relative;
 }
-.modalWindowInput{
-    width:320px;
-    height:34px;
-    border:none;
-    padding:5px;
+
+.modalWindowInput {
+    width: 300px;
+    height: 34px;
+    border: none;
+    padding: 5px;
     box-sizing: border-box;
 }
-.modalWindowButtonOk {    
-    width:68px;
-    height:22px;
-    bottom:0;
-    left:0;
-    background-color:rgb(200,200,255);
-    border:1px solid black;
-    border:none;
-    color:white;
-    box-shadow: 0 0 4px rgba(0,0,0,1);
+
+.modalWindowButtonOk {
+    width: 50%;
+    height: 22px;
+    bottom: 0;
+    left: 0;
+    border: none;
+    background-color: white;
+    position: absolute;
+    float: none;
 }
+
 .modalWindowButtonCancel {
-    bottom:0;
-    width:68px;
-    height:22px;
-    right:0;
-    background-color:rgb(255,255,255);
-    border:none;
-    box-shadow: 0 0 4px rgba(0,0,0,1);
+    width: 50%;
+    height: 22px;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    border: none;
+    border-left: 1px solid gray;
+    position: absolute;
+    float: none;
+}
+
+.GCInputLabel {
+    width: 90px;
 }
 /*infoPopup animation*/
 .example-enter {
