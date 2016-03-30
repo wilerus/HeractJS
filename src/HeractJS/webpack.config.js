@@ -10,8 +10,8 @@ module.exports = {
     console: true,
     entry: {
         'gantt': './Scripts/GanttChart/GCMainView.ts',
-      //  'shared': './scripts/project/shared/bootstrap.js',
-      //  'navigation': './scripts/project/navigation/module.js',
+        //  'shared': './scripts/project/shared/bootstrap.js',
+        //  'navigation': './scripts/project/navigation/module.js',
         'project': './Scripts/project/Application.js'
     },
     output: {
@@ -25,6 +25,7 @@ module.exports = {
             'coreui': 'comindware.core.ui',
             'comindware/core': 'comindware.core.ui',
             'rootpath': path.resolve(__dirname + '/scripts/project'),
+            'recourcePath': path.resolve(__dirname + '/wwwroot/resources'),
             'sharedpath': path.resolve(__dirname + '/scripts/project/shared'),
             'prism': path.resolve(__dirname + '/scripts/lib/prism/prism.js'),
             'shared': path.resolve(__dirname + '/scripts/project/shared/bootstrap.js'),
@@ -39,34 +40,37 @@ module.exports = {
         }
     },
     module: {
-        loaders: [{
-            test: /\.tsx?$/,
-            exclude: /(node_modules|bower_components)/,
-            loader: 'ts-loader'
-        }, {
-            test: /\.hbs$/,
-            loader: "handlebars-loader"
-        }, {
-            test: /\.html$/,
-            loader: "html"
-        }, {
-            test: /^text!/,
-            loader: "text-loader"
-        }, {
-            test: /\.css$/,
-            loader: ExtractTextPlugin.extract('style-loader', ['css-loader', 'postcss-loader'].join('!'))
-        }, {
-            test: /\.scss$/,
-            loader: ExtractTextPlugin.extract('style-loader', ['css-loader', 'postcss-loader', 'sass-loader'].join('!'))
-        }]
+        loaders: [
+            {
+                test: /\.tsx?$/,
+                exclude: /(node_modules|bower_components)/,
+                loader: 'ts-loader'
+            }, {
+                test: /\.hbs$/,
+                loader: "handlebars-loader"
+            }, {
+                test: /\.html$/,
+                loader: "html"
+            }, {
+                test: /^text!/,
+                loader: "text-loader"
+            }, {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+            }, {
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract('style-loader', ['css-loader', 'postcss-loader', 'sass-loader'].join('!'))
+            }
+        ]
     },
     plugins: [
         new CommonsChunkPlugin({ name: 'commons', filename: 'commons.js' }),
-        new LimitChunkCountPlugin({maxChunks: 1}),
+        new LimitChunkCountPlugin({ maxChunks: 1 }),
         new AggressiveMergingPlugin({
             minSizeReduce: 1.5,
             moveToParents: true
-        })
+        }),
+        new ExtractTextPlugin('bundle.css')
         //new webpack.optimize.DedupePlugin(),
         //new webpack.optimize.OccurenceOrderPlugin(),
         //new webpack.optimize.UglifyJsPlugin()

@@ -16,14 +16,16 @@ define([
     'coreui', 'shared',
     'rootpath/moduleConfigs',
     'navigation', 'rootpath/NavigationContext',
-    'rootpath/CurrentUserModel'
+    'rootpath/CurrentUserModel',
+    'rootpath/StylesConfig'
     ],
-    function (en, core, shared, moduleConfigs, navigation, navigationContext, currentUserModel) {
+    function (en, core, shared, moduleConfigs, navigation, navigationContext, currentUserModel, stylesConfig) {
     'use strict';
 
     window.Context = {};
     window.ajaxMap = [];
     window.flag_debug = true;
+    window.langCode = 'en';
 
     Localizer.initialize({
         langCode: 'EN',
