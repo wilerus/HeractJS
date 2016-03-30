@@ -13,7 +13,7 @@
 
 define([
         'comindware/core',
-        'text!../templates/case.html'
+        '../templates/case.hbs'
     ],
     function (core, template) {
         'use strict';
@@ -22,6 +22,6 @@ define([
 
             className:'demo-cases__li',
 
-            template: Handlebars.compile(template)
+            template: template
         });
     });

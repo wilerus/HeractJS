@@ -13,14 +13,14 @@
 
 define([
     'comindware/core',
-    'text!../templates/listSearchCanvas.html'
+    '../templates/listSearchCanvas.hbs'
 ], function (core, template) {
     'use strict';
     return Marionette.LayoutView.extend({
         initialize: function () {
         },
 
-        template: Handlebars.compile(template),
+        template: template,
 
         regions: {
             searchRegion: '.js-search-region',

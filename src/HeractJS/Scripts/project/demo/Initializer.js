@@ -45,14 +45,14 @@ define([
 
         contentView: DemoContentView,
 
-        navigate: function() {
+        navigate: function () {
             this.view.setNavigationVisibility(false);
             this.moduleRegion.show(new NavigationView({
                 collection: this.view.collection
             }));
         },
 
-        navigateToCase: function(sectionId, groupId, caseId) {
+        navigateToCase: function (sectionId, groupId, caseId) {
             this.view.setNavigationVisibility(true);
             this.moduleRegion.show(new ModuleView({
                 activeSectionId: sectionId,

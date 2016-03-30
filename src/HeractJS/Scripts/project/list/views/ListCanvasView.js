@@ -12,15 +12,14 @@
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
 define([
-    'comindware/core',
-    '../templates/listCanvas.hbs'
-], function (core, template) {
+    './template/listCanvas.html'
+], function (template) {
     'use strict';
     return Marionette.LayoutView.extend({
         initialize: function () {
         },
 
-        template: template,
+        template: Handlebars.compile(template),
 
         regions: {
             contentRegion: '.js-content-region',

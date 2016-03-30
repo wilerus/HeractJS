@@ -29,6 +29,7 @@ define([
             MYTASKS_DESIGNER: 'module:myTasks:formDesigner',
             PEOPLE_USERS: 'module:people:users',
             DEMO_CORE: 'module:demo:core',
+            GRID: 'module:grid',
 
             PROJECT_ROOMS_SHOWALL: 'module:project:rooms:showAll',
             PROJECT_ROOMS_OVERVIEW: 'module:project:rooms:overview',
@@ -79,7 +80,6 @@ define([
 
             getModuleUrlByName: function (urlName, moduleId, options) {
                 //return '#' + moduleId + '/' + urlName;
-                debugger;
 
                 options = options || {};
                 var moduleConfig = _.findWhere(configs, { id : moduleId });

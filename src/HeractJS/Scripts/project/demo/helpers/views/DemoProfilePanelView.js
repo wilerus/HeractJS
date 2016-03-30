@@ -12,7 +12,7 @@
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
 define([
-        'text!../templates/demoProfilePanel.html',
+        '../templates/demoProfilePanel.hbs',
         'comindware/core'
     ],
     function (template, core) {
@@ -20,6 +20,6 @@ define([
         return Marionette.ItemView.extend({
             className: 'nav-profile_test',
 
-            template: Handlebars.compile(template)
+            template: template
         });
     });

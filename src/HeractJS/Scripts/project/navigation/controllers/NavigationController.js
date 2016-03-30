@@ -68,7 +68,7 @@ define([
                 }.bind(this));
             },
 
-            __getNavigationItems: function (context) {
+            __getNavigationItems: function (context) {	    
                 //noinspection JSUnresolvedVariable
                 var itemsArray = _.chain(context.workspace)
                     .filter(function (wsItem) {
@@ -81,6 +81,9 @@ define([
                                 return wsItem;
                                 break;
                             case 'cmw.workspace.RecordsItem':
+                                return wsItem;
+                                break;
+                            case 'cmw.workspace.GridItem':
                                 return wsItem;
                                 break;
                             case 'cmw.workspace.SettingsItem':

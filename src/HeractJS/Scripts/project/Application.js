@@ -15,14 +15,21 @@ define([
     'LANGMAPEN',
     'coreui', 'shared',
     'rootpath/moduleConfigs',
-    'navigation', 'rootpath/NavigationContext'
+    'navigation', 'rootpath/NavigationContext',
+    'rootpath/CurrentUserModel'
     ],
-    function (en, core, shared, moduleConfigs, navigation, navigationContext) {
+    function (en, core, shared, moduleConfigs, navigation, navigationContext, currentUserModel) {
     'use strict';
 
     window.Context = {};
     window.ajaxMap = [];
     window.flag_debug = true;
+
+    Localizer.initialize({
+        langCode: 'EN',
+        localizationMap: window['LANGMAPEN'],
+        warningAsError: !!window.Context.compiled
+    });
 
     var App = new Marionette.Application();
 
@@ -60,6 +67,7 @@ define([
     };
 
     function configure() {
+        var langCode = Context.langCode = 'EN';
         // DateTimePicker
         if (!$.fn.datetimepicker.dates[langCode]) {
             $.fn.datetimepicker.dates[langCode] = {
@@ -72,14 +80,25 @@ define([
                 meridiem: Localizer.get('CORE.FORMATS.DATETIME.MERIDIEM').split(',')
             };
         }
-
-
-        // Backbone default behaviors path (obsolete because of inconsistency: we store behaviors in many different paths)
-        Backbone.Marionette.Behaviors.behaviorsLookup = shared.views.behaviors;
-        // obsolete old stuff initialization
-        //noinspection JSUnresolvedVariable
     }
     App.addInitializer(function () {
+        // Module service
+        App.currentUser = new currentUserModel(JSON.parse('{"UserId":"account.1","UserName":"admin","UserAbbreviation":"ad","UserLogin":"admin","PersonalContainer":"account.1_tasks","Language":"EN","NeedTrialInfo":false,"TutorialCompletedSteps":0,"TutorialDismissed":false,"IsAdmin":true,"IsManager":false,"IsResourcePoolManager":false,"IsSystemAdmin":false,"HasSubordinates":false}'));
+        shared.services.ModuleService.initialize({
+            modules: appModuleConfigs
+        });
+        App.navigationController = new navigation.Controller({
+            context: navigationContext,
+            predefinedItems: userDefinedNavigationItems
+        });
+        // Routing service loads and initializes all the application routes and modules
+        shared.services.RoutingService.initialize({
+            defaultUrl: App.navigationController.getDefaultUrl(),
+            modules: appModuleConfigs
+        });
+        shared.services.SecurityService.initialize({
+            // userPermissions: Context.configurationModel.GlobalPermissions
+        });
 
         core.initialize({
             cacheService: shared.services.CacheService,
@@ -96,30 +115,6 @@ define([
                 popupRegion: App.popupRegion,
                 ui: App.ui
             }
-        });
-
-        // Module service
-        shared.services.ModuleService.initialize({
-            modules: appModuleConfigs
-        });
-        // Navigation
-        App.navigationController = new navigation.Controller({
-            context: navigationContext,
-            predefinedItems: userDefinedNavigationItems
-        });
-        shared.services.SecurityService.initialize({
-           // userPermissions: Context.configurationModel.GlobalPermissions
-        });
-        // Routing service loads and initializes all the application routes and modules
-        shared.services.RoutingService.initialize({
-            defaultUrl: App.navigationController.getDefaultUrl(),
-            modules: appModuleConfigs
-        });
-        // Window service provides global dialog and other stuff
-        core.services.WindowService.initialize({
-            fadingRegion: App.fadingRegion,
-            popupRegion: App.popupRegion,
-            ui: App.ui
         });
 
         // After that we show left navigation

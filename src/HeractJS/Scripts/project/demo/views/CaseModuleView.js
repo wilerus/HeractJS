@@ -11,24 +11,23 @@
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer, Prism */
 
-define(['text!../templates/caseModule.html', 'comindware/core', 'prism', 'require', 'markdown'],
-    function (template, core, prism, require) {
+define(['../templates/caseModule.hbs', 'comindware/core', 'prism', 'markdown'],
+    function (template, core, prism, markdown) {
         'use strict';
 
         return Marionette.LayoutView.extend({
             initialize: function (options) {
-                this.loadCaseData();
             },
 
             modelEvents: {
                 'change': 'render'
             },
 
-            template: Handlebars.compile(template),
+            template: template,
 
             templateHelpers: function () {
                 return {
-                    description: markdown.toHTML(this.model.get('description') || '')
+                    description: markdown.markdown.toHTML(this.model.get('description') || '')
                 };
             },
 
@@ -41,24 +40,27 @@ define(['text!../templates/caseModule.html', 'comindware/core', 'prism', 'requir
             },
 
             onRender: function () {
-                Prism.highlightElement(this.ui.code[0]);
+                prism.highlightElement(this.ui.code[0]);
+                this.loadCaseData();
             },
 
-            loadCaseData: function() {
+            loadCaseData: function () {
                 var path;
                 if (this.model.id) {
                     path = this.model.get('sectionId') +'/' + this.model.get('groupId') + '/' + this.model.id;
                 } else {
                     path = this.model.get('sectionId') +'/' + this.model.get('groupId');
                 }
-                var caseScriptPath = 'text!../cases/' + path + '.js';
-                var caseScript = '../cases/' + path;
+                var caseScriptPath = 'text!./cases/' + path + '.js';
+                var caseScript = './cases/' + path;
 
-                require([ caseScriptPath, caseScript ], function(caseSourceText, caseFactory) {
-                    this.model.set('sourceCode', caseSourceText);
-                    var representationView = caseFactory();
-                    this.caseRepresentationRegion.show(representationView);
-                }.bind(this));
+                var contextRequire = require.context('rootpath/demo/');
+                //var caseSourceText = contextRequire(caseScriptPath);
+                //this.model.set('sourceCode', caseSourceText);
+
+                var caseFactory = contextRequire(caseScript);
+                var representationView = caseFactory();
+                this.caseRepresentationRegion.show(representationView);
             }
         });
     });

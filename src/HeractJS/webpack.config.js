@@ -12,7 +12,7 @@ module.exports = {
         'gantt': './Scripts/GanttChart/GCMainView.ts',
       //  'shared': './scripts/project/shared/bootstrap.js',
       //  'navigation': './scripts/project/navigation/module.js',
-        'project': './Scripts/project/Application.js',
+        'project': './Scripts/project/Application.js'
     },
     output: {
         path: path.join('./wwwroot/', 'js'),
@@ -30,8 +30,12 @@ module.exports = {
             'shared': path.resolve(__dirname + '/scripts/project/shared/bootstrap.js'),
             'demoPage': path.resolve(__dirname + '/scripts/project/demo/helpers'),
             'demoInitializer': path.resolve(__dirname + '/scripts/project/demo/Initializer'),
+            'listInitializer': path.resolve(__dirname + '/scripts/project/list/Initializer'),
+            'profileAboutInitializer': path.resolve(__dirname + '/scripts/project/profile/aboutandextras/Initializer'),
+            'profileNotificationInitializer': path.resolve(__dirname + '/scripts/project/profile/notificationSettings/Initializer'),
+            'profileProfileInitializer': path.resolve(__dirname + '/scripts/project/profile/profile/Initializer'),
             'navigation': path.resolve(__dirname + '/scripts/project/navigation/module.js'),
-            'LANGMAPEN': path.resolve(__dirname + '/wwwroot/js/compiled/localizationmap.en.js'),
+            'LANGMAPEN': path.resolve(__dirname + '/wwwroot/js/compiled/localizationmap.en.js')
         }
     },
     module: {
@@ -72,4 +76,4 @@ module.exports = {
         path.resolve(__dirname + '/Scripts/'),
         path.resolve(__dirname + '/wwwroot/js/')
     ]
-}
+};

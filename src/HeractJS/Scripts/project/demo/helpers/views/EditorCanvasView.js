@@ -11,7 +11,7 @@
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define(['text!../templates/editorCanvas.html', 'comindware/core', './PresentationItemView'],
+define(['../templates/editorCanvas.hbs', 'comindware/core', './PresentationItemView'],
     function (template, core, PresentationItemView) {
         'use strict';
 
@@ -26,7 +26,7 @@ define(['text!../templates/editorCanvas.html', 'comindware/core', './Presentatio
                 this.editor = options.editor;
             },
 
-            template: Handlebars.compile(template),
+            template: template,
 
             ui: {
                 editorRegion: '.js-editor-region'

@@ -53,7 +53,7 @@ define([
                         return;
                     }
                     //clear all promises of the previous module
-                    core.services.PromiseServer.cancelAll();
+//                    core.services.PromiseServer.cancelAll();
                     if (!loadingContext.loaded) {
                         activeModule.view.setModuleLoading(true);
                     }
