@@ -6,3 +6,4 @@ src/HeractJS/wwwroot/js/commons.js
 src/HeractJS/wwwroot/js/*.bundle.js
 src/HeractJS/wwwroot/js/*.map
 src/HeractJS/.idea/
+src/HeractJS/wwwroot/js/*.css
