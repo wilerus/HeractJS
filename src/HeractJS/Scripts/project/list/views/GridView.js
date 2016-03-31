@@ -22,11 +22,31 @@ define([
             });
         }
 
+        var layoutView = Marionette.LayoutView.extend({
+            template: Handlebars.compile('<div class="text-editor-wrapper"></div>'),
+
+            regions: {
+                editorWrapperRegion: '.text-editor-wrapper'
+            },
+
+            onRender: function() {
+                this.editorWrapperRegion.show(new core.form.editors.TextEditor({
+                    key: 'value',
+                    changeMode: 'keydown',
+                    autocommit: true,
+                    model: this.model
+                }));
+                this.model.on('change', function() {
+                    console.log(this.get('value'));
+                })
+            }
+        });
+
         // 2. Create columns
         var columns = [
             {
                 id: 'textCell',
-                cellView: core.list.cellFactory.getTextCellView(),
+                cellView: layoutView,
                 viewModel: new Backbone.Model({displayText: 'TextCell'}),
                 sortAsc: core.utils.helpers.comparatorFor(core.utils.comparators.stringComparator2Asc, 'textCell'),
                 sortDesc: core.utils.helpers.comparatorFor(core.utils.comparators.stringComparator2Desc, 'textCell'),

@@ -17,7 +17,8 @@ module.exports = {
     output: {
         path: path.join('./wwwroot/', 'js'),
         filename: 'cmw.tracker.[name].bundle.js',
-        chunkFilename: "[id].chunk.js"
+        chunkFilename: "[id].chunk.js",
+        publicPath: path.join('./wwwroot/', 'js')
     },
     resolve: {
         extensions: ['', '.Webpack.js', '.web.js', '.ts', '.js', '.tsx'],
