@@ -24,12 +24,115 @@
         name="ContentView"
         isAbstract="false"
         isLeaf="false"
-        isActiveClass="false" />
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="036f1f64-1687-4d64-98d0-d916a27eb004"
+            name="template"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="c8150d02-dc28-4371-a3c0-131d8ba5e668"
+            name="className"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="c7d16837-8302-40fa-97d8-d4ec38f2ab95"
+            name="behaviors"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="057ad852-648a-4395-a349-e0b34003b607"
+            name="ui"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="e2fc6b17-6423-4d93-93d1-4c35d5f01aa3"
+            name="regions"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="de9cf6d8-a8bb-4629-842d-37c7b6c1e402"
+            name="define"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ab8bb018-dcc1-45f0-9bb5-5ac93832e655"
+                  name="shared"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b1889cb0-fdf2-455d-995c-d7db75f6a9cb"
+                  name="template"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="c3bb23cd-db7b-49f0-af22-cd6175211150"
+            name="setNavigationVisibility"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e661869f-14a0-480a-bd8b-0361b279dd31"
+                  name="visible"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
         Id="810fa55f-d581-48fe-afdc-072b41e557f9"
-        name="GridView"
+        name="GridViewWidget"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -151,6 +254,123 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="9fb75726-dd4c-484a-8cb7-e3e002d2da47"
+            isDerived="false"
+            sourceEndRoleName="GridView"
+            targetEndRoleName="Columns"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="6399ed6b-fcb5-4bb4-8b9c-f0f7d8872283"
+              LastKnownName="ColumnsModel"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="90e5ecb6-558e-4c62-a731-41d7b5eb885c"
+                  name="GridView"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="028c936a-9a52-4393-a39d-753ac9bb8650"
+                  name="Columns"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="61e2de82-5468-42c7-9221-73ca8c9045b4"
+            isDerived="false"
+            sourceEndRoleName="GridViewWidget"
+            targetEndRoleName="FieldViewFactory"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="eae30b7c-1c63-41ba-9571-58134e85203a"
+              LastKnownName="FieldViewFactory"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1615ac6f-88a1-485e-b44e-c3e82fca7a79"
+                  name="GridViewWidget"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d3bed36e-352f-4f5c-a349-06d215561dca"
+                  name="FieldViewFactory"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="c170acde-0867-4f57-b0b8-92161a3436bd"
+            isDerived="false"
+            sourceEndRoleName="GridViewWidget"
+            targetEndRoleName="XItemsService"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="c250426f-4f31-46c1-8554-f9eac111d6a7"
+              LastKnownName="XItemsService"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="47d5f7aa-4f0d-4f2b-9a02-e8c9c6f1341e"
+                  name="GridViewWidget"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="95a6c805-65d7-46d5-839f-33167acb0294"
+                  name="XItemsService"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
         <ownedAttributesInternal>
           <property
@@ -165,6 +385,40 @@
             aggregation="None"
             isComposite="false" />
         </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="7e3837ee-8f1a-4e3a-9711-c6d934c43ddd"
+            name="define"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="a17169f0-e9c4-4f52-bfc6-bf39b031b2eb"
+                  name="core"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="17845b1a-06ba-45c7-9dd1-e19f8cc23b61"
+                  name="listCanvasView"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="33defc73-79bf-446a-8ddd-648f06bfcaf0"
+                  name="columnsMode"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -254,30 +508,6 @@
             </relationshipOwnedElementsInternal>
           </association>
         </targetEnds>
-        <ownedAttributesInternal>
-          <property
-            Id="951dd5dd-c97a-478a-8413-683f39493648"
-            name="content"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false" />
-          <property
-            Id="d76810f7-37be-4d1a-966c-d8007b1d72c4"
-            name="scrollbar"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false" />
-        </ownedAttributesInternal>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -336,7 +566,7 @@
             isAbstract="false">
             <classMoniker
               Id="810fa55f-d581-48fe-afdc-072b41e557f9"
-              LastKnownName="GridView"
+              LastKnownName="GridViewWidget"
               LastKnownLocation="Model.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
@@ -389,6 +619,38 @@
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false" />
+          <operation
+            Id="39fdf5cb-45c9-4c3f-b29d-e14451e8f056"
+            name="define"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="9b00106e-99f4-43c9-ada9-16191369204e"
+                  name="shared"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="5bcc4604-e7da-464f-9f7a-a111c444183c"
+                  name="contentView"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="bd5dcc1a-f988-4938-8a12-412db12365b7"
+                  name="gridView"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -607,20 +869,46 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
-        </targetEnds>
-        <ownedAttributesInternal>
-          <property
-            Id="75e52f52-d9be-4871-a6eb-c4d0ddb806dd"
-            name="columnsModel"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
+          <association
+            Id="10e2b46f-cc4f-43c0-9522-f1842b315158"
             isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false" />
-        </ownedAttributesInternal>
+            sourceEndRoleName="core.gridRow"
+            targetEndRoleName="RowModel"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="f8591737-a332-4031-85bb-191cc369ae02"
+              LastKnownName="RowModel"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="956ed255-33a9-4056-980c-cb40074382a2"
+                  name="core.gridRow"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2e5b508f-2b1d-4abd-9a2f-fc0b4ef78773"
+                  name="RowModel"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -670,20 +958,46 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
-        </targetEnds>
-        <ownedAttributesInternal>
-          <property
-            Id="32405281-409a-4bb1-9fb1-f284b1799eff"
-            name="model"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
+          <association
+            Id="1b316ee0-f422-47f5-8b0f-b2533ed26a58"
             isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false" />
-        </ownedAttributesInternal>
+            sourceEndRoleName="core.gridCell"
+            targetEndRoleName="Model"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="3b33bc5a-928b-4a77-8dd1-cdbc4932fc46"
+              LastKnownName="CellModel"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1bc717d6-c3da-47f0-a124-41fa628d85d2"
+                  name="core.gridCell"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="384cc060-050c-4b20-9f62-0f904890ce3b"
+                  name="Model"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -742,7 +1056,62 @@
         name="core.VirtulaCollection"
         isAbstract="false"
         isLeaf="false"
-        isActiveClass="false" />
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="94282c55-da64-47b9-823f-7a9a32e56804"
+            isDerived="false"
+            sourceEndRoleName="core.VirtulaCollection"
+            targetEndRoleName="Rows"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="f8591737-a332-4031-85bb-191cc369ae02"
+              LastKnownName="RowModel"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="35ef0820-afe1-4fee-b0a8-3e4679993bc0"
+                  name="core.VirtulaCollection"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="5c465bf8-4b35-45e3-90bd-8bae8e3be545"
+                  name="Rows"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="d05a0a8d-351b-4d45-8c1d-685ce0ab51d1"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="36c6c27d-f19e-440a-a5cd-71d04722ba44"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
@@ -1940,6 +2309,1204 @@
             concurrency="Sequential"
             isQuery="false" />
         </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="3b33bc5a-928b-4a77-8dd1-cdbc4932fc46"
+        name="CellModel"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="30f50230-bd8f-44cc-a3ac-1bc21c981cc0"
+            name="Value"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="bbf44ea9-d9ab-4b67-be4c-dfb2c8c117c9"
+        name="ColumnsValue"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="f8591737-a332-4031-85bb-191cc369ae02"
+        name="RowModel"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="3bd6cc15-2b1a-4386-b4bb-a57fa233403f"
+            isDerived="false"
+            sourceEndRoleName="RowModel"
+            targetEndRoleName="Values"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="dbad459a-3395-41af-8533-2499218bb54c"
+              LastKnownName="KeyValue"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="146d93f2-1da4-4bf8-9cce-d38b19ba038e"
+                  name="RowModel"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="6bd0a668-fec8-4d6e-bb07-635cc29a2154"
+                  name="Values"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="13c0864a-8dae-457a-b01a-6c17828988c3"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="b41e203a-ac0e-4880-8720-89c7f8cc4451"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="b1c23155-deed-4cb1-b5b6-12d7f7d4796c"
+            name="p11"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="c4cfaf34-6afa-499c-9fdb-19f152aa8835"
+            name="p12"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="7bec3245-8dff-4ad7-b330-0804039e2aff"
+            name="p13"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="9ff847f7-3bba-488d-a483-a40477567039"
+            name="p14"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="8b9843ef-c60a-4fdd-8555-047f6deb4d3e"
+            name="p15"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="dbad459a-3395-41af-8533-2499218bb54c"
+        name="KeyValue"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="f3e10e0c-a9fc-4fac-8b7c-e10d81565453"
+            isDerived="false"
+            sourceEndRoleName="KeyValue"
+            targetEndRoleName="Value"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="3b33bc5a-928b-4a77-8dd1-cdbc4932fc46"
+              LastKnownName="CellModel"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="5db31045-ed3c-420b-8480-2908f18b161b"
+                  name="KeyValue"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="e066fe8a-4d0e-4c80-b19e-8b624258615b"
+                  name="Value"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="0a47ba92-840a-477f-9595-2e0e98f6a27a"
+            name="Key"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="6399ed6b-fcb5-4bb4-8b9c-f0f7d8872283"
+        name="ColumnsModel"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="b33958d7-0ec1-4171-a2ed-77fba50b0588"
+        name="EditorFactory"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="eae30b7c-1c63-41ba-9571-58134e85203a"
+        name="FieldViewFactory"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="d641be23-d4f4-48a6-82a8-e6d377b590c3"
+            isDerived="false"
+            sourceEndRoleName="FieldViewFactory"
+            targetEndRoleName="EditorFactory"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="b33958d7-0ec1-4171-a2ed-77fba50b0588"
+              LastKnownName="EditorFactory"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d72a3f78-e579-4ff3-8c0d-52715a8a639c"
+                  name="FieldViewFactory"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d28d538a-436a-4441-b834-3c8bab52cbb7"
+                  name="EditorFactory"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="66209422-5a92-47aa-931a-3ff5d5f168b6"
+        name="FieldView"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="91cc0482-8c1b-4386-bf5e-9ecd05d7aa11"
+        name="TextEditor"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="90faf562-0f56-4b2d-a19f-f74779e65be5"
+            isSubstitutable="false">
+            <classMoniker
+              Id="66209422-5a92-47aa-931a-3ff5d5f168b6"
+              LastKnownName="FieldView"
+              LastKnownLocation="Model.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="47afb8ca-644a-442d-a2f5-e9901cc47961"
+        name="DateEditor"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="baa674c1-8307-4d89-8fa6-6416c7b65ddb"
+            isSubstitutable="false">
+            <classMoniker
+              Id="66209422-5a92-47aa-931a-3ff5d5f168b6"
+              LastKnownName="FieldView"
+              LastKnownLocation="Model.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="c250426f-4f31-46c1-8554-f9eac111d6a7"
+        name="XItemsService"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedOperationsInternal>
+          <operation
+            Id="2ae47e52-80d2-4319-b09f-42e6b671565d"
+            name="Get"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="600eb05c-458e-4265-9038-ca91365d47ec"
+            name="Post"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="c4371ef5-0b7f-4449-ae39-5278d9fca68d"
+            name="Put"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="b7da1671-0ef6-488f-9f77-d73f2f10300c"
+            name="Delete"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="67418310-4cfc-474f-8cb1-6448c2fe27d2"
+            name="GetList"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="35a521bc-d3de-4d6c-80e5-d0afebf5120f"
+        name="RowModel1"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="1c1e1116-f12a-40c7-85b2-a825ddfb5bf2"
+            name="p11"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="714814de-7aee-4bee-86d5-b0b2d471f3c8"
+            name="p12"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="c4216d1d-0aae-4f5b-9d90-88167ec2fcbb"
+            name="p13"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="ed1f30e8-0765-43ed-abea-3dd528f7df27"
+            name="p14"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="4f8c775e-d9bf-40de-9c38-6cabb9f8830b"
+            name="p15"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="5920b315-c0b2-4e6a-8b09-25ab5c608f71"
+        name="ScrollBarMediator"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedOperationsInternal>
+          <operation
+            Id="a20840b2-314a-4154-a465-491970405103"
+            name="Change"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="6ef6d6f1-8a6e-43f4-b42d-3d07f69f6ddb"
+            name="OnChanged"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="9810cdeb-8685-4a0f-8420-b68c051d5351"
+        name="XItemsMediator"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="20afbac7-bde3-4129-b478-ca1b57500969"
+            isDerived="false"
+            sourceEndRoleName="XItemsMediator"
+            targetEndRoleName="XItemsModel"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="55e83365-fe58-496e-a00b-134e4f8393a8"
+              LastKnownName="XItemsModel"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="105e1889-cc81-4467-afa5-ca578c5fe87f"
+                  name="XItemsMediator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="dce38e84-0f8b-4c22-bbb9-4208dc6cd63a"
+                  name="XItemsModel"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedOperationsInternal>
+          <operation
+            Id="6371f521-651f-493d-a5b3-e3f943fda263"
+            name="OnDelete"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="94ca3c28-ce40-4de1-b70c-4ab40630f118"
+            name="OnCreate"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="2a8e6363-b68e-4987-afcf-0f7b8ceef8a0"
+            name="OnEdit"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="9f78e6fb-9cb0-4fe8-9654-67011770d592"
+            name="Create"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="62b7afb5-b1c7-49f9-9d51-7d599ca7babd"
+            name="Delete"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="9e445f0a-d6e0-4673-9645-749c2265a21a"
+            name="Edit"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="71a4adf2-844d-43a2-b1e8-e3fd2a3cb3f8"
+            name="Reset"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="b1e55f9d-441e-487e-9fa4-2c6eac8ae384"
+        name="XItem"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="64113751-c157-4142-97ec-c431c920ab72"
+            name="Id"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="51d84e1c-9316-4923-be35-18a60345bfab"
+            name="Name"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="44e07512-5400-4148-bd03-18db85d00585"
+            name="Description"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="f1e26ac6-936e-4658-b73b-4c0b751c5ba4"
+            name="Start"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="c811fbd7-d3e5-4d38-913e-4a13f29481db"
+            name="Duration"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="155affb3-9ef8-49b2-ac96-5b63c3d78568"
+            name="Assignee"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="d055811c-1897-40cc-893a-d93c679de125"
+            name="Predecessors"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="1db71614-8da2-44c0-a7fa-73887b65477f"
+            name="Priority"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="850bbbcc-b399-45a6-bc99-8b08d72d7756"
+            name="Progress"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="1de2e112-d98c-4747-baa9-3bb8752aa3fa"
+            name="Order"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="606fc77d-a1eb-4a6b-ad42-714eba6e1a92"
+            name="Collapsed"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="cd7c8c33-1320-4744-99bb-caf4d6ae6012"
+            name="Parent"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="5d81ec66-14e0-4e8e-9e3c-9b6c6a9e5e92"
+            name="Finish"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="1256936e-4b12-41e2-a301-eb29de14353c"
+            name="AddToTimeLine"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="55e83365-fe58-496e-a00b-134e4f8393a8"
+        name="XItemsModel"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="3e782cbf-14dd-4f9b-9053-cda431d7bf38"
+            isDerived="false"
+            sourceEndRoleName="XItemsModel"
+            targetEndRoleName="XItem"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="b1e55f9d-441e-487e-9fa4-2c6eac8ae384"
+              LastKnownName="XItem"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="98d5f000-a9d3-40fe-9057-f7680d68ac4e"
+                  name="XItemsModel"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="353d583e-7107-427a-8a82-3cdd710b226d"
+                  name="XItem"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="29daaaad-bd2e-4797-a414-8f531ad00c32"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="be36af33-37d6-416a-a056-2a3201fbb31f"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedOperationsInternal>
+          <operation
+            Id="ff3613e0-9507-4ffd-aca0-800d3ba2d3ee"
+            name="AutoSchedule"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="8c7e9875-ec2a-4ddc-9746-459a62359189"
+            name="Link"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="c1a7457a-f3f1-4f02-a849-a1a77fa42716"
+            name="Unlink"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="24d2e974-0666-49e3-8da1-e69f44e0d71d"
+            name="Indent"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="df0906d1-0eb0-48e1-bcdf-02c6a670591d"
+            name="Outdent"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="c78f7784-314a-422c-82b4-5d8834615d5f"
+            name="Create"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="9ec86a4c-df20-41f5-834a-bdd55c89afc0"
+            name="Delete"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="8d635f66-b55d-4149-9df6-03af552bb08f"
+            name="Edit"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="0f4cc64d-67f2-4b18-ac49-3ee42f5d4aef"
+        name="GantView"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="34cde972-7fdf-489c-80a2-62cb1d352ee2"
+            isDerived="false"
+            sourceEndRoleName="GantView"
+            targetEndRoleName="XItemsMediator"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="9810cdeb-8685-4a0f-8420-b68c051d5351"
+              LastKnownName="XItemsMediator"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="38f29e70-1970-47d1-8e4d-bddf68829545"
+                  name="GantView"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="3c4c5ae5-be36-4c21-8cf6-fbaca6739438"
+                  name="XItemsMediator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="17f6b1f6-fb6b-4255-af38-ff43fc380372"
+            isDerived="false"
+            sourceEndRoleName="GantView"
+            targetEndRoleName="ScrollBarMediator"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="5920b315-c0b2-4e6a-8b09-25ab5c608f71"
+              LastKnownName="ScrollBarMediator"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="6edbbee1-86b6-4246-af78-983dd571a26d"
+                  name="GantView"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="86d17ef7-52ca-432f-833a-7878da70b8cf"
+                  name="ScrollBarMediator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="48312fc7-b4e0-4fcb-8486-4793f0e8a0d5"
+        name="ToolBar"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="358f9c53-affa-4a90-88f0-d21982bc1f9e"
+            isDerived="false"
+            sourceEndRoleName="ToolBar"
+            targetEndRoleName="XItemsMediator"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="9810cdeb-8685-4a0f-8420-b68c051d5351"
+              LastKnownName="XItemsMediator"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="85d61502-4483-4311-b961-6f35fd417aed"
+                  name="ToolBar"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d2910cf2-8d71-48d1-8f89-4afa2ae39f24"
+                  name="XItemsMediator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="9a5706ac-f4e7-43a7-8fc7-ce55991e887f"
+        name="HierarchicalGrid"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="29b9ae92-d5f6-4bfc-9307-2ce2c7d2d116"
+            isDerived="false"
+            sourceEndRoleName="HierarchicalGrid"
+            targetEndRoleName="XItemsMediator"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="9810cdeb-8685-4a0f-8420-b68c051d5351"
+              LastKnownName="XItemsMediator"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="7063f423-dede-42d7-a4b7-031b4fdb20ad"
+                  name="HierarchicalGrid"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="224928e7-09ed-45af-8d76-e4813cac7526"
+                  name="XItemsMediator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="4c1443f1-8674-4af9-b154-4939d58e5f94"
+            isDerived="false"
+            sourceEndRoleName="HierarchicalGrid"
+            targetEndRoleName="ScrollBarMediator"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="5920b315-c0b2-4e6a-8b09-25ab5c608f71"
+              LastKnownName="ScrollBarMediator"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="93741db7-d9d6-4a38-96bf-4b4cfedcaeb2"
+                  name="HierarchicalGrid"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="faa19f84-0daa-49cc-9ced-e2ba0c82dfe2"
+                  name="ScrollBarMediator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="eaa9635e-30b0-44f3-a1ab-bcdf766edab0"
+        name="TimeLineView"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="7a9bd68e-b0dd-403e-8733-dac70f298cf6"
+            isDerived="false"
+            sourceEndRoleName="TimeLineView"
+            targetEndRoleName="XItemsMediator"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="9810cdeb-8685-4a0f-8420-b68c051d5351"
+              LastKnownName="XItemsMediator"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="4bf65e4b-3693-4e37-b2f7-dbb8a4661d0c"
+                  name="TimeLineView"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="92b27759-59e3-43f6-8d4d-17bd8e53ee9a"
+                  name="XItemsMediator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="a0d3c7ac-f725-4e16-83ee-4e50be3d3bec"
+        name="BackEndServer"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="384c360a-ae46-4fef-8e78-0749f77d4a3f"
+            isDerived="false"
+            sourceEndRoleName="BackEndServer"
+            targetEndRoleName="XItemsMediator"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="9810cdeb-8685-4a0f-8420-b68c051d5351"
+              LastKnownName="XItemsMediator"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="be57099d-8f95-43bd-a5ae-d279643550ff"
+                  name="BackEndServer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2fb5eb22-1256-4984-b81f-f9b6e2cb0c38"
+                  name="XItemsMediator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
       </class>
     </packageHasNamedElement>
   </packagedElements>

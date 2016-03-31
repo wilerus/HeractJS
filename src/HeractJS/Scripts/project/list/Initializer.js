@@ -14,7 +14,7 @@
 define([
     'shared',
     './views/ContentView',
-    './views/GridView.js'
+    './views/GridView'
 ], function(
     shared, ContentView, GridView
 ) {
