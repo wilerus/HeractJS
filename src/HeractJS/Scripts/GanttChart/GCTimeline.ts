@@ -17,7 +17,7 @@ export class ganttChartTimeline extends React.Component<any, any> {
         }
     }
 
-    componentDidMount() {
+    private componentDidMount() {
         this.setState({
             marginLeft: this.props.data.style.marginLeft,
             width: this.props.data.style.width,
@@ -27,7 +27,7 @@ export class ganttChartTimeline extends React.Component<any, any> {
         })
     }
 
-    componentWillMount() {
+    private componentWillMount() {
         document.onkeydown = function (event) {
             if (event.ctrlKey) {
                 this.setState({

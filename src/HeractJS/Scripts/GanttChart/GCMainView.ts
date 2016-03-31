@@ -19,7 +19,7 @@ class ganttChartView extends React.Component<any, any> {
         new ganttChartData()
     }
 
-    componentWillMount() {
+    private componentWillMount() {
         this.setState({
             ganttBars: this.props.ganttBars,
             timeLine: this.props.timeLine

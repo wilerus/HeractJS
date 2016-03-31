@@ -3,11 +3,9 @@ import DOM = require('react-dom')
 
 import {globalStore} from './GCStore';
 import {ganttChartBar} from './GCBars';
-import {ganttChartConnection} from './GCBars';
-import {ganttChartTimeline}  from './GCTimeline';
 
 export class ganttChartInfoPopup extends React.Component<any, any> {
-    componentWillMount() {
+    private componentWillMount() {
         this.state = {
             left: 0,
             top: 0,
@@ -19,12 +17,12 @@ export class ganttChartInfoPopup extends React.Component<any, any> {
         }
     }
 
-    hide() {
+    public hide() {
         let item = DOM.findDOMNode(this) as any
         item.style.display = 'none';
     }
 
-    show() {
+    public show() {
         let item = DOM.findDOMNode(this) as any
         item.style.display = 'block';
     }
@@ -58,7 +56,7 @@ export class ganttChartInfoPopup extends React.Component<any, any> {
 };
 
 export class ganttChartModalWindow extends React.Component<any, any> {
-    componentWillMount() {
+    private componentWillMount() {
         this.state = {
             title: 'title',
             startDate: 'Placeholder',
@@ -68,12 +66,12 @@ export class ganttChartModalWindow extends React.Component<any, any> {
         }
     }
 
-    hide() {
+    public hide() {
         let item = DOM.findDOMNode(this) as any
         item.style.display = 'none';
     }
 
-    show() {
+    public show() {
         let item = DOM.findDOMNode(this) as any
         item.style.display = 'flex';
     }

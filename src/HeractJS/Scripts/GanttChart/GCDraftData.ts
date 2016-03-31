@@ -1,6 +1,5 @@
 ﻿// simulating server data
 // initial set up
-import {globalStore} from './GCStore';
 
 export class ganttChartData {
     amountOfElements: number = 100
@@ -10,9 +9,8 @@ export class ganttChartData {
     static timelineMonth = []
     static timelineDay = []
     static timelineYear = []
-    static ganttBars = []
 
-    timelineMonth
+    static ganttBars = []
 
     weekData = [
         'Monday',

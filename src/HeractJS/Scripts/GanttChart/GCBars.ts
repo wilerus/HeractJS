@@ -19,7 +19,7 @@ export class ganttChartBar extends React.Component<any, any> {
         }
     }
 
-    componentWillMount() {
+    private componentWillMount() {
         this.setState({
             startDate: this.props.data.startDate,
             top: this.props.data.style.top,
@@ -88,7 +88,7 @@ export class ganttChartBar extends React.Component<any, any> {
                         document.onmouseup = null;
                         this.addNewConnection();
                     }
-                    this.clearTempLine()
+                    this.clearTempElements()
                 }.bind(this)
             }
         }.bind(this)
@@ -333,7 +333,7 @@ export class ganttChartBar extends React.Component<any, any> {
                 let length = connectionsDropTarget.length
 
                 for (let i = 0; i < length; i++) {
-                    connectionsDropTarget[i].update();
+                    connectionsDropTarget[i].buildConnection();
                 }
             }
         }
@@ -344,7 +344,7 @@ export class ganttChartBar extends React.Component<any, any> {
                 let length = connectionsDraggingElement.length
 
                 for (let i = 0; i < length; i++) {
-                    connectionsDraggingElement[i].update();
+                    connectionsDraggingElement[i].buildConnection();
                 }
             }
         }
@@ -391,10 +391,7 @@ export class ganttChartBar extends React.Component<any, any> {
             document.getElementById('ganttChartView').removeChild(document.getElementById('rightTempCircle'))
         }
         globalStore.ganttChartView.refs.infoPopup.hide();
-    }
-
-    private clearTempLine() {
-        if (globalStore.tempLine) {
+        if (!globalStore.isCurrentlyDragging && !globalStore.isCurrentlySizing && globalStore.tempLine) {
             document.getElementById('ganttChartView').removeChild(globalStore.tempLine);
             globalStore.tempLine = null;
         }
@@ -456,7 +453,7 @@ export class ganttChartBar extends React.Component<any, any> {
 };
 
 export class ganttChartConnection extends React.Component<any, any> {
-    buildConnection() {
+    public buildConnection() {
         let firstPoint = DOM.findDOMNode(this.props.data.firstP) as any;
         let firstPointCoordsX = parseInt(firstPoint.getAttribute('x'))
         let firstPointCoordsY = parseInt(firstPoint.getAttribute('y'))
@@ -491,11 +488,7 @@ export class ganttChartConnection extends React.Component<any, any> {
         }
     }
 
-    componentWillMount() {
-        this.buildConnection()
-    }
-
-    update(event) {
+    private componentWillMount() {
         this.buildConnection()
     }
 
