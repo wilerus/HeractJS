@@ -1,1 +1,340 @@
-﻿ 
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="df36cba0-fab7-4248-bc25-6e69c195b7e1" name="GridComponents" linkedPackageId="e20cb6a0-1bae-4ea4-b35e-c4ccfb760e52" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="53b44303-d216-41fe-aa91-86264720b1a6">
+      <profileInstance Id="6388402c-7be6-4199-b173-dc10d18a5809" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="a1ab8cff-bbfb-42d3-8ef0-989d133b4f92">
+      <profileInstance Id="6c93ef5f-5a89-4551-a38f-e7cecd912f13" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="351c568b-60ef-40d2-8030-7fc188237021" name="ContentView" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="4430135e-2f1d-4078-a07a-2cf692402cc1" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="ce577c7e-1102-4b8e-8b7b-065fb9ac033f" name="GridView" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="810fa55f-d581-48fe-afdc-072b41e557f9" />
+        <targetEnds>
+          <association Id="0939047c-fe53-4487-ab68-0ad26c07e345" isDerived="false" sourceEndRoleName="GridView" targetEndRoleName="ListCanvasView" isLeaf="false" isAbstract="false">
+            <classMoniker Id="92e8e689-8015-4686-8bda-122a85cf9a48" LastKnownName="ListCanvasView" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ef110df9-3f76-4f98-afbd-cf98d9d65fa6" name="GridView" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="50f7f774-aa60-4f12-8bee-b8a790b61b1d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="8898ab21-1167-4fbf-abc2-aefc2bbb6b0d" name="ListCanvasView" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="e27bc960-b19d-4fd6-83fd-39aa1fd70667" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="2b8ece66-5838-49cc-bcb8-d7de7bdc2d86" />
+          </association>
+          <association Id="e8387a09-3097-40f5-be5a-353a43ff10e9" isDerived="false" sourceEndRoleName="GridView" targetEndRoleName="core" isLeaf="false" isAbstract="false">
+            <classMoniker Id="1d2fa802-5372-4437-be67-0c5254cf44e7" LastKnownName="core.gridFactory" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7339bb06-c814-4bbb-8584-f3926cc03b79" name="GridView" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="0aa71640-cf50-42cc-9efa-dc6179524cdc" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="712942fc-a4f8-4e8c-afe7-c25dd1bf9b84" name="core" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="bb10ff4a-8391-4c69-ab49-acb8408c1fa9" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="8c948511-4f25-4205-9f0c-654083d01a1a" />
+          </association>
+          <association Id="ee988861-1e9e-419d-8086-06608b7dfd57" isDerived="false" sourceEndRoleName="GridView" targetEndRoleName="core.VirtulaCollection" isLeaf="false" isAbstract="false">
+            <classMoniker Id="4435ff94-b821-496a-948b-0b6378c979a6" LastKnownName="core.VirtulaCollection" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5f5b8b14-b722-4c94-adc0-494277297854" name="GridView" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="e86c004f-a1c2-45aa-bf74-dc8d79b61fc0" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="61f5492f-c49b-488e-81f0-676b7fc8d860" name="core.VirtulaCollection" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="b10661fd-83b1-4645-8075-3b54781bf9d6" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="7da72a78-7c10-4aca-bdf5-3d4a62c91a2d" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="ab5b1cbc-7972-4d6f-9657-2c4f8ddb363c" name="collection" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="f2045500-aef5-448d-bf11-e39af6f7553a" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="92e8e689-8015-4686-8bda-122a85cf9a48" name="ListCanvasView" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="fbd46869-2366-4a71-82df-8b4f8d44c0dc" />
+        <targetEnds>
+          <association Id="c8256599-40a6-417b-8ea7-272d3064b0bb" isDerived="false" sourceEndRoleName="ListCanvasView" targetEndRoleName="Grid" isLeaf="false" isAbstract="false">
+            <classMoniker Id="27ff62d8-733c-4071-9d53-96b3815117c1" LastKnownName="core.Grid" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="bb84ad80-4c0a-4e58-936b-e2fe7bd238b6" name="ListCanvasView" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="decf024c-9a42-4e54-9bda-5bb3b9fff2dc" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="911e67d8-a303-4ee3-97cc-12fd8933dd83" name="Grid" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="9d463bfc-997e-4534-a1b1-38a005267a97" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="eb27095d-9851-4e2b-a1c6-0cc58112a649" />
+          </association>
+          <association Id="0bc8c83c-96f8-4f36-97d9-17bc94e2d9a7" isDerived="false" sourceEndRoleName="ListCanvasView" targetEndRoleName="ScrollBar" isLeaf="false" isAbstract="false">
+            <classMoniker Id="7f853c31-228a-4e4b-8475-9f75d7e0d218" LastKnownName="ScrollBar" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d83deb96-3739-491d-9f94-cb10696a3e27" name="ListCanvasView" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="3a4c65b4-62dc-47c9-8813-9128a14b8971" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="1830a423-15c2-48be-a548-d983469d00e9" name="ScrollBar" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="1d9c35b9-dcc1-456a-a1f7-ee9301332246" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="07592a46-bcf5-4608-82cf-7566c1ad6d0b" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="1d2452b5-166d-4d1d-89cf-7eea0e0c56a5" name="content" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="951dd5dd-c97a-478a-8413-683f39493648" />
+          </property>
+          <property Id="b0d9070c-5b21-4502-8e97-8c1d3083d42f" name="scrollbar" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="d76810f7-37be-4d1a-966c-d8007b1d72c4" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="be508472-e00d-4ca6-8367-df2989a9a476" name="Initializer" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="ed368ae4-a7d0-417d-8fae-430f6a5b7bb1" />
+        <targetEnds>
+          <association Id="f86b283b-c378-443f-88bf-431078bd7192" isDerived="false" sourceEndRoleName="Initializer" targetEndRoleName="ContentView" isLeaf="false" isAbstract="false">
+            <classMoniker Id="351c568b-60ef-40d2-8030-7fc188237021" LastKnownName="ContentView" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7306f45b-474b-494d-815c-45331cc6eb05" name="Initializer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="2a58db06-74b0-42bf-ac4a-e8ca363c0f9e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="24bf63ce-8859-4a0d-99ad-521668328abb" name="ContentView" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="748d61b4-5e87-4108-85c1-09e3326aad6f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="fa799a69-4ce4-4163-ab31-3396b753cba9" />
+          </association>
+          <association Id="85202307-382c-4e94-bad0-42943d080dbb" isDerived="false" sourceEndRoleName="Initializer" targetEndRoleName="GridView" isLeaf="false" isAbstract="false">
+            <classMoniker Id="ce577c7e-1102-4b8e-8b7b-065fb9ac033f" LastKnownName="GridView" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="27ca7a8d-db6b-4c85-9208-e42e24008f97" name="Initializer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="75ead7d8-8c7f-4921-a050-0e16232f3012" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="efa93ac9-e9b8-430b-ad06-2f0ad2f8fada" name="GridView" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="99c1f9fe-d1c9-4f5a-a5ad-cb5598ed9e21" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="bf3724cc-cad1-48ca-9d42-b77da26bfc18" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="9de102b7-76af-4394-b1e4-8dd1207b020f" name="contentView" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="b8cf14fa-45c0-407c-b4da-49e4c2e8ad75" />
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="8e7b2aff-ef8a-4d75-bed2-79e7efcd7b9a" name="navigate" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="addc1b42-7dae-465e-90bf-32b49602db3b" />
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="1d2fa802-5372-4437-be67-0c5254cf44e7" name="core.gridFactory" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="273abda4-0ac3-4d43-8289-742e00774343" />
+        <ownedOperationsInternal>
+          <operation Id="d2db518d-5160-4c5d-b5f1-5edd117c7a13" name="getDefaultGrid" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="32da9c85-85e0-4586-82b1-83759db92a25" />
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="27ff62d8-733c-4071-9d53-96b3815117c1" name="core.Grid" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="e9648c8d-cc4a-4774-b697-2d1dac5ef783" />
+        <targetEnds>
+          <association Id="19ee9f43-d69c-4ec0-b591-05f03f6d8323" isDerived="false" sourceEndRoleName="core.Grid" targetEndRoleName="core.gridRow" isLeaf="false" isAbstract="false">
+            <classMoniker Id="eb54c56d-9619-4ce8-bb57-4e4fb066322d" LastKnownName="core.gridRow" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="bab5c711-7fe9-4979-899d-2dd9275d5bec" name="core.Grid" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="495ef72d-1efc-448c-bd2a-32b519f27230" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6be297b1-47c6-4345-893a-ebb19fead069" name="core.gridRow" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="3fed5221-baaa-48f1-ba6a-5df2e44c0db3" name="Lower" value="*">
+                      <elementDefinition Id="68093219-4961-4738-85a3-79c0dd6f9807" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="31d15d20-baa4-48a7-a2a5-90650ca2bd76" name="Upper" value="*">
+                      <elementDefinition Id="3d1d1df1-9577-4b91-837c-5fba2b1abe21" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="35e62351-c39d-4375-af71-679828b23124" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="77a8d0af-c514-4825-b082-48b7caba2766" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="140c19fc-fe35-4317-9ef8-312b5a847ab9" name="collection" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="4540ca03-602d-4521-887d-39f8238954ac" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="7f853c31-228a-4e4b-8475-9f75d7e0d218" name="ScrollBar" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="a9384923-af84-4cf0-8479-63c88aedd213" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="ff21bc98-2359-4f5d-8621-20e5a2cffac5" name="core.textEditor" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="c1680844-9fcc-4ab9-9bc2-693918b7a60c" />
+        <ownedAttributesInternal>
+          <property Id="be02e938-5eca-4f76-b59a-61c5b9d0e9c9" name="model" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="3e4876e0-7e4b-4b1e-af0d-15d273717e0e" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="eb54c56d-9619-4ce8-bb57-4e4fb066322d" name="core.gridRow" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="e42a9fa7-8972-4d68-af9a-c36e6b8b6d6c" />
+        <targetEnds>
+          <association Id="2c77876f-a53c-42c9-98c2-3e81075ba5e3" isDerived="false" sourceEndRoleName="core.gridRow" targetEndRoleName="core.gridCell" isLeaf="false" isAbstract="false">
+            <classMoniker Id="e8d71b4c-cac1-4279-ace4-3e3e43d7204c" LastKnownName="core.gridCell" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="1a4a5081-b58d-438d-b89c-a14a11bd1586" name="core.gridRow" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="bfaba88f-f6c2-4d36-ae3a-2a5c2794ba8b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ef3e79fb-08ed-4321-b29e-e550a759d03b" name="core.gridCell" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="5ee88d22-cb54-47a7-8c6e-1c23974ebb05" name="Lower" value="*">
+                      <elementDefinition Id="8a4220a6-d114-49d1-829d-f61d1ef1403a" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="544d16f0-1e6a-4a06-82e9-598b3b6f600f" name="Upper" value="*">
+                      <elementDefinition Id="9db720b6-d8cc-476c-ae98-76db868db240" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="13a36ea4-c1b1-4719-9d27-44dc30e76191" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ba031f5d-cd95-4d0d-a267-4431c5dcd24d" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="c5abd7df-98e0-4397-819f-79a6a53eb4fc" name="columnsModel" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="75e52f52-d9be-4871-a6eb-c4d0ddb806dd" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="e8d71b4c-cac1-4279-ace4-3e3e43d7204c" name="core.gridCell" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="4a39d485-e4f5-498c-a44d-c2ebe1a3d2ef" />
+        <targetEnds>
+          <association Id="539515cf-d383-4743-8b84-27fb7ec9f6f4" isDerived="false" sourceEndRoleName="core.gridCell" targetEndRoleName="CellLayoutView" isLeaf="false" isAbstract="false">
+            <classMoniker Id="bcef0f35-c9df-4f1b-b70d-17d619c3983a" LastKnownName="CellLayoutView" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f9cbe2bf-825a-49b4-836d-ee32a94aa465" name="core.gridCell" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="6b571878-52a0-44d5-a508-199b6076e753" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="21358ffc-0590-4665-b54b-d59a40881ba2" name="CellLayoutView" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="a55483af-f2bc-4099-a2ee-06d18028413f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="d5681790-d55c-41cf-9bc5-093c1656ca81" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="f2a32311-3a93-489b-8e43-8d8b31e11be6" name="model" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="32405281-409a-4bb1-9fb1-f284b1799eff" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="bcef0f35-c9df-4f1b-b70d-17d619c3983a" name="CellLayoutView" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="18ee913a-671c-4809-b9dc-a54bd316e511" />
+        <targetEnds>
+          <association Id="4d7c1847-c182-4246-a6ca-ceeec0bd7e9a" isDerived="false" sourceEndRoleName="CellLayoutView" targetEndRoleName="core.textEditor" isLeaf="false" isAbstract="false">
+            <classMoniker Id="ff21bc98-2359-4f5d-8621-20e5a2cffac5" LastKnownName="core.textEditor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9823745c-9817-47b0-8fe6-253602b339e8" name="CellLayoutView" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="f42eb6e8-c715-4e98-8a5d-da7e74826446" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f5ee781a-ee6a-4d9c-9ee7-9f00c6d4cc70" name="core.textEditor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="d0c625dc-ae79-468f-9bd7-38f9de074fb3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ccbb5e89-b6eb-43fb-9b0b-6d1cefc78518" />
+          </association>
+        </targetEnds>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="4435ff94-b821-496a-948b-0b6378c979a6" name="core.VirtulaCollection" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="ba729728-b8c0-4ec0-b227-005e088de052" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="e20cb6a0-1bae-4ea4-b35e-c4ccfb760e52" name="Model">
+    <elementDefinition Id="b3ad6db2-ff53-473a-b538-ae10172c5758" />
+  </package>
+</logicalClassDesignerModel>
