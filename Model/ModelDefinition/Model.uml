@@ -1116,7 +1116,7 @@
     <packageHasNamedElement>
       <class
         Id="d1e41ea9-b04e-4379-9f67-57d3f48b1672"
-        name="ChartInfoPopup"
+        name="InfoPopup"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -1298,7 +1298,7 @@
     <packageHasNamedElement>
       <class
         Id="e2f75d80-0987-4dd3-9ea9-3b6ec17afb98"
-        name="ChartBar"
+        name="TaskBar"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -1793,7 +1793,7 @@
             isAbstract="false">
             <classMoniker
               Id="e2f75d80-0987-4dd3-9ea9-3b6ec17afb98"
-              LastKnownName="ChartBar"
+              LastKnownName="TaskBar"
               LastKnownLocation="Model.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
@@ -1832,7 +1832,7 @@
             isAbstract="false">
             <classMoniker
               Id="f124d087-d8bb-4a44-91d4-038117c60455"
-              LastKnownName="ChartBarConnection"
+              LastKnownName="TaskLink"
               LastKnownLocation="Model.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
@@ -1871,7 +1871,7 @@
             isAbstract="false">
             <classMoniker
               Id="9c74381b-30ff-4303-a0d9-1334fd7700f0"
-              LastKnownName="ChartModalWindow"
+              LastKnownName="ModalWindow"
               LastKnownLocation="Model.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
@@ -1910,7 +1910,7 @@
             isAbstract="false">
             <classMoniker
               Id="d1e41ea9-b04e-4379-9f67-57d3f48b1672"
-              LastKnownName="ChartInfoPopup"
+              LastKnownName="InfoPopup"
               LastKnownLocation="Model.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
@@ -2329,7 +2329,7 @@
     <packageHasNamedElement>
       <class
         Id="9c74381b-30ff-4303-a0d9-1334fd7700f0"
-        name="ChartModalWindow"
+        name="ModalWindow"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -2475,7 +2475,7 @@
     <packageHasNamedElement>
       <class
         Id="f124d087-d8bb-4a44-91d4-038117c60455"
-        name="ChartBarConnection"
+        name="TaskLink"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">

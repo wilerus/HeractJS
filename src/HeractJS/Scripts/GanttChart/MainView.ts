@@ -2,12 +2,13 @@
 
 import React = require('react')
 import DOM = require('react-dom')
+
 import {GlobalStore} from './GlobalStore';
 import {ChartData} from './ChartData';
-import {ChartBar} from './ChartBars';
-import {ChartConnection} from './ChartBars';
-import {ChartInfoPopup} from './ModalViews';
-import {ChartModalWindow} from './ModalViews';
+import {TaskBar} from './TaskBar';
+import {TaskLink} from './TaskLink';
+import {InfoPopup} from './InfoPopup';
+import {ModalWindow} from './ModalWindow';
 import {Timeline}  from './Timeline';
 
 GlobalStore.timelineStep = 0
@@ -26,7 +27,7 @@ class ChartView extends React.Component<any, any> {
         })
     }
 
-    updateTimeLine() {
+    updateTimeline() {
         switch (GlobalStore.timelineStep) {
             case 0:
                 GlobalStore.timelineStep = 1
@@ -64,13 +65,13 @@ class ChartView extends React.Component<any, any> {
     render() {
         let items = this.state.ganttBars.map(function (ganttBar) {
             if (ganttBar.type === 'bar') {
-                return React.createElement(ChartBar, {
+                return React.createElement(TaskBar, {
                     key: ganttBar.id,
                     data: ganttBar,
                     gridWidth: this.state.gridWidth
                 })
             } else if (ganttBar.type === 'connection') {
-                return React.createElement(ChartConnection, {
+                return React.createElement(TaskLink, {
                     ref: ganttBar.id,
                     key: ganttBar.id,
                     data: ganttBar
@@ -84,10 +85,10 @@ class ChartView extends React.Component<any, any> {
                 height: '100%'
             }
         },
-            React.createElement(ChartInfoPopup, {
+            React.createElement(InfoPopup, {
                 ref: 'infoPopup'
             }),
-            React.createElement(ChartModalWindow, {
+            React.createElement(ModalWindow, {
                 ref: 'modalWindow'
             }),
             React.createElement('svg', {

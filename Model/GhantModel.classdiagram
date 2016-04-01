@@ -2,7 +2,7 @@
 <logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="141b6038-4f48-4dd9-8764-2a49206941fd" name="GanttModel" linkedPackageId="3c7d5c24-7b05-444c-9681-99422878a54a" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <packagedElements>
     <logicalClassDesignerModelHasTypes>
-      <class Id="77d42238-ab6d-446c-82b3-e039dca9c393" name="ChartInfoPopup" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="77d42238-ab6d-446c-82b3-e039dca9c393" name="InfoPopup" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="d1e41ea9-b04e-4379-9f67-57d3f48b1672" />
         <ownedAttributesInternal>
           <property Id="41bd6472-4f20-493c-98b1-b1a0e6bd370b" name="left" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -84,7 +84,7 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="235daaca-661b-4312-97a6-f29f62dbb6b0" name="ChartBar" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="235daaca-661b-4312-97a6-f29f62dbb6b0" name="TaskBar" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="e2f75d80-0987-4dd3-9ea9-3b6ec17afb98" />
         <targetEnds>
           <association Id="b31be0d8-f541-4052-82e5-d8f0ef276d68" isDerived="false" sourceEndRoleName="GanttChartBar" targetEndRoleName="GlobalStore" isLeaf="false" isAbstract="false">
@@ -272,7 +272,7 @@
             <elementDefinition Id="59f40d42-c542-4b30-8229-bf8f45dfd6e6" />
           </association>
           <association Id="0de446b2-2df7-4f78-9797-e45e318f1928" isDerived="false" sourceEndRoleName="GCMainView" targetEndRoleName="GanttChartBar" isLeaf="false" isAbstract="false">
-            <classMoniker Id="235daaca-661b-4312-97a6-f29f62dbb6b0" LastKnownName="ChartBar" />
+            <classMoniker Id="235daaca-661b-4312-97a6-f29f62dbb6b0" LastKnownName="TaskBar" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd Id="c9a0e59b-bc8e-4265-ba62-40413d4a51d7" name="GCMainView" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
@@ -288,7 +288,7 @@
             <elementDefinition Id="60fed7a7-00f9-4a1e-81eb-42e08395d8c7" />
           </association>
           <association Id="7f034b84-efed-4ed5-9153-67de2c55ce69" isDerived="false" sourceEndRoleName="GCMainView" targetEndRoleName="GanttChartConnection" isLeaf="false" isAbstract="false">
-            <classMoniker Id="c4d77c09-7f46-44f8-b37a-5f62c5b03ee2" LastKnownName="ChartBarConnection" />
+            <classMoniker Id="c4d77c09-7f46-44f8-b37a-5f62c5b03ee2" LastKnownName="TaskLink" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd Id="9607981d-3c92-418b-93cc-c2b868995cd7" name="GCMainView" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
@@ -304,7 +304,7 @@
             <elementDefinition Id="4ab816a4-379c-4097-acbd-5b5dfd72a2ee" />
           </association>
           <association Id="dd7a2a29-4df6-4958-817e-bec3e5dca445" isDerived="false" sourceEndRoleName="GCMainView" targetEndRoleName="GanttChartModalWindow" isLeaf="false" isAbstract="false">
-            <classMoniker Id="3eec78f3-aec9-4405-b61e-a651e802dc16" LastKnownName="ChartModalWindow" />
+            <classMoniker Id="3eec78f3-aec9-4405-b61e-a651e802dc16" LastKnownName="ModalWindow" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd Id="1e042ffa-3b8f-4d43-b8be-9470c758903f" name="GCMainView" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
@@ -320,7 +320,7 @@
             <elementDefinition Id="b9be3430-a18b-486d-b1d0-6d8636b7d40d" />
           </association>
           <association Id="6e72df15-ae01-4d2f-84a6-b5933456da74" isDerived="false" sourceEndRoleName="GCMainView" targetEndRoleName="GanttChartInfoPopup" isLeaf="false" isAbstract="false">
-            <classMoniker Id="77d42238-ab6d-446c-82b3-e039dca9c393" LastKnownName="ChartInfoPopup" />
+            <classMoniker Id="77d42238-ab6d-446c-82b3-e039dca9c393" LastKnownName="InfoPopup" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd Id="d3ced01e-f53e-4dd2-983e-b4feb63e4390" name="GCMainView" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
@@ -487,7 +487,7 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="3eec78f3-aec9-4405-b61e-a651e802dc16" name="ChartModalWindow" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="3eec78f3-aec9-4405-b61e-a651e802dc16" name="ModalWindow" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="9c74381b-30ff-4303-a0d9-1334fd7700f0" />
         <ownedAttributesInternal>
           <property Id="dec1bd87-7cf0-4dd2-b366-5dd715042ebc" name="title" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -553,7 +553,7 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="c4d77c09-7f46-44f8-b37a-5f62c5b03ee2" name="ChartBarConnection" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="c4d77c09-7f46-44f8-b37a-5f62c5b03ee2" name="TaskLink" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="f124d087-d8bb-4a44-91d4-038117c60455" />
         <ownedAttributesInternal>
           <property Id="f7b2dd23-cc35-4c80-9e5a-59e7cee2bb52" name="secondPoint" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
