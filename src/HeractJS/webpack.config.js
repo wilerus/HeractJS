@@ -12,7 +12,8 @@ module.exports = {
         'gantt': './Scripts/GanttChart/MainView.ts',
         //  'shared': './scripts/project/shared/bootstrap.js',
         //  'navigation': './scripts/project/navigation/module.js',
-        'project': './Scripts/project/Application.js'
+        'project': './Scripts/project/Application.js',
+        'services': './Scripts/services/ScrollBarMediator.ts'
     },
     output: {
         path: path.join('./wwwroot/', 'js'),
@@ -37,7 +38,8 @@ module.exports = {
             'profileNotificationInitializer': path.resolve(__dirname + '/scripts/project/profile/notificationSettings/Initializer'),
             'profileProfileInitializer': path.resolve(__dirname + '/scripts/project/profile/profile/Initializer'),
             'navigation': path.resolve(__dirname + '/scripts/project/navigation/module.js'),
-            'LANGMAPEN': path.resolve(__dirname + '/wwwroot/js/compiled/localizationmap.en.js')
+            'LANGMAPEN': path.resolve(__dirname + '/wwwroot/js/compiled/localizationmap.en.js'),
+            'scrollBarMediator': path.resolve(__dirname + '/scripts/services/ScrollBarMediator')
         }
     },
     module: {
