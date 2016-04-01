@@ -1116,10 +1116,89 @@
     <packageHasNamedElement>
       <class
         Id="d1e41ea9-b04e-4379-9f67-57d3f48b1672"
-        name="GanttChartInfoPopup"
+        name="ChartInfoPopup"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="a957758a-8150-4762-805b-180363f66dbe"
+            name="left"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="7b8c0ce8-fcd6-479a-baa2-03a6021ca40a"
+            name="top"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="f72b58eb-1841-485c-a11b-990f6d82a26d"
+            name="title"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="43f7d0b8-0aa7-4688-ade9-f9cb3bbf09be"
+            name="startDate"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="ab47915e-59eb-424a-ad0d-4853da0ad4c5"
+            name="endDate"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="c38bdd59-ce33-431e-8bb9-687207271582"
+            name="duration"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="ce4d54d8-4fe1-43c1-b93d-e9dd5b6de0a4"
+            name="description"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation
             Id="9259dfbb-28c2-49ae-b577-21671f97f2d9"
@@ -1153,97 +1232,79 @@
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false" />
+          <operation
+            Id="3fd77d8e-e2c5-4555-965d-c956f450f2c4"
+            name="constructor"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d4e0e25a-d3bd-4246-b5ec-8ecbdfbd5641"
+                  name="left"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="87cb4aa0-6efc-4db8-b3bd-a0d49a2afb1d"
+                  name="top"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="a8a059aa-c3a1-4375-85eb-9437152a6d5e"
+                  name="title"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="658fcbd1-ddfa-4547-a533-4b01e93dfd7d"
+                  name="startDate"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1574f70c-0959-49a6-abc9-ea2fccdcbdd5"
+                  name="endDate"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="88531e6c-9bdf-4a7b-a724-63dea07baa3d"
+                  name="duration"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="23bd2272-3e1f-473b-ac5d-b84b3f6b872b"
+                  name="description"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
         Id="e2f75d80-0987-4dd3-9ea9-3b6ec17afb98"
-        name="GanttChartBar"
+        name="ChartBar"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
         <targetEnds>
           <association
-            Id="2758261a-c563-4ffa-b29f-990db41cf2ce"
-            isDerived="false"
-            sourceEndRoleName="GanttChartBar"
-            targetEndRoleName="GanttChartModalWindow"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="9c74381b-30ff-4303-a0d9-1334fd7700f0"
-              LastKnownName="GanttChartModalWindow"
-              LastKnownLocation="Model.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="f71b36aa-3acc-47ca-b40d-67f3583b5848"
-                  name="GanttChartBar"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="90d273aa-aa37-4ccc-8410-3cf4ada077a3"
-                  name="GanttChartModalWindow"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
-            Id="8db37b11-00e8-43a5-9c53-f6520a58f96d"
-            isDerived="false"
-            sourceEndRoleName="GanttChartBar"
-            targetEndRoleName="GanttChartInfoPopup"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="d1e41ea9-b04e-4379-9f67-57d3f48b1672"
-              LastKnownName="GanttChartInfoPopup"
-              LastKnownLocation="Model.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="a4bb2544-59a0-48c0-9f25-0e3515fe5809"
-                  name="GanttChartBar"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="08324500-9b87-49a8-ad3e-4470524cf066"
-                  name="GanttChartInfoPopup"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
-            Id="f1e49632-32bc-42ce-b99b-65ef1c4fff92"
+            Id="4e97d629-7b11-45c8-b26c-71b55a1c8210"
             isDerived="false"
             sourceEndRoleName="GanttChartBar"
             targetEndRoleName="GlobalStore"
@@ -1256,7 +1317,7 @@
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="a360f8da-4c41-44a3-bb16-7b51da835e4b"
+                  Id="ec110fbb-b865-4b29-b074-6de431169ae7"
                   name="GanttChartBar"
                   isLeaf="false"
                   isStatic="false"
@@ -1269,7 +1330,7 @@
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="5e723138-15fb-44a9-a2a4-06386c48057b"
+                  Id="d2fb5096-04e6-42ca-b449-7bd3b25fdcd7"
                   name="GlobalStore"
                   isLeaf="false"
                   isStatic="false"
@@ -1281,46 +1342,75 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
-          <association
-            Id="daeff966-d4e8-410e-a044-9dc6876a86f4"
-            isDerived="false"
-            sourceEndRoleName="GanttChartBar"
-            targetEndRoleName="GanttChartConnection"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="f124d087-d8bb-4a44-91d4-038117c60455"
-              LastKnownName="GanttChartConnection"
-              LastKnownLocation="Model.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="52d81371-e2db-4492-b3b0-2788b3d0c733"
-                  name="GanttChartBar"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="2ea63626-e754-495d-970b-1fb9646fbd45"
-                  name="GanttChartConnection"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
         </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="e43f9b5c-2e9d-4fd5-bb0a-3c4010a82769"
+            name="width"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="cf528491-c6d1-4a1d-b44c-819853428f62"
+            name="startDate"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="fcb6e7e9-53cf-4a2c-9d64-57c00a30d95d"
+            name="top"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="8ebc22fd-ee47-4d6d-b04c-b262265e35cb"
+            name="fillWidth"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="51a4345f-9845-44b3-b73c-4a0197cf0be6"
+            name="connectionsIds"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="7658ff9a-9d3e-4ed0-a5c1-d40bd30c244e"
+            name="connections"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation
             Id="eca7491a-8fb8-4845-be1c-438e9ba479c3"
@@ -1329,7 +1419,31 @@
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
-            isQuery="false" />
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e2f14b7b-559f-40ee-86c8-fd0d9dad7eac"
+                  name="key"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="333ac63e-38de-4d08-876c-9a4ea88d1221"
+                  name="data"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3fc1df85-a61e-47cb-940c-5aa9db79a7b2"
+                  name="gridWidth"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
           <operation
             Id="3a6f6e18-b7f7-4e3d-ab56-2f7d515fdc35"
             name="componentWillMount"
@@ -1456,51 +1570,10 @@
     <packageHasNamedElement>
       <class
         Id="dcf94de2-141f-4fb1-8e96-846c0eaaca99"
-        name="GanttChartData"
+        name="ChartData"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <targetEnds>
-          <association
-            Id="403e6c34-8ebc-4b9d-9a0a-c469276d361d"
-            isDerived="false"
-            sourceEndRoleName="GanttChartData"
-            targetEndRoleName="GCMainView"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="4c5dadbd-d356-44f7-99d3-199c519a3733"
-              LastKnownName="GCMainView"
-              LastKnownLocation="Model.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="5d174c5f-85a2-4f7e-a9fa-bd93504d68f4"
-                  name="GanttChartData"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="a911d76a-e9cb-49d0-b8a5-bf829a7bd0b2"
-                  name="GCMainView"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="7333d1b8-10f1-44e3-ae7c-7ec1029eafb8"
@@ -1628,26 +1701,26 @@
     <packageHasNamedElement>
       <class
         Id="4c5dadbd-d356-44f7-99d3-199c519a3733"
-        name="GCMainView"
+        name="MainView"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
         <targetEnds>
           <association
-            Id="9dd95cd9-6f0d-4eba-8949-652024003e44"
+            Id="8f08fe14-df90-4cb1-bab2-f3b66e97dda4"
             isDerived="false"
             sourceEndRoleName="GCMainView"
-            targetEndRoleName="GanttChartBar"
+            targetEndRoleName="GlobalStore"
             isLeaf="false"
             isAbstract="false">
             <classMoniker
-              Id="e2f75d80-0987-4dd3-9ea9-3b6ec17afb98"
-              LastKnownName="GanttChartBar"
+              Id="fed41593-0905-41f3-b20f-b1f1e06b797b"
+              LastKnownName="GlobalStore"
               LastKnownLocation="Model.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="6a49fbfc-c416-4e2a-b51e-455bb20a302d"
+                  Id="00406b42-301b-4231-ab42-4c925d259211"
                   name="GCMainView"
                   isLeaf="false"
                   isStatic="false"
@@ -1660,8 +1733,8 @@
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="970ca01c-b49c-4dc7-81d7-03b201bc17be"
-                  name="GanttChartBar"
+                  Id="ec993d4c-4a0e-4f67-834e-cc5a7c98c19e"
+                  name="GlobalStore"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -1673,7 +1746,7 @@
             </relationshipOwnedElementsInternal>
           </association>
           <association
-            Id="6cc74527-386a-4aa7-b1b6-1e274a806058"
+            Id="59f40d42-c542-4b30-8229-bf8f45dfd6e6"
             isDerived="false"
             sourceEndRoleName="GCMainView"
             targetEndRoleName="GanttChartData"
@@ -1681,12 +1754,12 @@
             isAbstract="false">
             <classMoniker
               Id="dcf94de2-141f-4fb1-8e96-846c0eaaca99"
-              LastKnownName="GanttChartData"
+              LastKnownName="ChartData"
               LastKnownLocation="Model.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="8b279f36-4fb9-4ddd-ab12-c1618753eae1"
+                  Id="2f4af289-a4fc-4d56-823b-e0cf42e82639"
                   name="GCMainView"
                   isLeaf="false"
                   isStatic="false"
@@ -1699,7 +1772,7 @@
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="79d2471f-e15c-4d78-8ef5-87fdce052ecd"
+                  Id="a605850a-10ae-49c2-a587-e52922808186"
                   name="GanttChartData"
                   isLeaf="false"
                   isStatic="false"
@@ -1712,20 +1785,20 @@
             </relationshipOwnedElementsInternal>
           </association>
           <association
-            Id="8bf980c0-b094-4a52-859c-4ae7b27f0e1d"
+            Id="60fed7a7-00f9-4a1e-81eb-42e08395d8c7"
             isDerived="false"
             sourceEndRoleName="GCMainView"
-            targetEndRoleName="GanttChartTimeline"
+            targetEndRoleName="GanttChartBar"
             isLeaf="false"
             isAbstract="false">
             <classMoniker
-              Id="4dbb6d4f-0532-4119-a50f-c36f07f994c5"
-              LastKnownName="GanttChartTimeline"
+              Id="e2f75d80-0987-4dd3-9ea9-3b6ec17afb98"
+              LastKnownName="ChartBar"
               LastKnownLocation="Model.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="fc54fe45-27cc-48d7-81b7-5b39b79eb2e4"
+                  Id="988a6a3b-f8d5-4dfd-8c0f-4b5ffd696e2e"
                   name="GCMainView"
                   isLeaf="false"
                   isStatic="false"
@@ -1738,7 +1811,163 @@
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="ce102895-73e0-4f6e-b1dc-f2fcb67a2f75"
+                  Id="c780c993-731e-41d3-bf55-de542b899a29"
+                  name="GanttChartBar"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="4ab816a4-379c-4097-acbd-5b5dfd72a2ee"
+            isDerived="false"
+            sourceEndRoleName="GCMainView"
+            targetEndRoleName="GanttChartConnection"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="f124d087-d8bb-4a44-91d4-038117c60455"
+              LastKnownName="ChartBarConnection"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="adfe1016-fbb4-4305-93db-0dc0fd6b6a6f"
+                  name="GCMainView"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="89112022-9af5-4c74-bbf9-f78cec426cf5"
+                  name="GanttChartConnection"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="b9be3430-a18b-486d-b1d0-6d8636b7d40d"
+            isDerived="false"
+            sourceEndRoleName="GCMainView"
+            targetEndRoleName="GanttChartModalWindow"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="9c74381b-30ff-4303-a0d9-1334fd7700f0"
+              LastKnownName="ChartModalWindow"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="19011ce5-1ea1-4b1c-a24c-d09e4034aa85"
+                  name="GCMainView"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="31254124-eda9-4f20-8b03-072f2b771779"
+                  name="GanttChartModalWindow"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="55a62dca-5fb5-4a39-aa1e-a861284c9bc2"
+            isDerived="false"
+            sourceEndRoleName="GCMainView"
+            targetEndRoleName="GanttChartInfoPopup"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="d1e41ea9-b04e-4379-9f67-57d3f48b1672"
+              LastKnownName="ChartInfoPopup"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="9b1a9e7d-dc09-44d3-b9f2-cc4ac9079cea"
+                  name="GCMainView"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b2000b8b-ba56-4e24-b877-e8c169d9c36e"
+                  name="GanttChartInfoPopup"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="84e9a49f-c00e-4184-a555-12bc82fe14b9"
+            isDerived="false"
+            sourceEndRoleName="GCMainView"
+            targetEndRoleName="GanttChartTimeline"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="4dbb6d4f-0532-4119-a50f-c36f07f994c5"
+              LastKnownName="Timeline"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="131da409-92b8-4e06-adae-799bcccb67e1"
+                  name="GCMainView"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c2a6267c-3a62-4aaf-848a-f63b30c661d0"
                   name="GanttChartTimeline"
                   isLeaf="false"
                   isStatic="false"
@@ -1759,7 +1988,24 @@
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
-            isQuery="false" />
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="65bf9666-0d3b-45bc-88b2-31a6d2fbf164"
+                  name="ganttBars"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="9c0f8251-7e9c-465f-a521-93a4c505a7d8"
+                  name="timeLine"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
           <operation
             Id="0fa1f527-b11b-456a-a309-a6f3f022bfa0"
             name="componentWillMount"
@@ -1786,203 +2032,6 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <targetEnds>
-          <association
-            Id="63df0685-caa7-4675-8406-7144a108111c"
-            isDerived="false"
-            sourceEndRoleName="GlobalStore"
-            targetEndRoleName="GCMainView"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="4c5dadbd-d356-44f7-99d3-199c519a3733"
-              LastKnownName="GCMainView"
-              LastKnownLocation="Model.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="8df017cc-7993-4cbd-af97-bb6158ccfb30"
-                  name="GlobalStore"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="cfe69880-15cb-4fef-8489-5d858bd421b8"
-                  name="GCMainView"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
-            Id="9820a071-b583-4869-ac2c-e5c3c88d674f"
-            isDerived="false"
-            sourceEndRoleName="GlobalStore"
-            targetEndRoleName="GanttChartBar"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="e2f75d80-0987-4dd3-9ea9-3b6ec17afb98"
-              LastKnownName="GanttChartBar"
-              LastKnownLocation="Model.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="1b3785b0-3a15-4a58-9bfb-a724b7cbb773"
-                  name="GlobalStore"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="24866868-c165-40f1-a7d5-782c905b65bd"
-                  name="GanttChartBar"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
-            Id="fe020a99-2792-4db1-8c4e-287215cf94ba"
-            isDerived="false"
-            sourceEndRoleName="GlobalStore"
-            targetEndRoleName="GanttChartInfoPopup"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="d1e41ea9-b04e-4379-9f67-57d3f48b1672"
-              LastKnownName="GanttChartInfoPopup"
-              LastKnownLocation="Model.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="0bb3e691-7859-44b9-abf8-7bcb494e8a47"
-                  name="GlobalStore"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="30cff8c3-e4c5-4628-ab6f-2e0bd597cda2"
-                  name="GanttChartInfoPopup"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
-            Id="f4eb8762-5007-4d0b-a584-9a49e66948b3"
-            isDerived="false"
-            sourceEndRoleName="GlobalStore"
-            targetEndRoleName="GanttChartModalWindow"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="9c74381b-30ff-4303-a0d9-1334fd7700f0"
-              LastKnownName="GanttChartModalWindow"
-              LastKnownLocation="Model.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="d0c631e0-a524-46e0-9872-7e2b559a929b"
-                  name="GlobalStore"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="c3730af3-8622-495a-aa2b-0dc1a4694109"
-                  name="GanttChartModalWindow"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
-            Id="7d5e3f39-2cb0-4574-abb6-493b76fe7350"
-            isDerived="false"
-            sourceEndRoleName="GlobalStore"
-            targetEndRoleName="GanttChartTimeline"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="4dbb6d4f-0532-4119-a50f-c36f07f994c5"
-              LastKnownName="GanttChartTimeline"
-              LastKnownLocation="Model.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="4276f0ca-9dd3-4b4f-90c3-435cff5c3a4e"
-                  name="GlobalStore"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="cae41109-b3e2-46db-90cf-712981ae1996"
-                  name="GanttChartTimeline"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="13acac7d-8513-4869-b484-3dfcb59d562f"
@@ -2111,27 +2160,27 @@
     <packageHasNamedElement>
       <class
         Id="4dbb6d4f-0532-4119-a50f-c36f07f994c5"
-        name="GanttChartTimeline"
+        name="Timeline"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
         <targetEnds>
           <association
-            Id="c509c53d-0ddd-4a55-a6e3-e2d51d2360be"
+            Id="e720a5f1-ce8d-4578-ade5-6a369f5e2755"
             isDerived="false"
-            sourceEndRoleName="GCTimeline"
-            targetEndRoleName="GCMainView"
+            sourceEndRoleName="GanttChartTimeline"
+            targetEndRoleName="GlobalStore"
             isLeaf="false"
             isAbstract="false">
             <classMoniker
-              Id="4c5dadbd-d356-44f7-99d3-199c519a3733"
-              LastKnownName="GCMainView"
+              Id="fed41593-0905-41f3-b20f-b1f1e06b797b"
+              LastKnownName="GlobalStore"
               LastKnownLocation="Model.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="8a22d4fa-48c3-42b6-9869-64915f8cd748"
-                  name="GCTimeline"
+                  Id="7c70a8a8-ad7e-44f9-9271-d006f1a80d58"
+                  name="GanttChartTimeline"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -2143,8 +2192,8 @@
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="e04828c7-ba7d-4fb9-a809-bb524b23d70a"
-                  name="GCMainView"
+                  Id="9dce9b45-e217-4587-a436-1764d32863ba"
+                  name="GlobalStore"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -2156,6 +2205,74 @@
             </relationshipOwnedElementsInternal>
           </association>
         </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="cbd943f5-07cb-41f0-81cf-564bf5f7dd69"
+            name="width"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="fe85a3c8-2b2b-4c14-8f5f-f2463da67735"
+            name="top"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="8d318a56-b5bd-4998-8d17-878f9b4bee9b"
+            name="height"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="77869a6a-9dea-4c0e-9ffc-f8e09f6286a6"
+            name="text"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="a64dc33b-b86a-49c3-8eb1-8def2e7f817c"
+            name="isCtrlPressed"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="64fd50e5-4908-426c-b64f-f87884a8c0de"
+            name="marginLeft"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation
             Id="085f2a53-1649-4701-ba0e-a9e51f54cac8"
@@ -2164,7 +2281,24 @@
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
-            isQuery="false" />
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="dae65a76-e367-418f-a956-4938786e5286"
+                  name="data"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6ca228fb-5b03-481e-9940-a5cf348332a1"
+                  name="key"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
           <operation
             Id="1675ce76-a290-472f-a143-d1f2eeb38fcb"
             name="componentDidMount"
@@ -2195,10 +2329,67 @@
     <packageHasNamedElement>
       <class
         Id="9c74381b-30ff-4303-a0d9-1334fd7700f0"
-        name="GanttChartModalWindow"
+        name="ChartModalWindow"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="40b19716-68ea-4cce-94ef-0018b2ab8c4d"
+            name="title"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="67c4c603-93bd-41ab-bf70-356d60f909da"
+            name="startDate"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="236e68a8-afe3-44b6-ad55-3e0689acb059"
+            name="endDate"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="3b6077a3-b709-4a0a-ad67-ef7a6e4605fb"
+            name="duration"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="80c7cba1-b95c-457e-9b15-0a1f60105c7a"
+            name="description"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation
             Id="290810f8-3714-4886-b3ae-edd2ebd75ecc"
@@ -2232,57 +2423,108 @@
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false" />
+          <operation
+            Id="8f28e5e1-1df5-49a6-8559-29ba54c22c20"
+            name="constructor"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d0e9696d-df26-4dbe-9ec9-ad629dac1677"
+                  name="title"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="60e5c950-db98-4360-87c9-9232852319e7"
+                  name="startDate"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="336ccf35-b9f5-4755-a730-1211712adb35"
+                  name="endDate"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="cb1934b4-bb2f-475e-ace7-e0ab0604157c"
+                  name="duration"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3a6f9ad3-881e-4910-9a1b-a740aab25ba2"
+                  name="description"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
         Id="f124d087-d8bb-4a44-91d4-038117c60455"
-        name="GanttChartConnection"
+        name="ChartBarConnection"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
-        <targetEnds>
-          <association
-            Id="da73ac2b-eef1-4ef7-a08a-8e3ba0ee849c"
-            isDerived="false"
-            sourceEndRoleName="GanttChartConnection"
-            targetEndRoleName="GanttChartBar"
+        <ownedAttributesInternal>
+          <property
+            Id="0bb915f7-5864-4701-9979-f170466982bb"
+            name="secondPoint"
             isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="e2f75d80-0987-4dd3-9ea9-3b6ec17afb98"
-              LastKnownName="GanttChartBar"
-              LastKnownLocation="Model.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="003d58f4-10e6-4faa-a4bb-f68e389a16c5"
-                  name="GanttChartConnection"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="6251ac15-a154-4c1e-83b2-a4a6bd90c063"
-                  name="GanttChartBar"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="22f54e41-379a-4766-a1c8-3490c94814b1"
+            name="thirdPoint"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="3db2c4fd-917e-4f90-9169-89a7e65f81d3"
+            name="endPoint"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="15449647-68ea-4b8b-9714-a4fdbdc2d2da"
+            name="firstPoint"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation
             Id="8bcc4b08-0504-46c1-9f4f-2be677b80c29"
@@ -2308,6 +2550,45 @@
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false" />
+          <operation
+            Id="d410c751-452d-4730-a974-7dde8db61f7e"
+            name="constructor"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="48857c31-1ca6-4663-8361-fc0d2a821a81"
+                  name="firstPoint"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="92b00071-26f0-4bb4-8773-14de82e83ec7"
+                  name="secondPoint"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d86a3051-88cc-4594-8a2f-700e79c7b159"
+                  name="thirdPoint"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1590102a-2929-4c06-832a-053f49d7233b"
+                  name="endPoint"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
