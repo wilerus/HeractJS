@@ -37,7 +37,7 @@ define([
             profileRegion: '.js-profile-region',
             moduleLoadingRegion: '.js-module-loading-region',
             moduleRegion: '.js-module-region-left',
-            gantt: '.js-module-region-right'
+            ganttRegion: '.js-module-region-right'
         },
 
         setNavigationVisibility: function (visible) {

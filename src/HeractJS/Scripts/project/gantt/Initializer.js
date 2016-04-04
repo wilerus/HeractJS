@@ -14,18 +14,24 @@
 define([
     'shared',
     './views/ContentView',
-    './views/GridView'
+    './views/GridView',
+    'ganttView'
 ], function(
-    shared, ContentView, GridView
+    shared, ContentView, GridView, ganttView
 ) {
     'use strict';
 
     return shared.application.Module.extend({
+        initializer: function() {
+            debugger
+        },
         contentView: ContentView,
 
         navigate: function () {
             this.view.setNavigationVisibility(false);
             this.moduleRegion.show(new GridView({}));
+            debugger
+            //new ganttView();
         }
     });
 });
