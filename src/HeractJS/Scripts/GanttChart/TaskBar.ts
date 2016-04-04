@@ -455,7 +455,6 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     render() {
-        debugger;
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
             onMouseOut: this.completeBarUpdate.bind(this),

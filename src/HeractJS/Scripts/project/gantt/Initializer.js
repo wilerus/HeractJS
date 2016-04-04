@@ -22,17 +22,12 @@ define([
     'use strict';
 
     return shared.application.Module.extend({
-        initializer: function() {
-            debugger
-        },
         contentView: ContentView,
 
         navigate: function () {
             this.view.setNavigationVisibility(false);
-            new ganttChart();
-
+            new ganttChart.Initializer();
             this.moduleRegion.show(new GridView({}));
-            debugger
         }
     });
 });

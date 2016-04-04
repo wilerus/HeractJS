@@ -21,18 +21,6 @@ GCMediator.dispatch({
 export class ChartView extends React.Component<any, any> {
     constructor() {
         super()
-
-        let mainView = DOM.render(React.createElement(ChartView), document.getElementsByClassName('js-module-region-right')[0]) as any
-
-        GCMediator.dispatch({
-            type: 'setGanttChartView',
-            view: mainView
-        })
-
-        GCMediator.subscribe(() => {
-            mainView.updateGanttChart();
-        })
-
     }
 
     private componentWillMount() {
@@ -150,7 +138,7 @@ export class ChartView extends React.Component<any, any> {
                     height: 50,
                     patternUnits: 'userSpaceOnUse'
                 }, React.createElement('rect', {
-                        width: GCMediator.getState().svgGridWidth,
+                    width: GCMediator.getState().svgGridWidth,
                     height: 20,
                     fill: 'url(#smallGrid)',
                     stroke: '#aaaaaa',
@@ -176,3 +164,19 @@ export class ChartView extends React.Component<any, any> {
         )
     }
 };
+
+export class Initializer {
+    constructor() {
+        let mainView = DOM.render(React.createElement(ChartView), document.getElementsByClassName('js-module-region-right')[0]) as any
+
+        GCMediator.dispatch({
+            type: 'setGanttChartView',
+            view: mainView
+        })
+
+        GCMediator.subscribe(() => {
+            mainView.updateGanttChart();
+        })
+    }
+};
+
