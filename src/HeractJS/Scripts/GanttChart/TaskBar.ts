@@ -399,7 +399,8 @@ export class TaskBar extends React.Component<any, any> {
 
     private completeBarUpdate(event) {
         let eventTarget = event.target
-        if (eventTarget.getAttribute('class') === 'barChartBody barOver' && !GCMediator.isCurrentlyDragging) {
+        let currentState = GCMediator.getState()
+        if (eventTarget.getAttribute('class') === 'barChartBody barOver' && !currentState.isCurrentlyDragging) {
             eventTarget.setAttribute('class', 'barChartBody');
         }
         if (event.relatedTarget.id === 'gridPattern') {
@@ -441,8 +442,10 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     private showModalWindow() {
-        GCMediator.ganttChartView.refs.infoPopup.hide();
-        let modalWindow = GCMediator.ganttChartView.refs.modalWindow;
+        let currentState = GCMediator.getState()
+
+        currentState.ganttChartView.refs.infoPopup.hide();
+        let modalWindow = currentState.ganttChartView.refs.modalWindow;
         modalWindow.show();
 
         modalWindow.setState({

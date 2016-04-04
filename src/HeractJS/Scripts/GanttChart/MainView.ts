@@ -9,8 +9,10 @@ import {InfoPopup} from './InfoPopup';
 import {ModalWindow} from './ModalWindow';
 import {Timeline}  from './Timeline';
 import {GanttChartMediator} from './GlobalStore';
+import {ScrollBarMediator} from '../../scripts/services/ScrollBarMediator';
 
 let GCMediator = GanttChartMediator.getInstance();
+let SBMediator = ScrollBarMediator.getInstance();
 
 GCMediator.dispatch({
     type: 'setTimelineStep',
@@ -21,6 +23,10 @@ GCMediator.dispatch({
 export class ChartView extends React.Component<any, any> {
     constructor() {
         super()
+
+        SBMediator.onChanged('ganttChart', function (oldPosition, position) {
+            this.updateScrollPosition(oldPosition, position)
+            }.bind(this))
     }
 
     private componentWillMount() {
@@ -34,7 +40,12 @@ export class ChartView extends React.Component<any, any> {
         })
     }
 
+    private updateScrollPosition(oldPosition, position) {
+        
+    }
+
     updateTimeline() {
+        let currentState = GCMediator.getState()
         switch (GCMediator.getState().timelineStep) {
             case 0:
                 GCMediator.dispatch({
@@ -43,32 +54,32 @@ export class ChartView extends React.Component<any, any> {
                 })
                 GCMediator.getState().cellCapacity = 40 / 72
                 GCMediator.getState().ganttChartView.setState({
-                    timeLine: ChartData.timelineMonth
+                    timeLine: currentState.timelineMonth
                 })
                 break;
             case 1:
                 GCMediator.getState().timelineStep = 2
                 GCMediator.getState().cellCapacity = 50 / 720
                 GCMediator.getState().ganttChartView.setState({
-                    timeLine: ChartData.timelineYear
+                    timeLine: currentState.timelineYear
                 })
                 break;
             case 2:
                 GCMediator.getState().timelineStep = 3
                 GCMediator.getState().cellCapacity = 50 / 3
                 GCMediator.getState().ganttChartView.setState({
-                    timeLine: ChartData.timelineDay
+                    timeLine: currentState.timelineDay
                 })
                 break;
             case 3:
                 GCMediator.getState().timelineStep = 0
                 GCMediator.getState().cellCapacity = 60 / 24
                 GCMediator.getState().ganttChartView.setState({
-                    timeLine: ChartData.timelineWeek
+                    timeLine: currentState.timelineWeek
                 })
                 break;
             default:
-                this.state.timelineData = ChartData.timelineDay
+                this.state.timelineData = currentState.timelineDay
         }
     }
 

@@ -4,6 +4,7 @@ define([
     'recourcePath/shared/fonts.css',
     'recourcePath/shared/master.css',
     'recourcePath/shared/master-new.css',
+    'recourcePath/shared/ganttChart.css',
     'recourcePath/shared/simplegrid.css',
     'recourcePath/shared/globalLayout.css',
     'recourcePath/shared/navigation.css',
