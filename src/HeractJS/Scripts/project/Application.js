@@ -18,7 +18,7 @@ define([
     'navigation', 'rootpath/NavigationContext',
     'rootpath/CurrentUserModel',
     'rootpath/StylesConfig',
-    'ScrollBarMediator'
+    'scrollBarMediator'
     ],
     function (en, core, shared, moduleConfigs, navigation, navigationContext, currentUserModel, stylesConfig, scrollBarMediator) {
     'use strict';

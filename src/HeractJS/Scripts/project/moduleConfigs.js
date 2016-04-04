@@ -34,7 +34,8 @@ define([
     'rootpath/profile/notificationSettings/Config',
     'rootpath/profile/aboutandextras/Config',
     'rootpath/demo/Config',
-    'rootpath/list/Config'
+    'rootpath/list/Config',
+    'rootpath/gantt/Config'
 ], function () {
     "use strict";
 

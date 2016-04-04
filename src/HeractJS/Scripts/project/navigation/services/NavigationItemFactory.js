@@ -42,7 +42,8 @@ define([
             GLOBAL_FUNCTIONS: "cmw.workspace.GlobalFunctionsItem",
             COMMUNICATION_CHANNELS: "cmw.workspace.CommunicationChannelsItem",
             COMMUNICATION_ROUTES: "cmw.workspace.CommunicationRoutesItem",
-            GRID: "cmw.workspace.GridItem"
+            GRID: "cmw.workspace.GridItem",
+            GANTT: "cmw.workspace.GanttItem"
         };
 
         var configItems = [systemItems.ARCHITECTURE, systemItems.PROCESS_MONITOR, systemItems.DATA_MODEL, 
@@ -61,6 +62,7 @@ define([
         systemItemMap[systemItems.COMMUNICATION_CHANNELS] = 'communicationChannels';
         systemItemMap[systemItems.COMMUNICATION_ROUTES] = 'communicationRoutes';
         systemItemMap[systemItems.GRID] = 'grid';
+        systemItemMap[systemItems.GANTT] = 'gantt';
 
         return {
             createModel: function (attributes) {
@@ -163,6 +165,12 @@ define([
                     result.url = shared.services.ModuleService.getDefaultModuleUrl(shared.services.ModuleService.modules.GRID);
                     result.name = 'Grid view';
                     result.tooltip = 'Grid view';
+                    break;
+
+                case systemItems.GANTT:
+                    result.url = shared.services.ModuleService.getDefaultModuleUrl(shared.services.ModuleService.modules.GANTT);
+                    result.name = 'Gantt view';
+                    result.tooltip = 'Gantt view';
                     break;
 
                 }

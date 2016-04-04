@@ -43,6 +43,20 @@
     overflow-x: auto;
     position: relative;
 }
+.content-region-left {
+    height: 100%;
+    width: 40%;
+    overflow: hidden;
+    overflow-x: auto;
+    position: relative;
+}
+.content-region-right {
+    height: 100%;
+    width: 60%;
+}
+.content-wrapper {
+    display: flex;
+}
 .layout {
     height: 100%;
 }

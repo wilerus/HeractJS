@@ -29,7 +29,9 @@ define([
             MYTASKS_DESIGNER: 'module:myTasks:formDesigner',
             PEOPLE_USERS: 'module:people:users',
             DEMO_CORE: 'module:demo:core',
+
             GRID: 'module:grid',
+            GANTT: 'module:gantt',
 
             PROJECT_ROOMS_SHOWALL: 'module:project:rooms:showAll',
             PROJECT_ROOMS_OVERVIEW: 'module:project:rooms:overview',
