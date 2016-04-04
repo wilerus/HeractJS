@@ -29,14 +29,54 @@ define([
                 editorWrapperRegion: '.text-editor-wrapper'
             },
 
-            onRender: function() {
+            onRender: function () {
                 this.editorWrapperRegion.show(new core.form.editors.TextEditor({
                     key: 'value',
                     changeMode: 'keydown',
                     autocommit: true,
                     model: this.model
                 }));
-                this.model.on('change', function() {
+                this.model.on('change', function () {
+                    console.log(this.get('value'));
+                })
+            }
+        });
+
+        var layoutViewNumber = Marionette.LayoutView.extend({
+            template: Handlebars.compile('<div class="number-editor-wrapper"></div>'),
+
+            regions: {
+                editorWrapperRegion: '.number-editor-wrapper'
+            },
+
+            onRender: function () {
+                this.editorWrapperRegion.show(new core.form.editors.NumberEditor({
+                    key: 'value',
+                    changeMode: 'keydown',
+                    autocommit: true,
+                    model: this.model
+                }));
+                this.model.on('change', function () {
+                    console.log(this.get('value'));
+                })
+            }
+        });
+
+        var layoutViewDate = Marionette.LayoutView.extend({
+            template: Handlebars.compile('<div class="date-editor-wrapper"></div>'),
+
+            regions: {
+                editorWrapperRegion: '.date-editor-wrapper'
+            },
+
+            onRender: function () {
+                this.editorWrapperRegion.show(new core.form.editors.DateTimeEditor({
+                    key: 'value',
+                    changeMode: 'keydown',
+                    autocommit: true,
+                    model: this.model
+                }));
+                this.model.on('change', function () {
                     console.log(this.get('value'));
                 })
             }
@@ -47,24 +87,23 @@ define([
             {
                 id: 'textCell',
                 cellView: layoutView,
-                viewModel: new Backbone.Model({displayText: 'TextCell'}),
+                viewModel: new Backbone.Model({ displayText: 'TextCell' }),
                 sortAsc: core.utils.helpers.comparatorFor(core.utils.comparators.stringComparator2Asc, 'textCell'),
                 sortDesc: core.utils.helpers.comparatorFor(core.utils.comparators.stringComparator2Desc, 'textCell'),
                 sorting: 'asc'
             },
             {
                 id: 'numberCell',
-                cellView: core.list.cellFactory.getNumberCellView(),
-                viewModel: new Backbone.Model({displayText: 'Number Cell'}),
+                cellView: layoutViewNumber,
+                viewModel: new Backbone.Model({ displayText: 'Number Cell' }),
                 sortAsc: core.utils.helpers.comparatorFor(core.utils.comparators.numberComparator2Asc, 'numberCell'),
                 sortDesc: core.utils.helpers.comparatorFor(core.utils.comparators.numberComparator2Desc, 'numberCell'),
-                sorting: 'asc',
                 filterView: core.nativeGrid.filterViewFactory.getFilterViewByType()
             },
             {
                 id: 'dateTimeCell',
-                cellView: core.list.cellFactory.getDateTimeCellView(),
-                viewModel: new Backbone.Model({displayText: 'DateTime Cell'}),
+                cellView: layoutViewDate,
+                viewModel: new Backbone.Model({ displayText: 'Date Time Cell' }),
                 sortAsc: core.utils.helpers.comparatorFor(core.utils.comparators.dateComparator2Asc, 'dateTimeCell'),
                 sortDesc: core.utils.helpers.comparatorFor(core.utils.comparators.dateComparator2Desc, 'dateTimeCell'),
                 filterView: core.nativeGrid.filterViewFactory.getFilterViewByType()
