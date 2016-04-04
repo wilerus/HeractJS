@@ -61,14 +61,12 @@ export class ChartData {
                 id: 'bar' + i,
                 barClass: barClass,
                 type: 'bar',
-                complition: 20,
+                progress: 20,
                 duration: 80 + this.counter + i,
-                text: text,
-                description:'Description for ' + text,
+                name: text,
+                description: 'Description for ' + text,
                 startDate: leftMargin,
-                style: {
-                    top: topMargin,
-                }
+                position: topMargin
             });
         }//ganttBars
 
@@ -122,7 +120,7 @@ export class ChartData {
                 });
             }
         }//timelineMonth
-        
+
         for (let i = 0; i < 6; i++) {
             ChartData.timelineDay.push({
                 id: 'timelineDay' + i,
@@ -138,7 +136,7 @@ export class ChartData {
             for (let n = 0; n < 8; n++) {
                 ChartData.timelineDay.push({
                     id: 'timelineDay' + n + i,
-                    text: 'H'+(n * 3).toString(),
+                    text: 'H' + (n * 3).toString(),
                     style: {
                         top: 30,
                         height: 30,
@@ -148,11 +146,11 @@ export class ChartData {
                 });
             }
         }//timelineDay
-        
+
         for (let i = 0; i <= 8; i++) {
             ChartData.timelineYear.push({
                 id: 'timelineYear' + i,
-                text: this.yearData[i], 
+                text: this.yearData[i],
                 style: {
                     top: 0,
                     height: 30,
@@ -174,5 +172,30 @@ export class ChartData {
                 });
             }
         }//timelineYear
+    }
+
+    create(taskData: Object) {
+        
+    }
+    autoSchedule() {
+        
+    }
+    delete(taskId: string) {
+        
+    }
+    edit(taskData: Object) {
+        
+    }
+    indent(taskData: Object) {
+        
+    }
+    link(taskData: Object) {
+        
+    }
+    outindent(taskData: Object) {
+        
+    }
+    unlinktask(taskId: string) {
+        
     }
 }

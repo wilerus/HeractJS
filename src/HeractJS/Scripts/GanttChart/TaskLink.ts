@@ -1,8 +1,6 @@
 ﻿import React = require('react')
 import DOM = require('react-dom')
 
-import {GlobalStore} from './GlobalStore';
-
 export class TaskLink extends React.Component<any, any> {
     public buildConnection() {
         let firstPoint = DOM.findDOMNode(this.props.data.firstP) as any;
@@ -16,10 +14,10 @@ export class TaskLink extends React.Component<any, any> {
         let secondPointCoordsWidth = secondPoint.getBoundingClientRect().width
 
         if (firstPointCoordsX < secondPointCoordsX - 10) {
-            this.setState ({
+            this.setState({
                 firstPoint: (firstPointCoordsX + firstPointCoordsWidth) + ' , ' + (firstPointCoordsY + 10),
-                secondPoint: (secondPointCoordsX + secondPointCoordsWidth + 30 ) + ' , ' + (firstPointCoordsY + 10),
-                thirdPoint: (secondPointCoordsX + secondPointCoordsWidth + 30 ) + ' , ' + (secondPointCoordsY + 10),
+                secondPoint: (secondPointCoordsX + secondPointCoordsWidth + 30) + ' , ' + (firstPointCoordsY + 10),
+                thirdPoint: (secondPointCoordsX + secondPointCoordsWidth + 30) + ' , ' + (secondPointCoordsY + 10),
                 endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
             })
         } else if (firstPointCoordsX - 10 > secondPointCoordsX) {

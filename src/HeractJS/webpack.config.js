@@ -41,7 +41,7 @@ module.exports = {
             'navigation': path.resolve(__dirname + '/scripts/project/navigation/module.js'),
             'LANGMAPEN': path.resolve(__dirname + '/wwwroot/js/compiled/localizationmap.en.js'),
             'scrollBarMediator': path.resolve(__dirname + '/scripts/services/ScrollBarMediator'),
-            'ganttView': path.resolve(__dirname + '/scripts/GanttChart/MainView')
+            'ganttChart': path.resolve(__dirname + '/scripts/GanttChart/MainView')
         }
     },
     module: {

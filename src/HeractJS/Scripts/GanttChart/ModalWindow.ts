@@ -1,8 +1,6 @@
 ﻿import React = require('react')
 import DOM = require('react-dom')
 
-import {GlobalStore} from './GlobalStore';
-
 export class ModalWindow extends React.Component<any, any> {
     private componentWillMount() {
         this.state = {
@@ -34,7 +32,7 @@ export class ModalWindow extends React.Component<any, any> {
                 className: 'modalWindow'
             },
                 React.createElement('input', {
-                    type:'text',
+                    type: 'text',
                     className: 'infoPopupTitle',
                     value: this.state.title
                 }),

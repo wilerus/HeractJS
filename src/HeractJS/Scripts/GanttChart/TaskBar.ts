@@ -1,12 +1,30 @@
 ﻿import React = require('react')
 import DOM = require('react-dom')
 
-import {GlobalStore} from './GlobalStore';
+import {GanttChartMediator} from './GlobalStore';
+
+let GCMediator = GanttChartMediator.getInstance();
 
 export class TaskBar extends React.Component<any, any> {
     constructor() {
         super()
         this.state = {
+            id: 'Task',
+            order: 1,
+            collapsed: false,
+            position: 1,
+
+            name: 'Task',
+            description: 'Desc',
+            assignee: '',
+            parent: '',
+            predecessors: '',
+
+            progress: 20,
+            duration: '',
+            finish: '',
+            priority: '',
+
             width: 50,
             startDate: 10,
             top: 10,
@@ -18,12 +36,22 @@ export class TaskBar extends React.Component<any, any> {
 
     private componentWillMount() {
         this.setState({
-            startDate: this.props.data.startDate,
-            top: this.props.data.style.top,
-            title: this.props.data.text,
-            complition: this.props.data.complition,
+            id: this.props.data.id,
+            order: this.props.data.order,
+            collapsed: this.props.data.collapsed,
+            position: this.props.data.position,
+
+            name: this.props.data.name,
+            description: this.props.data.description,
+            assignee: this.props.data.assignee,
+            parent: this.props.data.parent,
+            predecessors: this.props.data.startDate,
+
+            progress: this.props.data.progress,
             duration: this.props.data.duration,
-            description: this.props.data.description
+            startDate: this.props.data.startDate,
+            finish: this.props.data.finish,
+            priority: this.props.data.priority
         })
     }
 
@@ -33,7 +61,10 @@ export class TaskBar extends React.Component<any, any> {
 
     private startBarRelocation(event) {
         var eventTarget = event.target;
-        GlobalStore.currentDraggingElement = this
+        GCMediator.dispatch({
+            type: 'setDraggingTask',
+            draggingTask: this
+        })
         let dropTarget = eventTarget;
         if (eventTarget.tagName === 'rect') {
             dropTarget = dropTarget.parentNode;
@@ -50,14 +81,15 @@ export class TaskBar extends React.Component<any, any> {
         }
         document.onmousemove = function (event) {
             let transform = dropTarget.parentNode.createSVGMatrix();
-            if (Math.abs(event.clientX - startX) > 30 && !GlobalStore.isDrawingConnection) {
+            let currentState = GCMediator.getState();
+            if (Math.abs(event.clientX - startX) > 30 && !currentState.isDrawingConnection) {
                 dropTarget.transform.baseVal.getItem(0).setMatrix(
                     transform.translate(event.clientX - eventTarget.parentNode.getAttribute('x') - 8 - x, 0)
                 )
-                GlobalStore.isCurrentlyDragging = true;
+                GCMediator.dispatch({ type: 'dragStart' })
             }
-            if (Math.abs(event.clientY - startY) > 30 && !GlobalStore.isCurrentlyDragging) {
-                GlobalStore.isDrawingConnection = true;
+            if (Math.abs(event.clientY - startY) > 30 && !currentState.isDragging) {
+                GCMediator.dispatch({ type: 'stactLinking' })
 
                 let tempLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 
@@ -77,11 +109,14 @@ export class TaskBar extends React.Component<any, any> {
                     tempLine.setAttribute('x2', (event.clientX - 10).toString());
                     tempLine.setAttribute('y2', (event.clientY - 110).toString());
                 }
-                GlobalStore.tempLine = tempLine
+                GCMediator.dispatch({
+                    type: 'setTimpline',
+                    tempLine: tempLine
+                })
                 document.getElementById('ganttChartView').appendChild(tempLine);
 
                 document.onmouseup = function () {
-                    if (GlobalStore.isDrawingConnection) {
+                    if (GCMediator.getState().isLinking) {
                         document.onmouseup = null;
                         this.addNewConnection();
                     }
@@ -119,13 +154,13 @@ export class TaskBar extends React.Component<any, any> {
                 document.onmouseup = function (event) {
                     this.completeBarRelocation(event)
                 }.bind(this)
-                GlobalStore.isCurrentlySizing = true;
+                GCMediator.dispatch({ type: 'startSizing' })
             } else if (clickCoordX < elementRect.left + 15) {
                 this.updateStartDate(event);
                 document.onmouseup = function (event) {
                     this.completeBarRelocation(event)
                 }.bind(this)
-                GlobalStore.isCurrentlySizing = true;
+                GCMediator.dispatch({ type: 'startSizing' })
             }
         }
     }
@@ -133,14 +168,15 @@ export class TaskBar extends React.Component<any, any> {
     private updateСompleteDate(event) {
         let startX = event.target.getAttribute('x')
         document.onmousemove = function (event) {
-            let newDuration = (event.pageX - startX - 15) / GlobalStore.cellCapacity;
+            let currentState = GCMediator.getState();
+            let newDuration = (event.pageX - startX - 15) / currentState.cellCapacity;
 
             if (newDuration) {
-                let newCompletion = this.state.complition / GlobalStore.cellCapacity;
+                let newCompletion = this.state.progress / currentState.cellCapacity;
                 if (newCompletion > newDuration || newCompletion === this.state.duration) {
                     newCompletion = newDuration
                     this.setState({
-                        complition: newCompletion
+                        progress: newCompletion
                     })
                 }
                 this.setState({
@@ -152,19 +188,20 @@ export class TaskBar extends React.Component<any, any> {
 
     private updateStartDate(e) {
         if (!document.onmousemove) {
+            let currentState = GCMediator.getState();
             document.onmousemove = function (event) {
                 let newStartDate = event.pageX
-                let newDuration = (this.state.startDate - newStartDate) / GlobalStore.cellCapacity + this.state.duration
+                let newDuration = (this.state.startDate - newStartDate) / currentState.cellCapacity + this.state.duration
 
                 if (this.state.startDate !== newStartDate && newDuration) {
-                        let newCompletion = this.state.complition;
-                        if (newCompletion > newDuration || newCompletion === this.state.duration) {
-                            newCompletion = newDuration
-                        } 
+                    let newCompletion = this.state.progress;
+                    if (newCompletion > newDuration || newCompletion === this.state.duration) {
+                        newCompletion = newDuration
+                    }
                     this.setState({
                         startDate: newStartDate,
                         duration: newDuration,
-                        complition: newCompletion
+                        progress: newCompletion
                     })
                 }
             }.bind(this)
@@ -181,14 +218,14 @@ export class TaskBar extends React.Component<any, any> {
             document.onmousemove = function (event) {
                 let newComplition = event.pageX - event.target.getAttribute('x');
 
-                newComplition = newComplition / GlobalStore.cellCapacity;
+                newComplition = newComplition / GCMediator.getState().cellCapacity;
                 if (newComplition <= 0) {
                     newComplition = 0
                 } else if (this.state.duration < newComplition) {
                     newComplition = this.state.duration
                 }
                 this.setState({
-                    complition: newComplition
+                    progress: newComplition
                 })
             }.bind(this)
 
@@ -203,82 +240,84 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     private addNewConnection() {
-        let currentItems = GlobalStore.ganttChartView.state.ganttBars
+        let currentState = GCMediator.getState();
+        let currentItems = currentState.ganttChartView.state.ganttBars
         let newId = 'connection ' + (currentItems.length + 1)
 
         currentItems.push({
             id: newId,
-            firstP: GlobalStore.currentDraggingElement,
-            endP: GlobalStore.currentDropTarget,
+            firstP: currentState.currentDraggingElement,
+            endP: currentState.currentDropTarget,
             type: 'connection'
         });
-        GlobalStore.ganttChartView.setState({ ganttBars: currentItems })
+        currentState.ganttChartView.setState({ ganttBars: currentItems })
 
-        let newConnections = GlobalStore.currentDraggingElement.state.connections
-        newConnections.push(GlobalStore.ganttChartView.refs[newId])
-        GlobalStore.currentDraggingElement.setState({
+        let newConnections = currentState.currentDraggingElement.state.connections
+        newConnections.push(currentState.ganttChartView.refs[newId])
+        currentState.currentDraggingElement.setState({
             connections: newConnections
         })
 
-        let newConnections2 = GlobalStore.currentDropTarget.state.connections
-        newConnections2.push(GlobalStore.ganttChartView.refs[newId])
+        let newConnections2 = currentState.currentDropTarget.state.connections
+        newConnections2.push(currentState.ganttChartView.refs[newId])
         this.setState({
             connections: newConnections2
         })
 
         document.onmousemove = null;
-        document.getElementById('ganttChartView').removeChild(GlobalStore.tempLine);
-        GlobalStore.tempLine = null;
+        document.getElementById('ganttChartView').removeChild(currentState.tempLine);
+        currentState.dispatch({type: 'removeTempline'})
 
-        let el = DOM.findDOMNode(GlobalStore.currentDraggingElement).getElementsByClassName('barChartBody barOver');
-        if (el.length ) {
-            el[0].setAttribute('class', 'barChartBody')
-        }
-        el = DOM.findDOMNode(GlobalStore.currentDropTarget).getElementsByClassName('barChartBody barOver');
+        let el = DOM.findDOMNode(currentState.currentDraggingElement).getElementsByClassName('barChartBody barOver');
         if (el.length) {
             el[0].setAttribute('class', 'barChartBody')
         }
-        GlobalStore.isCurrentlyDragging = false;
-        GlobalStore.isCurrentlySizing = false;
-        GlobalStore.isDrawingConnection = false;
-        GlobalStore.currentDropTarget = null;
-        GlobalStore.currentDraggingElement = null;
+        el = DOM.findDOMNode(currentState.currentDropTarget).getElementsByClassName('barChartBody barOver');
+        if (el.length) {
+            el[0].setAttribute('class', 'barChartBody')
+        }
+        GCMediator.dispatch({ type: 'stopDragging' })
+        GCMediator.dispatch({ type: 'stopSizing' })
+        GCMediator.dispatch({ type: 'stopLinking' })
+        GCMediator.dispatch({ type: 'removeDropTarget' })
+        GCMediator.dispatch({ type: 'removeDraggingElement' })
     }
 
     private handleRectHover(event) {
+        let currentState = GCMediator.getState()
         this.clearTempElements()
         var eventTarget = event.target;
 
-        if ((GlobalStore.isCurrentlyDragging || GlobalStore.isDrawingConnection) && this !== GlobalStore.currentDraggingElement) {
-            GlobalStore.currentDropTarget = this;
+        if ((!currentState.isDragging || !currentState.isLinking) && this !== currentState.draggingTask) {
+            currentState.currentDropTarget = this;
             if (eventTarget.getAttribute('class') === 'barChartBody') {
                 eventTarget.setAttribute('class', 'barChartBody barOver')
             }
         } else {
-            if (!GlobalStore.isCurrentlyDragging && !GlobalStore.isCurrentlySizing && eventTarget.classList[0] === 'barChartBody') {
+            if (!GCMediator.getState().isCurrentlyDragging && !GCMediator.getState().isCurrentlySizing && eventTarget.classList[0] === 'barChartBody') {
                 let coords = eventTarget.getBoundingClientRect();
                 let hoverElement = event.target;
 
                 setTimeout(function (hoverElement) {
                     if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
-                        !GlobalStore.isCurrentlyDragging) {
-                        GlobalStore.ganttChartView.refs.infoPopup.setState({
+                        !GCMediator.getState().isCurrentlyDragging) {
+                        GCMediator.getState().ganttChartView.refs.infoPopup.setState({
                             left: parseInt(hoverElement.getAttribute('x')) + coords.width / 2 - 84,
                             top: parseInt(hoverElement.getAttribute('y')) - 55,
                             title: this.state.title,
                             startDate: this.state.startDate,
                             endDate: this.state.startDate + this.state.duration,
                             duration: this.state.duration,
-                            description: this.state.description 
+                            description: this.state.description
                         })
-                        GlobalStore.ganttChartView.refs.infoPopup.show();
+                        GCMediator.getState().ganttChartView.refs.infoPopup.show();
                     }
                 }.bind(this, hoverElement), 500);
                 let el = DOM.findDOMNode(this) as any;
                 this.clearTempElements()
                 let elementRect = event.target.getBoundingClientRect()
 
-                document.onmousemove = function (event)  {
+                document.onmousemove = function (event) {
                     let clickCoordX = event.clientX
                     if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
                         el.style.cursor = 'move';
@@ -295,37 +334,38 @@ export class TaskBar extends React.Component<any, any> {
     private completeBarRelocation(event) {
         document.onmousemove = null;
         document.onmouseup = null;
-        if (GlobalStore.currentDraggingElement) {
-            let currentDraggingElement = DOM.findDOMNode(GlobalStore.currentDraggingElement) as any
-            if (GlobalStore.currentDropTarget && GlobalStore.isCurrentlyDragging) {
+        let currentState = GCMediator.getState();
+        if (currentState.currentDraggingElement) {
+            let currentDraggingElement = DOM.findDOMNode(currentState.currentDraggingElement) as any
+            if (currentState.currentDropTarget && currentState.isCurrentlyDragging) {
 
-                let moveToSateX = GlobalStore.currentDropTarget.state.startDate;
-                let moveToSateY = GlobalStore.currentDropTarget.state.top;
+                let moveToSateX = currentState.currentDropTarget.state.startDate;
+                let moveToSateY = currentState.currentDropTarget.state.top;
 
-                let exchToSateX = GlobalStore.currentDraggingElement.state.startDate;
-                let exchToSateY = GlobalStore.currentDraggingElement.state.top;
+                let exchToSateX = currentState.currentDraggingElement.state.startDate;
+                let exchToSateY = currentState.currentDraggingElement.state.top;
 
-                GlobalStore.currentDraggingElement.setState({ startDate: moveToSateX })
-                GlobalStore.currentDraggingElement.setState({ top: moveToSateY })
+                currentState.currentDraggingElement.setState({ startDate: moveToSateX })
+                currentState.currentDraggingElement.setState({ top: moveToSateY })
 
-                let currentDropTarget = DOM.findDOMNode(GlobalStore.currentDropTarget) as any
+                let currentDropTarget = DOM.findDOMNode(currentState.currentDropTarget) as any
 
-                GlobalStore.currentDropTarget.setState({ startDate: exchToSateX })
-                GlobalStore.currentDropTarget.setState({ top: exchToSateY })
+                currentState.currentDropTarget.setState({ startDate: exchToSateX })
+                currentState.currentDropTarget.setState({ top: exchToSateY })
 
                 currentDropTarget.setAttribute('transform', 'translate(0, 0)')
                 currentDraggingElement.setAttribute('transform', 'translate(0, 0)')
             } else {
-                let currentMargin = GlobalStore.currentDraggingElement.state.startDate;
+                let currentMargin = currentState.currentDraggingElement.state.startDate;
                 let delta = currentDraggingElement.transform.baseVal[0].matrix.e;
 
-                GlobalStore.currentDraggingElement.setState({ startDate: currentMargin + delta })
+                currentState.currentDraggingElement.setState({ startDate: currentMargin + delta })
 
                 currentDraggingElement.setAttribute('transform', 'translate(0, 0)')
             }
         }
-        if (GlobalStore.currentDraggingElement) {
-            let connectionsDropTarget = GlobalStore.currentDraggingElement.state.connections;
+        if (currentState.currentDraggingElement) {
+            let connectionsDropTarget = currentState.currentDraggingElement.state.connections;
             if (connectionsDropTarget) {
                 let length = connectionsDropTarget.length
 
@@ -335,8 +375,8 @@ export class TaskBar extends React.Component<any, any> {
             }
         }
 
-        if (GlobalStore.currentDropTarget) {
-            let connectionsDraggingElement = GlobalStore.currentDropTarget.state.connections;
+        if (currentState.currentDropTarget) {
+            let connectionsDraggingElement = currentState.currentDropTarget.state.connections;
             if (connectionsDraggingElement) {
                 let length = connectionsDraggingElement.length
 
@@ -346,11 +386,11 @@ export class TaskBar extends React.Component<any, any> {
             }
         }
 
-        GlobalStore.isCurrentlyDragging = false;
-        GlobalStore.isCurrentlySizing = false;
-        GlobalStore.isDrawingConnection = false;
-        GlobalStore.currentDropTarget = null;
-        GlobalStore.currentDraggingElement = null;
+        currentState.isCurrentlyDragging = false;
+        currentState.isCurrentlySizing = false;
+        currentState.isDrawingConnection = false;
+        currentState.currentDropTarget = null;
+        currentState.currentDraggingElement = null;
 
         if (event.target.getAttribute('class') === 'barChartBody barOver') {
             event.target.setAttribute('class', 'barChartBody');
@@ -359,7 +399,7 @@ export class TaskBar extends React.Component<any, any> {
 
     private completeBarUpdate(event) {
         let eventTarget = event.target
-        if (eventTarget.getAttribute('class') === 'barChartBody barOver' && !GlobalStore.isCurrentlyDragging) {
+        if (eventTarget.getAttribute('class') === 'barChartBody barOver' && !GCMediator.isCurrentlyDragging) {
             eventTarget.setAttribute('class', 'barChartBody');
         }
         if (event.relatedTarget.id === 'gridPattern') {
@@ -387,10 +427,10 @@ export class TaskBar extends React.Component<any, any> {
             document.getElementById('ganttChartView').removeChild(document.getElementById('leftTempCircle'))
             document.getElementById('ganttChartView').removeChild(document.getElementById('rightTempCircle'))
         }
-        GlobalStore.ganttChartView.refs.infoPopup.hide();
-        if (!GlobalStore.isCurrentlyDragging && !GlobalStore.isCurrentlySizing && GlobalStore.tempLine) {
-            document.getElementById('ganttChartView').removeChild(GlobalStore.tempLine);
-            GlobalStore.tempLine = null;
+        GCMediator.getState().ganttChartView.refs.infoPopup.hide();
+        if (!GCMediator.getState().isDragging && !GCMediator.getState().isSizing && GCMediator.getState().templine) {
+            document.getElementById('ganttChartView').removeChild(GCMediator.getState().templine);
+            GCMediator.dispatch({ type: 'removeTempline' })
         }
     }
 
@@ -401,8 +441,8 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     private showModalWindow() {
-        GlobalStore.ganttChartView.refs.infoPopup.hide();
-        let modalWindow = GlobalStore.ganttChartView.refs.modalWindow;
+        GCMediator.ganttChartView.refs.infoPopup.hide();
+        let modalWindow = GCMediator.ganttChartView.refs.modalWindow;
         modalWindow.show();
 
         modalWindow.setState({
@@ -415,6 +455,7 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     render() {
+        debugger;
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
             onMouseOut: this.completeBarUpdate.bind(this),
@@ -429,22 +470,22 @@ export class TaskBar extends React.Component<any, any> {
                 className: 'barChartBody',
                 group: this.props.data.barClass,
                 id: this.props.data.id,
-                y: this.state.top,
+                y: this.state.position,
                 x: this.state.startDate,
-                width: this.state.duration * GlobalStore.cellCapacity
+                width: this.state.duration * GCMediator.getState().cellCapacity
             }),
-            React.createElement('rect', { // complition element
+            React.createElement('rect', { // progress element
                 className: 'barChartFillBody',
                 group: this.props.data.barClass,
-                y: this.state.top,
+                y: this.state.position,
                 x: this.state.startDate,
-                width: this.state.complition * GlobalStore.cellCapacity,
+                width: this.state.progress * GCMediator.getState().cellCapacity,
             }),
             React.createElement('text', {
                 className: 'barTitle',
-                x: this.state.startDate + this.state.duration * GlobalStore.cellCapacity * 0.5,
-                y: this.state.top + 15
-            }, this.state.title)
+                x: this.state.startDate + this.state.duration * GCMediator.getState().cellCapacity * 0.5,
+                y: this.state.position + 15
+            }, this.state.name)
         )
     }
 };

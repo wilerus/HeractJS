@@ -1,8 +1,6 @@
 ﻿import React = require('react')
 import DOM = require('react-dom')
 
-import {GlobalStore} from './GlobalStore';
-
 export class InfoPopup extends React.Component<any, any> {
     private componentWillMount() {
         this.state = {

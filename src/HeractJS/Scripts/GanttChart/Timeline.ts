@@ -1,6 +1,8 @@
 ﻿import React = require('react')
 
-import {GlobalStore} from './GlobalStore';
+import {GanttChartMediator} from './GlobalStore';
+
+let GCMediator = GanttChartMediator.getInstance();
 
 export class Timeline extends React.Component<any, any> {
     constructor() {
@@ -38,13 +40,13 @@ export class Timeline extends React.Component<any, any> {
             if (this.state.isCtrlPressed) {
                 event.preventDefault()
                 event.stopPropagation()
-                GlobalStore.ganttChartView.updateTimeline()
-            }           
+                GCMediator.getState().ganttChartView.updateTimeline()
+            }
         }.bind(this)
     }
 
     render() {
-        return React.createElement('g', {       
+        return React.createElement('g', {
             y: this.state.top,
             x: this.state.marginLeft
         },
@@ -60,7 +62,7 @@ export class Timeline extends React.Component<any, any> {
             }),
             React.createElement('text', {
                 className: 'timeLineText',
-                fontSize:12,
+                fontSize: 12,
                 x: this.state.marginLeft + this.state.width * 0.5,
                 y: this.state.top + 20
             }, this.state.text)

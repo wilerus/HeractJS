@@ -3,57 +3,79 @@
 import React = require('react')
 import DOM = require('react-dom')
 
-import {GlobalStore} from './GlobalStore';
-import {ChartData} from './ChartData';
 import {TaskBar} from './TaskBar';
 import {TaskLink} from './TaskLink';
 import {InfoPopup} from './InfoPopup';
 import {ModalWindow} from './ModalWindow';
 import {Timeline}  from './Timeline';
+import {GanttChartMediator} from './GlobalStore';
 
-GlobalStore.timelineStep = 0
+let GCMediator = GanttChartMediator.getInstance();
+
+GCMediator.dispatch({
+    type: 'setTimelineStep',
+    step: 0
+})
 
 // gannt bars wrapper
-class ChartView extends React.Component<any, any> {
+export class ChartView extends React.Component<any, any> {
     constructor() {
         super()
-        new ChartData()
+
+        let mainView = DOM.render(React.createElement(ChartView), document.getElementsByClassName('js-module-region-right')[0]) as any
+
+        GCMediator.dispatch({
+            type: 'setGanttChartView',
+            view: mainView
+        })
+
+        GCMediator.subscribe(() => {
+            mainView.updateGanttChart();
+        })
+
     }
 
     private componentWillMount() {
+        this.updateGanttChart()
+    }
+
+    public updateGanttChart() {
         this.setState({
-            ganttBars: this.props.ganttBars,
-            timeLine: this.props.timeLine
+            ganttBars: GCMediator.getState().items,
+            timeLine: GCMediator.getState().timeline
         })
     }
 
     updateTimeline() {
-        switch (GlobalStore.timelineStep) {
+        switch (GCMediator.getState().timelineStep) {
             case 0:
-                GlobalStore.timelineStep = 1
-                GlobalStore.cellCapacity = 40 / 72
-                GlobalStore.ganttChartView.setState({
+                GCMediator.dispatch({
+                    type: 'setTimeline',
+                    step: 1
+                })
+                GCMediator.getState().cellCapacity = 40 / 72
+                GCMediator.getState().ganttChartView.setState({
                     timeLine: ChartData.timelineMonth
                 })
                 break;
             case 1:
-                GlobalStore.timelineStep = 2
-                GlobalStore.cellCapacity = 50 / 720
-                GlobalStore.ganttChartView.setState({
+                GCMediator.getState().timelineStep = 2
+                GCMediator.getState().cellCapacity = 50 / 720
+                GCMediator.getState().ganttChartView.setState({
                     timeLine: ChartData.timelineYear
                 })
                 break;
             case 2:
-                GlobalStore.timelineStep = 3
-                GlobalStore.cellCapacity = 50 / 3
-                GlobalStore.ganttChartView.setState({
+                GCMediator.getState().timelineStep = 3
+                GCMediator.getState().cellCapacity = 50 / 3
+                GCMediator.getState().ganttChartView.setState({
                     timeLine: ChartData.timelineDay
                 })
                 break;
             case 3:
-                GlobalStore.timelineStep = 0
-                GlobalStore.cellCapacity = 60 / 24
-                GlobalStore.ganttChartView.setState({
+                GCMediator.getState().timelineStep = 0
+                GCMediator.getState().cellCapacity = 60 / 24
+                GCMediator.getState().ganttChartView.setState({
                     timeLine: ChartData.timelineWeek
                 })
                 break;
@@ -124,11 +146,11 @@ class ChartView extends React.Component<any, any> {
             })),
                 React.createElement('pattern', {
                     id: 'grid',
-                    width: GlobalStore.svgGridWidth,
+                    width: GCMediator.getState().svgGridWidth,
                     height: 50,
                     patternUnits: 'userSpaceOnUse'
                 }, React.createElement('rect', {
-                    width: GlobalStore.svgGridWidth,
+                        width: GCMediator.getState().svgGridWidth,
                     height: 20,
                     fill: 'url(#smallGrid)',
                     stroke: '#aaaaaa',
@@ -149,13 +171,8 @@ class ChartView extends React.Component<any, any> {
                 //    transitionLeaveTimeout: 500
                 //}, 
                 items
-           // )
+                // )
             )
         )
     }
 };
-
-GlobalStore.ganttChartView = DOM.render(React.createElement(ChartView, {
-    ganttBars: ChartData.ganttBars,
-    timeLine: ChartData.timelineWeek
-}), document.getElementById('gantChartView')) as any
