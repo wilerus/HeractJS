@@ -1,9 +1,5 @@
 ﻿import React = require('react')
 
-import {GanttChartMediator} from './GlobalStore';
-
-let GCMediator = GanttChartMediator.getInstance();
-
 export class Timeline extends React.Component<any, any> {
     constructor() {
         super()
@@ -12,8 +8,7 @@ export class Timeline extends React.Component<any, any> {
             width: '',
             top: '',
             height: '',
-            text: '',
-            isCtrlPressed: false
+            text: ''
         }
     }
 
@@ -25,24 +20,6 @@ export class Timeline extends React.Component<any, any> {
             height: this.props.data.style.height,
             text: this.props.data.text
         })
-    }
-
-    private componentWillMount() {
-        document.onkeydown = function (event) {
-            if (event.ctrlKey) {
-                this.setState({
-                    isCtrlPressed: true
-                })
-            }
-        }.bind(this)
-
-        document.onwheel = function (event) {
-            if (this.state.isCtrlPressed) {
-                event.preventDefault()
-                event.stopPropagation()
-                GCMediator.getState().ganttChartView.updateTimeline()
-            }
-        }.bind(this)
     }
 
     render() {

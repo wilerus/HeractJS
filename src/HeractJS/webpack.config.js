@@ -15,6 +15,7 @@ module.exports = {
         'project': './Scripts/project/Application.js',
         'services': './Scripts/services/ScrollBarMediator.ts'
     },
+    devtool: "#inline-source-map",
     output: {
         path: path.join('./wwwroot/', 'js'),
         filename: 'cmw.tracker.[name].bundle.js',

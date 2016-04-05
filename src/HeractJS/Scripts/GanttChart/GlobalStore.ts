@@ -63,6 +63,24 @@ export class GanttChartMediator {
                 newState.draggingTask = action.draggingTask
             case 'removeTempline':
                 newState.tempLine = null
+            case 'setTimelineStep':
+                switch (newState.timelineStep) {
+                    case 0:
+                        newState.cellCapacity = 40 / 72
+                        break;
+                    case 1:
+                        newState.cellCapacity = 50 / 720
+                        break;
+                    case 2:
+                        newState.cellCapacity = 50 / 3
+                        break;
+                    case 3:
+                        newState.cellCapacity = 60 / 24
+                        break;
+                    default:
+                        newState.cellCapacity = 40 / 72
+                }
+                newState.timelineStep = action.step
                 return newState
             default:
                 return state
@@ -72,13 +90,17 @@ export class GanttChartMediator {
     initialState = {
         items: ChartData.ganttBars,
         timeline: ChartData.timelineWeek,
+        timelineWeek: ChartData.timelineWeek,
+        timelineMonth: ChartData.timelineMonth,
+        timelineDay: ChartData.timelineDay,
+        timelineYear: ChartData.timelineYear,
         isCurrentlyDragging: false,
         isDrawingConnection: false,
         isCurrentlySizing: false,
 
         isLineDrawStarted: false,
 
-        timelineStep: null,
+        timelineStep: 0,
 
         svgGridWidth: 50,
         ganttChartView: null,

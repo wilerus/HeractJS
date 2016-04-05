@@ -68,11 +68,9 @@
 
 .ganttChartView {
     user-select: none;
-    position: absolute;
     width: 100%;
-    height: 100%;
+    height: 1500px;
     z-index: 10;
-    top: 100px;
 }
 
 .container .body-content {
@@ -100,7 +98,6 @@
 
 .ganttChartTimeline {
     width: 100%;
-    position: absolute;
 }
 
 .timeLineText {

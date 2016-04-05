@@ -23,25 +23,51 @@ GCMediator.dispatch({
 export class ChartView extends React.Component<any, any> {
     constructor() {
         super()
-
         SBMediator.onChanged('ganttChart', function (oldPosition, position) {
             this.updateScrollPosition(oldPosition, position)
-            }.bind(this))
+        }.bind(this))
     }
 
     private componentWillMount() {
         this.updateGanttChart()
+
+        document.onkeydown = function (event) {
+            if (event.ctrlKey) {
+                this.setState({
+                    isCtrlPressed: true
+                })
+            }
+        }.bind(this)
+
+        document.onwheel = function (event) {
+            if (this.state.isCtrlPressed) {
+                event.preventDefault()
+                event.stopPropagation()
+                this.updateTimeline()
+            }
+        }.bind(this)
     }
 
     public updateGanttChart() {
         this.setState({
             ganttBars: GCMediator.getState().items,
-            timeLine: GCMediator.getState().timeline
+            timeLine: GCMediator.getState().timeline,
+            isCtrlPressed: false
         })
     }
 
-    private updateScrollPosition(oldPosition, position) {
-        
+    private updateScrollPosition(position) {
+        let items = this.state.ganttBars;
+        let bar 
+        if (items.length > position) {
+            bar = items[position]
+        }
+
+        var element = document.getElementById(bar.id)
+        if (element) {
+            let view: any = document.getElementById('ganttChartContainer')  
+            view.scrollTop = 50 * position + 100
+        }
     }
 
     updateTimeline() {
@@ -49,31 +75,36 @@ export class ChartView extends React.Component<any, any> {
         switch (GCMediator.getState().timelineStep) {
             case 0:
                 GCMediator.dispatch({
-                    type: 'setTimeline',
+                    type: 'setTimelineStep',
                     step: 1
                 })
-                GCMediator.getState().cellCapacity = 40 / 72
                 GCMediator.getState().ganttChartView.setState({
                     timeLine: currentState.timelineMonth
                 })
                 break;
             case 1:
-                GCMediator.getState().timelineStep = 2
-                GCMediator.getState().cellCapacity = 50 / 720
+                GCMediator.dispatch({
+                    type: 'setTimelineStep',
+                    step: 2
+                })
                 GCMediator.getState().ganttChartView.setState({
                     timeLine: currentState.timelineYear
                 })
                 break;
             case 2:
-                GCMediator.getState().timelineStep = 3
-                GCMediator.getState().cellCapacity = 50 / 3
+                GCMediator.dispatch({
+                    type: 'setTimelineStep',
+                    step: 3
+                })
                 GCMediator.getState().ganttChartView.setState({
                     timeLine: currentState.timelineDay
                 })
                 break;
             case 3:
-                GCMediator.getState().timelineStep = 0
-                GCMediator.getState().cellCapacity = 60 / 24
+                GCMediator.dispatch({
+                    type: 'setTimelineStep',
+                    step: 0
+                })
                 GCMediator.getState().ganttChartView.setState({
                     timeLine: currentState.timelineWeek
                 })
@@ -101,9 +132,11 @@ export class ChartView extends React.Component<any, any> {
         }.bind(this))
 
         return React.createElement('div', {
+            id: 'ganttChartContainer',
             style: {
                 width: '100%',
-                height: '100%'
+                height: '100vh',
+                overflow: 'auto'
             }
         },
             React.createElement(InfoPopup, {

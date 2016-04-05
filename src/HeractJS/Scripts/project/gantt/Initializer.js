@@ -26,8 +26,8 @@ define([
 
         navigate: function () {
             this.view.setNavigationVisibility(false);
-            new ganttChart.Initializer();
             this.moduleRegion.show(new GridView({}));
+            new ganttChart.Initializer();
         }
     });
 });

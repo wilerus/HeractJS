@@ -70,7 +70,19 @@ define([
             collection: collection
         });
 
-        // 7. Show created views
+        // 7. Subscribe to view events
+        var eventAggregator = bundle.eventAggregator;
+        eventAggregator.listenTo(eventAggregator.views[0], "positionChanged", function (e, t) {
+            window.application.ScrollBarMediator.change(t.position + 1)
+            return false;
+        }.bind(this));
+
+        eventAggregator.listenTo(eventAggregator.views[1], "positionChanged", function (e, t) {
+            window.application.ScrollBarMediator.change(t.position + 1)
+            return false;
+        })
+
+        // 8. Show created views
         return new ListCanvasView({
             content: bundle.gridView,
             scrollbar: bundle.scrollbarView
