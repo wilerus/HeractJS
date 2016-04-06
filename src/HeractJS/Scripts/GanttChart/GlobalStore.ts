@@ -1,4 +1,6 @@
-﻿import { createStore } from 'redux'
+﻿import React = require('react')
+
+import { createStore } from 'redux'
 import {ChartData} from './ChartData';
 
 export class GanttChartMediator {
@@ -105,6 +107,34 @@ export class GanttChartMediator {
                 newState.timelineStep = action.step
                 newState.ganttChartView.forceUpdate()
                 return newState
+            case 'selectTask':
+                newState.selectedTask = action.task
+                return newState
+            case 'addTaskToSelected':
+                if (newState.selectedTask) {
+                    newState.selectedTasks.push(newState.selectedTask)
+                    newState.selectedTask = null
+                }
+                newState.selectedTasks.push(action.task)//todo check if exist
+                return newState
+            case 'deselectAllTasks':
+                newState.selectedTasks = []
+                return newState
+            case 'deselectTask':
+                let selectedTasks = newState.selectedTasks
+                if (selectedTasks.length > 0) {
+                    let elementIndex = selectedTasks.find((element: any, index: number) => {
+                        if (element.state.id === action.task.state.id) {
+                            return index
+                        }
+                    })
+                    if (elementIndex) {
+                        newState.selectedTasks.splice(elementIndex, 1);
+                    }
+                } else {
+                    newState.selectedTask = null
+                }
+                return newState
             default:
                 return state
         }
@@ -129,7 +159,8 @@ export class GanttChartMediator {
 
         dropTarget: null,
         draggingElement: null,
-
+        selectedTask: null,
+        selectedTasks: [],
         tempLine: null
     }
 

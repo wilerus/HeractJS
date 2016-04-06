@@ -83,6 +83,11 @@
     height: 100%;
 }
 
+.barSelected {
+    stroke: rgb(150,150,0);
+    stroke-width: 1px;
+}
+
 .barExchanging {
     opacity: 0.5;
 }

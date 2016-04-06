@@ -55,8 +55,52 @@ export class TaskBar extends React.Component<any, any> {
         })
     }
 
-    private shouldComponentUpdate(nextState) {
+    private shouldComponentUpdate(nextState: any) {
         return this.state !== nextState ? true : false
+    }
+
+    private startTaskSelection(event: MouseEvent) {
+        if (event.ctrlKey) {
+            let selectedElement = DOM.findDOMNode(this)
+            if (selectedElement.tagName === 'g') {
+                selectedElement = selectedElement.childNodes[0] as any
+            }
+
+            if (selectedElement.getAttribute('class') === 'barChartBody barSelected') {
+                GCMediator.dispatch({
+                    type: 'deselectTask',
+                    task: this
+                })
+                this.deselectTask()
+            } else {
+                GCMediator.dispatch({
+                    type: 'addTaskToSelected',
+                    task: this
+                }) 
+                this.selectTask()
+            }
+        } else {
+            const selectedTask = GCMediator.getState().selectedTask;
+            const selectedTasks = GCMediator.getState().selectedTasks;
+            if (selectedTask) {
+                GCMediator.dispatch({
+                    type: 'deselectTask',
+                    task: this
+                })
+                selectedTask.deselectTask(this)
+            } else if (selectedTasks) {
+                this.deselectAllTasks(selectedTasks);
+                GCMediator.dispatch({
+                    type: 'deselectAllTasks'
+                })
+            }
+
+            GCMediator.dispatch({
+                type: 'selectTask',
+                task: this
+            })
+            this.selectTask()
+        }
     }
 
     private startBarRelocation(event: MouseEvent) {
@@ -476,6 +520,33 @@ export class TaskBar extends React.Component<any, any> {
         })
     }
 
+    private selectTask() {
+        let selectedElement = DOM.findDOMNode(this)
+        if (selectedElement.tagName === 'g') {
+            selectedElement = selectedElement.childNodes[0] as any
+        }
+        selectedElement.setAttribute('class', 'barChartBody barSelected')
+    }
+
+    private deselectTask() {
+        let selectedElement = DOM.findDOMNode(this)
+        if (selectedElement.tagName === 'g') {
+            selectedElement = selectedElement.childNodes[0] as any
+        }
+        selectedElement.setAttribute('class', 'barChartBody')
+    }
+
+    private deselectAllTasks(tasks: any) {
+        for (let i = 0; i < tasks.length; i++) {
+        debugger 
+            let selectedElement = DOM.findDOMNode(tasks[i])
+            if (selectedElement.tagName === 'g') {
+                selectedElement = selectedElement.childNodes[0] as any
+            }
+            selectedElement.setAttribute('class', 'barChartBody')
+        }
+    }
+
     public render() {
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
@@ -488,6 +559,7 @@ export class TaskBar extends React.Component<any, any> {
             transform: 'translate(0, 0)'
         },
             React.createElement('rect', { // main element
+                onClick: this.startTaskSelection.bind(this),
                 className: 'barChartBody',
                 group: this.props.data.barClass,
                 id: this.props.data.id,

@@ -37,6 +37,12 @@ export class ChartView extends React.Component<any, any> {
             }
         }.bind(this)
 
+        document.onkeyup = function () {
+                this.setState({
+                    isCtrlPressed: false
+                })
+        }.bind(this)
+
         document.onwheel = function (event: any) {
             event.preventDefault()
             event.stopPropagation()
