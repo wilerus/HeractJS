@@ -22,14 +22,14 @@ define([
                 editorWrapperRegion: '.text-editor-wrapper'
             },
 
-            onRender: function() {
+            onRender: function () {
                 this.editorWrapperRegion.show(new core.form.editors.TextEditor({
                     key: 'value',
                     changeMode: 'keydown',
                     autocommit: true,
                     model: this.model
                 }));
-                this.model.on('change', function() {
+                this.model.on('change', function () {
                     console.log(this.get('value'));
                 })
             }
@@ -40,7 +40,7 @@ define([
             {
                 id: 'textCell',
                 cellView: layoutView,
-                viewModel: new Backbone.Model({displayText: 'TextCell'}),
+                viewModel: new Backbone.Model({ displayText: 'TextCell' }),
                 sortAsc: core.utils.helpers.comparatorFor(core.utils.comparators.stringComparator2Asc, 'textCell'),
                 sortDesc: core.utils.helpers.comparatorFor(core.utils.comparators.stringComparator2Desc, 'textCell'),
                 sorting: 'asc'
@@ -48,7 +48,7 @@ define([
             {
                 id: 'numberCell',
                 cellView: core.list.cellFactory.getNumberCellView(),
-                viewModel: new Backbone.Model({displayText: 'Number Cell'}),
+                viewModel: new Backbone.Model({ displayText: 'Number Cell' }),
                 sortAsc: core.utils.helpers.comparatorFor(core.utils.comparators.numberComparator2Asc, 'numberCell'),
                 sortDesc: core.utils.helpers.comparatorFor(core.utils.comparators.numberComparator2Desc, 'numberCell'),
                 sorting: 'asc',
@@ -72,15 +72,19 @@ define([
 
         // 7. Subscribe to view events
         var eventAggregator = bundle.eventAggregator;
-        eventAggregator.listenTo(eventAggregator.views[0], "positionChanged", function (e, t) {
-            window.application.ScrollBarMediator.change(t.position + 1)
+        eventAggregator.listenTo(eventAggregator.views[0], 'positionChanged', function (e, t) {
+            window.application.ScrollBarMediator.change(t.position)
             return false;
         }.bind(this));
 
-        eventAggregator.listenTo(eventAggregator.views[1], "positionChanged", function (e, t) {
-            window.application.ScrollBarMediator.change(t.position + 1)
+        eventAggregator.listenTo(eventAggregator.views[1], 'positionChanged', function (e, t) {
+            window.application.ScrollBarMediator.change(t.position)
             return false;
         })
+
+        window.application.ScrollBarMediator.onChanged('gridScroll', function (newPosition) {
+            eventAggregator.views[1].updatePosition(newPosition)
+        }.bind(this))
 
         // 8. Show created views
         return new ListCanvasView({

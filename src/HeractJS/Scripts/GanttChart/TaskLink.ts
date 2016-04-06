@@ -3,15 +3,15 @@ import DOM = require('react-dom')
 
 export class TaskLink extends React.Component<any, any> {
     public buildConnection() {
-        let firstPoint = DOM.findDOMNode(this.props.data.firstP) as any;
-        let firstPointCoordsX = parseInt(firstPoint.getAttribute('x'))
-        let firstPointCoordsY = parseInt(firstPoint.getAttribute('y'))
-        let firstPointCoordsWidth = firstPoint.getBoundingClientRect().width
+        const firstPoint = DOM.findDOMNode(this.props.data.firstP) as any;
+        const firstPointCoordsX = parseInt(firstPoint.getAttribute('x'))
+        const firstPointCoordsY = parseInt(firstPoint.getAttribute('y'))
+        const firstPointCoordsWidth = firstPoint.getBoundingClientRect().width
 
-        let secondPoint = DOM.findDOMNode(this.props.data.endP) as any;
-        let secondPointCoordsX = parseInt(secondPoint.getAttribute('x'))
-        let secondPointCoordsY = parseInt(secondPoint.getAttribute('y'))
-        let secondPointCoordsWidth = secondPoint.getBoundingClientRect().width
+        const secondPoint = DOM.findDOMNode(this.props.data.endP) as any;
+        const secondPointCoordsX = parseInt(secondPoint.getAttribute('x'))
+        const secondPointCoordsY = parseInt(secondPoint.getAttribute('y'))
+        const secondPointCoordsWidth = secondPoint.getBoundingClientRect().width
 
         if (firstPointCoordsX < secondPointCoordsX - 10) {
             this.setState({

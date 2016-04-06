@@ -59,18 +59,18 @@ export class TaskBar extends React.Component<any, any> {
         return this.state !== nextState ? true : false
     }
 
-    private startBarRelocation(event) {
-        var eventTarget = event.target;
+    private startBarRelocation(event: MouseEvent) {
         GCMediator.dispatch({
-            type: 'setDraggingTask',
-            draggingTask: this
+            type: 'setDraggingElement',
+            draggingElement: this
         })
+        var eventTarget: any = event.target;
         let dropTarget = eventTarget;
         if (eventTarget.tagName === 'rect') {
             dropTarget = dropTarget.parentNode;
         }
 
-        var e = event.target;
+        var e: any = event.target;
         var dim = e.getBoundingClientRect();
         var startY = event.clientY;
         var startX = event.clientX;
@@ -79,7 +79,7 @@ export class TaskBar extends React.Component<any, any> {
         if (eventTarget.getAttribute('class') === 'barChartBody') {
             eventTarget.setAttribute('class', 'barChartBody barOver')
         }
-        document.onmousemove = function (event) {
+        document.onmousemove = function (event: MouseEvent) {
             let transform = dropTarget.parentNode.createSVGMatrix();
             let currentState = GCMediator.getState();
             if (Math.abs(event.clientX - startX) > 30 && !currentState.isDrawingConnection) {
@@ -89,31 +89,33 @@ export class TaskBar extends React.Component<any, any> {
                 GCMediator.dispatch({ type: 'dragStart' })
             }
             if (Math.abs(event.clientY - startY) > 30 && !currentState.isDragging) {
-                GCMediator.dispatch({ type: 'stactLinking' })
+                GCMediator.dispatch({ type: 'startLinking' })
 
-                let tempLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                let templine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 
-                tempLine.setAttribute('id', 'tempLine');
+                templine.setAttribute('id', 'templine');
                 eventTarget.parentNode.setAttribute('transform', 'translate(0, 0)')
 
-                tempLine.setAttribute('x1', (parseInt(eventTarget.getAttribute('x')) + eventTarget.getAttribute('width') / 2).toString());
-                tempLine.setAttribute('strokeWidth', '2');
-                tempLine.setAttribute('y1', (eventTarget.getAttribute('y')).toString());
-                tempLine.setAttribute('stroke', 'rgb(80,80,220)');
+                templine.setAttribute('x1', (parseInt(eventTarget.getAttribute('x')) + eventTarget.getAttribute('width') / 2).toString());
+                templine.setAttribute('strokeWidth', '2');
+                templine.setAttribute('y1', (eventTarget.getAttribute('y')).toString());
+                templine.setAttribute('stroke', 'rgb(80,80,220)');
 
                 if (eventTarget.getAttribute('class') === 'barChartBody') {
                     eventTarget.setAttribute('class', 'barChartBody barOver')
                 }
 
-                document.onmousemove = function (event) {
-                    tempLine.setAttribute('x2', (event.clientX - 10).toString());
-                    tempLine.setAttribute('y2', (event.clientY - 110).toString());
+                const parentNode: any = DOM.findDOMNode(this).parentNode
+                const leftMargin = parentNode.getBoundingClientRect().left;
+                document.onmousemove = (event: MouseEvent) => {
+                    templine.setAttribute('x2', (event.clientX - leftMargin).toString());
+                    templine.setAttribute('y2', (event.clientY - 100).toString());
                 }
                 GCMediator.dispatch({
-                    type: 'setTimpline',
-                    tempLine: tempLine
+                    type: 'setTempline',
+                    templine: templine
                 })
-                document.getElementById('ganttChartView').appendChild(tempLine);
+                document.getElementById('ganttChartView').appendChild(templine);
 
                 document.onmouseup = function () {
                     if (GCMediator.getState().isLinking) {
@@ -126,10 +128,10 @@ export class TaskBar extends React.Component<any, any> {
         }.bind(this)
     }
 
-    private startBarUpdate(event) {
+    private startBarUpdate(event: MouseEvent) {
         document.onmousemove = null;
         if (event.button !== 2) {
-            let eventTarget = event.target
+            let eventTarget: any = event.target
             let parentElement
             let parentCoords
             if (eventTarget.getAttribute('class') === 'barChartFillBody') {
@@ -146,18 +148,18 @@ export class TaskBar extends React.Component<any, any> {
                 this.updateComplitionState(event);
             } else if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
                 this.startBarRelocation(event);
-                document.onmouseup = function (event) {
+                document.onmouseup = function (event: MouseEvent) {
                     this.completeBarRelocation(event)
                 }.bind(this)
             } else if (clickCoordX > elementRect.right - 15) {
                 this.updateСompleteDate(event);
-                document.onmouseup = function (event) {
+                document.onmouseup = function (event: MouseEvent) {
                     this.completeBarRelocation(event)
                 }.bind(this)
                 GCMediator.dispatch({ type: 'startSizing' })
             } else if (clickCoordX < elementRect.left + 15) {
                 this.updateStartDate(event);
-                document.onmouseup = function (event) {
+                document.onmouseup = function (event: MouseEvent) {
                     this.completeBarRelocation(event)
                 }.bind(this)
                 GCMediator.dispatch({ type: 'startSizing' })
@@ -165,11 +167,14 @@ export class TaskBar extends React.Component<any, any> {
         }
     }
 
-    private updateСompleteDate(event) {
-        let startX = event.target.getAttribute('x')
+    private updateСompleteDate(event: MouseEvent) {
+        let eventTarger: any = event.target;
+        let startX = eventTarger.getAttribute('x')
         document.onmousemove = function (event) {
             let currentState = GCMediator.getState();
-            let newDuration = (event.pageX - startX - 15) / currentState.cellCapacity;
+            const parentNode: any = DOM.findDOMNode(this).parentNode
+            const leftMargin = parentNode.getBoundingClientRect().left;
+            let newDuration = (event.pageX - startX - leftMargin) / currentState.cellCapacity;
 
             if (newDuration) {
                 let newCompletion = this.state.progress / currentState.cellCapacity;
@@ -190,7 +195,9 @@ export class TaskBar extends React.Component<any, any> {
         if (!document.onmousemove) {
             let currentState = GCMediator.getState();
             document.onmousemove = function (event) {
-                let newStartDate = event.pageX
+                const parentNode: any = DOM.findDOMNode(this).parentNode
+                const leftMargin = parentNode.getBoundingClientRect().left;
+                let newStartDate = event.pageX - leftMargin
                 let newDuration = (this.state.startDate - newStartDate) / currentState.cellCapacity + this.state.duration
 
                 if (this.state.startDate !== newStartDate && newDuration) {
@@ -208,15 +215,18 @@ export class TaskBar extends React.Component<any, any> {
         }
     }
 
-    private updateComplitionState(event) {
-        let eventTarget = event.target
+    private updateComplitionState(event: MouseEvent) {
+        let eventTarget: any = event.target
         let elementRect = eventTarget.getBoundingClientRect()
         let clickCoordX = event.clientX
 
         this.clearTempElements()
         if (clickCoordX > elementRect.right - 15) {
             document.onmousemove = function (event) {
-                let newComplition = event.pageX - event.target.getAttribute('x');
+                const parentNode: any = DOM.findDOMNode(this).parentNode
+                const leftMargin = parentNode.getBoundingClientRect().left;
+
+                let newComplition = event.pageX - event.target.getAttribute('x') - leftMargin;
 
                 newComplition = newComplition / GCMediator.getState().cellCapacity;
                 if (newComplition <= 0) {
@@ -240,39 +250,43 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     private addNewConnection() {
-        let currentState = GCMediator.getState();
-        let currentItems = currentState.ganttChartView.state.ganttBars
-        let newId = 'connection ' + (currentItems.length + 1)
+        const currentState = GCMediator.getState();
+        const currentItems = currentState.items
+        const newId = 'connection ' + (currentItems.length + 1)
+        debugger
+        //currentItems.push();
+        GCMediator.dispatch({
+            type: 'create',
+            item: {
+                id: newId,
+                firstP: currentState.draggingElement,
+                endP: currentState.dropTarget,
+                type: 'connection'
+            }
+        })
+        //currentState.ganttChartView.setState({ ganttBars: currentItems })
 
-        currentItems.push({
-            id: newId,
-            firstP: currentState.currentDraggingElement,
-            endP: currentState.currentDropTarget,
-            type: 'connection'
-        });
-        currentState.ganttChartView.setState({ ganttBars: currentItems })
-
-        let newConnections = currentState.currentDraggingElement.state.connections
+        const newConnections = currentState.draggingElement.state.connections
         newConnections.push(currentState.ganttChartView.refs[newId])
-        currentState.currentDraggingElement.setState({
+        currentState.draggingElement.setState({
             connections: newConnections
         })
 
-        let newConnections2 = currentState.currentDropTarget.state.connections
+        const newConnections2 = currentState.dropTarget.state.connections
         newConnections2.push(currentState.ganttChartView.refs[newId])
         this.setState({
             connections: newConnections2
         })
 
         document.onmousemove = null;
-        document.getElementById('ganttChartView').removeChild(currentState.tempLine);
-        currentState.dispatch({type: 'removeTempline'})
+        document.getElementById('ganttChartView').removeChild(currentState.templine);
+        GCMediator.dispatch({ type: 'removeTempline' })
 
-        let el = DOM.findDOMNode(currentState.currentDraggingElement).getElementsByClassName('barChartBody barOver');
+        let el = DOM.findDOMNode(currentState.draggingElement).getElementsByClassName('barChartBody barOver');
         if (el.length) {
             el[0].setAttribute('class', 'barChartBody')
         }
-        el = DOM.findDOMNode(currentState.currentDropTarget).getElementsByClassName('barChartBody barOver');
+        el = DOM.findDOMNode(currentState.dropTarget).getElementsByClassName('barChartBody barOver');
         if (el.length) {
             el[0].setAttribute('class', 'barChartBody')
         }
@@ -283,13 +297,17 @@ export class TaskBar extends React.Component<any, any> {
         GCMediator.dispatch({ type: 'removeDraggingElement' })
     }
 
-    private handleRectHover(event) {
+    private handleRectHover(event: Event) {
         let currentState = GCMediator.getState()
         this.clearTempElements()
-        var eventTarget = event.target;
+        var eventTarget: any = event.target;
 
-        if ((!currentState.isDragging || !currentState.isLinking) && this !== currentState.draggingTask) {
-            currentState.currentDropTarget = this;
+        if ((!currentState.isDragging || !currentState.isLinking) && this !== currentState.draggingElement && this !== currentState.dropTarget) {
+            GCMediator.dispatch({
+                type: 'setDropTarget',
+                dropTarget: this
+            })
+
             if (eventTarget.getAttribute('class') === 'barChartBody') {
                 eventTarget.setAttribute('class', 'barChartBody barOver')
             }
@@ -315,7 +333,7 @@ export class TaskBar extends React.Component<any, any> {
                 }.bind(this, hoverElement), 500);
                 let el = DOM.findDOMNode(this) as any;
                 this.clearTempElements()
-                let elementRect = event.target.getBoundingClientRect()
+                let elementRect = eventTarget.getBoundingClientRect()
 
                 document.onmousemove = function (event) {
                     let clickCoordX = event.clientX
@@ -331,41 +349,41 @@ export class TaskBar extends React.Component<any, any> {
         }
     }
 
-    private completeBarRelocation(event) {
+    private completeBarRelocation(event: Event) {
         document.onmousemove = null;
         document.onmouseup = null;
         let currentState = GCMediator.getState();
-        if (currentState.currentDraggingElement) {
-            let currentDraggingElement = DOM.findDOMNode(currentState.currentDraggingElement) as any
-            if (currentState.currentDropTarget && currentState.isCurrentlyDragging) {
+        if (currentState.draggingElement) {
+            let draggingElement = DOM.findDOMNode(currentState.draggingElement) as any
+            if (currentState.dropTarget && currentState.isCurrentlyDragging) {
 
-                let moveToSateX = currentState.currentDropTarget.state.startDate;
-                let moveToSateY = currentState.currentDropTarget.state.top;
+                let moveToSateX = currentState.dropTarget.state.startDate;
+                let moveToSateY = currentState.dropTarget.state.top;
 
-                let exchToSateX = currentState.currentDraggingElement.state.startDate;
-                let exchToSateY = currentState.currentDraggingElement.state.top;
+                let exchToSateX = currentState.draggingElement.state.startDate;
+                let exchToSateY = currentState.draggingElement.state.top;
 
-                currentState.currentDraggingElement.setState({ startDate: moveToSateX })
-                currentState.currentDraggingElement.setState({ top: moveToSateY })
+                currentState.draggingElement.setState({ startDate: moveToSateX })
+                currentState.draggingElement.setState({ top: moveToSateY })
 
-                let currentDropTarget = DOM.findDOMNode(currentState.currentDropTarget) as any
+                let dropTarget = DOM.findDOMNode(currentState.dropTarget) as any
 
-                currentState.currentDropTarget.setState({ startDate: exchToSateX })
-                currentState.currentDropTarget.setState({ top: exchToSateY })
+                currentState.dropTarget.setState({ startDate: exchToSateX })
+                currentState.dropTarget.setState({ top: exchToSateY })
 
-                currentDropTarget.setAttribute('transform', 'translate(0, 0)')
-                currentDraggingElement.setAttribute('transform', 'translate(0, 0)')
+                dropTarget.setAttribute('transform', 'translate(0, 0)')
+                draggingElement.setAttribute('transform', 'translate(0, 0)')
             } else {
-                let currentMargin = currentState.currentDraggingElement.state.startDate;
-                let delta = currentDraggingElement.transform.baseVal[0].matrix.e;
+                let currentMargin = currentState.draggingElement.state.startDate;
+                let delta = draggingElement.transform.baseVal[0].matrix.e;
 
-                currentState.currentDraggingElement.setState({ startDate: currentMargin + delta })
+                currentState.draggingElement.setState({ startDate: currentMargin + delta })
 
-                currentDraggingElement.setAttribute('transform', 'translate(0, 0)')
+                draggingElement.setAttribute('transform', 'translate(0, 0)')
             }
         }
-        if (currentState.currentDraggingElement) {
-            let connectionsDropTarget = currentState.currentDraggingElement.state.connections;
+        if (currentState.draggingElement) {
+            let connectionsDropTarget = currentState.draggingElement.state.connections;
             if (connectionsDropTarget) {
                 let length = connectionsDropTarget.length
 
@@ -375,13 +393,13 @@ export class TaskBar extends React.Component<any, any> {
             }
         }
 
-        if (currentState.currentDropTarget) {
-            let connectionsDraggingElement = currentState.currentDropTarget.state.connections;
-            if (connectionsDraggingElement) {
-                let length = connectionsDraggingElement.length
+        if (currentState.dropTarget) {
+            let draggingElement = currentState.dropTarget.state.connections;
+            if (draggingElement) {
+                let length = draggingElement.length
 
                 for (let i = 0; i < length; i++) {
-                    connectionsDraggingElement[i].buildConnection();
+                    draggingElement[i].buildConnection();
                 }
             }
         }
@@ -389,21 +407,22 @@ export class TaskBar extends React.Component<any, any> {
         currentState.isCurrentlyDragging = false;
         currentState.isCurrentlySizing = false;
         currentState.isDrawingConnection = false;
-        currentState.currentDropTarget = null;
-        currentState.currentDraggingElement = null;
-
-        if (event.target.getAttribute('class') === 'barChartBody barOver') {
-            event.target.setAttribute('class', 'barChartBody');
+        currentState.dropTarget = null;
+        currentState.draggingElement = null;
+        const eventTarget: any = event.target;
+        if (eventTarget.getAttribute('class') === 'barChartBody barOver') {
+            eventTarget.setAttribute('class', 'barChartBody');
         }
     }
 
-    private completeBarUpdate(event) {
-        let eventTarget = event.target
+    private completeBarUpdate(event: MouseEvent) {
+        let eventTarget: any = event.target
         let currentState = GCMediator.getState()
         if (eventTarget.getAttribute('class') === 'barChartBody barOver' && !currentState.isCurrentlyDragging) {
             eventTarget.setAttribute('class', 'barChartBody');
         }
-        if (event.relatedTarget.id === 'gridPattern') {
+        const relatedTarget: any = event.relatedTarget;
+        if (relatedTarget && relatedTarget.id === 'gridPattern') {
             if (eventTarget.classList[0] === 'barExchanging') {
                 setTimeout(function () {
                     if (eventTarget.classList[0] === 'barExchanging') {
@@ -429,23 +448,23 @@ export class TaskBar extends React.Component<any, any> {
             document.getElementById('ganttChartView').removeChild(document.getElementById('rightTempCircle'))
         }
         GCMediator.getState().ganttChartView.refs.infoPopup.hide();
-        if (!GCMediator.getState().isDragging && !GCMediator.getState().isSizing && GCMediator.getState().templine) {
+        if (!GCMediator.getState().isDragging && !GCMediator.getState().isSizing && !GCMediator.getState().isLinking && GCMediator.getState().templine) {
             document.getElementById('ganttChartView').removeChild(GCMediator.getState().templine);
             GCMediator.dispatch({ type: 'removeTempline' })
         }
     }
 
-    private contextMenu(event) {
+    private contextMenu(event: Event) {
         console.log(event);
         event.preventDefault();
         event.stopPropagation();
     }
 
     private showModalWindow() {
-        let currentState = GCMediator.getState()
+        const currentState = GCMediator.getState()
+        const modalWindow = currentState.ganttChartView.refs.modalWindow;
 
         currentState.ganttChartView.refs.infoPopup.hide();
-        let modalWindow = currentState.ganttChartView.refs.modalWindow;
         modalWindow.show();
 
         modalWindow.setState({
@@ -457,14 +476,14 @@ export class TaskBar extends React.Component<any, any> {
         })
     }
 
-    render() {
+    public render() {
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
             onMouseOut: this.completeBarUpdate.bind(this),
             onMouseDown: this.startBarUpdate.bind(this),
             onContextMenu: this.contextMenu.bind(this),
             onDoubleClick: this.showModalWindow.bind(this),
-            y: this.state.top,
+            y: this.state.position + 6,
             x: this.state.startDate,
             transform: 'translate(0, 0)'
         },
@@ -472,21 +491,21 @@ export class TaskBar extends React.Component<any, any> {
                 className: 'barChartBody',
                 group: this.props.data.barClass,
                 id: this.props.data.id,
-                y: this.state.position,
+                y: this.state.position + 6,
                 x: this.state.startDate,
                 width: this.state.duration * GCMediator.getState().cellCapacity
             }),
             React.createElement('rect', { // progress element
                 className: 'barChartFillBody',
                 group: this.props.data.barClass,
-                y: this.state.position,
+                y: this.state.position + 6,
                 x: this.state.startDate,
                 width: this.state.progress * GCMediator.getState().cellCapacity,
             }),
             React.createElement('text', {
                 className: 'barTitle',
                 x: this.state.startDate + this.state.duration * GCMediator.getState().cellCapacity * 0.5,
-                y: this.state.position + 15
+                y: this.state.position + 15 + 6
             }, this.state.name)
         )
     }

@@ -11,27 +11,25 @@ import {Timeline}  from './Timeline';
 import {GanttChartMediator} from './GlobalStore';
 import {ScrollBarMediator} from '../../scripts/services/ScrollBarMediator';
 
-let GCMediator = GanttChartMediator.getInstance();
-let SBMediator = ScrollBarMediator.getInstance();
+let GCMediator: GanttChartMediator = GanttChartMediator.getInstance();
+let SBMediator: ScrollBarMediator = ScrollBarMediator.getInstance();
 
-GCMediator.dispatch({
-    type: 'setTimelineStep',
-    step: 0
-})
-
-// gannt bars wrapper
 export class ChartView extends React.Component<any, any> {
     constructor() {
         super()
-        SBMediator.onChanged('ganttChart', function (oldPosition, position) {
-            this.updateScrollPosition(oldPosition, position)
+        SBMediator.onChanged('ganttChart', function (position: number) {
+            this.updateScrollPosition(position)
         }.bind(this))
     }
 
     private componentWillMount() {
+        this.setState({
+            ganttBars: GCMediator.getState().items,
+            timeLine: GCMediator.getState().timeLine,
+            isCtrlPressed: false
+        })
         this.updateGanttChart()
-
-        document.onkeydown = function (event) {
+        document.onkeydown = function (event: MouseEvent) {
             if (event.ctrlKey) {
                 this.setState({
                     isCtrlPressed: true
@@ -39,47 +37,50 @@ export class ChartView extends React.Component<any, any> {
             }
         }.bind(this)
 
-        document.onwheel = function (event) {
+        document.onwheel = function (event: any) {
+            event.preventDefault()
+            event.stopPropagation()
             if (this.state.isCtrlPressed) {
-                event.preventDefault()
-                event.stopPropagation()
                 this.updateTimeline()
+            } else {
+                const scrollPosition = Math.round(event.deltaY / 32) + GCMediator.getState().scrollPosition
+                SBMediator.change(scrollPosition)
+                GCMediator.dispatch({
+                    type: 'updateScrollPosition',
+                    scrollPosition: scrollPosition
+                })
             }
         }.bind(this)
     }
 
-    public updateGanttChart() {
-        this.setState({
-            ganttBars: GCMediator.getState().items,
-            timeLine: GCMediator.getState().timeline,
-            isCtrlPressed: false
+    private shouldComponentUpdate(nextProps: any, nextState: any) {
+        if (this.state.ganttBars !== nextState.ganttBars || this.state.timeLine !== nextState.timeLine) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    private updateScrollPosition(position: number) {
+        GCMediator.dispatch({
+            type: 'updateScrollPosition',
+            scrollPosition: position
         })
+        this.scrollChart(position)
     }
 
-    private updateScrollPosition(position) {
-        let items = this.state.ganttBars;
-        let bar 
-        if (items.length > position) {
-            bar = items[position]
-        }
-
-        var element = document.getElementById(bar.id)
-        if (element) {
-            let view: any = document.getElementById('ganttChartContainer')  
-            view.scrollTop = 50 * position + 100
-        }
+    private scrollChart(position: number) {
+        const view: any = document.getElementById('ganttChart')
+        view.scrollTop = 32 * position
     }
 
-    updateTimeline() {
-        let currentState = GCMediator.getState()
+    public updateTimeline() {
+        const currentState = GCMediator.getState()
         switch (GCMediator.getState().timelineStep) {
             case 0:
                 GCMediator.dispatch({
                     type: 'setTimelineStep',
                     step: 1
-                })
-                GCMediator.getState().ganttChartView.setState({
-                    timeLine: currentState.timelineMonth
                 })
                 break;
             case 1:
@@ -87,17 +88,11 @@ export class ChartView extends React.Component<any, any> {
                     type: 'setTimelineStep',
                     step: 2
                 })
-                GCMediator.getState().ganttChartView.setState({
-                    timeLine: currentState.timelineYear
-                })
                 break;
             case 2:
                 GCMediator.dispatch({
                     type: 'setTimelineStep',
                     step: 3
-                })
-                GCMediator.getState().ganttChartView.setState({
-                    timeLine: currentState.timelineDay
                 })
                 break;
             case 3:
@@ -105,17 +100,14 @@ export class ChartView extends React.Component<any, any> {
                     type: 'setTimelineStep',
                     step: 0
                 })
-                GCMediator.getState().ganttChartView.setState({
-                    timeLine: currentState.timelineWeek
-                })
                 break;
             default:
                 this.state.timelineData = currentState.timelineDay
         }
     }
 
-    render() {
-        let items = this.state.ganttBars.map(function (ganttBar) {
+    public render() {
+        const items = this.state.ganttBars.map(function (ganttBar: any) {
             if (ganttBar.type === 'bar') {
                 return React.createElement(TaskBar, {
                     key: ganttBar.id,
@@ -133,77 +125,74 @@ export class ChartView extends React.Component<any, any> {
 
         return React.createElement('div', {
             id: 'ganttChartContainer',
-            style: {
-                width: '100%',
-                height: '100vh',
-                overflow: 'auto'
-            }
+            className: 'ganttChartContainer'
         },
-            React.createElement(InfoPopup, {
-                ref: 'infoPopup'
-            }),
-            React.createElement(ModalWindow, {
-                ref: 'modalWindow'
-            }),
             React.createElement('svg', {
-                className: 'ganttChartTimeline',
-                id: 'ganttChartTimeline',
-                style: {
-                    width: '100%',
-                    height: '100px'
-                }
+                className: 'ganttTimeline',
+                id: 'ganttTimeline'
             },
-                this.state.timeLine.map(function (timeLineItem) { // creating multiple elements from data
+                this.state.timeLine.map((timeLineItem: any) => {
                     return React.createElement(Timeline, {
                         key: timeLineItem.id,
                         data: timeLineItem
                     })
-                }.bind(this))
-            ),
-            React.createElement('svg', {
-                className: 'ganttChartView',
-                id: 'ganttChartView',
-                transform: 'translate(0, 0)'
-            }, React.createElement('marker', {
-                id: 'triangle',
-                viewBox: '0 0 20 20',
-                refX: 0,
-                refY: 5,
-                markerUnits: 'strokeWidth',
-                markerWidth: 4,
-                markerHeight: 3,
-                orient: 'auto'
-            }, React.createElement('path', {
-                d: 'M 0 0 L 20 0 L 10 20 z'
-            })),
-                React.createElement('pattern', {
-                    id: 'grid',
-                    width: GCMediator.getState().svgGridWidth,
-                    height: 50,
-                    patternUnits: 'userSpaceOnUse'
-                }, React.createElement('rect', {
-                    width: GCMediator.getState().svgGridWidth,
-                    height: 20,
-                    fill: 'url(#smallGrid)',
-                    stroke: '#aaaaaa',
-                    strokeWidth: '0.5'
                 })
-                ),
-                React.createElement('rect', {
-                    id: 'gridPattern',
-                    width: '100%',
-                    height: '100%',
-                    fill: 'url(#grid)'
+            ),
+            React.createElement('div', {
+                id: 'ganttChart',
+                className: 'ganttChart'
+            },
+                React.createElement(InfoPopup, {
+                    ref: 'infoPopup'
                 }),
-                //React.createElement('ReactCSSTransitionGroup', {
-                //    width: '1000px',
-                //    height: '1000px',
-                //    transitionName: "example",
-                //    transitionEnterTimeout: 500,
-                //    transitionLeaveTimeout: 500
-                //}, 
-                items
-                // )
+                React.createElement(ModalWindow, {
+                    ref: 'modalWindow'
+                }),
+                React.createElement('svg', {
+                    className: 'ganttChartView',
+                    id: 'ganttChartView',
+                    transform: 'translate(0, 0)'
+                }, React.createElement('marker', {
+                    id: 'triangle',
+                    viewBox: '0 0 20 20',
+                    refX: 0,
+                    refY: 5,
+                    markerUnits: 'strokeWidth',
+                    markerWidth: 4,
+                    markerHeight: 3,
+                    orient: 'auto'
+                }, React.createElement('path', {
+                    d: 'M 0 0 L 20 0 L 10 20 z'
+                })),
+                    React.createElement('pattern', {
+                        id: 'grid',
+                        width: GCMediator.getState().svgGridWidth,
+                        height: 32,
+                        patternUnits: 'userSpaceOnUse'
+                    }, React.createElement('rect', {
+                        width: GCMediator.getState().svgGridWidth,
+                        height: 32,
+                        fill: 'url(#smallGrid)',
+                        stroke: '#dfe4e8',
+                        strokeWidth: '1'
+                    })
+                    ),
+                    React.createElement('rect', {
+                        id: 'gridPattern',
+                        width: '100%',
+                        height: '100%',
+                        fill: 'url(#grid)'
+                    }),
+                    //React.createElement('ReactCSSTransitionGroup', {
+                    //    width: '1000px',
+                    //    height: '1000px',
+                    //    transitionName: "example",
+                    //    transitionEnterTimeout: 500,
+                    //    transitionLeaveTimeout: 500
+                    //}, 
+                    items
+                    // )
+                )
             )
         )
     }
@@ -211,7 +200,7 @@ export class ChartView extends React.Component<any, any> {
 
 export class Initializer {
     constructor() {
-        let mainView = DOM.render(React.createElement(ChartView), document.getElementsByClassName('js-module-region-right')[0]) as any
+        const mainView = DOM.render(React.createElement(ChartView), document.getElementsByClassName('js-module-region-right')[0]) as any
 
         GCMediator.dispatch({
             type: 'setGanttChartView',

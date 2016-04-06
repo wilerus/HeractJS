@@ -1,7 +1,7 @@
 ﻿// simulating server data
 // initial set up
 
-export class ChartBarItems <TData>{
+export class ChartBarItems<TData>{
     id: string
     order: number
     collapsed: boolean

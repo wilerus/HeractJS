@@ -2,17 +2,17 @@
 // initial set up
 
 export class ChartData {
-    amountOfElements: number = 100
-    counter: number = 0;
+    public amountOfElements: number = 100
+    public counter: number = 0;
 
-    static timelineWeek = []
-    static timelineMonth = []
-    static timelineDay = []
-    static timelineYear = []
+    public static timelineWeek: Object[] = []
+    public static timelineMonth: Object[] = []
+    public static timelineDay: Object[] = []
+    public static timelineYear: Object[] = []
 
-    static ganttBars = []
+    public static ganttBars: Object[] = []
 
-    weekData = [
+    public weekData: string[] = [
         'Monday',
         'Tuesday',
         'Wednesday',
@@ -21,7 +21,7 @@ export class ChartData {
         'Saturday',
         'Sunday'
     ]
-    monthData = [
+    public monthData: string[] = [
         'January',
         'February',
         'March',
@@ -35,12 +35,12 @@ export class ChartData {
         'November',
         'December'
     ]
-    yearData = [
+    public yearData: string[] = [
         '2016',
         '2017',
         '2018',
         '2019',
-        '2020',
+        '2025',
         '2021',
         '2022',
         '2023'
@@ -52,19 +52,19 @@ export class ChartData {
                 this.counter++;
             }
 
-            let topMargin = 50 * i
-            let text = 'Task ' + i.toString()
+            let topMargin: number = 32 * i
+            let text = `Task ${i + 1}`
             let leftMargin = 50 * this.counter
             let barClass = 'group1'
 
             ChartData.ganttBars.push({
-                id: 'bar' + i,
+                id: `bar${i}`,
                 barClass: barClass,
                 type: 'bar',
-                progress: 20,
+                progress: 25,
                 duration: 80 + this.counter + i,
                 name: text,
-                description: 'Description for ' + text,
+                description: `Description for${text}`,
                 startDate: leftMargin,
                 position: topMargin
             });
@@ -72,24 +72,24 @@ export class ChartData {
 
         for (let i = 0; i <= 10; i++) {
             ChartData.timelineWeek.push({
-                id: 'timelineWeek' + i,
-                text: 'Week ' + i,
+                id: `timelineWeek${i}`,
+                text: `Week${i}`,
                 style: {
                     top: 0,
-                    height: 30,
-                    width: 420,
-                    marginLeft: 420 * i
+                    height: 25,
+                    width: 425,
+                    marginLeft: 425 * i
                 }
             });
             for (let n = 0; n < this.weekData.length; n++) {
                 ChartData.timelineWeek.push({
-                    id: 'timelineWeekM' + n + i,
+                    id: `timelineWeekM${n}${i}`,
                     text: this.weekData[n],
                     style: {
-                        top: 30,
-                        height: 30,
+                        top: 25,
+                        height: 25,
                         width: 60,
-                        marginLeft: 420 * i + 60 * n
+                        marginLeft: 425 * i + 60 * n
                     }
                 });
             }
@@ -97,11 +97,11 @@ export class ChartData {
 
         for (let i = 0; i <= 11; i++) {
             ChartData.timelineMonth.push({
-                id: 'timelineMonth' + i,
+                id: `timelineMonth${i}`,
                 text: this.monthData[i],
                 style: {
                     top: 0,
-                    height: 30,
+                    height: 25,
                     width: 400,
                     marginLeft: 400 * i
                 }
@@ -109,11 +109,11 @@ export class ChartData {
 
             for (let n = 0; n <= 9; n++) {
                 ChartData.timelineMonth.push({
-                    id: 'timelineMonthM' + this.monthData[i] + n,
+                    id: `timelineMonthM${this.monthData[i] + n}`,
                     text: (n * 3).toString(),
                     style: {
-                        top: 30,
-                        height: 30,
+                        top: 25,
+                        height: 25,
                         width: 40,
                         marginLeft: 400 * i + 40 * n
                     }
@@ -123,11 +123,11 @@ export class ChartData {
 
         for (let i = 0; i < 6; i++) {
             ChartData.timelineDay.push({
-                id: 'timelineDay' + i,
+                id: `timelineDay${i}`,
                 text: this.weekData[i],
                 style: {
                     top: 0,
-                    height: 30,
+                    height: 25,
                     width: 400,
                     marginLeft: 400 * i
                 }
@@ -135,11 +135,11 @@ export class ChartData {
 
             for (let n = 0; n < 8; n++) {
                 ChartData.timelineDay.push({
-                    id: 'timelineDay' + n + i,
-                    text: 'H' + (n * 3).toString(),
+                    id: `timelineDay${n}${i}`,
+                    text: `H${n * 3}`,
                     style: {
-                        top: 30,
-                        height: 30,
+                        top: 25,
+                        height: 25,
                         width: 50,
                         marginLeft: 400 * i + 50 * n
                     }
@@ -149,11 +149,11 @@ export class ChartData {
 
         for (let i = 0; i <= 8; i++) {
             ChartData.timelineYear.push({
-                id: 'timelineYear' + i,
+                id: `timelineYear${i}`,
                 text: this.yearData[i],
                 style: {
                     top: 0,
-                    height: 30,
+                    height: 25,
                     width: 600,
                     marginLeft: 600 * i
                 }
@@ -161,41 +161,16 @@ export class ChartData {
 
             for (let n = 0; n <= 11; n++) {
                 ChartData.timelineYear.push({
-                    id: 'timelineYearM' + n + i,
+                    id: `timelineYearM${n}${i}`,
                     text: this.monthData[n],
                     style: {
-                        top: 30,
-                        height: 30,
+                        top: 25,
+                        height: 25,
                         width: 50,
                         marginLeft: 600 * i + 50 * n
                     }
                 });
             }
         }//timelineYear
-    }
-
-    create(taskData: Object) {
-        
-    }
-    autoSchedule() {
-        
-    }
-    delete(taskId: string) {
-        
-    }
-    edit(taskData: Object) {
-        
-    }
-    indent(taskData: Object) {
-        
-    }
-    link(taskData: Object) {
-        
-    }
-    outindent(taskData: Object) {
-        
-    }
-    unlinktask(taskId: string) {
-        
     }
 }

@@ -6,14 +6,20 @@ export class GanttChartMediator {
     private static instance: GanttChartMediator;
     private static store: any;
 
-    reduser(state, action) {
+    private static timelineWeek: Object[];
+    private static timelineMonth: Object[];
+    private static timelineDay: Object[];
+    private static timelineYear: Object[];
+
+    private reduser(state: any, action: any) {
         let newState = state
         switch (action.type) {
             case 'reset':
-                newState.items = action.taskData
-                return state
+                newState.items = action.items
+                return newState
             case 'create':
-                newState.items.push(action.taskData)//todo check if already exist
+                newState.items.push(action.item)//todo check if already exist
+                newState.ganttChartView.forceUpdate()
                 return newState
             case 'delete':
                 // newState.items
@@ -36,16 +42,22 @@ export class GanttChartMediator {
                 return newState
             case 'autoSchedule':
                 return newState
-            case 'dragStart':
+            case 'startDrag':
                 newState.isDragging = true
                 return newState
             case 'startSizing':
-                newState.isDragging = true
+                newState.isResizing = true
                 return newState
-            case 'stactLinking':
-                newState.isDragging = true
+            case 'stopSizing':
+                newState.isResizing = false
                 return newState
-            case 'dragEnd':
+            case 'startLinking':
+                newState.isLinking = true
+                return newState
+            case 'stopLinking':
+                newState.isLinking = false
+                return newState
+            case 'stopDrag':
                 newState.isDragging = false
                 return newState
             case 'updateTimelineStep':
@@ -54,66 +66,79 @@ export class GanttChartMediator {
                 newState.ganttChartView = action.view
                 return newState
             case 'setDropTarget':
-                newState.DropTarget = action.dropTarget
+                newState.dropTarget = action.dropTarget
                 return newState
             case 'setTempline':
-                newState.tempLine = action.tempLine
+                newState.templine = action.templine
                 return newState
-            case 'setDraggingTask':
-                newState.draggingTask = action.draggingTask
+            case 'setDraggingElement':
+                newState.draggingElement = action.draggingElement
+                return newState
             case 'removeTempline':
-                newState.tempLine = null
+                newState.templine = null
+                return newState
+            case 'updateScrollPosition':
+                newState.scrollPosition = action.scrollPosition
+                return newState
             case 'setTimelineStep':
                 switch (newState.timelineStep) {
                     case 0:
                         newState.cellCapacity = 40 / 72
+                        newState.timeLine = GanttChartMediator.timelineMonth
                         break;
                     case 1:
                         newState.cellCapacity = 50 / 720
+                        newState.timeLine = GanttChartMediator.timelineYear
                         break;
                     case 2:
                         newState.cellCapacity = 50 / 3
+                        newState.timeLine = GanttChartMediator.timelineDay
                         break;
                     case 3:
                         newState.cellCapacity = 60 / 24
+                        newState.timeLine = GanttChartMediator.timelineWeek
                         break;
                     default:
                         newState.cellCapacity = 40 / 72
+                        newState.timeLine = GanttChartMediator.timelineWeek
                 }
                 newState.timelineStep = action.step
+                newState.ganttChartView.forceUpdate()
                 return newState
             default:
                 return state
         }
     }
 
-    initialState = {
+    private initialState = {
         items: ChartData.ganttBars,
-        timeline: ChartData.timelineWeek,
-        timelineWeek: ChartData.timelineWeek,
-        timelineMonth: ChartData.timelineMonth,
-        timelineDay: ChartData.timelineDay,
-        timelineYear: ChartData.timelineYear,
-        isCurrentlyDragging: false,
-        isDrawingConnection: false,
+        timeLine: ChartData.timelineWeek,
+
+        isDragging: false,
+        isLinking: false,
         isCurrentlySizing: false,
 
         isLineDrawStarted: false,
 
         timelineStep: 0,
+        scrollPosition: 0,
 
         svgGridWidth: 50,
         ganttChartView: null,
         cellCapacity: 50 / 24,
 
-        currentDropTarget: null,
-        currentDraggingElement: null,
+        dropTarget: null,
+        draggingElement: null,
 
         tempLine: null
     }
 
     constructor() {
         new ChartData()
+        GanttChartMediator.timelineWeek = ChartData.timelineWeek;
+        GanttChartMediator.timelineMonth = ChartData.timelineMonth;
+        GanttChartMediator.timelineDay = ChartData.timelineDay;
+        GanttChartMediator.timelineYear = ChartData.timelineYear;
         GanttChartMediator.store = createStore(this.reduser, this.initialState)
     }
 
@@ -133,7 +158,7 @@ export class GanttChartMediator {
     }
 
     public getState() {
-      return  GanttChartMediator.store.getState()
+        return GanttChartMediator.store.getState()
     }
 
     public dispatch(config) {

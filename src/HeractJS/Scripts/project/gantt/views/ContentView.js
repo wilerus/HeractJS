@@ -36,6 +36,7 @@ define([
         regions: {
             profileRegion: '.js-profile-region',
             moduleLoadingRegion: '.js-module-loading-region',
+            ganttNavigation: '.js-module-gantt-toolbar',
             moduleRegion: '.js-module-region-left',
             ganttRegion: '.js-module-region-right'
         },
