@@ -28,7 +28,7 @@ export class ChartView extends React.Component<any, any> {
             timeLine: GCMediator.getState().timeLine,
             isCtrlPressed: false
         })
-        this.updateGanttChart()
+
         document.onkeydown = function (event: MouseEvent) {
             if (event.ctrlKey) {
                 this.setState({
@@ -205,10 +205,6 @@ export class Initializer {
         GCMediator.dispatch({
             type: 'setGanttChartView',
             view: mainView
-        })
-
-        GCMediator.subscribe(() => {
-            mainView.updateGanttChart();
         })
     }
 };
