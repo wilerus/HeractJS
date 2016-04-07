@@ -297,7 +297,7 @@ export class TaskBar extends React.Component<any, any> {
         const currentState = GCMediator.getState();
         const currentItems = currentState.items
         const newId = 'connection ' + (currentItems.length + 1)
-        debugger
+
         //currentItems.push();
         GCMediator.dispatch({
             type: 'create',
@@ -538,7 +538,6 @@ export class TaskBar extends React.Component<any, any> {
 
     private deselectAllTasks(tasks: any) {
         for (let i = 0; i < tasks.length; i++) {
-        debugger 
             let selectedElement = DOM.findDOMNode(tasks[i])
             if (selectedElement.tagName === 'g') {
                 selectedElement = selectedElement.childNodes[0] as any

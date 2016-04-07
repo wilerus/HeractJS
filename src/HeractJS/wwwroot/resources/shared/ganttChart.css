@@ -68,16 +68,19 @@
     height: 1500px;
     z-index: 10;
 }
+
 .ganttChart {
     width: 100%;
     height: 100vh;
     overflow: auto;
 }
+
 .ganttChartContainer {
     width: 100%;
     height: 100vh;
     overflow: auto;
 }
+
 .container .body-content {
     width: 100%;
     height: 100%;
@@ -91,11 +94,13 @@
 .barExchanging {
     opacity: 0.5;
 }
+
 .js-module-gantt-toolbar {
     width: 100vw;
     height: 40px;
     position: relative;
     background-color: #299cb4;
+    box-shadow: 0 0 8px rgba(0, 0, 0,0.8);
 }
 /* Bar chart */
 
@@ -113,7 +118,7 @@
 
 .ganttTimeline {
     width: 100%;
-    height: 50px;
+    height: 49px;
 }
 
 .timeLineText {

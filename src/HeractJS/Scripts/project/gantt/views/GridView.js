@@ -63,6 +63,8 @@ define([
         // 4. Create grid
         var bundle = core.list.factory.createDefaultGrid({
             gridViewOptions: {
+                height: 'auto',
+                maxRows: 30, //todo make it calculable
                 columns: columns,
                 childHeight: 40,
                 useDefaultRowView: true
@@ -88,8 +90,7 @@ define([
 
         // 8. Show created views
         return new ListCanvasView({
-            content: bundle.gridView,
-            scrollbar: bundle.scrollbarView
+            content: bundle.gridView
         });
     }
 });

@@ -242,14 +242,12 @@
 
     left: 0;
     top: 0;
-    right: 16px;
+    right: 0;
     height: 100%;
 }
 
 .dev-demo-core__list-canvas__view {
     position: relative;
-    height: 777px;
-    border: solid thin #64aad0;
 }
 
 .dev-demo-core__list-canvas__scrollbar-region {
@@ -263,10 +261,9 @@
 
 .dev-demo-core__list-canvas__content-region_search {
     position: absolute;
-
     left: 0;
     top: 0;
-    right: 16px;
+    right: 0;
     bottom: 0;
 }
 
