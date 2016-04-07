@@ -1,7 +1,7 @@
 ﻿import React = require('react')
 import DOM = require('react-dom')
 
-import {GanttChartMediator} from './GlobalStore';
+import {GanttChartMediator} from './Mediator';
 
 let GCMediator = GanttChartMediator.getInstance();
 

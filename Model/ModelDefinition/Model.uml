@@ -1312,7 +1312,7 @@
             isAbstract="false">
             <classMoniker
               Id="fed41593-0905-41f3-b20f-b1f1e06b797b"
-              LastKnownName="GlobalStore"
+              LastKnownName="Mediator"
               LastKnownLocation="Model.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
@@ -1715,7 +1715,7 @@
             isAbstract="false">
             <classMoniker
               Id="fed41593-0905-41f3-b20f-b1f1e06b797b"
-              LastKnownName="GlobalStore"
+              LastKnownName="Mediator"
               LastKnownLocation="Model.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
@@ -1735,45 +1735,6 @@
                 <memberEnd
                   Id="ec993d4c-4a0e-4f67-834e-cc5a7c98c19e"
                   name="GlobalStore"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
-            Id="59f40d42-c542-4b30-8229-bf8f45dfd6e6"
-            isDerived="false"
-            sourceEndRoleName="GCMainView"
-            targetEndRoleName="GanttChartData"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="dcf94de2-141f-4fb1-8e96-846c0eaaca99"
-              LastKnownName="ChartData"
-              LastKnownLocation="Model.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="2f4af289-a4fc-4d56-823b-e0cf42e82639"
-                  name="GCMainView"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="a605850a-10ae-49c2-a587-e52922808186"
-                  name="GanttChartData"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -2028,10 +1989,51 @@
     <packageHasNamedElement>
       <class
         Id="fed41593-0905-41f3-b20f-b1f1e06b797b"
-        name="GlobalStore"
+        name="Mediator"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="ecaa575f-0385-4761-a522-76aed71a30ff"
+            isDerived="false"
+            sourceEndRoleName="Mediator"
+            targetEndRoleName="ChartData"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="dcf94de2-141f-4fb1-8e96-846c0eaaca99"
+              LastKnownName="ChartData"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="868baae3-49f4-4abd-adc0-77b122be3ece"
+                  name="Mediator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8eeee2eb-8890-463d-b1ca-4e94c4227f08"
+                  name="ChartData"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="13acac7d-8513-4869-b484-3dfcb59d562f"
@@ -2174,7 +2176,7 @@
             isAbstract="false">
             <classMoniker
               Id="fed41593-0905-41f3-b20f-b1f1e06b797b"
-              LastKnownName="GlobalStore"
+              LastKnownName="Mediator"
               LastKnownLocation="Model.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
@@ -3788,6 +3790,146 @@
             </relationshipOwnedElementsInternal>
           </association>
         </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="065f1e70-8080-4762-835d-512d8e398517"
+        name="Toolbar"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="806fbeff-8f5a-477e-a015-58ba83dc1b2f"
+            isDerived="false"
+            sourceEndRoleName="Toolbar"
+            targetEndRoleName="Mediator"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="fed41593-0905-41f3-b20f-b1f1e06b797b"
+              LastKnownName="Mediator"
+              LastKnownLocation="Model.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="35d56480-c4d0-4485-998e-9609b65b7318"
+                  name="Toolbar"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="dd1c5b87-4855-46b7-b417-fe45de83007c"
+                  name="Mediator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedOperationsInternal>
+          <operation
+            Id="4959e8ff-daa3-4e68-b0e8-21b1be03663e"
+            name="constructor"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="5d11c917-8484-4fd1-8be3-8417a35abe06"
+            name="undo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="3dd9b19b-0c0a-4d38-8b38-6e7e40285a15"
+            name="redo"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="1e31389b-1fec-4ba3-9e2e-ae45f9131462"
+            name="removeTask"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="c726676e-7f50-4fc6-a1e2-99f09bb084d9"
+            name="addTask"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="b369ce5c-6aa1-4696-9c91-7e6724590862"
+            name="moveToTask"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="1dcd8427-615e-4a32-937e-8038fac4bf30"
+            name="addLink"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="337a223f-8e8c-4d22-8aaf-529a002027dd"
+            name="removeLink"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="705ef96b-d439-4a9a-8a2a-1a43aaab1a0a"
+            name="copmleteTask"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="e5c589b4-1cac-41a2-82f5-27a6703fdb22"
+            name="reopenTask"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="bea2b214-51cb-4f1e-b818-4c7f57967784"
+            name="render"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
   </packagedElements>

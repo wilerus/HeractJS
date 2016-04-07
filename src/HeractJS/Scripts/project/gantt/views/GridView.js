@@ -29,8 +29,25 @@ define([
                     autocommit: true,
                     model: this.model
                 }));
+
                 this.model.on('change', function () {
+                    var rowIndex = this.attributes.rowModel.collection.models.find(function (element, index) {
+                        if (element.cid === this.cid) {
+                            console.log(index);
+                            return index
+                        }
+                    }.bind(this))
                     console.log(this.get('value'));
+                })
+
+                this.model.attributes.rowModel.on('selected', function () {
+                   var rowIndex = this.collection.models.find(function(element, index) {
+                       if (element.cid === this.cid) {
+                           console.log(index);
+                            return index
+                        }
+                    }.bind(this))
+                   console.log(rowIndex);
                 })
             }
         });
@@ -74,7 +91,8 @@ define([
 
         // 7. Subscribe to view events
         var eventAggregator = bundle.eventAggregator;
-        eventAggregator.listenTo(eventAggregator.views[0], 'positionChanged', function (e, t) {
+
+        eventAggregator.listenTo(eventAggregator.views[1], 'click', function (e, t) {
             window.application.ScrollBarMediator.change(t.position)
             return false;
         }.bind(this));

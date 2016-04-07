@@ -1,6 +1,9 @@
 ﻿import React = require('react')
 
-export class Timeline extends React.Component<any, any> {
+import {GanttChartMediator} from './Mediator';
+let GCMediator: GanttChartMediator = GanttChartMediator.getInstance();
+
+export class GanttToolbar extends React.Component<any, any> {
     constructor() {
         super()
         this.state = {
@@ -12,37 +15,104 @@ export class Timeline extends React.Component<any, any> {
         }
     }
 
-    private componentDidMount() {
-        this.setState({
-            marginLeft: this.props.data.style.marginLeft,
-            width: this.props.data.style.width,
-            top: this.props.data.style.top,
-            height: this.props.data.style.height,
-            text: this.props.data.text
+    private undo() {
+        GCMediator.undo()
+    }
+
+    private redo() {
+        GCMediator.redo()
+    }
+
+    private removeTask() {
+        GCMediator.dispatch({
+            type: 'removeTask',
+            task: ''
         })
     }
 
-    render() {
-        return React.createElement('g', {
-            y: this.state.top,
-            x: this.state.marginLeft
+    private addTask() {
+        GCMediator.dispatch({
+            type: 'addTask',
+            task: ''
+        })
+    }
+
+    private moveToTask() {
+        GCMediator.dispatch({
+            type: 'moveToTask',
+            task: ''
+        })
+    }
+
+    private addLink() {
+        GCMediator.dispatch({
+            type: 'addLink',
+            task: ''
+        })
+    }
+
+    private removeLink() {
+        GCMediator.dispatch({
+            type: 'removeLink',
+            task: ''
+    })
+    }
+
+    private completeTask() {
+        GCMediator.dispatch({
+            type: 'completeTask',
+            task: ''
+    })
+    }
+
+    private reopenTask() {
+        GCMediator.dispatch({
+            type: 'updateScrollPosition',
+            task: ''
+        })
+    }
+
+    public render() {
+        return React.createElement('div', {
+            id: 'toolbarContainer',
+            className: 'toolbarContainer'
         },
-            React.createElement('rect', {
-                y: this.state.top,
-                x: this.state.marginLeft,
-                width: this.state.width,
-                height: this.state.height,
-                stroke: 'rgb(100,100,100)',
-                //strokeDasharray: '0, 90, 60, 90',
-                strokeWidth: 0.5,
-                fill: 'none'
-            }),
-            React.createElement('text', {
-                className: 'timeLineText',
-                fontSize: 12,
-                x: this.state.marginLeft + this.state.width * 0.5,
-                y: this.state.top + 20
-            }, this.state.text)
+            React.createElement('button', {
+                className: 'toolbarButton',
+                onClick: this.undo.bind(this)
+            }, 'Undo'),
+            React.createElement('button', {
+                className: 'toolbarButton',
+                onClick: this.redo.bind(this)
+            }, 'Redo'),
+            React.createElement('button', {
+                className: 'toolbarButton',
+                onClick: this.removeTask.bind(this)
+            }, 'Remove task'),
+            React.createElement('button', {
+                className: 'toolbarButton',
+                onClick: this.addTask.bind(this)
+            }, 'Add task'),
+            React.createElement('button', {
+                className: 'toolbarButton',
+                onClick: this.moveToTask.bind(this)
+            }, 'Move to task'),
+            React.createElement('button', {
+                className: 'toolbarButton',
+                onClick: this.addLink.bind(this)
+            }, 'Add link'),
+            React.createElement('button', {
+                className: 'toolbarButton',
+                onClick: this.removeLink.bind(this)
+            }, 'Remove link'),
+            React.createElement('button', {
+                className: 'toolbarButton',
+                onClick: this.completeTask.bind(this)
+            }, 'Complete task'),
+            React.createElement('button', {
+                className: 'toolbarButton',
+                onClick: this.reopenTask.bind(this)
+            }, 'Reopen task')
         )
     }
 };

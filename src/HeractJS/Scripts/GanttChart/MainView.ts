@@ -8,7 +8,8 @@ import {TaskLink} from './TaskLink';
 import {InfoPopup} from './InfoPopup';
 import {ModalWindow} from './ModalWindow';
 import {Timeline}  from './Timeline';
-import {GanttChartMediator} from './GlobalStore';
+import {GanttToolbar}  from './Toolbar';
+import {GanttChartMediator} from './Mediator';
 import {ScrollBarMediator} from '../../scripts/services/ScrollBarMediator';
 
 let GCMediator: GanttChartMediator = GanttChartMediator.getInstance();
@@ -50,11 +51,13 @@ export class ChartView extends React.Component<any, any> {
                 this.updateTimeline()
             } else {
                 const scrollPosition = Math.round(event.deltaY / 32) + GCMediator.getState().scrollPosition
-                SBMediator.change(scrollPosition)
-                GCMediator.dispatch({
-                    type: 'updateScrollPosition',
-                    scrollPosition: scrollPosition
-                })
+                if (scrollPosition >= 0) {
+                    SBMediator.change(scrollPosition)
+                    GCMediator.dispatch({
+                        type: 'updateScrollPosition',
+                        scrollPosition: scrollPosition
+                    })
+                }
             }
         }.bind(this)
     }
@@ -113,7 +116,7 @@ export class ChartView extends React.Component<any, any> {
     }
 
     public render() {
-        const items = this.state.ganttBars.map(function (ganttBar: any) {
+        const chart = this.state.ganttBars.map(function (ganttBar: any) {
             if (ganttBar.type === 'bar') {
                 return React.createElement(TaskBar, {
                     key: ganttBar.id,
@@ -129,21 +132,24 @@ export class ChartView extends React.Component<any, any> {
             }
         }.bind(this))
 
+        const timeline = this.state.timeLine.map((timeLineItem: any) => {
+            return React.createElement(Timeline, {
+                key: timeLineItem.id,
+                data: timeLineItem
+            })
+        })
         return React.createElement('div', {
             id: 'ganttChartContainer',
             className: 'ganttChartContainer'
+        }, React.createElement('div', {
+                id: 'timelineContainer',
+                className: 'timelineContainer'
         },
             React.createElement('svg', {
                 className: 'ganttTimeline',
                 id: 'ganttTimeline'
-            },
-                this.state.timeLine.map((timeLineItem: any) => {
-                    return React.createElement(Timeline, {
-                        key: timeLineItem.id,
-                        data: timeLineItem
-                    })
-                })
-            ),
+            }, timeline)),
+
             React.createElement('div', {
                 id: 'ganttChart',
                 className: 'ganttChart'
@@ -196,7 +202,7 @@ export class ChartView extends React.Component<any, any> {
                     //    transitionEnterTimeout: 500,
                     //    transitionLeaveTimeout: 500
                     //}, 
-                    items
+                    chart
                     // )
                 )
             )
@@ -207,11 +213,15 @@ export class ChartView extends React.Component<any, any> {
 export class Initializer {
     constructor() {
         const mainView = DOM.render(React.createElement(ChartView), document.getElementsByClassName('js-module-region-right')[0]) as any
+        const toolbar = DOM.render(React.createElement(GanttToolbar), document.getElementsByClassName('js-module-gantt-toolbar')[0]) as any
 
         GCMediator.dispatch({
             type: 'setGanttChartView',
             view: mainView
         })
+        GCMediator.dispatch({
+            type: 'setGanttToolbar',
+            view: toolbar
+        })
     }
 };
-

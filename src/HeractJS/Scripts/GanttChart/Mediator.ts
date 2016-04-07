@@ -18,70 +18,70 @@ export class GanttChartMediator {
         switch (action.type) {
             case 'reset':
                 newState.items = action.items
-                return newState
+                break
             case 'create':
                 newState.items.push(action.item)//todo check if already exist
                 newState.ganttChartView.forceUpdate()
-                return newState
+                break
             case 'delete':
                 // newState.items
                 newState.ganttChartView.deleteTask(action.taskId)//todo check if exist
-                return newState
+                break
             case 'edit':
                 newState.ganttChartView.editTask(action.taskId)//todo check if exist
-                return newState
+                break
             case 'indent':
                 newState.ganttChartView.indentTask(action.taskId)
-                return newState
+                break
             case 'link':
                 newState.ganttChartView.linkTask(action.tasksIds)
-                return newState
+                break
             case 'outindent':
                 newState.ganttChartView.outindentTask(action.taskId)
-                return newState
+                break
             case 'unlink':
                 newState.ganttChartView.unlinkTask(action.taskId)
-                return newState
+                break
             case 'autoSchedule':
-                return newState
+                break
             case 'startDrag':
                 newState.isDragging = true
-                return newState
+                break
             case 'startSizing':
                 newState.isResizing = true
-                return newState
+                break
             case 'stopSizing':
                 newState.isResizing = false
-                return newState
+                break
             case 'startLinking':
                 newState.isLinking = true
-                return newState
+                break
             case 'stopLinking':
                 newState.isLinking = false
-                return newState
+                break
             case 'stopDrag':
                 newState.isDragging = false
-                return newState
+                break
             case 'updateTimelineStep':
                 return newState.timelineStep = action.step
             case 'setGanttChartView':
                 newState.ganttChartView = action.view
-                return newState
+                break
             case 'setDropTarget':
                 newState.dropTarget = action.dropTarget
-                return newState
+                break
             case 'setTempline':
                 newState.templine = action.templine
-                return newState
+                break
             case 'setDraggingElement':
                 newState.draggingElement = action.draggingElement
-                return newState
+                break
             case 'removeTempline':
                 newState.templine = null
-                return newState
+                break
             case 'updateScrollPosition':
                 newState.scrollPosition = action.scrollPosition
-                return newState
+                break
             case 'setTimelineStep':
                 switch (newState.timelineStep) {
                     case 0:
@@ -106,20 +106,25 @@ export class GanttChartMediator {
                 }
                 newState.timelineStep = action.step
                 newState.ganttChartView.forceUpdate()
-                return newState
+                break
             case 'selectTask':
+                newState.history.push({
+                    type: action.task,
+                    data: newState.selectedTask
+                })
                 newState.selectedTask = action.task
-                return newState
+                //newState.ganttChartView.selectedTask()
+                break
             case 'addTaskToSelected':
                 if (newState.selectedTask) {
                     newState.selectedTasks.push(newState.selectedTask)
                     newState.selectedTask = null
                 }
                 newState.selectedTasks.push(action.task)//todo check if exist
-                return newState
+                break
             case 'deselectAllTasks':
                 newState.selectedTasks = []
-                return newState
+                break
             case 'deselectTask':
                 let selectedTasks = newState.selectedTasks
                 if (selectedTasks.length > 0) {
@@ -134,10 +139,11 @@ export class GanttChartMediator {
                 } else {
                     newState.selectedTask = null
                 }
-                return newState
+                break
             default:
                 return state
         }
+        return newState
     }
 
     private initialState = {
@@ -198,5 +204,13 @@ export class GanttChartMediator {
 
     public subscribe(config) {
         return GanttChartMediator.store.subscribe(config)
+    }
+
+    public undo() {
+        return GanttChartMediator.store.subscribe()
+    }
+
+    public redo() {
+        return GanttChartMediator.store.subscribe()
     }
 }

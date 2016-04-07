@@ -22,7 +22,7 @@ export class Timeline extends React.Component<any, any> {
         })
     }
 
-    render() {
+    public render() {
         return React.createElement('g', {
             y: this.state.top,
             x: this.state.marginLeft
@@ -39,7 +39,6 @@ export class Timeline extends React.Component<any, any> {
             }),
             React.createElement('text', {
                 className: 'timeLineText',
-                fontSize: 12,
                 x: this.state.marginLeft + this.state.width * 0.5,
                 y: this.state.top + 20
             }, this.state.text)
