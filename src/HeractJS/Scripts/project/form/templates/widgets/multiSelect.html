@@ -1,0 +1,4 @@
+﻿{{^labelHidden}}<h3 class="h3-card">{{labelText}}</h3>{{/labelHidden}}<div class ="{{#if isDisabled}}hidden{{/if}}">{{#each variants}}<label class="selector-label"><input class= "multiselect" type="checkbox" value="{{this.name}}" {{#if this.selected}}checked{{/if}} disabled>{{this.name}}</label>{{#if ../isVertical}}<br>{{/if}}{{/each}}</div>
+{{#if isDisabled}}
+    <div class="placeholder disabled">{{localize 'ELEGANCE.FORM.WIDGETS.FIELDS.FIELDDISABLED'}}</div>
+{{/if}}

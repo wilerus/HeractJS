@@ -36,6 +36,7 @@ module.exports = {
             'demoInitializer': path.resolve(__dirname + '/scripts/project/demo/Initializer'),
             'listInitializer': path.resolve(__dirname + '/scripts/project/list/Initializer'),
             'ganttInitializer': path.resolve(__dirname + '/scripts/project/gantt/Initializer'),
+            'formInitializer': path.resolve(__dirname + '/scripts/project/form/Initializer'),
             'profileAboutInitializer': path.resolve(__dirname + '/scripts/project/profile/aboutandextras/Initializer'),
             'profileNotificationInitializer': path.resolve(__dirname + '/scripts/project/profile/notificationSettings/Initializer'),
             'profileProfileInitializer': path.resolve(__dirname + '/scripts/project/profile/profile/Initializer'),

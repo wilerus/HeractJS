@@ -1,0 +1,13 @@
+<div class="comments__wrp">
+    <div class="avatar-icon avatar-icon_comment" style="background-image: url(/GetUserpic.ashx?id={{this.author.id}})"></div>
+    <div class="comments__head">
+        {{this.author.name}}
+        <span class="comments__date">{{this.date}}</span>
+        <div class="comments__edit js-edit"></div>
+        <div class="comments__reply js-reply"></div>
+    </div>
+
+
+    <div class="comments__txt js-comment-value">{{this.value}}</div>
+</div>
+<ul class="child-comments"></ul>

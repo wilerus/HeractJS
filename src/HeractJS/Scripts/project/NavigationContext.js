@@ -19,6 +19,8 @@
                 "id": "cmw.workspace.GridItem", "systemType": "cmw.workspace.SystemItem", "name": "Grid", "picUrl": "/resource/icons/unassigned_22x22.png"
             }, {
                 "id": "cmw.workspace.GanttItem", "systemType": "cmw.workspace.SystemItem", "name": "Gantt", "picUrl": "/resource/icons/unassigned_22x22.png"
+            }, {
+                "id": "cmw.workspace.FormItem", "systemType": "cmw.workspace.SystemItem", "name": "Form", "picUrl": "/resource/icons/unassigned_22x22.png"
             }]
     };
 });

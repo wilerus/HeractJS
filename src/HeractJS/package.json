@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "bootstrap": "3.3.6",
+    "bootstrap-datetime-picker": "2.3.9",
     "comindware.core.ui": "1.0.6",
     "jquery": "2.2.2",
     "lodash": "4.7.0",

@@ -1,0 +1,14 @@
+﻿<div class="dropdown" tabindex="0" id="action-dropdown">
+    <div class="dropdown__title">
+        {{localize 'ELEGANCE.FORM.ACTIONS.DROPDOWNTITLE'}}
+    </div>
+    <ul class="dropdown-list">
+        {{#each actions}}
+            {{^hidden}}
+                <li class="dropdown-list__i">
+                    <span class="dropdown-list__txt {{^enabled}}dropdown-list__disabled{{/enabled}}" id="{{id}}">{{displayName}}</span>
+                </li>
+            {{/hidden}}
+        {{/each}}
+    </ul>
+</div>
