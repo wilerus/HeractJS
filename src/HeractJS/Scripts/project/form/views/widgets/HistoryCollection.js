@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../../App', '../../templates/widgets/historyItem.html', '../../templates/widgets/historyCollection.html'],
+define(['form/App', 'form/templates/widgets/historyItem.html', 'form/templates/widgets/historyCollection.hbs'],
     function (App, HistoryItemTmpl, HistoryTmpl) {
         'use strict';
 
@@ -209,7 +209,7 @@ define(['../../App', '../../templates/widgets/historyItem.html', '../../template
         });
 
         return Marionette.CompositeView.extend({
-            template: Handlebars.compile(HistoryTmpl),
+            template: HistoryTmpl,
             childViewContainer: '.js-history-container',
             tagName: 'div',
             className: 'tab-list',

@@ -11,7 +11,7 @@
 
 /* global define, Backbone */
 
-define(['../../templates/widgets/widgetComposite.html',
+define(['form/templates/widgets/widgetComposite.html',
         './SingleLineText',
         './Instance',
         './Account',

@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../../App', '../../templates/widgets/attachments.html', './BaseEditorView'],
+define(['form/App', 'form/templates/widgets/attachments.html', './BaseEditorView'],
     function (App, template, EditorBaseView) {
         'use strict';
 

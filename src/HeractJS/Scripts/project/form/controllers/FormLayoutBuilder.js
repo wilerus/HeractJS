@@ -11,7 +11,7 @@
 
 /* global define, _, $ */
 
-define(['../App', './DataProxyManager'],
+define(['form/App', './DataProxyManager'],
     function (App, DataProxyManager) {
         'use strict';
         return Backbone.Marionette.Controller.extend({

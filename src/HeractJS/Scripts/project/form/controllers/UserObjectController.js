@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../App', './FormController', './DataProxyManager'],
+define(['form/App', './FormController', './DataProxyManager'],
     function (App, FormController, DataProxyManager) {
         'use strict';
 

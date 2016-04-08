@@ -11,7 +11,7 @@
 
 /* global define, Backbone */
 
-define(['../../../App','./AttachmentsSelect', '../../EmptyView'],
+define(['form/App', './AttachmentsSelect', 'form/views/EmptyView'],
     function (App, AttachmentsItemView, EmptyView) {
         'use strict';
         return Marionette.CollectionView.extend({

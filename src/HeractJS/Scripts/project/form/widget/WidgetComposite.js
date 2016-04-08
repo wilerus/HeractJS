@@ -11,7 +11,7 @@
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define(['../../templates/widgetComposite.html',
+define(['form/templates/widgets/widgetComposite.html',
         './SingleLineTextView',],
     function (compositeTemplate, SingleLineText/*, InstanceView, AccountView, DateTimeView, Duration, ListOfValuesView, Boolean*/) {
         'use strict';

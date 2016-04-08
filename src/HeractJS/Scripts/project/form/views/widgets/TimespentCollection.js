@@ -11,8 +11,8 @@
 
 /* global define */
 
-define(['../../App', '../../templates/widgets/timespentItem.html',
-        '../../templates/widgets/timespentCollection.html', '../../templates/widgets/timeSpentItemNew.html'],
+define(['form/App', 'form/templates/widgets/timespentItem.html',
+        'form/templates/widgets/timespentCollection.html', 'form/templates/widgets/timeSpentItemNew.html'],
     function (App, TimespentItemTmpl, TimespentCollectionTmpl) {
         'use strict';
 

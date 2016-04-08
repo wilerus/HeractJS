@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../../App', '../../templates/popups/assignPopup/assignLayout.html', './AssignHeaderView', './AssignContentView'],
+define(['form/App', 'form/templates/popups/assignPopup/assignLayout.hbs', './AssignHeaderView', './AssignContentView'],
     function (App, layoutTmpl, HeaderView, ContentView) {
         'use strict';
         return Marionette.LayoutView.extend({
@@ -28,7 +28,7 @@ define(['../../App', '../../templates/popups/assignPopup/assignLayout.html', './
                 this.headerRegion.show(new HeaderView());
                 this.contentRegion.show(new ContentView());
             },
-            template: Handlebars.compile(layoutTmpl),
+            template: layoutTmpl,
             events: {
             }
         });

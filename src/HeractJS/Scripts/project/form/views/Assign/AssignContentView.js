@@ -11,14 +11,14 @@
 
 /* global define, _ */
 
-define(['../../App', '../../templates/popups/assignPopup/assignContent.html'],
+define(['form/App', 'form/templates/popups/assignPopup/assignContent.hbs'],
     function (App, contentTmpl) {
         'use strict';
         return Marionette.ItemView.extend({
             initialize: function () {
                 _.bindAll(this, "template");
             },
-            template: Handlebars.compile(contentTmpl),
+            template: contentTmpl,
             events: {
             }
         });

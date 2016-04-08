@@ -11,7 +11,7 @@
 
 /* global define */
 
-define(['../../App', '../../templates/widgets/timespentSaveDialog.html'],
+define(['form/App', 'form/templates/widgets/timespentSaveDialog.html'],
     function (App, timespentSaveDialogTmpl) {
         'use strict';
 

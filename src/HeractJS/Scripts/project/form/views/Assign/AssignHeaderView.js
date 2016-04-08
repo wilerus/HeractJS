@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../../App', '../../templates/popups/assignPopup/assignHeader.html'],
+define(['form/App', 'form/templates/popups/assignPopup/assignHeader.html'],
     function (App, headerTmpl) {
         'use strict';
         return Marionette.ItemView.extend({

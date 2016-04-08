@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../../templates/editors/textEditor.html', './BaseEditorView'],
+define(['form/templates/editors/textEditor.html', './BaseEditorView'],
     function (template, EditorBaseView) {
         'use strict';
 

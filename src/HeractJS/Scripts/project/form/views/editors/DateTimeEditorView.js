@@ -11,7 +11,7 @@
 
 /* global define, $, _ */
 
-define(['../../App', '../../templates/editors/dateTimeEditor.html', './BaseEditorView'],
+define(['form/App', 'form/templates/editors/dateTimeEditor.html', './BaseEditorView'],
     function (App, template, EditorBaseView, moment) {
         'use strict';
 

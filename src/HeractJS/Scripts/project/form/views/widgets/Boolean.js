@@ -10,7 +10,7 @@
  */
 
 
-define(['../../App'],
+define(['form/App'],
     function (App) {
         'use strict';
         return Marionette.ItemView.extend({

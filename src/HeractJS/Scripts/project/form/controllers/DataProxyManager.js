@@ -11,8 +11,8 @@
 
 /* global define */
 
-define(['../models/UserObjectModel', '../models/LayoutModel', '../models/CommentsCollection',
-        '../models/SubtasksCollection', '../models/HistoryCollection', '../models/TimespentModel', '../models/TransitionModel', '../models/WorkflowModel'],
+define(['form/models/UserObjectModel', 'form/models/LayoutModel', 'form/models/CommentsCollection',
+        'form/models/SubtasksCollection', 'form/models/HistoryCollection', 'form/models/TimespentModel', 'form/models/TransitionModel', 'form/models/WorkflowModel'],
     function (UserObjectModel, LayoutModel, CommentsCollection, SubtasksCollection, HistoryCollection,
               TimespentModel, TransitionModel, WorkflowModel) {
         'use strict';

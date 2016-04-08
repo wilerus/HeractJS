@@ -27,9 +27,7 @@ body, input, select, textarea, button {
     -webkit-text-size-adjust: none;
     -webkit-font-smoothing: antialiased; /* subpixel-antialiased */
 }
-.app, input, select, textarea, button {
-    font-size: 1.6rem;
-}
+
 *:focus {
     outline: 0;
 }

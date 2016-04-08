@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../../templates/widgets/singleLineText.html'],
+define(['form/templates/widgets/singleLineText.html'],
     function (itemTmpl) {
         'use strict';
         return Marionette.ItemView.extend({

@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../../App', '../../templates/editors/radioSelectorEditor.html', './BaseEditorView'],
+define(['form/App', 'form/templates/editors/radioSelectorEditor.html', './BaseEditorView'],
     function (App, template, EditorBaseView) {
         'use strict';
 

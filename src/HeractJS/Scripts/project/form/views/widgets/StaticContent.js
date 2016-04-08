@@ -11,8 +11,8 @@
 
 /* global define, _ */
 
-define([],
-    function () {
+define(['form/templates/widgets/staticContent.hbs'],
+    function (tpl) {
         'use strict';
         return Marionette.ItemView.extend({
             initialize: function (options) {
@@ -32,6 +32,6 @@ define([],
                     this.ui.container.html(data[0].dataValue);
                 }
             },
-            template: Handlebars.compile('<div class="js-content-container"></div>')
+            template: tpl
         });
     });

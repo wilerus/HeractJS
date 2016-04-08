@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../../App', '../../templates/widgets/duration.html'],
+define(['form/App', 'form/templates/widgets/duration.hbs'],
     function (App, itemTmpl) {
         'use strict';
         return Marionette.ItemView.extend({
@@ -22,7 +22,7 @@ define(['../../App', '../../templates/widgets/duration.html'],
                 input: '.js-input'
             },
             className: '',
-            template: Handlebars.compile(itemTmpl),
+            template: itemTmpl,
             onRender: function(){
                 this.$el.addClass(this.className);
                 this.setValue();

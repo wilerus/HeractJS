@@ -12,7 +12,7 @@
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
 
-define(['../../templates/widgets/singleLineText.html'],
+define(['form/templates/widgets/singleLineText.html'],
     function (singleLineTextTpl) {
         'use strict';
         return Marionette.ItemView.extend({

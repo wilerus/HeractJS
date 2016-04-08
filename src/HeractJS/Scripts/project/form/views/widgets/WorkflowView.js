@@ -11,13 +11,13 @@
 
 /* global define */
 
-define(['../../App', '../../templates/widgets/workflow.html', /*'util/WFView'*/],
+define(['form/App', 'form/templates/widgets/workflow.hbs', /*'util/WFView'*/],
     function (App, tmpl/*,WFView*/) {
         'use strict';
 
         return Marionette.ItemView.extend({
             attributes: {id: 'formWorkflowWrapper'},
-            template: Handlebars.compile(tmpl),
+            template: tmpl,
 
             onShow: function () {
                 return;

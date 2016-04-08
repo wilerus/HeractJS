@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../../App', '../../templates/widgets/customTab.html'],
+define(['form/App', 'form/templates/widgets/customTab.html'],
     function (App, tmpl) {
         'use strict';
 

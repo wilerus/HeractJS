@@ -11,8 +11,8 @@
 
 /* global define, _ */
 
-define(['../../../App', '../../../templates/editors/attachments/attachmentsSingle.html',
-        '../../../models/editors/attachments/AttachmentsSingle',  './VersionsItem'],
+define(['form/App', 'form/templates/editors/attachments/attachmentsSingle.html',
+        'form/models/editors/attachments/AttachmentsSingle', './VersionsItem'],
     function (App, itemTmpl, AttachmentsSingleModel, AttachmentsVersionsView) {
         'use strict';
         return Marionette.CompositeView.extend({

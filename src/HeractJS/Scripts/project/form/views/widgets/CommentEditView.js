@@ -11,7 +11,7 @@
 
 /* global define, _, CKEDITOR */
 
-define(['../../App', '../../templates/widgets/commentEditView.html'],
+define(['form/App', 'form/templates/widgets/commentEditView.html'],
     function (App, commentEditView) {
         'use strict';
         var ItemView = Marionette.ItemView.extend({

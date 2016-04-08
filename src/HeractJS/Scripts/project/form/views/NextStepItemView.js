@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../templates/nextStepItem.html'],
+define(['form/templates/nextStepItem.html'],
     function (itemTmpl) {
         'use strict';
         return Marionette.ItemView.extend({

@@ -9,7 +9,7 @@
  *       actual or intended publication of such source code.
  */
 
-define(['../../App', '../../templates/widgets/multiSelect.html'],
+define(['form/App', 'form/templates/widgets/multiSelect.html'],
     function (App, template) {
         'use strict';
         return Marionette.ItemView.extend({

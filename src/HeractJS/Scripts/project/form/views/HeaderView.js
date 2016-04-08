@@ -11,8 +11,8 @@
 
 /* global define, _ */
 
-define(['../App', '../views/Actions/ActionsView', '../views/HeaderPartView',
-        '../templates/header.html', '../views/ConfirmView', '../views/editors/attachments/AddAttachmentView'],
+define(['form/App', 'form/views/Actions/ActionsView', 'form/views/HeaderPartView',
+        'form/templates/header.html', 'form/views/ConfirmView', 'form/views/editors/attachments/AddAttachmentView'],
     function (App, ActionsView, HeaderPartView, headerTmpl, ConfirmView, AddAttachmentView) {
         'use strict';
         return Marionette.LayoutView.extend({

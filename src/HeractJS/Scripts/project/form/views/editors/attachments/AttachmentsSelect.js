@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../../../App', '../../../templates/editors/attachments/attachmentsSelect.html'],
+define(['form/App', 'form/templates/editors/attachments/attachmentsSelect.html'],
     function (App, itemTmpl) {
         'use strict';
         return Marionette.ItemView.extend({

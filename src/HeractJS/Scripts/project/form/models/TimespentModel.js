@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../App'],
+define(['form/App'],
     function (App) {
         'use strict';
 

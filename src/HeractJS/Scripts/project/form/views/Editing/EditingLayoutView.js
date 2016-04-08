@@ -11,8 +11,8 @@
 
 /* global define, _ */
 
-define(['../../App', './EditingContentView', '../widgets/CustomTab'],
-    function (App, ContentView, CustomTab) {
+define(['form/App', './EditingContentView', 'form/views/widgets/CustomTab', 'form/templates/editingLayout.hbs'],
+    function (App, ContentView, CustomTab, template) {
         'use strict';
 
         var TabsCollection = Marionette.CollectionView.extend({
@@ -44,7 +44,7 @@ define(['../../App', './EditingContentView', '../widgets/CustomTab'],
                 contentRegion: '#editingContent-region',
                 tabsRegion: '#editingTabs-region'
             },
-            template: Handlebars.compile("<div id='editingContent-region'></div><div id='editingTabs-region'></div>"),
+            template: template,
 
             className: 'card card_edit',
 

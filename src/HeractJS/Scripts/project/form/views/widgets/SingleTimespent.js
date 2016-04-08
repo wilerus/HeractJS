@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../../App', '../../templates/widgets/timespentItemNew.html'],
+define(['form/App', 'form/templates/widgets/timespentItemNew.html'],
     function (App, TimespentItemNewTmpl) {
         'use strict';
 

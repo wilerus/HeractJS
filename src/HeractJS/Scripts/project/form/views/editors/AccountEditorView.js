@@ -11,8 +11,8 @@
 
 /* global define, _ */
 
-define(['../../App', '../../templates/editors/accountEditor.html', './BaseEditorView', '../widgets/SearchModalView',
-        '../../models/editors/account/AccountModel'],
+define(['form/App', 'form/templates/editors/accountEditor.html', './BaseEditorView', 'form/views/widgets/SearchModalView',
+        'form/models/editors/account/AccountModel'],
     function (App, template, EditorBaseView, SearchModalView, AccountModel) {
         'use strict';
 

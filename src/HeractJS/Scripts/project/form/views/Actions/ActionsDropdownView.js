@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../../App', '../../templates/actionsDropDown.html'],
+define(['form/App', 'form/templates/actionsDropDown.html'],
     function (App, dropDownTmpl) {
         'use strict';
         return Marionette.ItemView.extend({

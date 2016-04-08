@@ -11,8 +11,8 @@
 
 /* global define, _ */
 
-define(['../../App', '../../templates/editors/listOfValuesEditor.html', './BaseEditorView', '../../views/widgets/SearchModalView',
-        '../../models/editors/listOfValues/ListOfValueModel'],
+define(['form/App', 'form/templates/editors/listOfValuesEditor.html', './BaseEditorView', 'form/views/widgets/SearchModalView',
+        'form/models/editors/listOfValues/ListOfValueModel'],
     function (App, template, EditorBaseView, SearchModalView, ListOfValuesModel) {
         'use strict';
 

@@ -11,9 +11,9 @@
 
 /* global define, _, $ */
 
-define(['../../App', '../../templates/widgets/searchContainer.html',
-        '../../models/editors/account/AccountModel', '../../templates/editors/account/accountItem.html',
-        '../../templates/editors/instance/instanceItem.html'],
+define(['form/App', 'form/templates/widgets/searchContainer.html',
+        'form/models/editors/account/AccountModel', 'form/templates/editors/account/accountItem.html',
+        'form/templates/editors/instance/instanceItem.html'],
     function (App, searchContainerTmpl, AccountModel, AccountItemTmpl, instanceItemTmpl) {
         'use strict';
 

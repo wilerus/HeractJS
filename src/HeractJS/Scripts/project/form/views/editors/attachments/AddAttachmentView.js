@@ -11,8 +11,8 @@
 
 /* global define, _, $ */
 
-define(['../../../App', './SelectOption', '../../ConfirmView'],
-    function (App, SelectOption, ConfirmView) {
+define(['form/App', './SelectOption', 'form/views/ConfirmView', 'form/templates/editors/attachments/addAttachment.hbs'],
+    function (App, SelectOption, ConfirmView, template) {
         'use strict';
         return Marionette.ItemView.extend({
             initialize: function (options) {
@@ -29,7 +29,7 @@ define(['../../../App', './SelectOption', '../../ConfirmView'],
                 'submit .js-add-file': 'onSubmit'
             },
 
-            template: Handlebars.compile('<input class="input-file js-add-file" type="file">'),
+            template: template,
             className: 'icon icon_attach icon-add',
 
             fileSelected: function () {

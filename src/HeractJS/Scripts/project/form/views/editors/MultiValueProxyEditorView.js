@@ -11,7 +11,7 @@
 
 /* global define, Backbone, _ */
 
-define(['../../App', '../../templates/editors/multiValueProxyEditor.html', './BaseEditorView'],
+define(['form/App', 'form/templates/editors/multiValueProxyEditor.html', './BaseEditorView'],
     function (App, template, EditorBaseView) {
         'use strict';
 

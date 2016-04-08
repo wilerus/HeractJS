@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../../App', '../../templates/widgets/history.html'],
+define(['form/App', 'form/templates/widgets/history.html'],
     function (App, itemTmpl) {
         'use strict';
         return Marionette.ItemView.extend({

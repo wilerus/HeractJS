@@ -11,8 +11,8 @@
 
 /* global define, Backbone */
 
-define(['../../App', '../../templates/widgets/commentItem.html',
-        '../../templates/widgets/commentsCollection.html', '../../templates/widgets/commentInlineEdit.html'],
+define(['form/App', 'form/templates/widgets/commentItem.html',
+        'form/templates/widgets/commentsCollection.html', 'form/templates/widgets/commentInlineEdit.html'],
     function (App, commentItemTmpl, CommentsTmpl, commentInlineEditTmpl) {
         'use strict';
 

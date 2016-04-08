@@ -11,7 +11,7 @@
 
 /* global define */
 
-define(['../App'],
+define(['form/App'],
     function (App) {
         'use strict';
         return Backbone.Model.extend({

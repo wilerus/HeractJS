@@ -12,7 +12,7 @@
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
 define([
-    '../templates/defaultContent.html',
+    'form/templates/defaultContent.html',
     'shared'
 ], function (template, shared) {
     'use strict';

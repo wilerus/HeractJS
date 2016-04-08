@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../App', '../templates/headerPart.html'],
+define(['form/App', 'form/templates/headerPart.html'],
     function (App, headTmpl) {
         'use strict';
         return Marionette.LayoutView.extend({

@@ -11,7 +11,7 @@
 
 /* global define, _ */
 
-define(['../../App', '../../templates/widgets/dateTime.html'],
+define(['form/App', 'form/templates/widgets/dateTime.html'],
     function (App, itemTmpl) {
         'use strict';
 

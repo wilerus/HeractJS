@@ -11,8 +11,8 @@
 
 /* global define, _, $ */
 
-define(['../../App', './ActionsDropDownView', '../../templates/actions.html',
-        '../../views/ConfirmView', '../../views/widgets/SearchModalView', '../../views/NextStepView', '../../models/editors/account/ReassignModel'],
+define(['form/App', './ActionsDropDownView', 'form/templates/actions.html',
+        'form/views/ConfirmView', 'form/views/widgets/SearchModalView', 'form/views/NextStepView', 'form/models/editors/account/ReassignModel'],
     function (App, ActionsDropDownView, actionsTmpl, ConfirmView,
               SearchModalView, NextStepView, ReassignModel) {
         'use strict';

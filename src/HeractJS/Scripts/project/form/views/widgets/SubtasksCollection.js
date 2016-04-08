@@ -11,7 +11,7 @@
 
 /* global define */
 
-define(['../../App', '../../templates/widgets/subtaskItem.html', '../../templates/widgets/subtasksCollection.html'],
+define(['form/App', 'form/templates/widgets/subtaskItem.html', 'form/templates/widgets/subtasksCollection.html'],
     function (App, SubtaskItemTmpl, SubtasksTmpl) {
         'use strict';
 

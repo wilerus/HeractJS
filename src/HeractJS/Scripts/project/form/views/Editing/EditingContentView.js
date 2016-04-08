@@ -11,21 +11,17 @@
 
 /* global define */
 
-define(['../../App'],
+define(['form/App'],
     function (App) {
         'use strict';
-
         return Backbone.Form.extend({
             autocommit: false,
             initialize: function () {
-
                 Backbone.Form.prototype.initialize.apply(this, arguments);
-
                 this.listenTo(App.FormMediator, 'saveEditFormDataToModel', function () {
                     this.commit();
                     App.FormMediator.sendEditedInfoToServer();
                 }.bind(this));
-
             }
         });
     });

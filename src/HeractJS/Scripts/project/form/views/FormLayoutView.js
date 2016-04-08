@@ -11,10 +11,10 @@
 
 /* global define, $ */
 
-define(['../App',
-        '../templates/editTemplate.html', '../templates/layout.html', './EmptyView', './ContentView', './HeaderView', './AccountView',
-        '../views/editors/attachments/AttachmentsCollection', '../views/editors/attachments/AttachmentsSingle',
-        '../views/Editing/EditingLayoutView',
+define(['form/App',
+        'form/templates/editTemplate.html', 'form/templates/layout.hbs', './EmptyView', './ContentView', './HeaderView', './AccountView',
+        'form/views/editors/attachments/AttachmentsCollection', 'form/views/editors/attachments/AttachmentsSingle',
+        'form/views/Editing/EditingLayoutView',
         './widgets/CommentsCollection',
         './widgets/SubtasksCollection',
         './widgets/HistoryCollection',
@@ -79,7 +79,7 @@ define(['../App',
                 contentRegion: '#form-content-region'
             },
             className: 'right-column',
-            template: Handlebars.compile(template),
+            template: template,
 
             showEmptyView: function () {
                 this.buildAndShowHeaderView({
