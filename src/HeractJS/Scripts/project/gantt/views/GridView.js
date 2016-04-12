@@ -8,7 +8,7 @@ define([
 
         // 1. Get some data
         var dataArray = [];
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 100; i++) {
             dataArray.push({
                 textCell: 'Text Cell ' + i,
                 numberCell: i + 1

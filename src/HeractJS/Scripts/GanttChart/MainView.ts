@@ -2,7 +2,6 @@
 
 import React = require('react')
 import DOM = require('react-dom')
-import InfiniteScroll = require('react-infinite');
 
 import {TaskBar} from './TaskBar'
 import {TaskLink} from './TaskLink'
@@ -25,9 +24,16 @@ export class ChartView extends React.Component<any, any> {
     }
 
     private componentWillMount() {
+        const gridCapacity = Math.round(document.documentElement.clientHeight / 32)
+        const items = GCMediator.getState().items;
+        const displayingElements = items.slice(0, gridCapacity+5)
         this.setState({
-            ganttBars: GCMediator.getState().items,
             timeLine: GCMediator.getState().timeLine,
+            elementHeight: 32,
+            displayingElements: displayingElements,
+            gridCapacity: gridCapacity,
+            batchSize: 5,
+            endPosition: gridCapacity + 5,
             isCtrlPressed: false
         })
 
@@ -55,8 +61,12 @@ export class ChartView extends React.Component<any, any> {
                 if (scrollPosition >= 0) {
                     GCMediator.dispatch({
                         type: 'scrollGrid',
-                        scrollPosition: scrollPosition
+                        data: scrollPosition
                     })
+                    const bottomElement = this.state.gridCapacity + scrollPosition
+                    if (bottomElement > this.state.endPosition - 3) {
+                        this.buildElements()
+                    }
                 }
             }
         }.bind(this)
@@ -93,6 +103,11 @@ export class ChartView extends React.Component<any, any> {
         }.bind(this))
     }
 
+    private componentDidMount() {
+        const container = document.getElementById('ganttChartView');
+        container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * this.state.batchSize).toString();
+    }
+
     private shouldComponentUpdate(nextProps: any, nextState: any) {
         if (this.state.ganttBars !== nextState.ganttBars || this.state.timeLine !== nextState.timeLine) {
             return true
@@ -103,7 +118,7 @@ export class ChartView extends React.Component<any, any> {
 
     private scrollChart(position: number) {
         const view: any = document.getElementById('ganttChart')
-        view.scrollTop = 32 * position
+         view.scrollTop = 32 * position
     }
 
     public updateTimeline() {
@@ -137,9 +152,27 @@ export class ChartView extends React.Component<any, any> {
                 this.state.timelineData = currentState.timelineDay
         }
     }
+    
+    public buildElements() {
+    debugger
+        let elements = this.state.displayingElements
+        let startPosition = this.state.displayingElements.length
+        let endPosition = startPosition + this.state.batchSize
+        let items = GCMediator.getState().items
+        for (var i = startPosition; i < endPosition; i++) {
+            elements.push(items[i])
+        }
+        this.setState({
+            displayingElements: elements,
+            endComponent: endPosition
+        })
+        const container = document.getElementById('ganttChartView');
+        container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * endPosition).toString();
+        this.forceUpdate();
+    }
 
     public render() {
-        const chart = this.state.ganttBars.map(function (ganttBar: any) {
+        const chart = this.state.displayingElements.map(function (ganttBar: any) {
             if (ganttBar.type === 'bar') {
                 return React.createElement(TaskBar, {
                     key: ganttBar.id,
@@ -225,9 +258,11 @@ export class ChartView extends React.Component<any, any> {
                     //    transitionEnterTimeout: 500,
                     //    transitionLeaveTimeout: 500
                     //}, 
-                    chart
+
                     // )
+                    chart
                 )
+
             )
         )
     }

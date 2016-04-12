@@ -1,6 +1,4 @@
-﻿import React = require('react')
-
-import { createStore } from 'redux'
+﻿import { createStore } from 'redux'
 import {ChartData} from './ChartData';
 
 export class AppMediator {
@@ -69,7 +67,7 @@ export class AppMediator {
                 break
             case 'autoSchedule':
                 break
-            case 'startDrag':
+            case 'startDragging':
                 newState.isDragging = true
                 break
             case 'startSizing':
@@ -84,7 +82,7 @@ export class AppMediator {
             case 'stopLinking':
                 newState.isLinking = false
                 break
-            case 'stopDrag':
+            case 'stopDragging':
                 newState.isDragging = false
                 break
             case 'updateTimelineStep':
@@ -171,6 +169,17 @@ export class AppMediator {
                 newState.scrollPosition = action.data
                 break
 
+            case 'removeDraggingElement':
+                debugger;
+
+                newState.draggingElement = null
+                break
+
+            case 'removeDropTarget':
+                debugger;
+                newState.dropTarget = null
+                break
+                
             default:
                 return state
         }

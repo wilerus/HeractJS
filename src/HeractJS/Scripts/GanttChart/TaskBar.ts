@@ -91,13 +91,14 @@ export class TaskBar extends React.Component<any, any> {
         document.onmousemove = function (event: MouseEvent) {
             let transform = dropTarget.parentNode.createSVGMatrix()
             let currentState = GCMediator.getState()
-            if (Math.abs(event.clientX - startX) > 30 && !currentState.isDrawingConnection) {
+            if (Math.abs(event.clientX - startX) > 30 && !currentState.isLinking) {
                 dropTarget.transform.baseVal.getItem(0).setMatrix(
                     transform.translate(event.clientX - eventTarget.parentNode.getAttribute('x') - 8 - x, 0)
                 )
                 GCMediator.dispatch({ type: 'dragStart' })
             }
-            if (Math.abs(event.clientY - startY) > 30 && !currentState.isDragging) {
+
+            if (Math.abs(event.clientY - startY) > 30 && !currentState.isLinking) {
                 GCMediator.dispatch({ type: 'startLinking' })
 
                 let templine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
@@ -151,12 +152,12 @@ export class TaskBar extends React.Component<any, any> {
 
             let elementRect = eventTarget.getBoundingClientRect()
             let clickCoordX = event.clientX
-            this.clearTempElements()
 
             if (parentElement && clickCoordX > parentCoords.right - 15) {
                 this.updateComplitionState(event)
             } else if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
                 this.startBarRelocation(event)
+                GCMediator.dispatch({ type: 'startDragging' })
                 document.onmouseup = function (event: MouseEvent) {
                     this.completeBarRelocation(event)
                 }.bind(this)
@@ -225,11 +226,10 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     private updateComplitionState(event: MouseEvent) {
-        let eventTarget: any = event.target
-        let elementRect = eventTarget.getBoundingClientRect()
-        let clickCoordX = event.clientX
+        const eventTarget: any = event.target
+        const elementRect = eventTarget.getBoundingClientRect()
+        const clickCoordX = event.clientX
 
-        this.clearTempElements()
         if (clickCoordX > elementRect.right - 15) {
             document.onmousemove = function (event) {
                 const parentNode: any = DOM.findDOMNode(this).parentNode
@@ -248,7 +248,7 @@ export class TaskBar extends React.Component<any, any> {
                 })
             }.bind(this)
 
-            document.onmouseup = function (event) {
+            document.onmouseup = () => {
                 document.onmousemove = null
                 document.onmouseup = null
             }
@@ -261,9 +261,7 @@ export class TaskBar extends React.Component<any, any> {
     private addNewConnection() {
         const currentState = GCMediator.getState()
         const currentItems = currentState.items
-        const newId = 'connection ' + (currentItems.length + 1)
-
-        //currentItems.push()
+        const newId = `connection ${currentItems.length + 1}`
         GCMediator.dispatch({
             type: 'create',
             item: {
@@ -273,7 +271,6 @@ export class TaskBar extends React.Component<any, any> {
                 type: 'connection'
             }
         })
-        //currentState.ganttChartView.setState({ ganttBars: currentItems })
 
         const newConnections = currentState.draggingElement.state.connections
         newConnections.push(currentState.ganttChartView.refs[newId])
@@ -299,62 +296,55 @@ export class TaskBar extends React.Component<any, any> {
         if (el.length) {
             el[0].setAttribute('class', 'barChartBody')
         }
-        GCMediator.dispatch({ type: 'stopDragging' })
-        GCMediator.dispatch({ type: 'stopSizing' })
-        GCMediator.dispatch({ type: 'stopLinking' })
-        GCMediator.dispatch({ type: 'removeDropTarget' })
-        GCMediator.dispatch({ type: 'removeDraggingElement' })
+        this.clearTempElements()
     }
 
     private handleRectHover(event: Event) {
-        let currentState = GCMediator.getState()
-        this.clearTempElements()
-        var eventTarget: any = event.target
+        const currentState = GCMediator.getState()
+        const eventTarget: any = event.target
 
-        if ((!currentState.isDragging || !currentState.isLinking) && this !== currentState.draggingElement && this !== currentState.dropTarget) {
+        if (!currentState.isDragging && !currentState.isLinking && !GCMediator.getState().isCurrentlySizing && this !== currentState.draggingElement && this !== currentState.dropTarget) {
+            const coords = eventTarget.getBoundingClientRect()
+            const hoverElement = event.target
+            const el = DOM.findDOMNode(this) as any
+            const elementRect = eventTarget.getBoundingClientRect()
+            const parentNode: any = DOM.findDOMNode(this).parentNode
+            const leftMargin = parentNode.getBoundingClientRect().left
+
+            eventTarget.setAttribute('class', 'barChartBody barOver')
+
+            setTimeout(function (hoverElement) {
+                if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
+                    !GCMediator.getState().isCurrentlyDragging) {
+                    GCMediator.getState().ganttChartView.refs.infoPopup.setState({
+                        left: parseInt(hoverElement.getAttribute('x')) + coords.width / 2 - leftMargin,
+                        top: parseInt(hoverElement.getAttribute('y')) - 55,
+                        title: this.state.title,
+                        startDate: this.state.startDate,
+                        endDate: this.state.startDate + this.state.duration,
+                        duration: this.state.duration,
+                        description: this.state.description
+                    })
+                    GCMediator.getState().ganttChartView.refs.infoPopup.show()
+                }
+            }.bind(this, hoverElement), 500)
+
+            document.onmousemove = function (event) {
+                let clickCoordX = event.clientX
+                if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
+                    el.style.cursor = 'move'
+                } else if (clickCoordX > elementRect.right - 15) {
+                    el.style.cursor = 'e-resize'
+                } else if (clickCoordX < elementRect.left + 15) {
+                    el.style.cursor = 'e-resize'
+                }
+            }
+        } else if (currentState.isLinking) {
             GCMediator.dispatch({
                 type: 'setDropTarget',
                 data: this
             })
-
-            if (eventTarget.getAttribute('class') === 'barChartBody') {
-                eventTarget.setAttribute('class', 'barChartBody barOver')
-            }
-        } else {
-            if (!GCMediator.getState().isCurrentlyDragging && !GCMediator.getState().isCurrentlySizing && eventTarget.classList[0] === 'barChartBody') {
-                let coords = eventTarget.getBoundingClientRect()
-                let hoverElement = event.target
-
-                setTimeout(function (hoverElement) {
-                    if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
-                        !GCMediator.getState().isCurrentlyDragging) {
-                        GCMediator.getState().ganttChartView.refs.infoPopup.setState({
-                            left: parseInt(hoverElement.getAttribute('x')) + coords.width / 2 - 84,
-                            top: parseInt(hoverElement.getAttribute('y')) - 55,
-                            title: this.state.title,
-                            startDate: this.state.startDate,
-                            endDate: this.state.startDate + this.state.duration,
-                            duration: this.state.duration,
-                            description: this.state.description
-                        })
-                        GCMediator.getState().ganttChartView.refs.infoPopup.show()
-                    }
-                }.bind(this, hoverElement), 500)
-                let el = DOM.findDOMNode(this) as any
-                this.clearTempElements()
-                let elementRect = eventTarget.getBoundingClientRect()
-
-                document.onmousemove = function (event) {
-                    let clickCoordX = event.clientX
-                    if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
-                        el.style.cursor = 'move'
-                    } else if (clickCoordX > elementRect.right - 15) {
-                        el.style.cursor = 'e-resize'
-                    } else if (clickCoordX < elementRect.left + 15) {
-                        el.style.cursor = 'e-resize'
-                    }
-                }
-            }
+            eventTarget.setAttribute('class', 'barChartBody barOver')
         }
     }
 
@@ -412,12 +402,8 @@ export class TaskBar extends React.Component<any, any> {
                 }
             }
         }
+        this.clearTempElements()
 
-        currentState.isCurrentlyDragging = false
-        currentState.isCurrentlySizing = false
-        currentState.isDrawingConnection = false
-        currentState.dropTarget = null
-        currentState.draggingElement = null
         const eventTarget: any = event.target
         if (eventTarget.getAttribute('class') === 'barChartBody barOver') {
             eventTarget.setAttribute('class', 'barChartBody')
@@ -447,19 +433,20 @@ export class TaskBar extends React.Component<any, any> {
                     }
                 }.bind(this), 1000)
             }
-            this.clearTempElements()
         }
+        this.clearTempElements()
     }
 
     private clearTempElements() {
-        if (document.getElementById('leftTempCircle')) {
-            document.getElementById('ganttChartView').removeChild(document.getElementById('leftTempCircle'))
-            document.getElementById('ganttChartView').removeChild(document.getElementById('rightTempCircle'))
-        }
         GCMediator.getState().ganttChartView.refs.infoPopup.hide()
         if (!GCMediator.getState().isDragging && !GCMediator.getState().isSizing && !GCMediator.getState().isLinking && GCMediator.getState().templine) {
             document.getElementById('ganttChartView').removeChild(GCMediator.getState().templine)
             GCMediator.dispatch({ type: 'removeTempline' })
+            GCMediator.dispatch({ type: 'stopDragging' })
+            GCMediator.dispatch({ type: 'stopSizing' })
+            GCMediator.dispatch({ type: 'stopLinking' })
+            GCMediator.dispatch({ type: 'removeDropTarget' })
+            GCMediator.dispatch({ type: 'removeDraggingElement' })
         }
     }
 

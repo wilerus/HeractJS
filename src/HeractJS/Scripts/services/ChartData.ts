@@ -2,7 +2,7 @@
 // initial set up
 
 export class ChartData {
-    public amountOfElements: number = 10
+    public amountOfElements: number = 100000
     public counter: number = 0;
 
     public static timelineWeek: Object[] = []
