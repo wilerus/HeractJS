@@ -2,6 +2,7 @@
 
 import React = require('react')
 import DOM = require('react-dom')
+import InfiniteScroll = require('react-infinite');
 
 import {TaskBar} from './TaskBar'
 import {TaskLink} from './TaskLink'
