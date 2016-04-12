@@ -3,24 +3,24 @@
 import React = require('react')
 import DOM = require('react-dom')
 
-import {TaskBar} from './TaskBar';
-import {TaskLink} from './TaskLink';
-import {InfoPopup} from './InfoPopup';
-import {ModalWindow} from './ModalWindow';
-import {Timeline}  from './Timeline';
-import {GanttToolbar}  from './Toolbar';
-import {GanttChartMediator} from './Mediator';
-import {ScrollBarMediator} from '../../scripts/services/ScrollBarMediator';
+import {TaskBar} from './TaskBar'
+import {TaskLink} from './TaskLink'
+import {InfoPopup} from './InfoPopup'
+import {ModalWindow} from './ModalWindow'
+import {Timeline}  from './Timeline'
+import {GanttToolbar}  from './Toolbar'
+import {AppMediator} from '../../scripts/services/AppMediator'
 
-let GCMediator: GanttChartMediator = GanttChartMediator.getInstance();
-let SBMediator: ScrollBarMediator = ScrollBarMediator.getInstance();
+let GCMediator: any = AppMediator.getInstance()
 
 export class ChartView extends React.Component<any, any> {
-    constructor() {
-        super()
-        SBMediator.onChanged('ganttChart', function (position: number) {
-            this.updateScrollPosition(position)
-        }.bind(this))
+
+    public selectTask(index: string) {
+        TaskBar.selectTask(index)
+    }
+
+    public deselectAllTasks(tasks) {
+        TaskBar.deselectAllTasks(tasks)
     }
 
     private componentWillMount() {
@@ -39,9 +39,9 @@ export class ChartView extends React.Component<any, any> {
         }.bind(this)
 
         document.onkeyup = function () {
-                this.setState({
-                    isCtrlPressed: false
-                })
+            this.setState({
+                isCtrlPressed: false
+            })
         }.bind(this)
 
         document.onwheel = function (event: any) {
@@ -52,14 +52,44 @@ export class ChartView extends React.Component<any, any> {
             } else {
                 const scrollPosition = Math.round(event.deltaY / 32) + GCMediator.getState().scrollPosition
                 if (scrollPosition >= 0) {
-                    SBMediator.change(scrollPosition)
                     GCMediator.dispatch({
-                        type: 'updateScrollPosition',
+                        type: 'scrollGrid',
                         scrollPosition: scrollPosition
                     })
                 }
             }
         }.bind(this)
+
+        GCMediator.subscribe(function () {
+            const change = GCMediator.getLastChange()
+            if (change) {
+                switch (change.type) {
+                    case 'removeTask':
+                    case 'createTask':
+                    case 'editTask':
+                        this.setState({
+                            ganttBars: GCMediator.getState().items
+                        })
+                        this.forceUpdate()
+                        break
+
+                    case 'selectTask':
+                        TaskBar.selectTask(change.data)
+                        break
+
+                    case 'deselectAllTasks':
+                        TaskBar.deselectAllTasks(change.data)
+                        break
+
+                    case 'scrollGrid':
+                        this.scrollChart(change.data)
+                        break
+                    default:
+                        break
+                }
+            }
+
+        }.bind(this))
     }
 
     private shouldComponentUpdate(nextProps: any, nextState: any) {
@@ -68,14 +98,6 @@ export class ChartView extends React.Component<any, any> {
         } else {
             return false
         }
-    }
-
-    private updateScrollPosition(position: number) {
-        GCMediator.dispatch({
-            type: 'updateScrollPosition',
-            scrollPosition: position
-        })
-        this.scrollChart(position)
     }
 
     private scrollChart(position: number) {
@@ -89,27 +111,27 @@ export class ChartView extends React.Component<any, any> {
             case 0:
                 GCMediator.dispatch({
                     type: 'setTimelineStep',
-                    step: 1
+                    data: 1
                 })
-                break;
+                break
             case 1:
                 GCMediator.dispatch({
                     type: 'setTimelineStep',
-                    step: 2
+                    data: 2
                 })
-                break;
+                break
             case 2:
                 GCMediator.dispatch({
                     type: 'setTimelineStep',
-                    step: 3
+                    data: 3
                 })
-                break;
+                break
             case 3:
                 GCMediator.dispatch({
                     type: 'setTimelineStep',
-                    step: 0
+                    data: 0
                 })
-                break;
+                break
             default:
                 this.state.timelineData = currentState.timelineDay
         }
@@ -142,8 +164,8 @@ export class ChartView extends React.Component<any, any> {
             id: 'ganttChartContainer',
             className: 'ganttChartContainer'
         }, React.createElement('div', {
-                id: 'timelineContainer',
-                className: 'timelineContainer'
+            id: 'timelineContainer',
+            className: 'timelineContainer'
         },
             React.createElement('svg', {
                 className: 'ganttTimeline',
@@ -208,7 +230,7 @@ export class ChartView extends React.Component<any, any> {
             )
         )
     }
-};
+}
 
 export class Initializer {
     constructor() {
@@ -217,11 +239,11 @@ export class Initializer {
 
         GCMediator.dispatch({
             type: 'setGanttChartView',
-            view: mainView
+            data: mainView
         })
         GCMediator.dispatch({
             type: 'setGanttToolbar',
-            view: toolbar
+            data: toolbar
         })
     }
-};
+}

@@ -9,11 +9,11 @@ var AggressiveMergingPlugin = require('webpack/lib/optimize/AggressiveMergingPlu
 module.exports = {
     console: true,
     entry: {
-        'gantt': './Scripts/GanttChart/MainView.ts',
         //  'shared': './scripts/project/shared/bootstrap.js',
         //  'navigation': './scripts/project/navigation/module.js',
         'project': './Scripts/project/Application.js',
-        'services': './Scripts/services/ScrollBarMediator.ts'
+        'services': './Scripts/services/AppMediator.ts',
+        'gantt': './Scripts/GanttChart/MainView.ts'
     },
     devtool: "#inline-source-map",
     output: {
@@ -41,7 +41,7 @@ module.exports = {
             'profileProfileInitializer': path.resolve(__dirname + '/scripts/project/profile/profile/Initializer'),
             'navigation': path.resolve(__dirname + '/scripts/project/navigation/module.js'),
             'LANGMAPEN': path.resolve(__dirname + '/wwwroot/js/compiled/localizationmap.en.js'),
-            'scrollBarMediator': path.resolve(__dirname + '/scripts/services/ScrollBarMediator'),
+            'appMediator': path.resolve(__dirname + '/scripts/services/AppMediator'),
             'ganttChart': path.resolve(__dirname + '/scripts/GanttChart/MainView')
         }
     },

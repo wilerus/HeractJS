@@ -8,7 +8,7 @@ define([
 
         // 1. Get some data
         var dataArray = [];
-        for (var i = 0; i < 50; i++) {
+        for (var i = 0; i < 10; i++) {
             dataArray.push({
                 textCell: 'Text Cell ' + i,
                 numberCell: i + 1
@@ -31,23 +31,33 @@ define([
                 }));
 
                 this.model.on('change', function () {
-                    var rowIndex = this.attributes.rowModel.collection.models.find(function (element, index) {
-                        if (element.cid === this.cid) {
-                            console.log(index);
+                    this.attributes.rowModel.collection.models.find(function (element, index) {
+                        if (element.cid === this.attributes.rowModel.cid) {
+                            window.application.appMediator.dispatch({
+                                type: 'editTask',
+                                data: {
+                                    value: this.changed.value,
+                                    index: index
+                                }
+                            })
                             return index
                         }
                     }.bind(this))
-                    console.log(this.get('value'));
                 })
 
                 this.model.attributes.rowModel.on('selected', function () {
-                   var rowIndex = this.collection.models.find(function(element, index) {
-                       if (element.cid === this.cid) {
-                           console.log(index);
-                            return index
+                    this.collection.models.find(function (element, index) {
+                        if (element.cid === this.cid) {
+                            if (!window.application.appMediator.selectedTasks || 'bar' + index !== window.application.appMediator.selectedTasks[0]) {
+                                window.application.appMediator.dispatch({ type: 'deselectAllTasks' })
+                                window.application.appMediator.dispatch({
+                                    type: 'selectTask',
+                                    data: 'bar' + index
+                                })
+                            }
+                            return true
                         }
                     }.bind(this))
-                   console.log(rowIndex);
                 })
             }
         });
@@ -98,13 +108,46 @@ define([
         }.bind(this));
 
         eventAggregator.listenTo(eventAggregator.views[1], 'positionChanged', function (e, t) {
-            window.application.ScrollBarMediator.change(t.position)
+            window.application.appMediator.dispatch({
+                type: 'scrollGrid',
+                data: t.position
+            })
             return false;
         })
 
-        window.application.ScrollBarMediator.onChanged('gridScroll', function (newPosition) {
-            eventAggregator.views[1].updatePosition(newPosition)
-        }.bind(this))
+        window.application.appMediator.subscribe(function () {
+            var eventAggregatorM = eventAggregator;
+            var change = window.application.appMediator.getLastChange();
+
+            if (change) {
+                var data = change.data;
+                var dataArray = eventAggregatorM.collection.models;
+
+                switch (change.type) {
+                    case 'selectTask':
+                        eventAggregatorM.collection.select(dataArray[parseInt(data.substring(3, data.length))]);
+                        break;
+
+                    case 'removeTask':
+                        eventAggregatorM.collection.remove(dataArray[data]);
+                        break;
+
+                    case 'createTask':
+                        eventAggregatorM.collection.add({
+                            textCell: 'Text Cell ' + dataArray.length,
+                            numberCell: dataArray.length
+                        })
+                        break;
+
+                    case 'scrollGrid':
+                        eventAggregator.views[1].updatePosition(data)
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }.bind(this));
 
         // 8. Show created views
         return new ListCanvasView({
