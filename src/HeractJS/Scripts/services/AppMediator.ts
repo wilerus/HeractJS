@@ -59,40 +59,36 @@ export class AppMediator {
             case 'link':
                 newState.ganttChartView.linkTask(action.data)
                 break
+
             case 'outindent':
                 newState.ganttChartView.outindentTask(action.data)
                 break
+
             case 'unlink':
                 newState.ganttChartView.unlinkTask(action.data)
                 break
+
             case 'autoSchedule':
                 break
+
             case 'startDragging':
                 newState.isDragging = true
                 break
-            case 'startSizing':
-                newState.isResizing = true
-                break
-            case 'stopSizing':
-                newState.isResizing = false
-                break
-            case 'startLinking':
-                newState.isLinking = true
-                break
-            case 'stopLinking':
-                newState.isLinking = false
-                break
+
             case 'stopDragging':
                 newState.isDragging = false
                 break
+
             case 'updateTimelineStep':
                 return newState.timelineStep = action.data
             case 'setGanttChartView':
                 newState.ganttChartView = action.data
                 break
+
             case 'setDropTarget':
                 newState.dropTarget = action.data
                 break
+
             case 'setTempline':
                 newState.templine = action.data
                 break
@@ -142,6 +138,7 @@ export class AppMediator {
                 }
                 newState.selectedTasks.push(action.data)//todo check if exist
                 break
+
             case 'deselectAllTasks':
                 if (newState.selectedTasks && newState.selectedTasks.length) {
                     action.data = newState.selectedTasks
@@ -170,13 +167,10 @@ export class AppMediator {
                 break
 
             case 'removeDraggingElement':
-                debugger;
-
                 newState.draggingElement = null
                 break
 
             case 'removeDropTarget':
-                debugger;
                 newState.dropTarget = null
                 break
                 

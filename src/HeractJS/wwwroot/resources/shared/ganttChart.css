@@ -127,9 +127,10 @@
 
 .timeLineText {
     font-size: 11px;
-    stroke: white;
+    fill: white;
     text-anchor: middle;
-    font-weight: 100;
+    text-shadow: none;
+    font-weight: 600;
 }
 /*infoPopup*/
 

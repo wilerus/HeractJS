@@ -95,6 +95,13 @@ export class ChartView extends React.Component<any, any> {
                     case 'scrollGrid':
                         this.scrollChart(change.data)
                         break
+                    case 'setTimelineStep':
+                        this.setState({
+                            timeLine: GCMediator.getState().timeLine,
+                        })
+                        this.forceUpdate()
+                        break
+
                     default:
                         break
                 }
@@ -151,14 +158,14 @@ export class ChartView extends React.Component<any, any> {
             default:
                 this.state.timelineData = currentState.timelineDay
         }
+        this.forceUpdate();
     }
     
     public buildElements() {
-    debugger
-        let elements = this.state.displayingElements
-        let startPosition = this.state.displayingElements.length
-        let endPosition = startPosition + this.state.batchSize
-        let items = GCMediator.getState().items
+        const elements = this.state.displayingElements
+        const startPosition = this.state.displayingElements.length
+        const endPosition = startPosition + this.state.batchSize
+        const items = GCMediator.getState().items
         for (var i = startPosition; i < endPosition; i++) {
             elements.push(items[i])
         }
