@@ -24,15 +24,16 @@ export class ChartView extends React.Component<any, any> {
     }
 
     private componentWillMount() {
-        const gridCapacity = Math.round(document.documentElement.clientHeight / 32)
+        const gridCapacity = Math.round(document.documentElement.clientHeight / 22)
         const items = GCMediator.getState().items;
-        const displayingElements = items.slice(0, gridCapacity+5)
+        const displayingElements = items.slice(0, gridCapacity + 5)
         this.setState({
             timeLine: GCMediator.getState().timeLine,
-            elementHeight: 32,
+            elementHeight: 22,
             displayingElements: displayingElements,
             gridCapacity: gridCapacity,
             batchSize: 5,
+            startPosition: 0,
             endPosition: gridCapacity + 5,
             isCtrlPressed: false
         })
@@ -57,15 +58,18 @@ export class ChartView extends React.Component<any, any> {
             if (this.state.isCtrlPressed) {
                 this.updateTimeline()
             } else {
-                const scrollPosition = Math.round(event.deltaY / 32) + GCMediator.getState().scrollPosition
+                const scrollPosition = Math.round(event.deltaY / 22) + GCMediator.getState().scrollPosition
                 if (scrollPosition >= 0) {
                     GCMediator.dispatch({
                         type: 'scrollGrid',
                         data: scrollPosition
                     })
                     const bottomElement = this.state.gridCapacity + scrollPosition
+                    const topElement = scrollPosition
                     if (bottomElement > this.state.endPosition - 3) {
-                        this.buildElements()
+                        this.buildElements(scrollPosition)
+                    } else if (topElement > this.state.startPosition - 3) {
+                        this.buildElements(scrollPosition)
                     }
                 }
             }
@@ -125,7 +129,7 @@ export class ChartView extends React.Component<any, any> {
 
     private scrollChart(position: number) {
         const view: any = document.getElementById('ganttChart')
-         view.scrollTop = 32 * position
+        view.scrollTop = 22 * position
     }
 
     public updateTimeline() {
@@ -160,22 +164,29 @@ export class ChartView extends React.Component<any, any> {
         }
         this.forceUpdate();
     }
-    
-    public buildElements() {
+
+    public buildElements(scrollPosition: number) {
         const elements = this.state.displayingElements
-        const startPosition = this.state.displayingElements.length
+        const startPosition = this.state.startPosition
         const endPosition = startPosition + this.state.batchSize
         const items = GCMediator.getState().items
-        for (var i = startPosition; i < endPosition; i++) {
-            elements.push(items[i])
+        if (scrollPosition < startPosition) {
+            for (let i = startPosition; i < endPosition; i++) {
+                elements.push(items[i])
+            }
+        } else if (scrollPosition > startPosition -3) {
+            for (let i = startPosition; i < endPosition; i++) {
+                elements.push(items[i])
+            }
         }
+
         this.setState({
             displayingElements: elements,
             endComponent: endPosition
         })
-        const container = document.getElementById('ganttChartView');
-        container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * endPosition).toString();
-        this.forceUpdate();
+        const container = document.getElementById('ganttChartView')
+        container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * endPosition).toString()
+        this.forceUpdate()
     }
 
     public render() {
@@ -242,11 +253,11 @@ export class ChartView extends React.Component<any, any> {
                     React.createElement('pattern', {
                         id: 'grid',
                         width: GCMediator.getState().svgGridWidth,
-                        height: 32,
+                        height: 22,
                         patternUnits: 'userSpaceOnUse'
                     }, React.createElement('rect', {
                         width: GCMediator.getState().svgGridWidth,
-                        height: 32,
+                        height: 22,
                         fill: 'url(#smallGrid)',
                         stroke: '#dfe4e8',
                         strokeWidth: '1'

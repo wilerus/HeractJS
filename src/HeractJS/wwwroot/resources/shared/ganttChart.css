@@ -29,7 +29,7 @@
 .barChartBody {
     position: absolute;
     border-radius: 2px;
-    height: 20px;
+    height: 14px;
     fill: rgba(150,200,150,0.2);
     stroke-width: 1px;
     stroke: rgb(120,190,120);
@@ -38,16 +38,15 @@
 .barChartFillBody {
     position: absolute;
     border-radius: 2px;
-    height: 20px;
     background-color: #3db9d3;
     box-shadow: 0 0 5px #299cb4;
-    height: 20px;
+    height: 12px;
     fill: rgb(120,190,120);
 }
 
 .barTitle {
     fill: rgb(80,130,170);
-    height: 20px;
+    height: 14px;
     text-align: center;
     -webkit-user-select: none; /* Chrome all / Safari all */
     -moz-user-select: none; /* Firefox all */
@@ -91,7 +90,7 @@
 }
 
 .barSelected {
-    stroke: rgb(150,150,0);
+    stroke: rgb(100, 0, 20);
     stroke-width: 1px;
 }
 
@@ -105,6 +104,7 @@
     position: relative;
     background-color: #299cb4;
     box-shadow: 0 0 8px rgba(0, 0, 0,0.8);
+    z-index: 110;
 }
 /* Bar chart */
 
@@ -160,7 +160,7 @@
     height: 20px;
     text-align: center;
     padding: 0;
-    font-size: 16px;
+    font-size: 14px;
     border: none;
 }
 
@@ -261,7 +261,7 @@
     box-shadow: 0 0 8px rgba(0, 0, 0,0.8);
     background-color: rgb(44,171,198);
 }
-/*------ Toolbar style ------*/
+/*------ Toolbar style ----*/
 .toolbarContainer {
     width: 100%;
     height: 100%;
@@ -278,4 +278,5 @@
     color: white;
     box-shadow: 0 0 3px rgba(0, 0, 0,0.6);
     text-shadow: 1px 1px 2px rgb(0, 0, 0);
+    vertical-align: top;
 }

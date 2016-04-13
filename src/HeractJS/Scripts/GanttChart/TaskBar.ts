@@ -289,7 +289,7 @@ export class TaskBar extends React.Component<any, any> {
                     el.style.cursor = 'e-resize'
                 }
             }
-        }else if (this !== currentState.draggingElement && this !== currentState.dropTarget) {
+        } else if (this !== currentState.draggingElement && this !== currentState.dropTarget) {
             GCMediator.dispatch({
                 type: 'setDropTarget',
                 data: this
@@ -471,21 +471,21 @@ export class TaskBar extends React.Component<any, any> {
                 className: 'barChartBody',
                 group: this.props.data.barClass,
                 id: this.props.data.id,
-                y: this.state.position + 6,
+                y: this.state.position + 4,
                 x: this.state.startDate,
                 width: this.state.duration * GCMediator.getState().cellCapacity
             }),
             React.createElement('rect', { // progress element
                 className: 'barChartFillBody',
                 group: this.props.data.barClass,
-                y: this.state.position + 6,
-                x: this.state.startDate,
+                y: this.state.position + 5,
+                x: this.state.startDate + 1,
                 width: this.state.progress * GCMediator.getState().cellCapacity,
             }),
             React.createElement('text', {
                 className: 'barTitle',
                 x: this.state.startDate + this.state.duration * GCMediator.getState().cellCapacity * 0.5,
-                y: this.state.position + 15 + 6
+                y: this.state.position + 15
             }, this.props.data.name)
         )
     }

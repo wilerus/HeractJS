@@ -52,7 +52,7 @@ export class ChartData {
                 this.counter++;
             }
 
-            let topMargin: number = 32 * i
+            let topMargin: number = 22 * i
             let text = `Task ${i + 1}`
             let leftMargin = 50 * this.counter
             let barClass = 'group1'

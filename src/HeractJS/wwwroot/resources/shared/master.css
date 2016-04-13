@@ -10331,19 +10331,19 @@ input::-ms-clear {
 
 .grid-cell_template {
     font-size: 12px;
-    height: 32px;
+    height: 22px;
 }
 
 .grid-cell_linked{
     font-size: 12px;
-    height: 32px;
+    height: 22px;
     border:none;
 }
 
 .item-overdue .grid-cell{
     color: #CE2B04;
     font-weight: 500;
-    line-height: 31px;
+    line-height: 22px;
 }
 
 .grid-wrp_fav .grid-header-column-content {

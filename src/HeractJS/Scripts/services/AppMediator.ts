@@ -29,7 +29,7 @@ export class AppMediator {
                     name: `Task ${newState.items.length + 1}`,
                     description: `Description for ${newState.items.length + 1}`,
                     startDate: 50 * newState.items.length,
-                    position: 32 * newState.items.length
+                    position: 22 * newState.items.length
                 })
                 break
 
