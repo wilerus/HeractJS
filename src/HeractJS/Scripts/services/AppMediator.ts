@@ -79,6 +79,14 @@ export class AppMediator {
                 newState.isDragging = false
                 break
 
+            case 'startPanning':
+                newState.isPanning = true
+                break
+
+            case 'stopPanning':
+                newState.isPanning = false
+                break
+
             case 'updateTimelineStep':
                 return newState.timelineStep = action.data
             case 'setGanttChartView':

@@ -1,14 +1,14 @@
 ﻿import React = require('react')
-import DOM = require('react-dom')
 
 export class TaskLink extends React.Component<any, any> {
     public buildConnection() {
-        const firstPoint = DOM.findDOMNode(this.props.data.firstP) as any;
+        const firstPoint = document.getElementById(this.props.data.from)
+
         const firstPointCoordsX = parseInt(firstPoint.getAttribute('x'))
         const firstPointCoordsY = parseInt(firstPoint.getAttribute('y'))
         const firstPointCoordsWidth = firstPoint.getBoundingClientRect().width
 
-        const secondPoint = DOM.findDOMNode(this.props.data.endP) as any;
+        const secondPoint = document.getElementById(this.props.data.to)
         const secondPointCoordsX = parseInt(secondPoint.getAttribute('x'))
         const secondPointCoordsY = parseInt(secondPoint.getAttribute('y'))
         const secondPointCoordsWidth = secondPoint.getBoundingClientRect().width
@@ -41,7 +41,7 @@ export class TaskLink extends React.Component<any, any> {
         this.buildConnection()
     }
 
-    render() {
+    public render() {
         return React.createElement('polyline', {
             points: this.state.firstPoint + ' ' + this.state.secondPoint + ' ' + this.state.thirdPoint + ' ' + this.state.endPoint,
             strokeWidth: 2,
@@ -52,4 +52,4 @@ export class TaskLink extends React.Component<any, any> {
             fill: 'none'
         })
     }
-};
+}

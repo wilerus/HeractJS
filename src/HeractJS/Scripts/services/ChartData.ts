@@ -55,20 +55,23 @@ export class ChartData {
             let topMargin: number = 22 * i
             let text = `Task ${i + 1}`
             let leftMargin = 50 * this.counter
-            let barClass = 'group1'
 
             ChartData.ganttBars.push({
                 id: `bar${i}`,
-                barClass: barClass,
-                type: 'bar',
                 progress: 25,
                 duration: 80 + this.counter + i,
                 name: text,
                 description: `Description for${text}`,
                 startDate: leftMargin,
-                position: topMargin
+                finishDate: leftMargin,
+                position: topMargin,
+                link: {
+                    id: `link${i}`,
+                    to: `bar${i + 1}`,
+                    type: 'startToEnd'
+                }
             });
-        }//ganttBars
+        }//gantt bar config
 
         for (let i = 0; i <= 10; i++) {
             ChartData.timelineWeek.push({

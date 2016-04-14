@@ -13,16 +13,16 @@ export class ModalWindow extends React.Component<any, any> {
     }
 
     public hide() {
-        let item = DOM.findDOMNode(this) as any
+        const item = DOM.findDOMNode(this) as any
         item.style.display = 'none';
     }
 
     public show() {
-        let item = DOM.findDOMNode(this) as any
+        const item = DOM.findDOMNode(this) as any
         item.style.display = 'flex';
     }
 
-    render() {
+    public render() {
         return React.createElement('div', {
             id: 'modalWindowWrapper',
             className: 'modalWindowWrapper'

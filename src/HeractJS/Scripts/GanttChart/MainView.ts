@@ -15,28 +15,30 @@ let GCMediator: any = AppMediator.getInstance()
 
 export class ChartView extends React.Component<any, any> {
 
-    public selectTask(index: string) {
-        TaskBar.selectTask(index)
-    }
-
-    public deselectAllTasks(tasks) {
-        TaskBar.deselectAllTasks(tasks)
-    }
-
-    private componentWillMount() {
+    constructor() {
+        super()
         const gridCapacity = Math.round(document.documentElement.clientHeight / 22)
         const items = GCMediator.getState().items;
-        const displayingElements = items.slice(0, gridCapacity + 5)
-        this.setState({
+        const displayingElements = items.slice(0, gridCapacity + 30)
+        const displayingLinks = []
+        for (let i = 0; i < displayingElements.length - 1; i++) {
+            if (displayingElements[i].link) {
+                displayingElements[i].link.from = displayingElements[i].id
+                displayingLinks.push(displayingElements[i].link)
+            }
+        }
+        this.state = {
             timeLine: GCMediator.getState().timeLine,
             elementHeight: 22,
             displayingElements: displayingElements,
+            links: displayingLinks,
+            displayingLinks: [],
             gridCapacity: gridCapacity,
-            batchSize: 5,
+            batchSize: 30,
             startPosition: 0,
-            endPosition: gridCapacity + 5,
+            endPosition: gridCapacity + 30,
             isCtrlPressed: false
-        })
+        }
 
         document.onkeydown = function (event: MouseEvent) {
             if (event.ctrlKey) {
@@ -64,13 +66,8 @@ export class ChartView extends React.Component<any, any> {
                         type: 'scrollGrid',
                         data: scrollPosition
                     })
-                    const bottomElement = this.state.gridCapacity + scrollPosition
-                    const topElement = scrollPosition
-                    if (bottomElement > this.state.endPosition - 3) {
-                        this.buildElements(scrollPosition)
-                    } else if (topElement > this.state.startPosition - 3) {
-                        this.buildElements(scrollPosition)
-                    }
+
+                    this.buildElements(scrollPosition)
                 }
             }
         }.bind(this)
@@ -114,9 +111,40 @@ export class ChartView extends React.Component<any, any> {
         }.bind(this))
     }
 
+    public selectTask(index: string) {
+        TaskBar.selectTask(index)
+    }
+
+    public deselectAllTasks(tasks) {
+        TaskBar.deselectAllTasks(tasks)
+    }
+
     private componentDidMount() {
         const container = document.getElementById('ganttChartView');
         container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * this.state.batchSize).toString();
+        this.setState({
+            displayingLinks: this.state.links
+        })
+        this.forceUpdate()
+        document.getElementById('ganttChart').onmousedown = function (event: MouseEvent) {
+            const view: any = document.getElementById('ganttChart')
+            const startScroll = view.scrollLeft
+            const startPoint = event.pageX
+
+            GCMediator.dispatch({ type: 'deselectAllTasks' })
+            GCMediator.dispatch({ type: 'startPanning' })
+            document.onmousemove = (event: MouseEvent) => {
+                document.body.style.webkitUserSelect = 'none'
+                view.scrollLeft = startPoint - event.pageX + startScroll
+            }
+
+            document.onmouseup = () => {
+                GCMediator.dispatch({ type: 'stopPanning' })
+                document.body.style.webkitUserSelect = 'inherit'
+                document.onmousemove = null
+            }
+
+        }.bind(this)
     }
 
     private shouldComponentUpdate(nextProps: any, nextState: any) {
@@ -166,45 +194,53 @@ export class ChartView extends React.Component<any, any> {
     }
 
     public buildElements(scrollPosition: number) {
-        const elements = this.state.displayingElements
-        const startPosition = this.state.startPosition
-        const endPosition = startPosition + this.state.batchSize
+        let elements = [] //
+        const displayElements = this.state.displayingElements
+        let startPos = this.state.startPosition
+        let endPos = this.state.endPosition
         const items = GCMediator.getState().items
-        if (scrollPosition < startPosition) {
-            for (let i = startPosition; i < endPosition; i++) {
-                elements.push(items[i])
-            }
-        } else if (scrollPosition > startPosition -3) {
-            for (let i = startPosition; i < endPosition; i++) {
-                elements.push(items[i])
-            }
-        }
+        if (scrollPosition - 15 <= startPos && startPos !== 0) {
+            const startIndex = startPos - 10 > 0 ? startPos - 10 : 0
+            const itemsToAdd = items.slice(startIndex, startIndex + 10)
+            endPos -= (startPos - startIndex)
+            startPos = startIndex
 
-        this.setState({
-            displayingElements: elements,
-            endComponent: endPosition
-        })
-        const container = document.getElementById('ganttChartView')
-        container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * endPosition).toString()
-        this.forceUpdate()
+            elements = elements.concat(itemsToAdd, displayElements.slice(0, displayElements.length - 10))
+        } else if (scrollPosition - 25 >= startPos) {
+            const itemsToAdd = items.slice(endPos, endPos + 10)
+            startPos += 10
+            endPos += 10
+            elements = elements.concat(displayElements.slice(10, displayElements.length), itemsToAdd)
+        }
+        if (elements.length) {
+            this.setState({
+                displayingElements: elements,
+                startPosition: startPos,
+                endPosition: endPos
+            })
+            const container = document.getElementById('ganttChartView')
+            container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * endPos).toString()
+            this.forceUpdate()
+        }
     }
 
     public render() {
-        const chart = this.state.displayingElements.map(function (ganttBar: any) {
-            if (ganttBar.type === 'bar') {
-                return React.createElement(TaskBar, {
-                    key: ganttBar.id,
-                    data: ganttBar,
-                    gridWidth: this.state.gridWidth
-                })
-            } else if (ganttBar.type === 'connection') {
+        const bars = this.state.displayingElements.map((ganttBar: any) => {
+            return React.createElement(TaskBar, {
+                key: ganttBar.id,
+                data: ganttBar
+            })
+        })
+
+        const links = this.state.displayingLinks.map((link: any) => {
+            if (link) {
                 return React.createElement(TaskLink, {
-                    ref: ganttBar.id,
-                    key: ganttBar.id,
-                    data: ganttBar
+                    ref: link.id,
+                    key: link.id,
+                    data: link
                 })
             }
-        }.bind(this))
+        })
 
         const timeline = this.state.timeLine.map((timeLineItem: any) => {
             return React.createElement(Timeline, {
@@ -278,7 +314,8 @@ export class ChartView extends React.Component<any, any> {
                     //}, 
 
                     // )
-                    chart
+                    bars,
+                    links
                 )
 
             )

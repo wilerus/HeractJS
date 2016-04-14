@@ -167,20 +167,18 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     private updateСompleteDate(event: MouseEvent) {
-        const eventTarger: any = event.target
-        const startX = eventTarger.getAttribute('x')
+        const cellCapacity = GCMediator.getState().cellCapacity
+        const duration = this.state.duration
+        const startPoint = event.pageX - duration * cellCapacity
+
         document.onmousemove = function (event) {
-            const currentState = GCMediator.getState()
-            const parentNode: any = DOM.findDOMNode(this).parentNode
-            const leftMargin = parentNode.getBoundingClientRect().left
-            const newDuration = (event.pageX - startX - leftMargin) / currentState.cellCapacity
+            const newDuration = (event.pageX - startPoint) / cellCapacity
 
             if (newDuration) {
-                let newCompletion = this.state.progress / currentState.cellCapacity
-                if (newCompletion > newDuration || newCompletion === this.state.duration) {
-                    newCompletion = newDuration
+                const newCompletion = this.state.progress / cellCapacity
+                if (newCompletion > newDuration || newCompletion === duration) {
                     this.setState({
-                        progress: newCompletion
+                        progress: newDuration
                     })
                 }
                 this.setState({
@@ -265,38 +263,41 @@ export class TaskBar extends React.Component<any, any> {
 
     private handleRectHover(event: Event) {
         const currentState = GCMediator.getState()
-        const eventTarget: any = event.target
 
-        if (!currentState.isDragging) {
-            const el = DOM.findDOMNode(this) as any
-            const elementRect = eventTarget.getBoundingClientRect()
-            const hoverElement = event.target as any
+        if (!currentState.isPanning) {
+            const eventTarget: any = event.target
 
-            setTimeout(function (hoverElement) {
-                if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
-                    !GCMediator.getState().isCurrentlyDragging) {
-                    this.showPopup(hoverElement)
+            if (!currentState.isDragging) {
+                const el = DOM.findDOMNode(this) as any
+                const elementRect = eventTarget.getBoundingClientRect()
+                const hoverElement = event.target as any
+
+                setTimeout(function (hoverElement) {
+                    if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
+                        !GCMediator.getState().isCurrentlyDragging) {
+                        this.showPopup(hoverElement)
+                    }
+                }.bind(this, hoverElement), 500)
+
+                document.onmousemove = (event) => {
+                    let clickCoordX = event.clientX
+                    if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
+                        el.style.cursor = 'move'
+                    } else if (clickCoordX > elementRect.right - 15) {
+                        el.style.cursor = 'e-resize'
+                    } else if (clickCoordX < elementRect.left + 15) {
+                        el.style.cursor = 'e-resize'
+                    }
                 }
-            }.bind(this, hoverElement), 500)
-
-            document.onmousemove = (event) => {
-                let clickCoordX = event.clientX
-                if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
-                    el.style.cursor = 'move'
-                } else if (clickCoordX > elementRect.right - 15) {
-                    el.style.cursor = 'e-resize'
-                } else if (clickCoordX < elementRect.left + 15) {
-                    el.style.cursor = 'e-resize'
-                }
+            } else if (this !== currentState.draggingElement && this !== currentState.dropTarget) {
+                GCMediator.dispatch({
+                    type: 'setDropTarget',
+                    data: this
+                })
             }
-        } else if (this !== currentState.draggingElement && this !== currentState.dropTarget) {
-            GCMediator.dispatch({
-                type: 'setDropTarget',
-                data: this
-            })
-        }
-        if (eventTarget.getAttribute('class') === 'barChartBody') {
-            eventTarget.setAttribute('class', 'barChartBody barOver')
+            if (eventTarget.getAttribute('class') === 'barChartBody') {
+                eventTarget.setAttribute('class', 'barChartBody barOver')
+            }
         }
     }
 
@@ -406,7 +407,7 @@ export class TaskBar extends React.Component<any, any> {
         modalWindow.show()
 
         modalWindow.setState({
-            title: this.state.title,
+            title: this.state.name,
             description: this.state.description,
             startDate: this.state.startDate,
             endDate: this.state.startDate + this.state.duration,
