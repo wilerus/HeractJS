@@ -76,23 +76,24 @@ export class TaskBar extends React.Component<any, any> {
             data: this
         })
         const eventTarget: any = event.target
-        let dropTarget = eventTarget
-        if (eventTarget.tagName === 'rect') {
-            dropTarget = dropTarget.parentNode
-        }
 
-        const e: any = event.target
-        const dim = e.getBoundingClientRect()
         const startY = event.clientY
         const startX = event.clientX
-        const x = startX - dim.left
 
         document.onmousemove = function (event: MouseEvent) {
-            const transform = dropTarget.parentNode.createSVGMatrix()
             if (Math.abs(event.clientX - startX) > 30) {
-                dropTarget.transform.baseVal.getItem(0).setMatrix(
-                    transform.translate(event.clientX - eventTarget.parentNode.getAttribute('x') - 8 - x, 0)
-                )
+                    const currentState = GCMediator.getState()
+                    const cellCapacity = currentState.cellCapacity
+                    const startDate = this.state.startDate
+                    const startPointStartDate = event.pageX - startDate * cellCapacity
+
+                    document.onmousemove = function (event: MouseEvent) {
+                        const newStartDate = (event.pageX - startPointStartDate) / cellCapacity
+
+                            this.setState({
+                                startDate: newStartDate
+                            })
+                    }.bind(this)
             }
 
             if (Math.abs(event.clientY - startY) > 30) {
@@ -158,7 +159,7 @@ export class TaskBar extends React.Component<any, any> {
                     this.completeBarRelocation(event)
                 }.bind(this)
             } else if (clickCoordX < elementRect.left + 15) {
-                this.updateStartDate()
+                this.updateStartDate(event)
                 document.onmouseup = function (event: MouseEvent) {
                     this.completeBarRelocation(event)
                 }.bind(this)
@@ -170,12 +171,14 @@ export class TaskBar extends React.Component<any, any> {
         const cellCapacity = GCMediator.getState().cellCapacity
         const duration = this.state.duration
         const startPoint = event.pageX - duration * cellCapacity
+        let newDuration = startPoint
+        let newCompletion = this.state.progress / cellCapacity
 
         document.onmousemove = function (event) {
-            const newDuration = (event.pageX - startPoint) / cellCapacity
+            newDuration = (event.pageX - startPoint) / cellCapacity
 
             if (newDuration) {
-                const newCompletion = this.state.progress / cellCapacity
+                newCompletion = this.state.progress / cellCapacity
                 if (newCompletion > newDuration || newCompletion === duration) {
                     this.setState({
                         progress: newDuration
@@ -188,14 +191,18 @@ export class TaskBar extends React.Component<any, any> {
         }.bind(this)
     }
 
-    private updateStartDate() {
+    private updateStartDate(event: MouseEvent) {
         if (!document.onmousemove) {
             const currentState = GCMediator.getState()
+            const cellCapacity = currentState.cellCapacity
+            const startDate = this.state.startDate
+            const duration = this.state.duration
+            const startPointStartDate = event.pageX - startDate * cellCapacity
+            const startPointDuration = event.pageX - duration * cellCapacity
+
             document.onmousemove = function (event: MouseEvent) {
-                const parentNode: any = DOM.findDOMNode(this).parentNode
-                const leftMargin = parentNode.getBoundingClientRect().left
-                const newStartDate = event.pageX - leftMargin
-                const newDuration = (this.state.startDate - newStartDate) / currentState.cellCapacity + this.state.duration
+                const newStartDate = (event.pageX - startPointStartDate) / cellCapacity
+                const newDuration = (event.pageX - startPointDuration) / cellCapacity
 
                 if (this.state.startDate !== newStartDate && newDuration) {
                     let newCompletion = this.state.progress
@@ -204,7 +211,7 @@ export class TaskBar extends React.Component<any, any> {
                     }
                     this.setState({
                         startDate: newStartDate,
-                        duration: newDuration,
+                       // duration: newDuration,
                         progress: newCompletion
                     })
                 }
@@ -416,20 +423,19 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     private showPopup(hoverElement) {
-        const parentNode: any = DOM.findDOMNode(this).parentNode
-        const leftMargin = parentNode.getBoundingClientRect().left
         const coords = hoverElement.getBoundingClientRect()
+        const popup = GCMediator.getState().ganttChartView.refs.infoPopup;
 
-        GCMediator.getState().ganttChartView.refs.infoPopup.setState({
-            left: parseInt(hoverElement.getAttribute('x')) + coords.width / 2 - leftMargin,
-            top: parseInt(hoverElement.getAttribute('y')) - 55,
-            title: this.state.title,
+        popup.setState({
+            left: coords.left + coords.width/2 - 100,
+            top: coords.top - 160,
+            title: this.state.name,
             startDate: this.state.startDate,
             endDate: this.state.startDate + this.state.duration,
             duration: this.state.duration,
             description: this.state.description
         })
-        GCMediator.getState().ganttChartView.refs.infoPopup.show()
+        popup.show()
     }
 
     public static selectTask(taskId: string) {
@@ -464,8 +470,7 @@ export class TaskBar extends React.Component<any, any> {
             onContextMenu: this.contextMenu.bind(this),
             onDoubleClick: this.showModalWindow.bind(this),
             y: this.state.position + 6,
-            x: this.state.startDate,
-            transform: 'translate(0, 0)'
+            x: this.state.startDate * GCMediator.getState().cellCapacity
         },
             React.createElement('rect', { // main element
                 onClick: this.startTaskSelection.bind(this),
@@ -473,19 +478,19 @@ export class TaskBar extends React.Component<any, any> {
                 group: this.props.data.barClass,
                 id: this.props.data.id,
                 y: this.state.position + 4,
-                x: this.state.startDate,
+                x: this.state.startDate * GCMediator.getState().cellCapacity,
                 width: this.state.duration * GCMediator.getState().cellCapacity
             }),
             React.createElement('rect', { // progress element
                 className: 'barChartFillBody',
                 group: this.props.data.barClass,
                 y: this.state.position + 5,
-                x: this.state.startDate + 1,
-                width: this.state.progress * GCMediator.getState().cellCapacity,
+                x: (this.state.startDate) * GCMediator.getState().cellCapacity + 1,
+                width: this.state.progress * GCMediator.getState().cellCapacity
             }),
             React.createElement('text', {
                 className: 'barTitle',
-                x: this.state.startDate + this.state.duration * GCMediator.getState().cellCapacity * 0.5,
+                x: this.state.startDate * GCMediator.getState().cellCapacity + this.state.duration * GCMediator.getState().cellCapacity * 0.5,
                 y: this.state.position + 15
             }, this.props.data.name)
         )

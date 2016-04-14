@@ -20,18 +20,11 @@ export class ChartView extends React.Component<any, any> {
         const gridCapacity = Math.round(document.documentElement.clientHeight / 22)
         const items = GCMediator.getState().items;
         const displayingElements = items.slice(0, gridCapacity + 30)
-        const displayingLinks = []
-        for (let i = 0; i < displayingElements.length - 1; i++) {
-            if (displayingElements[i].link) {
-                displayingElements[i].link.from = displayingElements[i].id
-                displayingLinks.push(displayingElements[i].link)
-            }
-        }
+
         this.state = {
             timeLine: GCMediator.getState().timeLine,
             elementHeight: 22,
             displayingElements: displayingElements,
-            links: displayingLinks,
             displayingLinks: [],
             gridCapacity: gridCapacity,
             batchSize: 30,
@@ -100,14 +93,12 @@ export class ChartView extends React.Component<any, any> {
                         this.setState({
                             timeLine: GCMediator.getState().timeLine,
                         })
-                        this.forceUpdate()
                         break
 
                     default:
                         break
                 }
             }
-
         }.bind(this))
     }
 
@@ -122,20 +113,30 @@ export class ChartView extends React.Component<any, any> {
     private componentDidMount() {
         const container = document.getElementById('ganttChartView');
         container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * this.state.batchSize).toString();
+        const displayingElements = this.state.displayingElements
+        const displayingLinks = []
+        for (let i = 0; i < displayingElements.length - 1; i++) {
+            if (displayingElements[i].link) {
+                displayingElements[i].link.from = displayingElements[i].id
+                displayingLinks.push(displayingElements[i].link)
+            }
+        }
         this.setState({
-            displayingLinks: this.state.links
+            displayingLinks: displayingLinks
         })
-        this.forceUpdate()
         document.getElementById('ganttChart').onmousedown = function (event: MouseEvent) {
             const view: any = document.getElementById('ganttChart')
+            const timeline: any = document.getElementById('timelineContainer')
             const startScroll = view.scrollLeft
             const startPoint = event.pageX
 
             GCMediator.dispatch({ type: 'deselectAllTasks' })
             GCMediator.dispatch({ type: 'startPanning' })
+            document.body.style.webkitUserSelect = 'none'
+
             document.onmousemove = (event: MouseEvent) => {
-                document.body.style.webkitUserSelect = 'none'
                 view.scrollLeft = startPoint - event.pageX + startScroll
+                timeline.scrollLeft = startPoint - event.pageX + startScroll
             }
 
             document.onmouseup = () => {
@@ -148,7 +149,9 @@ export class ChartView extends React.Component<any, any> {
     }
 
     private shouldComponentUpdate(nextProps: any, nextState: any) {
-        if (this.state.ganttBars !== nextState.ganttBars || this.state.timeLine !== nextState.timeLine) {
+        if (this.state.displayingElements !== nextState.displayingElements ||
+            this.state.timeLine !== nextState.timeLine ||
+            this.state.displayingLinks !== nextState.displayingLinks) {
             return true
         } else {
             return false
@@ -190,7 +193,6 @@ export class ChartView extends React.Component<any, any> {
             default:
                 this.state.timelineData = currentState.timelineDay
         }
-        this.forceUpdate();
     }
 
     public buildElements(scrollPosition: number) {
@@ -213,14 +215,24 @@ export class ChartView extends React.Component<any, any> {
             elements = elements.concat(displayElements.slice(10, displayElements.length), itemsToAdd)
         }
         if (elements.length) {
+            const container = document.getElementById('ganttChartView')
+            container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * endPos).toString()
+            const links = []
+            for (let i = 0; i < elements.length - 1; i++) {
+                if (elements[i].link) {
+                    elements[i].link.from = elements[i].id
+                    links.push(elements[i].link)
+                }
+            }
             this.setState({
                 displayingElements: elements,
                 startPosition: startPos,
                 endPosition: endPos
-            })
-            const container = document.getElementById('ganttChartView')
-            container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * endPos).toString()
-            this.forceUpdate()
+            }, function () {
+                this.setState({
+                    displayingLinks: links
+                })
+            }.bind(this))
         }
     }
 
@@ -277,12 +289,12 @@ export class ChartView extends React.Component<any, any> {
                 }, React.createElement('marker', {
                     id: 'triangle',
                     viewBox: '0 0 20 20',
-                    refX: 0,
-                    refY: 5,
+                    refX: 10,
+                    refY: 0,
                     markerUnits: 'strokeWidth',
-                    markerWidth: 4,
-                    markerHeight: 3,
-                    orient: 'auto'
+                    markerWidth: 12,
+                    markerHeight: 4,
+                    orient: '0'
                 }, React.createElement('path', {
                     d: 'M 0 0 L 20 0 L 10 20 z'
                 })),

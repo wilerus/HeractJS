@@ -112,23 +112,23 @@ export class AppMediator {
             case 'setTimelineStep':
                 switch (newState.timelineStep) {
                     case 0:
-                        newState.cellCapacity = 40 / 72
+                        newState.cellCapacity = Math.round(54 / 72)
                         newState.timeLine = AppMediator.timelineMonth
                         break;
                     case 1:
-                        newState.cellCapacity = 50 / 720
+                        newState.cellCapacity = Math.round(54 / 720)
                         newState.timeLine = AppMediator.timelineYear
                         break;
                     case 2:
-                        newState.cellCapacity = 50 / 3
+                        newState.cellCapacity = Math.round(60 / 3)
                         newState.timeLine = AppMediator.timelineDay
                         break;
                     case 3:
-                        newState.cellCapacity = 60 / 24
+                        newState.cellCapacity = Math.round(72 / 24)
                         newState.timeLine = AppMediator.timelineWeek
                         break;
                     default:
-                        newState.cellCapacity = 40 / 72
+                        newState.cellCapacity = Math.round(54 / 72)
                         newState.timeLine = AppMediator.timelineWeek
                 }
                 newState.timelineStep = action.data
@@ -210,7 +210,7 @@ export class AppMediator {
 
         svgGridWidth: 50,
         ganttChartView: null,
-        cellCapacity: 50 / 24,
+        cellCapacity: 54 / 24,
 
         dropTarget: null,
         draggingElement: null,
