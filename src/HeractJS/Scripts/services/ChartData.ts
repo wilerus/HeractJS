@@ -54,14 +54,14 @@ export class ChartData {
 
             let topMargin: number = 22 * i
             let text = `Task ${i + 1}`
-            let leftMargin = 50 * i
+            let leftMargin = 40 * i
 
             ChartData.ganttBars.push({
                 id: `bar${i}`,
                 progress: 25,
-                duration: 50 + this.counter + i,
+                duration: 40,
                 name: text,
-                description: `Description for${text}`,
+                description: `Description for ${text}`,
                 startDate: leftMargin,
                 finishDate: leftMargin,
                 position: topMargin,

@@ -6,6 +6,7 @@ import {AppMediator} from '../../scripts/services/AppMediator'
 let GCMediator: any = AppMediator.getInstance()
 
 export class TaskBar extends React.Component<any, any> {
+
     constructor() {
         super()
         this.state = {
@@ -34,7 +35,11 @@ export class TaskBar extends React.Component<any, any> {
         }
     }
 
-    private componentWillMount() {
+    private shouldComponentUpdate(nextState: any) {
+        return this.state !== nextState ? true : false
+    }
+
+    private componentWillReceiveProps() {
         this.setState({
             id: this.props.data.id,
             order: this.props.data.order,
@@ -53,10 +58,6 @@ export class TaskBar extends React.Component<any, any> {
             finish: this.props.data.finish,
             priority: this.props.data.priority
         })
-    }
-
-    private shouldComponentUpdate(nextState: any) {
-        return this.state !== nextState ? true : false
     }
 
     private startTaskSelection(event: MouseEvent) {
@@ -82,18 +83,18 @@ export class TaskBar extends React.Component<any, any> {
 
         document.onmousemove = function (event: MouseEvent) {
             if (Math.abs(event.clientX - startX) > 30) {
-                    const currentState = GCMediator.getState()
-                    const cellCapacity = currentState.cellCapacity
-                    const startDate = this.state.startDate
-                    const startPointStartDate = event.pageX - startDate * cellCapacity
+                const currentState = GCMediator.getState()
+                const cellCapacity = currentState.cellCapacity
+                const startDate = this.state.startDate
+                const startPointStartDate = event.pageX - startDate * cellCapacity
 
-                    document.onmousemove = function (event: MouseEvent) {
-                        const newStartDate = (event.pageX - startPointStartDate) / cellCapacity
+                document.onmousemove = function (event: MouseEvent) {
+                    const newStartDate = (event.pageX - startPointStartDate) / cellCapacity
 
-                            this.setState({
-                                startDate: newStartDate
-                            })
-                    }.bind(this)
+                    this.setState({
+                        startDate: newStartDate
+                    })
+                }.bind(this)
             }
 
             if (Math.abs(event.clientY - startY) > 30) {
@@ -148,8 +149,9 @@ export class TaskBar extends React.Component<any, any> {
             } else if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
                 this.startBarRelocation(event)
                 document.onmouseup = function () {
+                    document.onmousemove = null
                     document.onmouseup = null
-                    this.addNewConnection()
+                    //this.addNewConnection()
                     GCMediator.dispatch({ type: 'stopDragging' })
                     this.clearTempElements()
                 }.bind(this)
@@ -196,23 +198,21 @@ export class TaskBar extends React.Component<any, any> {
             const currentState = GCMediator.getState()
             const cellCapacity = currentState.cellCapacity
             const startDate = this.state.startDate
-            const duration = this.state.duration
             const startPointStartDate = event.pageX - startDate * cellCapacity
-            const startPointDuration = event.pageX - duration * cellCapacity
 
             document.onmousemove = function (event: MouseEvent) {
                 const newStartDate = (event.pageX - startPointStartDate) / cellCapacity
-                const newDuration = (event.pageX - startPointDuration) / cellCapacity
+                const newDuration = this.state.duration - (newStartDate - this.state.startDate)
 
                 if (this.state.startDate !== newStartDate && newDuration) {
-                    let newCompletion = this.state.progress
-                    if (newCompletion > newDuration || newCompletion === this.state.duration) {
-                        newCompletion = newDuration
-                    }
+                   // let newCompletion = this.state.progress
+                    //if (newCompletion > newDuration || newCompletion === this.state.duration) {
+                    //    newCompletion = newDuration
+                    //}
                     this.setState({
                         startDate: newStartDate,
-                       // duration: newDuration,
-                        progress: newCompletion
+                        duration: newDuration
+                       // progress: newCompletion
                     })
                 }
             }.bind(this)
@@ -311,37 +311,7 @@ export class TaskBar extends React.Component<any, any> {
     private completeBarRelocation(event: Event) {
         document.onmousemove = null
         document.onmouseup = null
-        let currentState = GCMediator.getState()
-        if (currentState.draggingElement) {
-            let draggingElement = DOM.findDOMNode(currentState.draggingElement) as any
-            if (currentState.dropTarget && currentState.isCurrentlyDragging) {
-
-                let moveToSateX = currentState.dropTarget.state.startDate
-                let moveToSateY = currentState.dropTarget.state.top
-
-                let exchToSateX = currentState.draggingElement.state.startDate
-                let exchToSateY = currentState.draggingElement.state.top
-
-                currentState.draggingElement.setState({ startDate: moveToSateX })
-                currentState.draggingElement.setState({ top: moveToSateY })
-
-                let dropTarget = DOM.findDOMNode(currentState.dropTarget) as any
-
-                currentState.dropTarget.setState({ startDate: exchToSateX })
-                currentState.dropTarget.setState({ top: exchToSateY })
-
-                dropTarget.setAttribute('transform', 'translate(0, 0)')
-                draggingElement.setAttribute('transform', 'translate(0, 0)')
-            } else {
-                let currentMargin = currentState.draggingElement.state.startDate
-                let delta = draggingElement.transform.baseVal[0].matrix.e
-
-                currentState.draggingElement.setState({ startDate: currentMargin + delta })
-
-                draggingElement.setAttribute('transform', 'translate(0, 0)')
-            }
-        }
-
+        GCMediator.dispatch({ type: 'stopDragging' })
         this.clearTempElements()
     }
 
@@ -351,24 +321,6 @@ export class TaskBar extends React.Component<any, any> {
 
         if (eventTarget.getAttribute('class') === 'barChartBody barOver' && !currentState.isCurrentlyDragging) {
             eventTarget.setAttribute('class', 'barChartBody')
-        }
-        const relatedTarget: any = event.relatedTarget
-        if (relatedTarget && relatedTarget.id === 'gridPattern') {
-            if (eventTarget.classList[0] === 'barExchanging') {
-                setTimeout(function () {
-                    if (eventTarget.classList[0] === 'barExchanging') {
-                        eventTarget.setAttribute('class', 'barChartBody{}' + eventTarget.classList[2])
-
-                        let transformeMatrix = eventTarget.parentNode.createSVGMatrix()
-                        transformeMatrix = transformeMatrix.translate(0, 0)
-                        if (eventTarget.transform.baseVal.length === 0 && eventTarget.parentNode.createSVGMatrix) {
-                            eventTarget.transform.baseVal.appendItem(eventTarget.parentNode.createSVGTransformFromMatrix(transformeMatrix))
-                        } else {
-                            eventTarget.transform.baseVal.getItem(0).setMatrix(transformeMatrix)
-                        }
-                    }
-                }.bind(this), 1000)
-            }
         }
         this.clearTempElements()
     }
@@ -479,7 +431,9 @@ export class TaskBar extends React.Component<any, any> {
                 id: this.props.data.id,
                 y: this.state.position + 4,
                 x: this.state.startDate * GCMediator.getState().cellCapacity,
-                width: this.state.duration * GCMediator.getState().cellCapacity
+                width: this.state.duration * GCMediator.getState().cellCapacity,
+                rx: 3,
+                ry: 3
             }),
             React.createElement('rect', { // progress element
                 className: 'barChartFillBody',

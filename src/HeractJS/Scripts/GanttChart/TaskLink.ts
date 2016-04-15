@@ -14,15 +14,16 @@ constructor() {
                 case 'setTimelineStep':
                     this.buildConnection()
                     break
-
+                case 'stopDragging':
+                    this.buildConnection()
+                    break
                 default:
                     break
             }
         }
-
     }.bind(this))
 }
-    public buildConnection() {
+public buildConnection() {
         const firstPoint = document.getElementById(this.props.data.from)
         const firstPointCoordsX = parseInt(firstPoint.getAttribute('x'))
         const firstPointCoordsY = parseInt(firstPoint.getAttribute('y'))
@@ -33,31 +34,34 @@ constructor() {
         const secondPointCoordsY = parseInt(secondPoint.getAttribute('y'))
         const secondPointCoordsWidth = secondPoint.getBoundingClientRect().width
 
-        if (firstPointCoordsX < secondPointCoordsX - 10) {
+        //if (firstPointCoordsX < secondPointCoordsX - 10) {
             this.setState({
                 firstPoint: (firstPointCoordsX + firstPointCoordsWidth) + ' , ' + (firstPointCoordsY + 7),
                 secondPoint: (secondPointCoordsX + secondPointCoordsWidth/2 ) + ' , ' + (firstPointCoordsY + 7),
                 thirdPoint: (secondPointCoordsX + secondPointCoordsWidth/2 ) + ' , ' + (secondPointCoordsY -4)
                // endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
             })
-        } else if (firstPointCoordsX - 10 > secondPointCoordsX) {
-            this.setState({
-                firstPoint: (firstPointCoordsX) + ' , ' + (firstPointCoordsY + 7),
-                secondPoint: (secondPointCoordsX - 30) + ' , ' + (firstPointCoordsY + 7),
-                thirdPoint: (secondPointCoordsX - 30) + ' , ' + (secondPointCoordsY - 4)
-                //endPoint: (secondPointCoordsX) + ' , ' + (secondPointCoordsY + 10)
-            })
-        } else {
-            this.setState({
-                firstPoint: (firstPointCoordsX + firstPointCoordsWidth) + ' , ' + (firstPointCoordsY + 7),
-                secondPoint: (secondPointCoordsX + secondPointCoordsWidth / 2 ) + ' , ' + (firstPointCoordsY + 7),
-                thirdPoint: (secondPointCoordsX + secondPointCoordsWidth / 2 ) + ' , ' + (secondPointCoordsY - 4)
-               // endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
-            })
-        }
+        //} else if (firstPointCoordsX - 10 > secondPointCoordsX) {
+        //    this.setState({
+        //        firstPoint: (firstPointCoordsX) + ' , ' + (firstPointCoordsY + 7),
+        //        secondPoint: (secondPointCoordsX - 30) + ' , ' + (firstPointCoordsY + 7),
+        //        thirdPoint: (secondPointCoordsX - 30) + ' , ' + (secondPointCoordsY - 4)
+        //        //endPoint: (secondPointCoordsX) + ' , ' + (secondPointCoordsY + 10)
+        //    })
+        //} else {
+        //    this.setState({
+        //        firstPoint: (firstPointCoordsX + firstPointCoordsWidth) + ' , ' + (firstPointCoordsY + 7),
+        //        secondPoint: (secondPointCoordsX + secondPointCoordsWidth / 2 ) + ' , ' + (firstPointCoordsY + 7),
+        //        thirdPoint: (secondPointCoordsX + secondPointCoordsWidth / 2 ) + ' , ' + (secondPointCoordsY - 4)
+        //       // endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
+        //    })
+        //}
     }
 
     private componentWillMount() {
+        this.buildConnection()
+}
+    private componentWillReceiveProps() {
         this.buildConnection()
     }
 

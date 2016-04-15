@@ -100,7 +100,7 @@ export class GanttToolbar extends React.Component<any, any> {
 
     private reopenTask() {
         GCMediator.dispatch({
-            type: 'updateScrollPosition',
+            type: 'reopenTask',
             data: ''
         })
     }

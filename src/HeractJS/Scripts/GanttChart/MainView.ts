@@ -53,7 +53,13 @@ export class ChartView extends React.Component<any, any> {
             if (this.state.isCtrlPressed) {
                 this.updateTimeline()
             } else {
-                const scrollPosition = Math.round(event.deltaY / 22) + GCMediator.getState().scrollPosition
+                const currentScroll = GCMediator.getState().scrollPosition
+                let scrollPosition = Math.round(event.deltaY / 22) + currentScroll
+
+                if (scrollPosition < 0 && currentScroll !== 0) {
+                    scrollPosition = 0
+                }
+
                 if (scrollPosition >= 0) {
                     GCMediator.dispatch({
                         type: 'scrollGrid',
@@ -72,10 +78,7 @@ export class ChartView extends React.Component<any, any> {
                     case 'removeTask':
                     case 'createTask':
                     case 'editTask':
-                        this.setState({
-                            ganttBars: GCMediator.getState().items
-                        })
-                        this.forceUpdate()
+                        this.rebuildElements()
                         break
 
                     case 'selectTask':
@@ -83,7 +86,9 @@ export class ChartView extends React.Component<any, any> {
                         break
 
                     case 'deselectAllTasks':
-                        TaskBar.deselectAllTasks(change.data)
+                        if (change.data) {
+                            TaskBar.deselectAllTasks(change.data)
+                        }
                         break
 
                     case 'scrollGrid':
@@ -236,6 +241,32 @@ export class ChartView extends React.Component<any, any> {
         }
     }
 
+    public rebuildElements() {
+        let elements = [] //
+        const startPos = this.state.startPosition
+        const endPos = this.state.endPosition
+        const items = GCMediator.getState().items
+
+        elements = items.slice(startPos, endPos)
+
+        const links = []
+        for (let i = 0; i < elements.length - 2; i++) {
+            if (elements[i].link) {
+                elements[i].link.from = elements[i].id
+                links.push(elements[i].link)
+            }
+        }
+        this.setState({
+            displayingElements: elements
+        }, function () {
+            this.setState({
+                displayingLinks: links
+            }, function () {
+                this.forceUpdate()
+            }.bind(this))
+        }.bind(this))
+    }
+
     public render() {
         const bars = this.state.displayingElements.map((ganttBar: any) => {
             return React.createElement(TaskBar, {
@@ -288,15 +319,15 @@ export class ChartView extends React.Component<any, any> {
                     transform: 'translate(0, 0)'
                 }, React.createElement('marker', {
                     id: 'triangle',
-                    viewBox: '0 0 20 20',
-                    refX: 10,
+                    viewBox: '0 0 40 20',
+                    refX: 20,
                     refY: 0,
                     markerUnits: 'strokeWidth',
                     markerWidth: 12,
                     markerHeight: 4,
                     orient: '0'
                 }, React.createElement('path', {
-                    d: 'M 0 0 L 20 0 L 10 20 z'
+                    d: 'M 0 0 L 40 0 L 20 20 z'
                 })),
                     React.createElement('pattern', {
                         id: 'grid',

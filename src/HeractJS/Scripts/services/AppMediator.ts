@@ -18,19 +18,41 @@ export class AppMediator {
                 newState.items = action.data
                 break
 
-            case 'createTask': //todo check if already exist
+            case 'createTask':
                 action.data = 'item'
-                newState.items.push({
-                    id: `bar${newState.items.length + 1}`,
-                    barClass: '',
-                    type: 'bar',
-                    progress: 25,
-                    duration: 80,
-                    name: `Task ${newState.items.length + 1}`,
-                    description: `Description for ${newState.items.length + 1}`,
-                    startDate: 50 * newState.items.length,
-                    position: 22 * newState.items.length
-                })
+                let selectedTaskPosition = 0
+                let selectedTaskStartDate = 0
+
+                if (newState.selectedTasks) {
+                    let prevElIndex = 0
+                    const prevElement = newState.items.find((element, index) => {
+                        if (element.id === newState.selectedTasks[0]) {
+                            prevElIndex = index
+                            return true
+                        }
+                    })
+                    selectedTaskPosition = prevElement.position + 22
+                    selectedTaskStartDate = prevElement.startDate + prevElement.duration
+                    newState.items.splice(prevElIndex + 1, 0, {
+                        id: `bar${newState.items.length + 1}`,
+                        barClass: '',
+                        type: 'bar',
+                        progress: 25,
+                        duration: 80,
+                        name: `Task ${newState.items.length + 1}`,
+                        description: `Description for ${newState.items.length + 1}`,
+                        startDate: selectedTaskStartDate,
+                        position: selectedTaskPosition,
+                        link: null
+                    })
+
+                    for (let i = prevElIndex + 2; i < newState.items.length; i++) {
+                        newState.items[i].position = 22 * i
+                    }
+                } else {
+                    selectedTaskPosition = 22 * newState.items.length
+                    selectedTaskStartDate = 50 * newState.items.length
+                }
                 break
 
             case 'removeTask':
@@ -43,9 +65,15 @@ export class AppMediator {
                         }
                     })
                     elementIndex = newState.items.indexOf(element)
+                    const taskDuration = element.duration
                     if (element) {
                         action.data = elementIndex
                         newState.items.splice(elementIndex, 1);
+                        newState.items[elementIndex-1].link = null
+                        for (let i =  elementIndex; i < newState.items.length; i++) {
+                            newState.items[i].position = 22 * i
+                            newState.items[i].startDate -= taskDuration
+                        }
                     }
                 }
                 break
@@ -170,6 +198,14 @@ export class AppMediator {
                 }
                 break
 
+            case 'completeTask':
+               // newState.selectedTasks.push(action.data)
+                break
+
+            case 'reopenTask':
+                //newState.selectedTasks.push(action.data)
+                break
+
             case 'scrollGrid':
                 newState.scrollPosition = action.data
                 break
@@ -185,12 +221,10 @@ export class AppMediator {
             default:
                 return state
         }
-        if (action.data !== undefined) {
             newState.history.push({
                 type: action.type,
                 data: action.data
             })
-        }
 
         return newState
     }
