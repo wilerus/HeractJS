@@ -16,7 +16,6 @@ export class ChartData {
     public static timelineYearMin: Object[] = []
 
     public static ganttBars: Object[] = []
-
     public static taskline: Object[] = []
 
     public weekData: string[] = [
@@ -55,27 +54,42 @@ export class ChartData {
 
     constructor() {
         for (var i = 0; i < this.amountOfElements; i++) {
-            if (i % 5 === 0) {
+            let type = '123'
+            if (i % 10 === 0) {
                 this.counter++;
+                type =  'project'
+            } else if (i % 4 === 0) {
+                this.counter++;
+                type = 'milestone'
+            } else {
+                type = 'task'
             }
 
-            let topMargin: number = 22 * i
-            let text = i % 5 === 0 ? `Milestone ${this.counter + 1}` : `Task ${i + 1}`
-            let leftMargin = 40 * i
+            let duration = 40
+
+            if (type === 'project') {
+                duration = 400
+            } else if (type === 'milestone'){
+                duration = 20
+            }
+
+        let topMargin: number = 22 * i
+        let text = i % 5 === 0 ? `Milestone ${this.counter + 1}` : `Task ${i + 1}`
+        let leftMargin = 40 * i
 
             ChartData.ganttBars.push({
                 id: `bar${i}`,
                 progress: 25,
-                duration: 40,
+                duration: duration,
                 name: text,
                 description: `Description for ${text}`,
                 startDate: leftMargin,
                 finishDate: leftMargin,
                 position: topMargin,
-                type: i % 5 === 0 ? 'milestone' : 'task',
+                type: type,
                 link: {
                     id: `link${i}`,
-                    to: `bar${i + 1}`,
+                    to: type === 'project' ? `bar${i + 10}`: `bar${i + 1}`,
                     type: 'finichToStart'
                 }
             });

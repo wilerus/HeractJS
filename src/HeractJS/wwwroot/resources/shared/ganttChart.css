@@ -39,10 +39,15 @@
     fill: rgba(80,80,220,0.5);
     stroke-width: 2px;
     stroke: rgb(80, 80, 220);
-    /**/
     height: 20px;
 }
-
+.projectBody {
+    position: absolute;
+    stroke-width: 2px;
+    stroke: rgb(40, 40, 100);
+    /**/
+    height: 2px;
+}
 .barChartFillBody {
     position: absolute;
     height: 12px;

@@ -94,7 +94,7 @@ export class TaskBar extends React.Component<any, any> {
                     const newStartDate = (event.pageX - startPointStartDate) / cellCapacity
 
                     this.setState({
-                        startDate: newStartDate
+                        startDate: Math.round(newStartDate)
                     })
                 }.bind(this)
             }
@@ -210,11 +210,11 @@ export class TaskBar extends React.Component<any, any> {
                 newCompletion = this.state.progress / cellCapacity
                 if (newCompletion > newDuration || newCompletion === duration) {
                     this.setState({
-                        progress: newDuration
+                        progress: Math.round(newDuration)
                     })
                 }
                 this.setState({
-                    duration: newDuration
+                    duration: Math.round(newDuration)
                 })
             }
         }.bind(this)
@@ -237,8 +237,8 @@ export class TaskBar extends React.Component<any, any> {
                     //    newCompletion = newDuration
                     //}
                     this.setState({
-                        startDate: newStartDate,
-                        duration: newDuration
+                        startDate: Math.round(newStartDate),
+                        duration: Math.round(newDuration)
                         // progress: newCompletion
                     })
                 }
@@ -433,7 +433,7 @@ export class TaskBar extends React.Component<any, any> {
 
     public render() {
         let element = null
-
+        debugger
         if (this.state.type === 'task') {
             element = React.createElement('g', {
                 onMouseEnter: this.handleRectHover.bind(this),
@@ -466,7 +466,7 @@ export class TaskBar extends React.Component<any, any> {
                     y: this.state.position
                 }, this.props.data.name)
             )
-        } else if(this.state.type === 'milestone') {
+        } else if (this.state.type === 'milestone') {
             element = React.createElement('g', {
                 onMouseEnter: this.handleRectHover.bind(this),
                 onMouseOut: this.clearTempElements.bind(this),
@@ -503,11 +503,11 @@ export class TaskBar extends React.Component<any, any> {
                 x: this.state.startDate * GCMediator.getState().cellCapacity
             },
                 React.createElement('rect', {
-                    className: 'milestoneBody',
+                    className: 'projectBody',
                     id: this.props.data.id,
                     y: this.state.position + 4,
                     x: this.state.startDate * GCMediator.getState().cellCapacity,
-                    width: 20//,
+                    width: this.state.duration * GCMediator.getState().cellCapacity
                     //transform: 'rotate(45)'
                 }),
                 React.createElement('text', {

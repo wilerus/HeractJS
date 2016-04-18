@@ -37,12 +37,12 @@ export class AppMediator {
                     newState.items.splice(prevElIndex + 1, 0, {
                         id: `bar${newState.items.length + 1}`,
                         barClass: '',
-                        type: 'bar',
                         progress: 25,
-                        duration: 80,
+                        duration: 40,
                         name: `Task ${newState.items.length + 1}`,
                         description: `Description for ${newState.items.length + 1}`,
                         startDate: selectedTaskStartDate,
+                        type:'task',
                         position: selectedTaskPosition,
                         link: null
                     })
@@ -147,22 +147,27 @@ export class AppMediator {
                 switch (newState.timelineStep) {
                     case 0:
                         newState.cellCapacity = Math.round(54 / 72)
+                        newState.columnWidth = 54
                         newState.timeLine = AppMediator.timelineMonth
                         break;
                     case 1:
                         newState.cellCapacity = Math.round(54 / 720)
+                        newState.columnWidth = 54
                         newState.timeLine = AppMediator.timelineYear
                         break;
                     case 2:
                         newState.cellCapacity = Math.round(60 / 3)
+                        newState.columnWidth = 60
                         newState.timeLine = AppMediator.timelineDay
                         break;
                     case 3:
                         newState.cellCapacity = Math.round(72 / 24)
+                        newState.columnWidth = 72
                         newState.timeLine = AppMediator.timelineWeek
                         break;
                     default:
                         newState.cellCapacity = Math.round(54 / 72)
+                        newState.columnWidth = 54
                         newState.timeLine = AppMediator.timelineWeek
                 }
                 newState.timelineStep = action.data
@@ -260,6 +265,7 @@ export class AppMediator {
                 break
 
             case 'scrollGrid':
+                isHistoryNeed = true
                 newState.scrollPosition = action.data
                 break
 
@@ -288,45 +294,42 @@ export class AppMediator {
         return newState
     }
 
-    private initialState = {
-        items: ChartData.ganttBars,
-        timeLine: ChartData.timelineWeek,
-
-        taskline: ChartData.taskline,
-        tasklineTimeItems: ChartData.timelineDayMin,
-
-        isDragging: false,
-        isLinking: false,
-        isCurrentlySizing: false,
-
-        isLineDrawStarted: false,
-
-        timelineStep: 0,
-        scrollPosition: 0,
-
-        svgGridWidth: 50,
-        ganttChartView: null,
-        cellCapacity: 54 / 24,
-
-        dropTarget: null,
-        draggingElement: null,
-        selectedTasks: [],
-        history: [],
-        tempLine: null
-    }
-
     constructor() {
         new ChartData()
+
+        const initialState = {
+            items: ChartData.ganttBars,
+            timeLine: ChartData.timelineWeek,
+
+            taskline: ChartData.taskline,
+            tasklineTimeItems: ChartData.timelineMonthMin,
+
+            isDragging: false,
+            isLinking: false,
+            isCurrentlySizing: false,
+
+            isLineDrawStarted: false,
+
+            timelineStep: 0,
+            scrollPosition: 0,
+
+            columnWidth: 72,
+            ganttChartView: null,
+            cellCapacity: 72 / 24,
+
+            dropTarget: null,
+            draggingElement: null,
+            selectedTasks: [],
+            history: [],
+            tempLine: null
+        }
+
         AppMediator.timelineWeek = ChartData.timelineWeek
         AppMediator.timelineMonth = ChartData.timelineMonth
         AppMediator.timelineDay = ChartData.timelineDay
         AppMediator.timelineYear = ChartData.timelineYear
         AppMediator.subscribers = {}
-        AppMediator.store = createStore(this.reduser, this.initialState)
-    }
-
-    reset() {
-        AppMediator.subscribers = {};
+        AppMediator.store = createStore(this.reduser, initialState)
     }
 
     public static getInstance(): AppMediator {
@@ -345,9 +348,9 @@ export class AppMediator {
     }
 
     public getLastChange() {
-        let history = AppMediator.store.getState().history
+        const history = AppMediator.store.getState().history
         if (history) {
-            let length = history.length
+            const length = history.length
             return history[length - 1]
         }
         return null

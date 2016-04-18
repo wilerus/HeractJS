@@ -21,9 +21,9 @@ export class ChartView extends React.Component<any, any> {
         const gridCapacity = Math.round(document.documentElement.clientHeight / 22)
         const items = GCMediator.getState().items;
         const displayingElements = items.slice(0, gridCapacity + 30)
-
         this.state = {
             timeLine: GCMediator.getState().timeLine,
+            columnWidth: GCMediator.getState().columnWidth,
             elementHeight: 22,
             displayingElements: displayingElements,
             displayingLinks: [],
@@ -54,6 +54,7 @@ export class ChartView extends React.Component<any, any> {
             if (this.state.isCtrlPressed) {
                 this.updateTimeline()
             } else {
+                debugger;
                 const currentScroll = GCMediator.getState().scrollPosition
                 let scrollPosition = Math.round(event.deltaY / 22) + currentScroll
 
@@ -98,9 +99,11 @@ export class ChartView extends React.Component<any, any> {
                     case 'scrollGrid':
                         this.scrollChart(change.data)
                         break
+
                     case 'setTimelineStep':
                         this.setState({
-                            timeLine: GCMediator.getState().timeLine
+                            timeLine: GCMediator.getState().timeLine,
+                            columnWidth: GCMediator.getState().columnWidth
                         })
                         break
 
@@ -339,12 +342,12 @@ export class ChartView extends React.Component<any, any> {
                         })),
                     React.createElement('pattern', {
                         id: 'grid',
-                        width: GCMediator.getState().svgGridWidth,
+                        width: this.state.columnWidth,
                         height: 22,
                         patternUnits: 'userSpaceOnUse'
                     },
                         React.createElement('rect', {
-                            width: GCMediator.getState().svgGridWidth,
+                            width: this.state.columnWidth,
                             height: 22,
                             fill: 'url(#smallGrid)',
                             stroke: '#dfe4e8',

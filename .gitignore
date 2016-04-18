@@ -8,3 +8,4 @@ src/HeractJS/wwwroot/js/*.map
 src/HeractJS/.idea/
 src/HeractJS/wwwroot/js/*.css
 src/HeractJS/Scripts/services/AppMediator.js
+src/HeractJS/Scripts/services/ChartData.js
