@@ -1,6 +1,7 @@
 ﻿/* global define */
 
 define([
+    'recourcePath/elegance.css',
     'recourcePath/shared/fonts.css',
     'recourcePath/shared/master.css',
     'recourcePath/shared/master-new.css',
@@ -20,7 +21,7 @@ define([
     'recourcePath/core/dev.css',
     'recourcePath/core/dropdown.css',
     'recourcePath/core/scrollbar.css',
-    'recourcePath/core/pop.out.css'
+    'recourcePath/core/pop.out.css',
 ], function () {
     "use strict";
 

@@ -31,7 +31,9 @@ define([
             DEMO_CORE: 'module:demo:core',
 
             GRID: 'module:grid',
-            GANTT: 'module:gantt',
+	        GANTT: 'module:gantt',
+            
+	        FORM: 'module:form',
 
             PROJECT_ROOMS_SHOWALL: 'module:project:rooms:showAll',
             PROJECT_ROOMS_OVERVIEW: 'module:project:rooms:overview',

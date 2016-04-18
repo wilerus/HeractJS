@@ -89,6 +89,9 @@ define([
                             case 'cmw.workspace.GanttItem':
                                 return wsItem;
                                 break;
+                            case 'cmw.workspace.FormItem':
+                                return wsItem;
+                                break;
                             case 'cmw.workspace.SettingsItem':
                             if (shared.services.SecurityService.hasGlobalPermission(shared.services.SecurityService.globalPermissions.APP_DESIGN) ||
                                 shared.services.SecurityService.hasGlobalPermission(shared.services.SecurityService.globalPermissions.USER_MANAGEMENT)) {

@@ -35,7 +35,8 @@ define([
     'rootpath/profile/aboutandextras/Config',
     'rootpath/demo/Config',
     'rootpath/list/Config',
-    'rootpath/gantt/Config'
+    'rootpath/gantt/Config',
+    'rootpath/form/Config'
 ], function () {
     "use strict";
 

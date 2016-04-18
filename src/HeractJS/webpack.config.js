@@ -36,13 +36,15 @@ module.exports = {
             'demoInitializer': path.resolve(__dirname + '/scripts/project/demo/Initializer'),
             'listInitializer': path.resolve(__dirname + '/scripts/project/list/Initializer'),
             'ganttInitializer': path.resolve(__dirname + '/scripts/project/gantt/Initializer'),
+            'formInitializer': path.resolve(__dirname + '/scripts/project/form/Initializer'),
             'profileAboutInitializer': path.resolve(__dirname + '/scripts/project/profile/aboutandextras/Initializer'),
             'profileNotificationInitializer': path.resolve(__dirname + '/scripts/project/profile/notificationSettings/Initializer'),
             'profileProfileInitializer': path.resolve(__dirname + '/scripts/project/profile/profile/Initializer'),
             'navigation': path.resolve(__dirname + '/scripts/project/navigation/module.js'),
             'LANGMAPEN': path.resolve(__dirname + '/wwwroot/js/compiled/localizationmap.en.js'),
             'appMediator': path.resolve(__dirname + '/scripts/services/AppMediator'),
-            'ganttChart': path.resolve(__dirname + '/scripts/GanttChart/MainView')
+            'ganttChart': path.resolve(__dirname + '/scripts/GanttChart/MainView'),
+            'form': path.resolve(__dirname + '/scripts/project/form')
         }
     },
     module: {
