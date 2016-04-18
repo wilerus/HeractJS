@@ -37,6 +37,7 @@ define([
             profileRegion: '.js-profile-region',
             moduleLoadingRegion: '.js-module-loading-region',
             ganttNavigation: '.js-module-gantt-toolbar',
+            ganttTaskLine: '.js-module-gantt-taskline',
             moduleRegion: '.js-module-region-left',
             ganttRegion: '.js-module-region-right'
         },

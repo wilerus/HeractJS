@@ -152,6 +152,9 @@ export class TaskBar extends React.Component<any, any> {
                 this.startBarRelocation(event)
                 document.onmouseup = function (event: MouseEvent) {
                     //this.addNewConnection()
+                    GCMediator.dispatch({ type: 'stopDragging' })
+                    this.clearTempElements(event)
+
                     GCMediator.dispatch({
                         type: 'editTask',
                         data: {
@@ -161,36 +164,36 @@ export class TaskBar extends React.Component<any, any> {
                             position: this.state.position
                         }
                     })
-                    GCMediator.dispatch({ type: 'stopDragging' })
-                    this.clearTempElements(event)
                 }.bind(this)
             } else if (clickCoordX > elementRect.right - 15) {
                 this.updateСompleteDate(event)
                 document.onmouseup = function (event: MouseEvent) {
+                    GCMediator.dispatch({ type: 'stopDragging' })
+                    this.clearTempElements(event)
+
                     GCMediator.dispatch({
                         type: 'editTask',
                         data: {
                             duration: this.state.duration,
                             completeDate: this.state.completeDate,
-                            position: this.state.position
+                            position: this.state.position 
                         }
                     })
-                    GCMediator.dispatch({ type: 'stopDragging' })
-                    this.clearTempElements(event)
                 }.bind(this)
             } else if (clickCoordX < elementRect.left + 15) {
                 this.updateStartDate(event)
                 document.onmouseup = function (event: MouseEvent) {
+                    GCMediator.dispatch({ type: 'stopDragging' })
+                    this.clearTempElements(event)
+
                     GCMediator.dispatch({
                         type: 'editTask',
                         data: {
                             duration: this.state.duration,
                             startDate: this.state.startDate,
-                            position: this.state.position
+                            position: this.state.position 
                         }
                     })
-                    GCMediator.dispatch({ type: 'stopDragging' })
-                    this.clearTempElements(event)
                 }.bind(this)
             }
         }
@@ -231,7 +234,7 @@ export class TaskBar extends React.Component<any, any> {
                 const newStartDate = (event.pageX - startPointStartDate) / cellCapacity
                 const newDuration = this.state.duration - (newStartDate - this.state.startDate)
 
-                if (this.state.startDate !== newStartDate && newDuration > 1 && newStartDate > 1) {
+                if (this.state.startDate !== newStartDate && newDuration) {
                     // let newCompletion = this.state.progress
                     //if (newCompletion > newDuration || newCompletion === this.state.duration) {
                     //    newCompletion = newDuration
@@ -435,7 +438,7 @@ export class TaskBar extends React.Component<any, any> {
         let element = null
 
         if (this.state.type === 'task') {
-            element = React.createElement('g', {
+            element =  React.createElement('g', {
                 onMouseEnter: this.handleRectHover.bind(this),
                 onMouseOut: this.clearTempElements.bind(this),
                 onMouseDown: this.startBarUpdate.bind(this),
@@ -476,7 +479,7 @@ export class TaskBar extends React.Component<any, any> {
                 onClick: this.startTaskSelection.bind(this),
                 y: this.state.position + 4,
                 x: this.state.startDate * GCMediator.getState().cellCapacity
-            },
+                },
                 React.createElement('rect', {
                     className: 'milestoneBody',
                     id: this.props.data.id,

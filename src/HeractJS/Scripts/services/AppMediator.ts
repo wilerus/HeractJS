@@ -13,6 +13,7 @@ export class AppMediator {
 
     private reduser(state: any, action: any) {
         let newState = state
+        let isHistoryNeed = false
         switch (action.type) {
             case 'reset':
                 newState.items = action.data
@@ -53,6 +54,7 @@ export class AppMediator {
                     selectedTaskPosition = 22 * newState.items.length
                     selectedTaskStartDate = 50 * newState.items.length
                 }
+                isHistoryNeed = true
                 break
 
             case 'removeTask':
@@ -69,31 +71,33 @@ export class AppMediator {
                     if (element) {
                         action.data = elementIndex
                         newState.items.splice(elementIndex, 1);
-                        newState.items[elementIndex-1].link = null
-                        for (let i =  elementIndex; i < newState.items.length; i++) {
+                        newState.items[elementIndex - 1].link = null
+                        for (let i = elementIndex; i < newState.items.length; i++) {
                             newState.items[i].position = 22 * i
                             newState.items[i].startDate -= taskDuration
                         }
                     }
                 }
+                isHistoryNeed = true
                 break
 
             case 'editTask':
-                newState.items[action.data.index].name = action.data.value//todo check if exist
+                const newData = action.data
+                // const newDataLength = newData.length
+                for (let prop in newData) {
+                    newState.items[action.data.position / 22][prop] = newData[prop]
+                }
+                isHistoryNeed = true
                 break
+
             case 'indent':
                 newState.ganttChartView.indentTask(action.data)
-                break
-            case 'link':
-                newState.ganttChartView.linkTask(action.data)
+                isHistoryNeed = true
                 break
 
             case 'outindent':
                 newState.ganttChartView.outindentTask(action.data)
-                break
-
-            case 'unlink':
-                newState.ganttChartView.unlinkTask(action.data)
+                isHistoryNeed = true
                 break
 
             case 'autoSchedule':
@@ -116,7 +120,9 @@ export class AppMediator {
                 break
 
             case 'updateTimelineStep':
-                return newState.timelineStep = action.data
+                newState.timelineStep = action.data
+                isHistoryNeed = true
+                break
             case 'setGanttChartView':
                 newState.ganttChartView = action.data
                 break
@@ -160,11 +166,12 @@ export class AppMediator {
                         newState.timeLine = AppMediator.timelineWeek
                 }
                 newState.timelineStep = action.data
-                newState.ganttChartView.forceUpdate()
+                isHistoryNeed = true
                 break
 
             case 'selectTask':
                 newState.selectedTasks.push(action.data)
+                isHistoryNeed = true
                 break
 
             case 'addTaskToSelected':
@@ -199,11 +206,57 @@ export class AppMediator {
                 break
 
             case 'completeTask':
-               // newState.selectedTasks.push(action.data)
+                element = null
+                elementIndex = 0
+                if (newState.items.length > 0) {
+                    element = newState.items.find((element: any, index: number) => {
+                        if (element.id === newState.selectedTasks[0]) {
+                            return index
+                        }
+                    })
+                    elementIndex = newState.items.indexOf(element)
+                    if (element) {
+                        action.data = elementIndex
+                        newState.items[elementIndex].progress = 100
+                    }
+                }
+                isHistoryNeed = true
                 break
 
             case 'reopenTask':
-                //newState.selectedTasks.push(action.data)
+                element = null
+                elementIndex = 0
+                if (newState.items.length > 0) {
+                    element = newState.items.find((element: any, index: number) => {
+                        if (element.id === newState.selectedTasks[0]) {
+                            return index
+                        }
+                    })
+                    elementIndex = newState.items.indexOf(element)
+                    if (element) {
+                        action.data = elementIndex
+                        newState.items[elementIndex].progress = 0
+                    }
+                }
+                isHistoryNeed = true
+                break
+
+            case 'removeLink':
+                element = null
+                elementIndex = 0
+                if (newState.items.length > 0) {
+                    element = newState.items.find((element: any, index: number) => {
+                        if (element.id === newState.selectedTasks[0]) {
+                            return index
+                        }
+                    })
+                    elementIndex = newState.items.indexOf(element)
+                    if (element) {
+                        action.data = elementIndex
+                        newState.items[elementIndex].link = null
+                    }
+                }
+                isHistoryNeed = true
                 break
 
             case 'scrollGrid':
@@ -217,14 +270,20 @@ export class AppMediator {
             case 'removeDropTarget':
                 newState.dropTarget = null
                 break
-                
+
+            case 'taskUpdated':
+                isHistoryNeed = true
+                break
+
             default:
                 return state
         }
+        if (isHistoryNeed) {
             newState.history.push({
                 type: action.type,
                 data: action.data
             })
+        }
 
         return newState
     }
@@ -232,6 +291,7 @@ export class AppMediator {
     private initialState = {
         items: ChartData.ganttBars,
         timeLine: ChartData.timelineWeek,
+        taskline: ChartData.taskline,
 
         isDragging: false,
         isLinking: false,
@@ -248,7 +308,6 @@ export class AppMediator {
 
         dropTarget: null,
         draggingElement: null,
-        selectedTaskIndex: null,
         selectedTasks: [],
         history: [],
         tempLine: null

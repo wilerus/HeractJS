@@ -4,26 +4,26 @@ import {AppMediator} from '../../scripts/services/AppMediator'
 let GCMediator: any = AppMediator.getInstance()
 
 export class TaskLink extends React.Component<any, any> {
-constructor() {
-    super()
+    constructor() {
+        super()
 
-    GCMediator.subscribe(function () {
-        const change = GCMediator.getLastChange()
-        if (change) {
-            switch (change.type) {
-                case 'setTimelineStep':
-                    this.buildConnection()
-                    break
-                case 'stopDragging':
-                    this.buildConnection()
-                    break
-                default:
-                    break
+        GCMediator.subscribe(function () {
+            const change = GCMediator.getLastChange()
+            if (change) {
+                switch (change.type) {
+                    case 'setTimelineStep':
+                        this.buildConnection()
+                        break
+                    case 'stopDragging':
+                        this.buildConnection()
+                        break
+                    default:
+                        break
+                }
             }
-        }
-    }.bind(this))
-}
-public buildConnection() {
+        }.bind(this))
+    }
+    public buildConnection() {
         const firstPoint = document.getElementById(this.props.data.from)
         const firstPointCoordsX = parseInt(firstPoint.getAttribute('x'))
         const firstPointCoordsY = parseInt(firstPoint.getAttribute('y'))
@@ -35,12 +35,12 @@ public buildConnection() {
         const secondPointCoordsWidth = secondPoint.getBoundingClientRect().width
 
         //if (firstPointCoordsX < secondPointCoordsX - 10) {
-            this.setState({
-                firstPoint: (firstPointCoordsX + firstPointCoordsWidth) + ' , ' + (firstPointCoordsY + 7),
-                secondPoint: (secondPointCoordsX + secondPointCoordsWidth/2 ) + ' , ' + (firstPointCoordsY + 7),
-                thirdPoint: (secondPointCoordsX + secondPointCoordsWidth/2 ) + ' , ' + (secondPointCoordsY -4)
-               // endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
-            })
+        this.setState({
+            firstPoint: (firstPointCoordsX + firstPointCoordsWidth) + ' , ' + (firstPointCoordsY + 7),
+            secondPoint: (secondPointCoordsX + 10) + ' , ' + (firstPointCoordsY + 7),
+            thirdPoint: (secondPointCoordsX + 10) + ' , ' + (secondPointCoordsY - 4)
+            // endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
+        })
         //} else if (firstPointCoordsX - 10 > secondPointCoordsX) {
         //    this.setState({
         //        firstPoint: (firstPointCoordsX) + ' , ' + (firstPointCoordsY + 7),
@@ -60,7 +60,7 @@ public buildConnection() {
 
     private componentWillMount() {
         this.buildConnection()
-}
+    }
     private componentWillReceiveProps() {
         this.buildConnection()
     }
