@@ -404,7 +404,6 @@ define(['form/App',
                 if (handlerFunction) {
                     this.listenTo(this.headerView, 'backToForm', handlerFunction);
                 }
-                debugger;
                 this.headerRegion.show(this.headerView);
             },
 

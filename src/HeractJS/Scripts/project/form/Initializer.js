@@ -27,7 +27,6 @@ define([
 
         navigate: function () {
             this.view.setNavigationVisibility(false);
-            //this.init();
             this.userObjectController = new UserObjectController();
             this.moduleRegion.show(this.userObjectController.formController.formLayoutView);
             App.StateManager.updateForm();
