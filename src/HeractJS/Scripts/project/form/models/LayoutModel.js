@@ -18,10 +18,20 @@ define(['form/App'],
             urlRoot: '/EleganceForm/GetLayout/',
 
             getData: function (id) {
+                this.getMockData();
+                return;
+
                 this.url = this.urlRoot + id;
                 this.fetch({
                     success: this.onDataLoaded.bind(this)
                 });
+            },
+
+            getMockData: function() {
+                var layoutData = { "id": "40c8ef39ef70473c9e83677913e0284c", "root": { "id": "997351fd422d4b8e810d456d0a4b0172", "type": "Panel", "layout": { "height": 719, "minHeight": 0, "minWidth": 0, "autoHeight": false, "stretchHeight": true, "autoWidth": true, "orientation": "Vertical" }, "children": [{ "id": "fcc390e05bad4a6896bff5dbc5b2223d", "parent": "997351fd422d4b8e810d456d0a4b0172", "type": "SingleLineText", "layout": { "height": 36, "minHeight": 36, "minWidth": 0, "autoHeight": true, "stretchHeight": false, "autoWidth": true, "orientation": "Vertical" }, "field": { "datasource": { "id": "title", "text": "Title", "isMultivalue": false, "isSystem": false, "dataType": "String", "dataFormat": "Undefined", "accessType": "Undefined" }, "label": { "hidden": false, "text": "Title", "align": "Left", "width": 100 } } }, { "id": "b991b85ab7f44e3b82e99f80a1ae3540", "parent": "997351fd422d4b8e810d456d0a4b0172", "type": "SingleLineText", "layout": { "height": 23, "minHeight": 23, "minWidth": 0, "autoHeight": true, "stretchHeight": false, "autoWidth": true, "orientation": "Vertical" }, "field": { "datasource": { "id": "textField", "text": "TextField", "isMultivalue": false, "isSystem": false, "dataType": "String", "dataFormat": "Undefined", "accessType": "Undefined" }, "label": { "hidden": false, "text": "TextField", "align": "Left", "width": 100 } } }] }, "datasources": { "id": { "id": "id", "isMultivalue": false, "isSystem": true, "dataType": "Undefined", "dataFormat": "Undefined", "accessType": "Undefined" }, "cmw.ui.exportTemplates": { "id": "cmw.ui.exportTemplates", "isMultivalue": false, "isSystem": true, "dataType": "Undefined", "dataFormat": "Undefined", "accessType": "Undefined" }, "container": { "id": "container", "text": "systemContainerProperty", "isMultivalue": false, "isSystem": true, "dataType": "Undefined", "dataFormat": "Undefined", "accessType": "Undefined" }, "cmw.possibleResolutions": { "id": "cmw.possibleResolutions", "isMultivalue": true, "isSystem": true, "dataType": "Undefined", "dataFormat": "Undefined", "accessType": "Undefined" }, "currentSubtask": { "id": "currentSubtask", "isMultivalue": true, "isSystem": true, "dataType": "Undefined", "dataFormat": "Undefined", "accessType": "Undefined" }, "workflowState": { "id": "workflowState", "isMultivalue": true, "isSystem": true, "dataType": "Undefined", "dataFormat": "Undefined", "accessType": "Undefined" }, "cmw.workflowEvent": { "id": "cmw.workflowEvent", "isMultivalue": true, "isSystem": true, "dataType": "Undefined", "dataFormat": "Undefined", "accessType": "Undefined" }, "cmw.workflow.currentWorkflowStepRestrictions": { "id": "cmw.workflow.currentWorkflowStepRestrictions", "isMultivalue": true, "isSystem": true, "dataType": "Undefined", "dataFormat": "Undefined", "accessType": "Undefined" }, "cmw.ui.commentsObjectId": { "id": "cmw.ui.commentsObjectId", "isMultivalue": false, "isSystem": true, "dataType": "Undefined", "dataFormat": "Undefined", "accessType": "Undefined" }, "title": { "id": "title", "text": "Title", "isMultivalue": false, "isSystem": false, "dataType": "String", "dataFormat": "Undefined", "accessType": "Undefined" }, "textField": { "id": "textField", "text": "TextField", "isMultivalue": false, "isSystem": false, "dataType": "String", "dataFormat": "Undefined", "accessType": "Undefined" } }, "itemType": "TrackerObject" };
+                this.prepareData(layoutData);
+                this.set(layoutData);
+                this.trigger('formLayoutLoaded');
             },
 
             parse: function (resp) {
@@ -36,13 +46,22 @@ define(['form/App'],
 
             prepareData: function(data) {
                 var map = {
-                    Description: App.Localizer.get('ELEGANCE.FORM.DEFAULTFORM.MODULES.COMMON.FORM.ITEMFORM.DESCRIPTION'),
-                    Comments: App.Localizer.get('ELEGANCE.FORM.DEFAULTFORM.ATM.DEFAULTFORM.TABS.COMMENTSTAB'),
-                    ProcessView: App.Localizer.get('ELEGANCE.FORM.DEFAULTFORM.ATM.DEFAULTFORM.TABS.WORKFLOWTAB'),
-                    History: App.Localizer.get('ELEGANCE.FORM.DEFAULTFORM.ATM.DEFAULTFORM.TABS.HISTORYTAB'),
-                    Subtasks: App.Localizer.get('ELEGANCE.FORM.DEFAULTFORM.ATM.DEFAULTFORM.TABS.SUBTASKSTAB'),
-                    Timespent: App.Localizer.get('ELEGANCE.FORM.DEFAULTFORM.ATM.DEFAULTFORM.TABS.TIMESPENTTAB')
+                    Description: 'Description',
+                    Comments: 'Comments',
+                    ProcessView: 'Workflow',
+                    History: 'History',
+                    Subtasks: 'Subtasks',
+                    Timespent: 'Timespent'
                 };
+
+                //var map = {
+                //    Description: App.Localizer.get('ELEGANCE.FORM.DEFAULTFORM.MODULES.COMMON.FORM.ITEMFORM.DESCRIPTION'),
+                //    Comments: App.Localizer.get('ELEGANCE.FORM.DEFAULTFORM.ATM.DEFAULTFORM.TABS.COMMENTSTAB'),
+                //    ProcessView: App.Localizer.get('ELEGANCE.FORM.DEFAULTFORM.ATM.DEFAULTFORM.TABS.WORKFLOWTAB'),
+                //    History: App.Localizer.get('ELEGANCE.FORM.DEFAULTFORM.ATM.DEFAULTFORM.TABS.HISTORYTAB'),
+                //    Subtasks: App.Localizer.get('ELEGANCE.FORM.DEFAULTFORM.ATM.DEFAULTFORM.TABS.SUBTASKSTAB'),
+                //    Timespent: App.Localizer.get('ELEGANCE.FORM.DEFAULTFORM.ATM.DEFAULTFORM.TABS.TIMESPENTTAB')
+                //};
 
                 var root = data.root,
                     descriptionPanel;

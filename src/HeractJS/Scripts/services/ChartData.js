@@ -1,7 +1,7 @@
 "use strict";
 var ChartData = (function () {
     function ChartData() {
-        this.amountOfElements = 100;
+        this.amountOfElements = 100000;
         this.counter = 0;
         this.weekData = [
             'Monday',
@@ -27,33 +27,36 @@ var ChartData = (function () {
             'December'
         ];
         this.yearData = [
-            '2516',
-            '2517',
-            '2518',
-            '2519',
-            '2525',
-            '2521',
-            '2522',
-            '2523'
+            '2016',
+            '2017',
+            '2018',
+            '2019',
+            '2025',
+            '2021',
+            '2022',
+            '2023'
         ];
         for (var i = 0; i < this.amountOfElements; i++) {
             if (i % 2 === 0) {
                 this.counter++;
             }
-            var topMargin = 32 * i;
-            var text = "Task " + i;
-            var leftMargin = 50 * this.counter;
-            var barClass = 'group1';
+            var topMargin = 22 * i;
+            var text = "Task " + (i + 1);
+            var leftMargin = 40 * i;
             ChartData.ganttBars.push({
                 id: "bar" + i,
-                barClass: barClass,
-                type: 'bar',
                 progress: 25,
-                duration: 80 + this.counter + i,
+                duration: 40,
                 name: text,
-                description: "Description for" + text,
+                description: "Description for " + text,
                 startDate: leftMargin,
-                position: topMargin
+                finishDate: leftMargin,
+                position: topMargin,
+                link: {
+                    id: "link" + i,
+                    to: "bar" + (i + 1),
+                    type: 'finichToStart'
+                }
             });
         }
         for (var i_1 = 0; i_1 <= 10; i_1++) {
@@ -63,8 +66,8 @@ var ChartData = (function () {
                 style: {
                     top: 0,
                     height: 25,
-                    width: 425,
-                    marginLeft: 425 * i_1
+                    width: 508,
+                    marginLeft: 508 * i_1
                 }
             });
             for (var n = 0; n < this.weekData.length; n++) {
@@ -74,8 +77,8 @@ var ChartData = (function () {
                     style: {
                         top: 25,
                         height: 25,
-                        width: 60,
-                        marginLeft: 425 * i_1 + 60 * n
+                        width: 72,
+                        marginLeft: 508 * i_1 + 72 * n
                     }
                 });
             }
@@ -87,19 +90,19 @@ var ChartData = (function () {
                 style: {
                     top: 0,
                     height: 25,
-                    width: 400,
-                    marginLeft: 400 * i_2
+                    width: 594,
+                    marginLeft: 594 * i_2
                 }
             });
-            for (var n = 0; n <= 9; n++) {
+            for (var n = 0; n <= 10; n++) {
                 ChartData.timelineMonth.push({
                     id: "timelineMonthM" + (this.monthData[i_2] + n),
                     text: (n * 3).toString(),
                     style: {
                         top: 25,
                         height: 25,
-                        width: 40,
-                        marginLeft: 400 * i_2 + 40 * n
+                        width: 54,
+                        marginLeft: 594 * i_2 + 54 * n
                     }
                 });
             }
@@ -111,8 +114,8 @@ var ChartData = (function () {
                 style: {
                     top: 0,
                     height: 25,
-                    width: 400,
-                    marginLeft: 400 * i_3
+                    width: 480,
+                    marginLeft: 480 * i_3
                 }
             });
             for (var n = 0; n < 8; n++) {
@@ -122,8 +125,8 @@ var ChartData = (function () {
                     style: {
                         top: 25,
                         height: 25,
-                        width: 50,
-                        marginLeft: 400 * i_3 + 50 * n
+                        width: 60,
+                        marginLeft: 480 * i_3 + 60 * n
                     }
                 });
             }
@@ -135,8 +138,8 @@ var ChartData = (function () {
                 style: {
                     top: 0,
                     height: 25,
-                    width: 600,
-                    marginLeft: 600 * i_4
+                    width: 648,
+                    marginLeft: 648 * i_4
                 }
             });
             for (var n = 0; n <= 11; n++) {
@@ -146,8 +149,8 @@ var ChartData = (function () {
                     style: {
                         top: 25,
                         height: 25,
-                        width: 50,
-                        marginLeft: 600 * i_4 + 50 * n
+                        width: 54,
+                        marginLeft: 600 * i_4 + 54 * n
                     }
                 });
             }

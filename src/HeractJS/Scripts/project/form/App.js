@@ -11,12 +11,19 @@
 
 /* global define, require */
 
-define(['./controllers/FormMediator'], function (FormMediator) {
+define(['./controllers/FormMediator', './controllers/MockStateManager'], function (FormMediator, MockStateManager) {
     
     var instance = null;
 
     function MockApp() {
         this.FormMediator = new FormMediator();
+        this.StateManager = new MockStateManager();
+        this.reqres = {
+            setHandler: function () {}
+        }
+        this.destroy = function () {
+            instance = null;
+        }
     }
 
     MockApp.getInstance = function () {

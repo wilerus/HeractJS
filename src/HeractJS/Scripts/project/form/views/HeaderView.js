@@ -348,6 +348,8 @@ define(['form/App', 'form/views/Actions/ActionsView', 'form/views/HeaderPartView
 
             setTitle: function (mode, text) {
                 var title = '';
+                title = 'Title';
+                return;
                 if (mode === 'account' || mode === 'view' || mode === 'viewCustomTab') {
                     title = text;
                 } else if (mode === 'attachment') {

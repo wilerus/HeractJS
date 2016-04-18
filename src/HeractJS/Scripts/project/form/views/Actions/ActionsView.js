@@ -27,79 +27,79 @@ define(['form/App', './ActionsDropDownView', 'form/templates/actions.html',
 
                 var actionsTemplate = {
                     'AcceptTask': {
-                        displayName: App.Localizer.get('ELEGANCE.FORM.ACTIONS.ACCEPT'),
+                        displayName: 'Accept',
                         id: 'action-accept',
                         hidden: true,
                         enabled: false
                     },
                     'DeclineTask': {
-                        displayName: App.Localizer.get('ELEGANCE.FORM.ACTIONS.DECLINE'),
+                        displayName: "Decline",
                         id: 'action-decline',
                         hidden: true,
                         enabled: false
                     },
                     'Edit': {
-                        displayName: App.Localizer.get('ELEGANCE.FORM.ACTIONS.EDIT'),
+                        displayName: 'Edit',
                         id: 'action-edit',
                         hidden: true,
                         enabled: false
                     },
                     'Clone': {
-                        displayName: App.Localizer.get('ELEGANCE.FORM.ACTIONS.CLONE'),
+                        displayName: 'Clone',
                         id: 'action-clone',
                         hidden: true,
                         enabled: false
                     },
                     'Follow': {
-                        displayName: App.Localizer.get('ELEGANCE.FORM.ACTIONS.FOLLOW'),
+                        displayName: 'Follow',
                         id: 'action-follow',
                         hidden: true,
                         enabled: false
                     },
                     'Unfollow': {
-                        displayName: App.Localizer.get('ELEGANCE.FORM.ACTIONS.UNFOLLOW'),
+                        displayName: 'Unfollow',
                         id: 'action-unfollow',
                         hidden: true,
                         enabled: false
                     },
                     'StartTask':{
-                        displayName: App.Localizer.get('ELEGANCE.FORM.ACTIONS.START'),
+                        displayName: 'Start',
                         id: 'action-start',
                         hidden: true,
                         enabled: false
                     },
                     'DeferTask':{
-                        displayName: App.Localizer.get('ELEGANCE.FORM.ACTIONS.DEFFER'),
+                        displayName: 'Deffer',
                         id: 'action-defer',
                         hidden: true,
                         enabled: false
                     },
                     'CompleteTask':{
-                        displayName: App.Localizer.get('ELEGANCE.FORM.ACTIONS.COMPLETE'),
+                        displayName: 'Complete',
                         id: 'action-compete',
                         hidden: true,
                         enabled: false
                     },
                     'Reassign': {
-                        displayName: App.Localizer.get('ELEGANCE.FORM.ACTIONS.REASSIGN'),
+                        displayName: 'Reassign',
                         id: 'action-reassign',
                         hidden: true,
                         enabled: false
                     },
                     'ResolveItem': {
-                        displayName: App.Localizer.get('ELEGANCE.FORM.ACTIONS.RESOLVEITEM'),
+                        displayName: 'Resolve',
                         id: 'action-move',
                         hidden: true,
                         enabled: false
                     },
                     'ResolveTask': {
-                        displayName: App.Localizer.get('ELEGANCE.FORM.ACTIONS.RESOLVETASK'),
+                        displayName: 'Resolve task',
                         id: 'action-move',
                         hidden: true,
                         enabled: false
                     },
                     'Delete': {
-                        displayName: App.Localizer.get('ELEGANCE.FORM.ACTIONS.DELETE'),
+                        displayName: 'Delete',
                         id: 'action-delete',
                         hidden: true,
                         enabled: false
@@ -191,8 +191,8 @@ define(['form/App', './ActionsDropDownView', 'form/templates/actions.html',
 
             deleteItemClicked: function(){
                 this.confirmView = new ConfirmView({
-                    title: App.Localizer.get('ELEGANCE.FORM.CONFIRM.DELETE'),
-                    text: App.Localizer.get('ELEGANCE.FORM.CONFIRM.DELETE.MSG'),
+                    title:'Delete',
+                    text: 'Are you sure?',
                     className: 'wmodal wmodal_confirm'
                 });
 

@@ -102,7 +102,6 @@ define(['form/App',
                 }
 
                 if (this.layout && this.models && this.actions) {
-
                     this.buildAndShowHeaderView({
                         mode: this.layout.isCustomTab ? 'viewCustomTab' : 'view'
                     });
@@ -331,7 +330,8 @@ define(['form/App',
                 } else if (options.mode == 'viewCustomTab' || options.mode == 'view') {
                     var isDescription = this.isDescription();
                     opts = {
-                        title: isDescription ? App.Localizer.parseLabelText(this.layout.cfg[0].field.label.text) : this.layout.appName,
+                        title: isDescription ? this.layout.cfg[0].field.label.text : this.layout.appName,
+                        //title: isDescription ? App.Localizer.parseLabelText(this.layout.cfg[0].field.label.text) : this.layout.appName,
                         mode: options.mode,
                         id: this.layout.id,
                         actions: this.actions,
@@ -404,6 +404,7 @@ define(['form/App',
                 if (handlerFunction) {
                     this.listenTo(this.headerView, 'backToForm', handlerFunction);
                 }
+                debugger;
                 this.headerRegion.show(this.headerView);
             },
 

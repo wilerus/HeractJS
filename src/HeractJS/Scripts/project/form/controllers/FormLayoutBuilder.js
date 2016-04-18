@@ -147,7 +147,7 @@ define(['form/App', './DataProxyManager'],
                     }
 
                     var model = new WidgetModel();
-                    if (App.currentParameters.isRequestor && layout.cfg[i].type === 'Subtasks') {
+                    if (false && App.currentParameters.isRequestor && layout.cfg[i].type === 'Subtasks') {
                         model.set({ 'isVisible': false });
                     } else {
                         model.set({ 'isVisible': layout.cfg[i].isVisible });
@@ -188,7 +188,8 @@ define(['form/App', './DataProxyManager'],
                         }
                         model.set({
                             labelHidden: layout.cfg[i].field.label.hidden,
-                            labelText: App.Localizer.parseLabelText(layout.cfg[i].field.label.text),
+                            labelText: layout.cfg[i].field.label.text,
+                            //labelText: App.Localizer.parseLabelText(layout.cfg[i].field.label.text),
                             labelAlign: layout.cfg[i].field.label.align
                         });
                     }

@@ -301,7 +301,8 @@ define(['form/App'],
                     data.isPlaceholder = false;
                     data.prompt = this.value.prompt ? this.value.prompt : this.placeholders.empty;
                 }
-                data.prompt = App.Localizer.parseLabelText(data.prompt);
+                data.prompt = data.prompt;
+                //data.prompt = App.Localizer.parseLabelText(data.prompt);
                 return data;
             },
 

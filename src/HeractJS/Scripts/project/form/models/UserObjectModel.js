@@ -18,6 +18,10 @@ define(['form/App'],
             urlRoot: '/EleganceForm',
 
             getData: function (id) {
+                this.mockParseData();
+                return;
+
+
                 this.url = '/EleganceForm/GetData/' + id;
                 this.fetch({
                     success: this.parseData.bind(this)
@@ -28,7 +32,14 @@ define(['form/App'],
                 return resp.data;
             },
 
+            mockParseData: function () {
+                var data = {"formId":"40c8ef39ef70473c9e83677913e0284c","objectPrototype":"template.2","objectPrototypeName":"Form View App Item","actions":[{"action":"Follow","enabled":true,"hidden":false},{"action":"Unfollow","enabled":false,"hidden":true},{"action":"Edit","enabled":true,"hidden":false},{"action":"Delete","enabled":true,"hidden":false},{"action":"Create","enabled":true,"hidden":false},{"action":"ResolveItem","enabled":true,"hidden":false},{"action":"Reassign","enabled":true,"hidden":false},{"action":"ChangeRecurrence","enabled":false,"hidden":false},{"action":"SetRecurrence","enabled":true,"hidden":false},{"action":"Clone","enabled":true,"hidden":false},{"action":"ChangeFollow","enabled":true,"hidden":false},{"action":"Move","enabled":false,"hidden":false},{"action":"Export","enabled":true,"hidden":false},{"action":"CreateRelated","enabled":false,"hidden":false}],"data":[{"id":"id","type":"Instance","attributes":["Mandatory","Unique","Predefined","Readonly"],"accessType":"Static","instances":[{"id":"20","name":"20"}]},{"id":"cmw.ui.exportTemplates","type":"Undefined","attributes":[],"accessType":"Undefined"},{"id":"container","type":"Instance","attributes":[],"accessType":"Static","values":["tracker.2"]},{"id":"currentSubtask","type":"Instance","attributes":["Readonly","MultiValue"],"accessType":"Static","instances":[{"id":"21","name":"title - Start"}]},{"id":"workflowState","type":"Enum","attributes":["Predefined","Readonly","MultiValue"],"accessType":"Static","instances":[{"id":"cmw.stateStarted","name":"Start"}]},{"id":"cmw.workflowEvent","type":"Undefined","attributes":["MultiValue"],"accessType":"Editable","values":["cf03cc70f4234348b6129783d527ff9b"]},{"id":"cmw.workflow.currentWorkflowStepRestrictions","type":"String","attributes":["MultiValue","Readonly","Calculated"],"accessType":"Static"},{"id":"cmw.ui.commentsObjectId","type":"Comments","attributes":[],"accessType":"Editable","instances":[{"id":"20","name":"title"}],"commentsTree":{"id":"20","date":"0001-01-01T00:00:00","children":[]}},{"id":"title","type":"String","attributes":["Indexed"],"accessType":"Editable","values":["title"]},{"id":"textField","type":"String","attributes":[],"accessType":"Editable","values":["hello"]}],"resolutions":[{"id":"6cb662cdda374142acaa00c39cd54baa","name":"Close"}],"visibility":[]};
+                this.set(data);
+                this.trigger('formDataLoaded', data);
+            },
+
             parseData: function (model, resp) {
+                this.model.set(data);
                 this.trigger('formDataLoaded', resp.data);
             },
 
