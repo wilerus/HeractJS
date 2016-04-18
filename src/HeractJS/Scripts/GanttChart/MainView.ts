@@ -3,32 +3,35 @@
 import React = require('react')
 import DOM = require('react-dom')
 
-import {TaskBar} from './TaskBar';
-import {TaskLink} from './TaskLink';
-import {InfoPopup} from './InfoPopup';
-import {ModalWindow} from './ModalWindow';
-import {Timeline}  from './Timeline';
-import {GanttToolbar}  from './Toolbar';
-import {GanttChartMediator} from './Mediator';
-import {ScrollBarMediator} from '../../scripts/services/ScrollBarMediator';
+import {TaskBar} from './TaskBar'
+import {TaskLink} from './TaskLink'
+import {InfoPopup} from './InfoPopup'
+import {ModalWindow} from './ModalWindow'
+import {Timeline}  from './Timeline'
+import {GanttToolbar}  from './Toolbar'
+import {AppMediator} from '../../scripts/services/AppMediator'
 
-let GCMediator: GanttChartMediator = GanttChartMediator.getInstance();
-let SBMediator: ScrollBarMediator = ScrollBarMediator.getInstance();
+let GCMediator: any = AppMediator.getInstance()
 
 export class ChartView extends React.Component<any, any> {
+
     constructor() {
         super()
-        SBMediator.onChanged('ganttChart', function (position: number) {
-            this.updateScrollPosition(position)
-        }.bind(this))
-    }
+        const gridCapacity = Math.round(document.documentElement.clientHeight / 22)
+        const items = GCMediator.getState().items;
+        const displayingElements = items.slice(0, gridCapacity + 30)
 
-    private componentWillMount() {
-        this.setState({
-            ganttBars: GCMediator.getState().items,
+        this.state = {
             timeLine: GCMediator.getState().timeLine,
+            elementHeight: 22,
+            displayingElements: displayingElements,
+            displayingLinks: [],
+            gridCapacity: gridCapacity,
+            batchSize: 30,
+            startPosition: 0,
+            endPosition: gridCapacity + 30,
             isCtrlPressed: false
-        })
+        }
 
         document.onkeydown = function (event: MouseEvent) {
             if (event.ctrlKey) {
@@ -39,9 +42,9 @@ export class ChartView extends React.Component<any, any> {
         }.bind(this)
 
         document.onkeyup = function () {
-                this.setState({
-                    isCtrlPressed: false
-                })
+            this.setState({
+                isCtrlPressed: false
+            })
         }.bind(this)
 
         document.onwheel = function (event: any) {
@@ -50,37 +53,119 @@ export class ChartView extends React.Component<any, any> {
             if (this.state.isCtrlPressed) {
                 this.updateTimeline()
             } else {
-                const scrollPosition = Math.round(event.deltaY / 32) + GCMediator.getState().scrollPosition
+                const currentScroll = GCMediator.getState().scrollPosition
+                let scrollPosition = Math.round(event.deltaY / 22) + currentScroll
+
+                if (scrollPosition < 0 && currentScroll !== 0) {
+                    scrollPosition = 0
+                }
+
                 if (scrollPosition >= 0) {
-                    SBMediator.change(scrollPosition)
                     GCMediator.dispatch({
-                        type: 'updateScrollPosition',
-                        scrollPosition: scrollPosition
+                        type: 'scrollGrid',
+                        data: scrollPosition
                     })
+
+                    this.buildElements(scrollPosition)
                 }
             }
+        }.bind(this)
+
+        GCMediator.subscribe(function () {
+            const change = GCMediator.getLastChange()
+            if (change) {
+                switch (change.type) {
+                    case 'removeTask':
+                    case 'createTask':
+                    case 'editTask':
+                        this.rebuildElements()
+                        break
+
+                    case 'selectTask':
+                        TaskBar.selectTask(change.data)
+                        break
+
+                    case 'deselectAllTasks':
+                        if (change.data) {
+                            TaskBar.deselectAllTasks(change.data)
+                        }
+                        break
+
+                    case 'scrollGrid':
+                        this.scrollChart(change.data)
+                        break
+                    case 'setTimelineStep':
+                        this.setState({
+                            timeLine: GCMediator.getState().timeLine,
+                        })
+                        break
+
+                    default:
+                        break
+                }
+            }
+        }.bind(this))
+    }
+
+    public selectTask(index: string) {
+        TaskBar.selectTask(index)
+    }
+
+    public deselectAllTasks(tasks) {
+        TaskBar.deselectAllTasks(tasks)
+    }
+
+    private componentDidMount() {
+        const container = document.getElementById('ganttChartView');
+        container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * this.state.batchSize).toString();
+        const displayingElements = this.state.displayingElements
+        const displayingLinks = []
+        for (let i = 0; i < displayingElements.length - 1; i++) {
+            if (displayingElements[i].link) {
+                displayingElements[i].link.from = displayingElements[i].id
+                displayingLinks.push(displayingElements[i].link)
+            }
+        }
+        this.setState({
+            displayingLinks: displayingLinks
+        })
+        document.getElementById('ganttChart').onmousedown = function (event: MouseEvent) {
+            const view: any = document.getElementById('ganttChart')
+            const timeline: any = document.getElementById('timelineContainer')
+            const startScroll = view.scrollLeft
+            const startPoint = event.pageX
+
+            GCMediator.dispatch({ type: 'deselectAllTasks' })
+            GCMediator.dispatch({ type: 'startPanning' })
+            document.body.style.webkitUserSelect = 'none'
+
+            document.onmousemove = (event: MouseEvent) => {
+                view.scrollLeft = startPoint - event.pageX + startScroll
+                timeline.scrollLeft = startPoint - event.pageX + startScroll
+            }
+
+            document.onmouseup = () => {
+                GCMediator.dispatch({ type: 'stopPanning' })
+                document.body.style.webkitUserSelect = 'inherit'
+                document.onmousemove = null
+            }
+
         }.bind(this)
     }
 
     private shouldComponentUpdate(nextProps: any, nextState: any) {
-        if (this.state.ganttBars !== nextState.ganttBars || this.state.timeLine !== nextState.timeLine) {
+        if (this.state.displayingElements !== nextState.displayingElements ||
+            this.state.timeLine !== nextState.timeLine ||
+            this.state.displayingLinks !== nextState.displayingLinks) {
             return true
         } else {
             return false
         }
     }
 
-    private updateScrollPosition(position: number) {
-        GCMediator.dispatch({
-            type: 'updateScrollPosition',
-            scrollPosition: position
-        })
-        this.scrollChart(position)
-    }
-
     private scrollChart(position: number) {
         const view: any = document.getElementById('ganttChart')
-        view.scrollTop = 32 * position
+        view.scrollTop = 22 * position
     }
 
     public updateTimeline() {
@@ -89,48 +174,116 @@ export class ChartView extends React.Component<any, any> {
             case 0:
                 GCMediator.dispatch({
                     type: 'setTimelineStep',
-                    step: 1
+                    data: 1
                 })
-                break;
+                break
             case 1:
                 GCMediator.dispatch({
                     type: 'setTimelineStep',
-                    step: 2
+                    data: 2
                 })
-                break;
+                break
             case 2:
                 GCMediator.dispatch({
                     type: 'setTimelineStep',
-                    step: 3
+                    data: 3
                 })
-                break;
+                break
             case 3:
                 GCMediator.dispatch({
                     type: 'setTimelineStep',
-                    step: 0
+                    data: 0
                 })
-                break;
+                break
             default:
                 this.state.timelineData = currentState.timelineDay
         }
     }
 
-    public render() {
-        const chart = this.state.ganttBars.map(function (ganttBar: any) {
-            if (ganttBar.type === 'bar') {
-                return React.createElement(TaskBar, {
-                    key: ganttBar.id,
-                    data: ganttBar,
-                    gridWidth: this.state.gridWidth
+    public buildElements(scrollPosition: number) {
+        let elements = [] //
+        const displayElements = this.state.displayingElements
+        let startPos = this.state.startPosition
+        let endPos = this.state.endPosition
+        const items = GCMediator.getState().items
+        if (scrollPosition - 15 <= startPos && startPos !== 0) {
+            const startIndex = startPos - 10 > 0 ? startPos - 10 : 0
+            const itemsToAdd = items.slice(startIndex, startIndex + 10)
+            endPos -= (startPos - startIndex)
+            startPos = startIndex
+
+            elements = elements.concat(itemsToAdd, displayElements.slice(0, displayElements.length - 10))
+        } else if (scrollPosition - 25 >= startPos) {
+            const itemsToAdd = items.slice(endPos, endPos + 10)
+            startPos += 10
+            endPos += 10
+            elements = elements.concat(displayElements.slice(10, displayElements.length), itemsToAdd)
+        }
+        if (elements.length) {
+            const container = document.getElementById('ganttChartView')
+            container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * endPos).toString()
+            const links = []
+            for (let i = 0; i < elements.length - 1; i++) {
+                if (elements[i].link) {
+                    elements[i].link.from = elements[i].id
+                    links.push(elements[i].link)
+                }
+            }
+            this.setState({
+                displayingElements: elements,
+                startPosition: startPos,
+                endPosition: endPos
+            }, function () {
+                this.setState({
+                    displayingLinks: links
                 })
-            } else if (ganttBar.type === 'connection') {
+            }.bind(this))
+        }
+    }
+
+    public rebuildElements() {
+        let elements = [] //
+        const startPos = this.state.startPosition
+        const endPos = this.state.endPosition
+        const items = GCMediator.getState().items
+
+        elements = items.slice(startPos, endPos)
+
+        const links = []
+        for (let i = 0; i < elements.length - 2; i++) {
+            if (elements[i].link) {
+                elements[i].link.from = elements[i].id
+                links.push(elements[i].link)
+            }
+        }
+        this.setState({
+            displayingElements: elements
+        }, function () {
+            this.setState({
+                displayingLinks: links
+            }, function () {
+                this.forceUpdate()
+            }.bind(this))
+        }.bind(this))
+    }
+
+    public render() {
+        const bars = this.state.displayingElements.map((ganttBar: any) => {
+            return React.createElement(TaskBar, {
+                key: ganttBar.id,
+                data: ganttBar
+            })
+        })
+
+        const links = this.state.displayingLinks.map((link: any) => {
+            if (link) {
                 return React.createElement(TaskLink, {
-                    ref: ganttBar.id,
-                    key: ganttBar.id,
-                    data: ganttBar
+                    ref: link.id,
+                    key: link.id,
+                    data: link
                 })
             }
-        }.bind(this))
+        })
 
         const timeline = this.state.timeLine.map((timeLineItem: any) => {
             return React.createElement(Timeline, {
@@ -142,8 +295,8 @@ export class ChartView extends React.Component<any, any> {
             id: 'ganttChartContainer',
             className: 'ganttChartContainer'
         }, React.createElement('div', {
-                id: 'timelineContainer',
-                className: 'timelineContainer'
+            id: 'timelineContainer',
+            className: 'timelineContainer'
         },
             React.createElement('svg', {
                 className: 'ganttTimeline',
@@ -166,24 +319,24 @@ export class ChartView extends React.Component<any, any> {
                     transform: 'translate(0, 0)'
                 }, React.createElement('marker', {
                     id: 'triangle',
-                    viewBox: '0 0 20 20',
-                    refX: 0,
-                    refY: 5,
+                    viewBox: '0 0 40 20',
+                    refX: 20,
+                    refY: 0,
                     markerUnits: 'strokeWidth',
-                    markerWidth: 4,
-                    markerHeight: 3,
-                    orient: 'auto'
+                    markerWidth: 12,
+                    markerHeight: 4,
+                    orient: '0'
                 }, React.createElement('path', {
-                    d: 'M 0 0 L 20 0 L 10 20 z'
+                    d: 'M 0 0 L 40 0 L 20 20 z'
                 })),
                     React.createElement('pattern', {
                         id: 'grid',
                         width: GCMediator.getState().svgGridWidth,
-                        height: 32,
+                        height: 22,
                         patternUnits: 'userSpaceOnUse'
                     }, React.createElement('rect', {
                         width: GCMediator.getState().svgGridWidth,
-                        height: 32,
+                        height: 22,
                         fill: 'url(#smallGrid)',
                         stroke: '#dfe4e8',
                         strokeWidth: '1'
@@ -202,13 +355,16 @@ export class ChartView extends React.Component<any, any> {
                     //    transitionEnterTimeout: 500,
                     //    transitionLeaveTimeout: 500
                     //}, 
-                    chart
+
                     // )
+                    bars,
+                    links
                 )
+
             )
         )
     }
-};
+}
 
 export class Initializer {
     constructor() {
@@ -217,11 +373,11 @@ export class Initializer {
 
         GCMediator.dispatch({
             type: 'setGanttChartView',
-            view: mainView
+            data: mainView
         })
         GCMediator.dispatch({
             type: 'setGanttToolbar',
-            view: toolbar
+            data: toolbar
         })
     }
-};
+}

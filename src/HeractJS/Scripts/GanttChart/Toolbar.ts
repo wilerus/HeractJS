@@ -1,7 +1,8 @@
 ﻿import React = require('react')
 
-import {GanttChartMediator} from './Mediator';
-let GCMediator: GanttChartMediator = GanttChartMediator.getInstance();
+import {AppMediator} from '../../scripts/services/AppMediator'
+
+let GCMediator: any = AppMediator.getInstance()
 
 export class GanttToolbar extends React.Component<any, any> {
     constructor() {
@@ -13,6 +14,42 @@ export class GanttToolbar extends React.Component<any, any> {
             height: '',
             text: ''
         }
+
+        GCMediator.subscribe(function () {
+            let change = GCMediator.getLastChange()
+            if (change) {
+                switch (change.type) {
+                    case 'selectTask':
+                        this.showTaskActions()
+                        break
+
+                    case 'removeTask':
+                        this.hideTaskActions()
+                        break
+
+                    default:
+                        break
+                }
+            }
+        }.bind(this))
+    }
+    private componentDidMount() {
+        this.hideTaskActions()
+    }
+    private hideTaskActions() {
+        document.getElementById('removeTaskButton').style.display = 'none'
+        document.getElementById('moveToTaskButton').style.display = 'none'
+        document.getElementById('addLinkButton').style.display = 'none'
+        document.getElementById('completeTaskButton').style.display = 'none'
+        document.getElementById('reopenTaskButton').style.display = 'none'
+    }
+
+    private showTaskActions() {
+        document.getElementById('removeTaskButton').style.display = 'initial'
+        document.getElementById('moveToTaskButton').style.display = 'initial'
+        document.getElementById('addLinkButton').style.display = 'initial'
+        document.getElementById('completeTaskButton').style.display = 'initial'
+        document.getElementById('reopenTaskButton').style.display = 'initial'
     }
 
     private undo() {
@@ -25,16 +62,12 @@ export class GanttToolbar extends React.Component<any, any> {
 
     private removeTask() {
         GCMediator.dispatch({
-            type: 'removeTask',
-            task: ''
+            type: 'removeTask'
         })
     }
 
-    private addTask() {
-        GCMediator.dispatch({
-            type: 'addTask',
-            task: ''
-        })
+    private createTask() {
+        GCMediator.dispatch({ type: 'createTask' })
     }
 
     private moveToTask() {
@@ -47,28 +80,28 @@ export class GanttToolbar extends React.Component<any, any> {
     private addLink() {
         GCMediator.dispatch({
             type: 'addLink',
-            task: ''
+            data: ''
         })
     }
 
     private removeLink() {
         GCMediator.dispatch({
             type: 'removeLink',
-            task: ''
-    })
+            data: ''
+        })
     }
 
     private completeTask() {
         GCMediator.dispatch({
             type: 'completeTask',
-            task: ''
-    })
+            data: ''
+        })
     }
 
     private reopenTask() {
         GCMediator.dispatch({
-            type: 'updateScrollPosition',
-            task: ''
+            type: 'reopenTask',
+            data: ''
         })
     }
 
@@ -87,32 +120,38 @@ export class GanttToolbar extends React.Component<any, any> {
             }, 'Redo'),
             React.createElement('button', {
                 className: 'toolbarButton',
+                id: 'removeTaskButton',
                 onClick: this.removeTask.bind(this)
             }, 'Remove task'),
             React.createElement('button', {
                 className: 'toolbarButton',
-                onClick: this.addTask.bind(this)
-            }, 'Add task'),
+                onClick: this.createTask.bind(this)
+            }, 'Create task'),
             React.createElement('button', {
                 className: 'toolbarButton',
+                id: 'moveToTaskButton',
                 onClick: this.moveToTask.bind(this)
             }, 'Move to task'),
             React.createElement('button', {
                 className: 'toolbarButton',
+                id: 'addLinkButton',
                 onClick: this.addLink.bind(this)
             }, 'Add link'),
             React.createElement('button', {
                 className: 'toolbarButton',
+                id: 'removeLinkButton',
                 onClick: this.removeLink.bind(this)
             }, 'Remove link'),
             React.createElement('button', {
                 className: 'toolbarButton',
+                id: 'completeTaskButton',
                 onClick: this.completeTask.bind(this)
             }, 'Complete task'),
             React.createElement('button', {
                 className: 'toolbarButton',
+                id: 'reopenTaskButton',
                 onClick: this.reopenTask.bind(this)
             }, 'Reopen task')
         )
     }
-};
+}

@@ -29,32 +29,30 @@
 .barChartBody {
     position: absolute;
     border-radius: 2px;
-    height: 20px;
-    fill: rgba(150,200,150,0.2);
-    stroke-width: 1px;
-    stroke: rgb(120,190,120);
+    height: 14px;
+    fill: rgba(150,200,150,0.5);
+    stroke-width: 2px;
+    stroke: rgb(100,170,100);
 }
 
 .barChartFillBody {
     position: absolute;
     border-radius: 2px;
-    height: 20px;
-    background-color: #3db9d3;
-    box-shadow: 0 0 5px #299cb4;
-    height: 20px;
-    fill: rgb(120,190,120);
+    height: 12px;
+    fill: rgb(100,170,100);
 }
 
 .barTitle {
-    fill: rgb(80,130,170);
-    height: 20px;
+    fill: white;
+    height: 14px;
     text-align: center;
-    -webkit-user-select: none; /* Chrome all / Safari all */
-    -moz-user-select: none; /* Firefox all */
-    -ms-user-select: none; /* IE 10+ */
+    -webkit-user-select: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none; 
     user-select: none;
     text-anchor: middle;
     pointer-events: none;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.5) !important;
 }
 
 .barOver {
@@ -64,14 +62,13 @@
 
 .ganttChartView {
     user-select: none;
-    width: 100%;
+    width: 3000px;
     height: 1500px;
     z-index: 10;
 }
 
 .ganttChart {
     width: 100%;
-    height: 100vh;
     overflow: auto;
 }
 
@@ -79,6 +76,11 @@
     width: 100%;
     height: 100vh;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: stretch;
+    align-items: stretch;
 }
 
 .container .body-content {
@@ -87,7 +89,7 @@
 }
 
 .barSelected {
-    stroke: rgb(150,150,0);
+    stroke: rgb(100, 0, 20);
     stroke-width: 1px;
 }
 
@@ -101,6 +103,7 @@
     position: relative;
     background-color: #299cb4;
     box-shadow: 0 0 8px rgba(0, 0, 0,0.8);
+    z-index: 110;
 }
 /* Bar chart */
 
@@ -117,37 +120,52 @@
 }
 
 .ganttTimeline {
-    width: 100%;
+    width: 3000px;
     height: 49px;
 }
 
+.timelineContainer {
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 49px;
+    flex: none;
+    box-shadow: 0 0 8px rgba(0, 0, 0,0.8);
+}
+.timelineContainer::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+}
 .timeLineText {
     font-size: 11px;
-    stroke: white;
+    fill: white;
     text-anchor: middle;
-    font-weight: 100;
+    font-weight: 600;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.5) !important;
 }
 /*infoPopup*/
 
 .infoPopup {
+    position: fixed;
     width: 200px;
     height: 150px;
     background-color: white;
     box-shadow: 0 0 8px rgba(0,0,0,0.5);
-    position: absolute;
-    z-index: 20;
+    z-index: 210;
     display: none;
     pointer-events: none;
 }
 
 .infoPopupTitle {
     width: 100%;
-    height: 20px;
+    height: 22px;
     text-align: center;
     padding: 0;
     font-size: 18px;
     font-weight: bold;
     border: none;
+    color: white;
+    background-color: #299cb4;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.6) !important;
 }
 
 .infoPopupDescription {
@@ -155,10 +173,25 @@
     height: 20px;
     text-align: center;
     padding: 0;
-    font-size: 16px;
+    font-size: 14px;
     border: none;
 }
-
+.modalWindowTitle {
+    box-shadow: 0 0 3px rgb(0,0,0);
+    flex: none;
+    height: 22px;
+    z-index: 3;
+}
+.modalWindowBody {
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    flex: 1;
+    z-index: 2;
+}
+.modalWindowButtons {
+     height: 22px;
+    flex: none;
+    z-index: 1;
+}
 .infoPopupText {
     width: 100%;
     height: 20px;
@@ -169,14 +202,16 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0,0,0,0.2);
     display: flex;
+    left: 0;
+    top: 0;
     align-items: center;
     align-content: center;
     justify-content: center;
     flex-direction: row;
     display: none;
-    z-index: 30;
+    z-index: 220;
     backdrop-filter: blur(10px);
 }
 
@@ -188,6 +223,11 @@
     z-index: 20;
     display: block;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    align-content: stretch;
 }
 
 .modalWindowInput {
@@ -253,10 +293,9 @@
     }
 /*------ Timeline style ------*/
 .ganttTimeline {
-    box-shadow: 0 0 8px rgba(0, 0, 0,0.8);
     background-color: rgb(44,171,198);
 }
-/*------ Toolbar style ------*/
+/*------ Toolbar style ----*/
 .toolbarContainer {
     width: 100%;
     height: 100%;
@@ -273,4 +312,5 @@
     color: white;
     box-shadow: 0 0 3px rgba(0, 0, 0,0.6);
     text-shadow: 1px 1px 2px rgb(0, 0, 0);
+    vertical-align: top;
 }

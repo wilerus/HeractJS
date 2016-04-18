@@ -15,16 +15,16 @@ export class InfoPopup extends React.Component<any, any> {
     }
 
     public hide() {
-        let item = DOM.findDOMNode(this) as any
-        item.style.display = 'none';
+        const item = DOM.findDOMNode(this) as any
+        item.style.display = 'none'
     }
 
     public show() {
-        let item = DOM.findDOMNode(this) as any
-        item.style.display = 'block';
+        const item = DOM.findDOMNode(this) as any
+        item.style.display = 'block'
     }
 
-    render() {
+    public render() {
         return React.createElement('div', {
             id: 'infoPopup',
             className: 'infoPopup',
@@ -34,20 +34,20 @@ export class InfoPopup extends React.Component<any, any> {
             }
         },
             React.createElement('div', {
-                className: 'infoPopupTitle',
+                className: 'infoPopupTitle'
             }, this.state.title),
             React.createElement('div', {
-                className: 'infoPopupText',
+                className: 'infoPopupText'
             }, this.state.description),
             React.createElement('div', {
-                className: 'infoPopupText',
-            }, 'Start date ' + this.state.startDate + ' hours'),
+                className: 'infoPopupText'
+            }, `Start date ${this.state.startDate} hours`),
             React.createElement('div', {
-                className: 'infoPopupText',
-            }, 'Complete date ' + this.state.endDate + ' hours'),
+                className: 'infoPopupText'
+            }, `Complete date ${this.state.endDate} hours`),
             React.createElement('div', {
-                className: 'infoPopupText',
-            }, 'Duration ' + this.state.duration + ' hours')
+                className: 'infoPopupText'
+            }, `Duration ${this.state.duration} hours`)
         )
     }
 };

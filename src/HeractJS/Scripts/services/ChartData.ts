@@ -2,7 +2,7 @@
 // initial set up
 
 export class ChartData {
-    public amountOfElements: number = 100
+    public amountOfElements: number = 100000
     public counter: number = 0;
 
     public static timelineWeek: Object[] = []
@@ -52,23 +52,26 @@ export class ChartData {
                 this.counter++;
             }
 
-            let topMargin: number = 32 * i
+            let topMargin: number = 22 * i
             let text = `Task ${i + 1}`
-            let leftMargin = 50 * this.counter
-            let barClass = 'group1'
+            let leftMargin = 40 * i
 
             ChartData.ganttBars.push({
                 id: `bar${i}`,
-                barClass: barClass,
-                type: 'bar',
                 progress: 25,
-                duration: 80 + this.counter + i,
+                duration: 40,
                 name: text,
-                description: `Description for${text}`,
+                description: `Description for ${text}`,
                 startDate: leftMargin,
-                position: topMargin
+                finishDate: leftMargin,
+                position: topMargin,
+                link: {
+                    id: `link${i}`,
+                    to: `bar${i + 1}`,
+                    type: 'finichToStart'
+                }
             });
-        }//ganttBars
+        }//gantt bar config
 
         for (let i = 0; i <= 10; i++) {
             ChartData.timelineWeek.push({
@@ -77,8 +80,8 @@ export class ChartData {
                 style: {
                     top: 0,
                     height: 25,
-                    width: 425,
-                    marginLeft: 425 * i
+                    width: 508,
+                    marginLeft: 508 * i
                 }
             });
             for (let n = 0; n < this.weekData.length; n++) {
@@ -88,8 +91,8 @@ export class ChartData {
                     style: {
                         top: 25,
                         height: 25,
-                        width: 60,
-                        marginLeft: 425 * i + 60 * n
+                        width: 72,
+                        marginLeft: 508 * i + 72 * n
                     }
                 });
             }
@@ -102,20 +105,20 @@ export class ChartData {
                 style: {
                     top: 0,
                     height: 25,
-                    width: 400,
-                    marginLeft: 400 * i
+                    width: 594,
+                    marginLeft: 594 * i
                 }
             });
 
-            for (let n = 0; n <= 9; n++) {
+            for (let n = 0; n <= 10; n++) {
                 ChartData.timelineMonth.push({
                     id: `timelineMonthM${this.monthData[i] + n}`,
                     text: (n * 3).toString(),
                     style: {
                         top: 25,
                         height: 25,
-                        width: 40,
-                        marginLeft: 400 * i + 40 * n
+                        width: 54,
+                        marginLeft: 594 * i + 54 * n
                     }
                 });
             }
@@ -128,8 +131,8 @@ export class ChartData {
                 style: {
                     top: 0,
                     height: 25,
-                    width: 400,
-                    marginLeft: 400 * i
+                    width: 480,
+                    marginLeft: 480 * i
                 }
             });
 
@@ -140,8 +143,8 @@ export class ChartData {
                     style: {
                         top: 25,
                         height: 25,
-                        width: 50,
-                        marginLeft: 400 * i + 50 * n
+                        width: 60,
+                        marginLeft: 480 * i + 60 * n
                     }
                 });
             }
@@ -154,8 +157,8 @@ export class ChartData {
                 style: {
                     top: 0,
                     height: 25,
-                    width: 600,
-                    marginLeft: 600 * i
+                    width: 648,
+                    marginLeft: 648 * i
                 }
             });
 
@@ -166,8 +169,8 @@ export class ChartData {
                     style: {
                         top: 25,
                         height: 25,
-                        width: 50,
-                        marginLeft: 600 * i + 50 * n
+                        width: 54,
+                        marginLeft: 600 * i + 54 * n
                     }
                 });
             }

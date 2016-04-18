@@ -152,6 +152,8 @@ define([
         // 4. Create grid
         var bundle = core.list.factory.createDefaultGrid({
             gridViewOptions: {
+                height: 'auto',
+                maxRows: 30,
                 columns: columns,
                 childHeight: 40,
                 useDefaultRowView: true

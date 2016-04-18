@@ -18,9 +18,9 @@ define([
     'navigation', 'rootpath/NavigationContext',
     'rootpath/CurrentUserModel',
     'rootpath/StylesConfig',
-    'scrollBarMediator'
+    'appMediator'
     ],
-    function (en, core, shared, moduleConfigs, navigation, navigationContext, currentUserModel, stylesConfig, scrollBarMediator) {
+    function (en, core, shared, moduleConfigs, navigation, navigationContext, currentUserModel, stylesConfig, appMediator) {
     'use strict';
 
     window.Context = {};
@@ -127,8 +127,8 @@ define([
         $('.js-startup-loading').remove();
     });
 
-    //initialize scrollbar mediator
-    App.ScrollBarMediator = scrollBarMediator.ScrollBarMediator.getInstance();
+    //initialize application mediator
+    App.appMediator = appMediator.AppMediator.getInstance();
 
     window.application = App;
 

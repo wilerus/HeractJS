@@ -54,7 +54,7 @@
     align-content: stretch;
     align-items: stretch;
     justify-content: flex-start;
-    border-right: 2px solid gray;
+    border-right: 1px solid gray;
 }
 .content-region-right {
     height: 100%;
@@ -113,7 +113,7 @@
     font-size: 14px;
     color: #fff;
     background: #0575bd;
-    z-index: 99;
+    z-index: 120;
 }
 .top-nav__i {
     height: inherit;
