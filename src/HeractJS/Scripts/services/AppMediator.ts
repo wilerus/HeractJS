@@ -291,7 +291,9 @@ export class AppMediator {
     private initialState = {
         items: ChartData.ganttBars,
         timeLine: ChartData.timelineWeek,
+
         taskline: ChartData.taskline,
+        tasklineTimeItems: ChartData.timelineDayMin,
 
         isDragging: false,
         isLinking: false,

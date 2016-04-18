@@ -466,7 +466,32 @@ export class TaskBar extends React.Component<any, any> {
                     y: this.state.position
                 }, this.props.data.name)
             )
-        } else {
+        } else if(this.state.type === 'milestone') {
+            element = React.createElement('g', {
+                onMouseEnter: this.handleRectHover.bind(this),
+                onMouseOut: this.clearTempElements.bind(this),
+                onMouseDown: this.startBarUpdate.bind(this),
+                onContextMenu: this.contextMenu.bind(this),
+                onDoubleClick: this.showModalWindow.bind(this),
+                onClick: this.startTaskSelection.bind(this),
+                y: this.state.position + 4,
+                x: this.state.startDate * GCMediator.getState().cellCapacity
+            },
+                React.createElement('rect', {
+                    className: 'milestoneBody',
+                    id: this.props.data.id,
+                    y: this.state.position + 4,
+                    x: this.state.startDate * GCMediator.getState().cellCapacity,
+                    width: 20//,
+                    //transform: 'rotate(45)'
+                }),
+                React.createElement('text', {
+                    className: 'barTitle',
+                    x: this.state.startDate * GCMediator.getState().cellCapacity + this.state.duration * GCMediator.getState().cellCapacity,
+                    y: this.state.position
+                }, this.props.data.name)
+            )
+        } else if (this.state.type === 'project') {
             element = React.createElement('g', {
                 onMouseEnter: this.handleRectHover.bind(this),
                 onMouseOut: this.clearTempElements.bind(this),
