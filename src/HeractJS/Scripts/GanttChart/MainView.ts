@@ -297,7 +297,6 @@ export class ChartView extends React.Component<any, any> {
                 data: timeLineItem
             })
         })
-
         return React.createElement('div', {
             id: 'ganttChartContainer',
             className: 'ganttChartContainer'

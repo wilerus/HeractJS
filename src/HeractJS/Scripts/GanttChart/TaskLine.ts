@@ -1,5 +1,6 @@
 ﻿import React = require('react')
 
+import {TasklineTimeItem}  from './TasklineTimeItem'
 import {AppMediator} from '../../scripts/services/AppMediator'
 let GCMediator: any = AppMediator.getInstance()
 
@@ -7,46 +8,45 @@ export class TaskLineView extends React.Component<any, any> {
     constructor() {
         super()
         this.state = {
-            marginLeft: '',
-            width: '',
-            top: '',
-            height: '',
-            text: ''
+            TasklineTimeItems: GCMediator.getState().tasklineTimeItems,
+            TasklineBars: GCMediator.getState().tasklineBars
         }
     }
 
-    private componentDidMount() {
-        //this.setState({
-        //    marginLeft: this.props.data.style.marginLeft,
-        //    width: this.props.data.style.width,
-        //    top: this.props.data.style.top,
-        //    height: this.props.data.style.height,
-        //    text: this.props.data.text
-        //})
-    }
-
     public render() {
-        const items = GCMediator.getState().taskline.map((link: any) => {
-            if (link) {
-                //return React.createElement(TaskLineItem, {
-                //    ref: link.id,
-                //    key: link.id,
-                //    data: link
-                //})
-               return React.createElement('div', {
-                    //id: 'tasklineContainer',
-                   // className: 'tasklineContainer'
-                })
-            }
+        const tasklineTimeline = this.state.TasklineTimeItems.map((timeLineItem: any) => {
+            return React.createElement(TasklineTimeItem, {
+                key: timeLineItem.id,
+                data: timeLineItem
+            })
         })
+
+        //const tasklineBars = this.state.TasklineBars.map((timeLineItem: any) => {
+        //    return React.createElement(TasklineTimeItem, {
+        //        key: timeLineItem.id,
+        //        data: timeLineItem
+        //    })
+        //})
 
         return React.createElement('div', {
             id: 'tasklineContainer',
             className: 'tasklineContainer'
         },
             React.createElement('svg', {
-                className: 'ganttTaskLine',
-                id: 'ganttTaskLine'
-            }, items ))
+                className: 'taskLineCallouts',
+                id: 'taskLineCallouts'
+            }),
+            React.createElement('svg', {
+                className: 'tasklineTimeline',
+                id: 'tasklineTimeline'
+            }, tasklineTimeline),
+            React.createElement('svg', {
+                className: 'tasklineBars',
+                id: 'tasklineBars'
+            }), //,tasklineBars),
+            React.createElement('svg', {
+                className: 'tasklineMilestones',
+                id: 'tasklineMilestones'
+            }))
     }
 };

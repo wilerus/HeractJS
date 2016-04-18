@@ -10,6 +10,11 @@ export class ChartData {
     public static timelineDay: Object[] = []
     public static timelineYear: Object[] = []
 
+    public static timelineWeekMin: Object[] = []
+    public static timelineMonthMin: Object[] = []
+    public static timelineDayMin: Object[] = []
+    public static timelineYearMin: Object[] = []
+
     public static ganttBars: Object[] = []
 
     public static taskline: Object[] = []
@@ -76,7 +81,7 @@ export class ChartData {
             });
 
             if (i % 5 === 0) {
-                ChartData.taskLineItems = ChartData.ganttBars[i]
+                ChartData.taskline.push(ChartData.ganttBars[i])
             }
 
         }//gantt bar config
@@ -92,8 +97,9 @@ export class ChartData {
                     marginLeft: 508 * i
                 }
             });
+
             for (let n = 0; n < this.weekData.length; n++) {
-                ChartData.timelineWeek.push({
+                ChartData.timelineWeekMin.push({
                     id: `timelineWeekM${n}${i}`,
                     text: this.weekData[n],
                     style: {
@@ -105,6 +111,7 @@ export class ChartData {
                 });
             }
         }//timelineWeek
+        ChartData.timelineWeek = ChartData.timelineWeek.concat(ChartData.timelineWeekMin)
 
         for (let i = 0; i <= 11; i++) {
             ChartData.timelineMonth.push({
@@ -119,7 +126,7 @@ export class ChartData {
             });
 
             for (let n = 0; n <= 10; n++) {
-                ChartData.timelineMonth.push({
+                ChartData.timelineMonthMin.push({
                     id: `timelineMonthM${this.monthData[i] + n}`,
                     text: (n * 3).toString(),
                     style: {
@@ -131,6 +138,7 @@ export class ChartData {
                 });
             }
         }//timelineMonth
+        ChartData.timelineMonth = ChartData.timelineMonth.concat(ChartData.timelineMonthMin)
 
         for (let i = 0; i < 6; i++) {
             ChartData.timelineDay.push({
@@ -145,7 +153,7 @@ export class ChartData {
             });
 
             for (let n = 0; n < 8; n++) {
-                ChartData.timelineDay.push({
+                ChartData.timelineDayMin.push({
                     id: `timelineDay${n}${i}`,
                     text: `H${n * 3}`,
                     style: {
@@ -157,6 +165,8 @@ export class ChartData {
                 });
             }
         }//timelineDay
+
+        ChartData.timelineDay = ChartData.timelineDay.concat(ChartData.timelineDayMin)
 
         for (let i = 0; i <= 8; i++) {
             ChartData.timelineYear.push({
@@ -171,7 +181,7 @@ export class ChartData {
             });
 
             for (let n = 0; n <= 11; n++) {
-                ChartData.timelineYear.push({
+                ChartData.timelineYearMin.push({
                     id: `timelineYearM${n}${i}`,
                     text: this.monthData[n],
                     style: {
@@ -183,5 +193,7 @@ export class ChartData {
                 });
             }
         }//timelineYear
+
+        ChartData.timelineYear = ChartData.timelineYear.concat(ChartData.timelineYearMin)
     }
 }

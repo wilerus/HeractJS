@@ -342,3 +342,33 @@
     text-shadow: 1px 1px 2px rgb(0, 0, 0);
     vertical-align: top;
 }
+/*------ Toolbar style ----*/
+.tasklineContainer {
+    width: 3000px;
+    height: 160px;
+    background-color: white;
+}
+
+.taskLineCallouts {
+    width: 3000px;
+    height: 30px;
+    background-color: rgb(57,165,182);
+}
+
+.tasklineTimeline {
+    width: 3000px;
+    height: 25px;
+    background-color: rgb(77,185,202);
+}
+
+.tasklineBars {
+    width: 3000px;
+    height: 60px;
+    background-color: rgb(97,205,222);
+}
+
+.tasklineMilestones {
+    width: 3000px;
+    height: 40px;
+    background-color: rgb(117,225,242);
+}
