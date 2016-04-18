@@ -1,7 +1,6 @@
 ﻿import React = require('react')
 
 import {AppMediator} from '../../scripts/services/AppMediator'
-
 let GCMediator: any = AppMediator.getInstance()
 
 export class GanttToolbar extends React.Component<any, any> {
@@ -16,8 +15,9 @@ export class GanttToolbar extends React.Component<any, any> {
         }
 
         GCMediator.subscribe(function () {
-            let change = GCMediator.getLastChange()
+            const change = GCMediator.getLastChange()
             if (change) {
+                this.showHistoryActions()
                 switch (change.type) {
                     case 'selectTask':
                         this.showTaskActions()
@@ -25,6 +25,14 @@ export class GanttToolbar extends React.Component<any, any> {
 
                     case 'removeTask':
                         this.hideTaskActions()
+                        break
+
+                    case 'deselectAllTasks':
+                        this.hideTaskActions()
+                        break
+
+                    case 'removeLink':
+                        document.getElementById('removeLinkButton').style.display = 'none'
                         break
 
                     default:
@@ -42,14 +50,29 @@ export class GanttToolbar extends React.Component<any, any> {
         document.getElementById('addLinkButton').style.display = 'none'
         document.getElementById('completeTaskButton').style.display = 'none'
         document.getElementById('reopenTaskButton').style.display = 'none'
+        document.getElementById('removeLinkButton').style.display = 'none'
+        document.getElementById('undoButton').style.display = 'none'
+        document.getElementById('redoButton').style.display = 'none'
     }
 
     private showTaskActions() {
+        const currentState = GCMediator.getState()
         document.getElementById('removeTaskButton').style.display = 'initial'
         document.getElementById('moveToTaskButton').style.display = 'initial'
+        if (currentState.selectedTasks[0]) {
+            const element = currentState.items.find((element) => { if (element.id === currentState.selectedTasks[0]) return true })
+            if (element.link) {
+                document.getElementById('removeLinkButton').style.display = 'initial'
+            }
+        }
         document.getElementById('addLinkButton').style.display = 'initial'
         document.getElementById('completeTaskButton').style.display = 'initial'
         document.getElementById('reopenTaskButton').style.display = 'initial'
+    }
+
+    private showHistoryActions() {
+        document.getElementById('undoButton').style.display = 'initial'
+        document.getElementById('redoButton').style.display = 'initial'
     }
 
     private undo() {
@@ -112,10 +135,12 @@ export class GanttToolbar extends React.Component<any, any> {
         },
             React.createElement('button', {
                 className: 'toolbarButton',
+                id: 'undoButton',
                 onClick: this.undo.bind(this)
             }, 'Undo'),
             React.createElement('button', {
                 className: 'toolbarButton',
+                id: 'redoButton',
                 onClick: this.redo.bind(this)
             }, 'Redo'),
             React.createElement('button', {

@@ -48,13 +48,13 @@ define([
                 this.model.attributes.rowModel.on('selected', function () {
                     this.collection.models.find(function (element, index) {
                         if (element.cid === this.cid) {
-                            if (!window.application.appMediator.selectedTasks || 'bar' + index !== window.application.appMediator.selectedTasks[0]) {
-                                window.application.appMediator.dispatch({ type: 'deselectAllTasks' })
-                                window.application.appMediator.dispatch({
-                                    type: 'selectTask',
-                                    data: 'bar' + index
-                                })
-                            }
+                            if (!window.application.appMediator.getState().selectedTasks[0] || 'bar' + index !== window.application.appMediator.getState().selectedTasks[0]) {
+                                    window.application.appMediator.dispatch({ type: 'deselectAllTasks' })
+                                    window.application.appMediator.dispatch({
+                                        type: 'selectTask',
+                                        data: 'bar' + index
+                                    })
+                                }
                             return true
                         }
                     }.bind(this))

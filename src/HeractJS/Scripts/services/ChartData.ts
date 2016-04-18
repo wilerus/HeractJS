@@ -12,6 +12,8 @@ export class ChartData {
 
     public static ganttBars: Object[] = []
 
+    public static taskline: Object[] = []
+
     public weekData: string[] = [
         'Monday',
         'Tuesday',
@@ -48,12 +50,12 @@ export class ChartData {
 
     constructor() {
         for (var i = 0; i < this.amountOfElements; i++) {
-            if (i % 2 === 0) {
+            if (i % 5 === 0) {
                 this.counter++;
             }
 
             let topMargin: number = 22 * i
-            let text = `Task ${i + 1}`
+            let text = i % 5 === 0 ? `Milestone ${this.counter + 1}` : `Task ${i + 1}`
             let leftMargin = 40 * i
 
             ChartData.ganttBars.push({
@@ -65,12 +67,18 @@ export class ChartData {
                 startDate: leftMargin,
                 finishDate: leftMargin,
                 position: topMargin,
+                type: i % 5 === 0 ? 'milestone' : 'task',
                 link: {
                     id: `link${i}`,
                     to: `bar${i + 1}`,
                     type: 'finichToStart'
                 }
             });
+
+            if (i % 5 === 0) {
+                ChartData.taskLineItems = ChartData.ganttBars[i]
+            }
+
         }//gantt bar config
 
         for (let i = 0; i <= 10; i++) {
