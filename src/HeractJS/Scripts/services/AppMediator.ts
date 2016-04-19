@@ -42,7 +42,7 @@ export class AppMediator {
                         name: `Task ${newState.items.length + 1}`,
                         description: `Description for ${newState.items.length + 1}`,
                         startDate: selectedTaskStartDate,
-                        type:'task',
+                        type: 'task',
                         position: selectedTaskPosition,
                         link: null
                     })
@@ -281,6 +281,22 @@ export class AppMediator {
                 isHistoryNeed = true
                 break
 
+            case 'addToTaskline':
+                if (newState.items.length > 0) {
+                    element = newState.items.find((element: any) => {
+                        if (element.id === newState.selectedTasks[0]) {
+                            if (element.type === 'task') {
+                                newState.tasklineTasks.push(element)
+                            } else if (element.type === 'milestone') {
+                                newState.tasklineMilestones.push(element)
+                            }
+                        }
+                    })
+                }
+
+                isHistoryNeed = true
+                break
+
             default:
                 return state
         }
@@ -290,6 +306,7 @@ export class AppMediator {
                 data: action.data
             })
         }
+        newState.isCallbackNeed = isHistoryNeed
 
         return newState
     }
@@ -303,6 +320,10 @@ export class AppMediator {
 
             taskline: ChartData.taskline,
             tasklineTimeItems: ChartData.timelineMonthMin,
+            tasklineTasks: [],
+            tasklineMilestones: [],
+            tasklineCallouts: [],
+            tasklineCellCapacity: 54 / 72,
 
             isDragging: false,
             isLinking: false,
@@ -321,7 +342,9 @@ export class AppMediator {
             draggingElement: null,
             selectedTasks: [],
             history: [],
-            tempLine: null
+            tempLine: null,
+
+            isCallbackNeed: false
         }
 
         AppMediator.timelineWeek = ChartData.timelineWeek
@@ -349,7 +372,7 @@ export class AppMediator {
 
     public getLastChange() {
         const history = AppMediator.store.getState().history
-        if (history) {
+        if (history && AppMediator.store.getState().isCallbackNeed) {
             const length = history.length
             return history[length - 1]
         }

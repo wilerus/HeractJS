@@ -1,11 +1,11 @@
 ﻿import React = require('react')
 import DOM = require('react-dom')
 
-import {AppMediator} from '../../scripts/services/AppMediator'
+import {AppMediator} from '../../../scripts/services/AppMediator'
 
 let GCMediator: any = AppMediator.getInstance()
 
-export class TaskBar extends React.Component<any, any> {
+export class TasklineMilestone extends React.Component<any, any> {
 
     constructor(props, context) {
         super(props, context)
@@ -27,7 +27,8 @@ export class TaskBar extends React.Component<any, any> {
             duration: props.data.duration,
             startDate: props.data.startDate,
             finish: props.data.finish,
-            priority: props.data.priority
+            priority: props.data.priority,
+            columnWidth: GCMediator.getState().tasklineCellCapacity
         }
     }
 
@@ -94,7 +95,7 @@ export class TaskBar extends React.Component<any, any> {
                     const newStartDate = (event.pageX - startPointStartDate) / cellCapacity
 
                     this.setState({
-                        startDate: Math.round(newStartDate)
+                        startDate: newStartDate
                     })
                 }.bind(this)
             }
@@ -152,6 +153,9 @@ export class TaskBar extends React.Component<any, any> {
                 this.startBarRelocation(event)
                 document.onmouseup = function (event: MouseEvent) {
                     //this.addNewConnection()
+                    GCMediator.dispatch({ type: 'stopDragging' })
+                    this.clearTempElements(event)
+
                     GCMediator.dispatch({
                         type: 'editTask',
                         data: {
@@ -161,36 +165,36 @@ export class TaskBar extends React.Component<any, any> {
                             position: this.state.position
                         }
                     })
-                    GCMediator.dispatch({ type: 'stopDragging' })
-                    this.clearTempElements(event)
                 }.bind(this)
             } else if (clickCoordX > elementRect.right - 15) {
                 this.updateСompleteDate(event)
                 document.onmouseup = function (event: MouseEvent) {
+                    GCMediator.dispatch({ type: 'stopDragging' })
+                    this.clearTempElements(event)
+
                     GCMediator.dispatch({
                         type: 'editTask',
                         data: {
                             duration: this.state.duration,
                             completeDate: this.state.completeDate,
-                            position: this.state.position
+                            position: this.state.position 
                         }
                     })
-                    GCMediator.dispatch({ type: 'stopDragging' })
-                    this.clearTempElements(event)
                 }.bind(this)
             } else if (clickCoordX < elementRect.left + 15) {
                 this.updateStartDate(event)
                 document.onmouseup = function (event: MouseEvent) {
+                    GCMediator.dispatch({ type: 'stopDragging' })
+                    this.clearTempElements(event)
+
                     GCMediator.dispatch({
                         type: 'editTask',
                         data: {
                             duration: this.state.duration,
                             startDate: this.state.startDate,
-                            position: this.state.position
+                            position: this.state.position 
                         }
                     })
-                    GCMediator.dispatch({ type: 'stopDragging' })
-                    this.clearTempElements(event)
                 }.bind(this)
             }
         }
@@ -210,11 +214,11 @@ export class TaskBar extends React.Component<any, any> {
                 newCompletion = this.state.progress / cellCapacity
                 if (newCompletion > newDuration || newCompletion === duration) {
                     this.setState({
-                        progress: Math.round(newDuration)
+                        progress: newDuration
                     })
                 }
                 this.setState({
-                    duration: Math.round(newDuration)
+                    duration: newDuration
                 })
             }
         }.bind(this)
@@ -231,14 +235,14 @@ export class TaskBar extends React.Component<any, any> {
                 const newStartDate = (event.pageX - startPointStartDate) / cellCapacity
                 const newDuration = this.state.duration - (newStartDate - this.state.startDate)
 
-                if (this.state.startDate !== newStartDate && newDuration > 1 && newStartDate > 1) {
+                if (this.state.startDate !== newStartDate && newDuration) {
                     // let newCompletion = this.state.progress
                     //if (newCompletion > newDuration || newCompletion === this.state.duration) {
                     //    newCompletion = newDuration
                     //}
                     this.setState({
-                        startDate: Math.round(newStartDate),
-                        duration: Math.round(newDuration)
+                        startDate: newStartDate,
+                        duration: newDuration
                         // progress: newCompletion
                     })
                 }
@@ -309,7 +313,7 @@ export class TaskBar extends React.Component<any, any> {
                 setTimeout(function (hoverElement) {
                     if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
                         !GCMediator.getState().isCurrentlyDragging) {
-                        this.showInfoPopup(hoverElement)
+                        this.showPopup(hoverElement)
                     }
                 }.bind(this, hoverElement), 500)
 
@@ -391,25 +395,9 @@ export class TaskBar extends React.Component<any, any> {
         })
     }
 
-    private showInfoPopup(hoverElement) {
-        const coords = hoverElement.getBoundingClientRect()
-        const popup = GCMediator.getState().ganttChartView.refs.infoPopup;
-
-        popup.setState({
-            left: coords.left + coords.width / 2 - 100,
-            top: coords.top - 160,
-            title: this.state.name,
-            startDate: this.state.startDate,
-            endDate: this.state.startDate + this.state.duration,
-            duration: this.state.duration,
-            description: this.state.description
-        })
-        popup.show()
-    }
-
     private showActionPopup(hoverElement) {
         const coords = hoverElement.getBoundingClientRect()
-        const popup = GCMediator.getState().ganttChartView.refs.actionChartPopup
+        const popup = GCMediator.getState().ganttChartView.refs.actionTasklinePopup;
 
         this.startTaskSelection()
 
@@ -446,99 +434,30 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     public render() {
-        let element = null
+        return React.createElement('g', {
+            onMouseEnter: this.handleRectHover.bind(this),
+            onMouseOut: this.clearTempElements.bind(this),
+            onMouseDown: this.startBarUpdate.bind(this),
+            onContextMenu: this.contextMenu.bind(this),
+            onDoubleClick: this.showModalWindow.bind(this),
+            onClick: this.startTaskSelection.bind(this)
+        },
+            React.createElement('rect', {
+                // main element
+                className: 'barChartBody',
+                id: this.props.data.id,
+               // y: this.state.position + 4,
+                x: this.state.startDate * this.state.columnWidth,
+                width: this.state.duration * this.state.columnWidth,
+                rx: 3,
+                ry: 3
+            }),
+            React.createElement('text', {
+                className: 'barTitle',
+                x: this.state.startDate * this.state.columnWidth + this.state.duration * this.state.columnWidth
+               // y: this.state.position
+            }, this.props.data.name)
+        )
 
-        if (this.state.type === 'task') {
-            element = React.createElement('g', {
-                onMouseEnter: this.handleRectHover.bind(this),
-                onMouseOut: this.clearTempElements.bind(this),
-                onMouseDown: this.startBarUpdate.bind(this),
-                onContextMenu: this.contextMenu.bind(this),
-                onDoubleClick: this.showModalWindow.bind(this),
-                onClick: this.startTaskSelection.bind(this)
-            },
-                React.createElement('rect', {
-                    // main element
-                    className: 'barChartBody',
-                    id: this.props.data.id,
-                    y: this.state.position + 4,
-                    x: this.state.startDate * GCMediator.getState().cellCapacity,
-                    width: this.state.duration * GCMediator.getState().cellCapacity,
-                    rx: 3,
-                    ry: 3
-                }),
-                React.createElement('rect', { // progress element
-                    className: 'barChartFillBody',
-                    group: this.props.data.barClass,
-                    y: this.state.position + 5,
-                    x: (this.state.startDate) * GCMediator.getState().cellCapacity + 1,
-                    width: this.state.progress * this.state.duration * GCMediator.getState().cellCapacity / 100 - 2
-                }),
-                React.createElement('text', {
-                    className: 'barTitle',
-                    x: this.state.startDate * GCMediator.getState().cellCapacity + this.state.duration * GCMediator.getState().cellCapacity,
-                    y: this.state.position
-                }, this.props.data.name)
-            )
-        } else if (this.state.type === 'milestone') {
-            element = React.createElement('g', {
-                    onMouseEnter: this.handleRectHover.bind(this),
-                    onMouseOut: this.clearTempElements.bind(this),
-                    onMouseDown: this.startBarUpdate.bind(this),
-                    onContextMenu: this.contextMenu.bind(this),
-                    onDoubleClick: this.showModalWindow.bind(this),
-                    onClick: this.startTaskSelection.bind(this),
-                    y: this.state.position + 4,
-                    x: this.state.startDate * GCMediator.getState().cellCapacity
-            },
-                React.createElement('rect', {
-                    className: 'milestoneBody',
-                    id: this.props.data.id,
-                    y: this.state.position + 4,
-                    x: this.state.startDate * GCMediator.getState().cellCapacity,
-                    width: 20,
-                   // transform: 'translate(34,34) rotate(45)'
-
-                    //transform: ({
-                    //    rotateX: '-35deg',
-                    //    rotateY: '45deg'
-                    //})
-                    origin: '50% 50%',
-                    transform: 'rotate(45)'
-                }),
-                React.createElement('text', {
-                    className: 'barTitle',
-                    x: this.state.startDate * GCMediator.getState().cellCapacity + this.state.duration * GCMediator.getState().cellCapacity,
-                    y: this.state.position
-                }, this.props.data.name)
-            )
-        } else if (this.state.type === 'project') {
-            element = React.createElement('g', {
-                onMouseEnter: this.handleRectHover.bind(this),
-                onMouseOut: this.clearTempElements.bind(this),
-                onMouseDown: this.startBarUpdate.bind(this),
-                onContextMenu: this.contextMenu.bind(this),
-                onDoubleClick: this.showModalWindow.bind(this),
-                onClick: this.startTaskSelection.bind(this),
-                y: this.state.position + 4,
-                x: this.state.startDate * GCMediator.getState().cellCapacity
-            },
-                React.createElement('rect', {
-                    className: 'projectBody',
-                    id: this.props.data.id,
-                    y: this.state.position + 4,
-                    x: this.state.startDate * GCMediator.getState().cellCapacity,
-                    width: this.state.duration * GCMediator.getState().cellCapacity
-                    //transform: 'rotate(45)'
-                }),
-                React.createElement('text', {
-                    className: 'barTitle',
-                    x: this.state.startDate * GCMediator.getState().cellCapacity + this.state.duration * GCMediator.getState().cellCapacity,
-                    y: this.state.position
-                }, this.props.data.name)
-            )
-        }
-
-        return element
     }
 }

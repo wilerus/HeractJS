@@ -5,11 +5,13 @@ import DOM = require('react-dom')
 
 import {TaskBar} from './TaskBar'
 import {TaskLink} from './TaskLink'
-import {InfoPopup} from './InfoPopup'
-import {ModalWindow} from './ModalWindow'
+import {InfoPopup} from './Popups/InfoPopup'
+import {ActionChartPopup} from './Popups/ActionChartPopup'
+import {ActionTasklinePopup} from './Popups/ActionTasklinePopup'
+import {ModalWindow} from './Popups/ModalWindow'
 import {Timeline}  from './Timeline'
 import {GanttToolbar}  from './Toolbar'
-import {TaskLineView}  from './TaskLine'
+import {TaskLineView}  from './Taskline/TaskLine'
 import {AppMediator} from '../../scripts/services/AppMediator'
 
 let GCMediator: any = AppMediator.getInstance()
@@ -319,13 +321,18 @@ export class ChartView extends React.Component<any, any> {
                 React.createElement(InfoPopup, {
                     ref: 'infoPopup'
                 }),
+                React.createElement(ActionChartPopup, {
+                    ref: 'actionChartPopup'
+                }),
+                React.createElement(ActionTasklinePopup, {
+                    ref: 'actionTasklinePopup'
+                }),
                 React.createElement(ModalWindow, {
                     ref: 'modalWindow'
                 }),
                 React.createElement('svg', {
                     className: 'ganttChartView',
-                    id: 'ganttChartView',
-                    transform: 'translate(0, 0)'
+                    id: 'ganttChartView'
                 },
                     React.createElement('marker', {
                         id: 'triangle',
@@ -389,9 +396,9 @@ export class Initializer {
             type: 'setGanttToolbar',
             data: toolbar
         })
-        //GCMediator.dispatch({
-        //    type: 'setGantttTaskLine',
-        //    data: taskLine
-        //})
+        GCMediator.dispatch({
+            type: 'setGantttTaskLine',
+            data: taskLine
+        })
     }
 }

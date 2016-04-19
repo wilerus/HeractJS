@@ -206,6 +206,49 @@
     border: none;
 }
 
+.infoPopupText {
+    width: 100%;
+    height: 20px;
+    padding: 5px;
+}
+/*Action popup*/
+
+.actionPopup {
+    position: fixed;
+    width: 200px;
+    height: 150px;
+    background-color: white;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    z-index: 210;
+    display: none;
+}
+
+.actionPopupTitle {
+    width: 100%;
+    height: 22px;
+    text-align: center;
+    padding: 0;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    color: white;
+    background-color: #299cb4;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.6) !important;
+}
+.addToTasklineButton {
+    height: 22px;
+    width: 100%;
+    margin-top: 3px;
+    text-align: center;
+    background-color: white;
+    border: none;
+    color: black;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
+    vertical-align: top;
+    z-index: 220;
+}
+/*modalWindow*/
+
 .modalWindowTitle {
     box-shadow: 0 0 3px rgb(0,0,0);
     flex: none;
@@ -225,12 +268,6 @@
     z-index: 1;
 }
 
-.infoPopupText {
-    width: 100%;
-    height: 20px;
-    padding: 5px;
-}
-/*modalWindow*/
 .modalWindowWrapper {
     position: fixed;
     width: 100%;
@@ -293,6 +330,7 @@
     position: absolute;
     float: none;
 }
+/*-------- modalWindow -----------*/
 
 .GCInputLabel {
     width: 90px;
@@ -349,9 +387,10 @@
 }
 /*------ Toolbar style ----*/
 .tasklineContainer {
-    width: 3000px;
+    width: auto;
     height: 160px;
     background-color: white;
+    line-height: 0;
 }
 
 .taskLineCallouts {
@@ -363,17 +402,24 @@
 .tasklineTimeline {
     width: 3000px;
     height: 25px;
-    background-color: rgb(77,185,202);
 }
 
 .tasklineBars {
     width: 3000px;
     height: 60px;
-    background-color: rgb(97,205,222);
+    border:1px solid rgb(200,200,200);
 }
 
 .tasklineMilestones {
     width: 3000px;
     height: 40px;
-    background-color: rgb(117,225,242);
+}
+
+.js-module-gantt-taskline {
+    overflow: auto;
+        z-index: 115;
+}
+
+.tasklineTimeLineText {
+    color: black;
 }

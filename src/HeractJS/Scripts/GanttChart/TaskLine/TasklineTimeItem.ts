@@ -38,7 +38,7 @@ export class TasklineTimeItem extends React.Component<any, any> {
                 fill: 'none'
             }),
             React.createElement('text', {
-                className: 'timeLineText',
+                className: 'tasklineTimeLineText',
                 x: this.state.marginLeft + this.state.width * 0.5,
                 y: 20
             }, this.state.text)
