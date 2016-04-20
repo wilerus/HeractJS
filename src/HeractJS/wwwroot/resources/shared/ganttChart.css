@@ -28,7 +28,7 @@
 /* Bar chart */
 .barChartBody {
     position: absolute;
-    height: 14px;
+    height: 15px;
     fill: rgba(150,200,150,0.5);
     stroke-width: 2px;
     stroke: rgb(100,170,100);
@@ -39,8 +39,12 @@
     fill: rgba(80,80,220,0.5);
     stroke-width: 2px;
     stroke: rgb(80, 80, 220);
-    height: 20px;
+    height: 15px;
+    width: 15px;
+    transform-origin: 50% 50%;
+    transform: rotateZ(45deg);
 }
+
 .projectBody {
     position: absolute;
     stroke-width: 2px;
@@ -50,7 +54,7 @@
 }
 .barChartFillBody {
     position: absolute;
-    height: 12px;
+    height: 13px;
     fill: rgb(100,170,100);
 }
 
@@ -71,7 +75,22 @@
     stroke-width: 1px;
     stroke: rgb(80,80,220);
 }
+/* ------ barSelectBody -------*/
+.barSelectBody {
+    position: absolute;
+    height: 22px;
+    width: 100%;
+    fill: white;
+    stroke-width: 1px;
+    stroke: rgb(235,235,235);
+}
 
+.barSelected {
+    height: 22px;
+    fill: rgb(240,240,240);
+    stroke: rgb(200,200,200);
+}
+/* ------ ------------- -------*/
 .ganttChartView {
     user-select: none;
     width: 3000px;
@@ -100,21 +119,12 @@
     height: 100%;
 }
 
-.barSelected {
-    stroke: rgb(100, 0, 20);
-    stroke-width: 1px;
-}
-
-.barExchanging {
-    opacity: 0.5;
-}
-
 .js-module-gantt-toolbar {
     width: 100vw;
-    height: 40px;
+    height: 26px;
     position: relative;
     background-color: #299cb4;
-    box-shadow: 0 0 8px rgba(0, 0, 0,0.8);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
     z-index: 110;
 }
 
@@ -128,19 +138,6 @@
 }
 
 /* Bar chart */
-
-.group1 {
-    stroke: rgb(120,190,120);
-}
-
-.group2 {
-    stroke: rgb(120,190,120);
-}
-
-.group3 {
-    stroke: rgb(120,190,120);
-}
-
 .ganttTimeline {
     width: 3000px;
     height: 49px;
@@ -156,13 +153,14 @@
     overflow-y: hidden;
     height: 49px;
     flex: none;
+    z-index: 90;
     box-shadow: 0 0 8px rgba(0, 0, 0,0.8);
 }
 
-    .timelineContainer::-webkit-scrollbar {
-        width: 0 !important;
-        height: 0 !important;
-    }
+.timelineContainer::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+}
 
 .timeLineText {
     font-size: 11px;
@@ -373,17 +371,19 @@
 }
 
 .toolbarButton {
-    height: 34px;
-    width: 90px;
+    height: 20px;
+    width: 100px;
     margin: 10px;
     margin-top: 3px;
     text-align: center;
-    background-color: rgb(37,145,162);
+    background-color: transparent;
     border: none;
     color: white;
-    box-shadow: 0 0 3px rgba(0, 0, 0,0.6);
-    text-shadow: 1px 1px 2px rgb(0, 0, 0);
     vertical-align: top;
+}
+.toolbarButton:hover {
+    cursor: pointer;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6) !important;
 }
 /*------ Toolbar style ----*/
 .tasklineContainer {
@@ -407,7 +407,8 @@
 .tasklineBars {
     width: 3000px;
     height: 60px;
-    border:1px solid rgb(200,200,200);
+    border-top:1px solid rgb(200,200,200);
+    border-bottom:1px solid rgb(200,200,200);
 }
 
 .tasklineMilestones {
@@ -417,7 +418,10 @@
 
 .js-module-gantt-taskline {
     overflow: auto;
-        z-index: 115;
+    z-index: 105;
+    position: relative;
+    background-color: white;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .tasklineTimeLineText {

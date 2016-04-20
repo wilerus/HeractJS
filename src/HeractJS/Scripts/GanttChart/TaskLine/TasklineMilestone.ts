@@ -177,7 +177,7 @@ export class TasklineMilestone extends React.Component<any, any> {
                         data: {
                             duration: this.state.duration,
                             completeDate: this.state.completeDate,
-                            position: this.state.position 
+                            position: this.state.position
                         }
                     })
                 }.bind(this)
@@ -192,7 +192,7 @@ export class TasklineMilestone extends React.Component<any, any> {
                         data: {
                             duration: this.state.duration,
                             startDate: this.state.startDate,
-                            position: this.state.position 
+                            position: this.state.position
                         }
                     })
                 }.bind(this)
@@ -443,20 +443,26 @@ export class TasklineMilestone extends React.Component<any, any> {
             onClick: this.startTaskSelection.bind(this)
         },
             React.createElement('rect', {
-                // main element
-                className: 'barChartBody',
+                className: 'milestoneBody',
                 id: this.props.data.id,
-               // y: this.state.position + 4,
                 x: this.state.startDate * this.state.columnWidth,
-                width: this.state.duration * this.state.columnWidth,
+                y: 3,
                 rx: 3,
                 ry: 3
             }),
+            React.createElement('line', {
+                x1: this.state.startDate * this.state.columnWidth + 7.5,
+                y1: 20,
+                x2: this.state.startDate * this.state.columnWidth + 7.5,
+                y2: 30,
+                strokeWidth: 1,
+                stroke: 'rgb(120,120,120)'
+            }),
             React.createElement('text', {
                 className: 'barTitle',
-                x: this.state.startDate * this.state.columnWidth + this.state.duration * this.state.columnWidth
-               // y: this.state.position
-            }, this.props.data.name)
+                x: this.state.startDate * this.state.columnWidth + this.state.duration * this.state.columnWidth,
+                y: 40
+            }, 'This will be date')
         )
 
     }

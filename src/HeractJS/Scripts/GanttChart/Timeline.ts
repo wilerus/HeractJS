@@ -31,8 +31,7 @@ export class Timeline extends React.Component<any, any> {
                 y: this.state.top,
                 x: this.state.marginLeft,
                 width: this.state.width,
-                height: 25,
-                stroke: '#dfe4e8',
+                height: 20,
                 //strokeDasharray: '0, 90, 60, 90',
                 strokeWidth: 0.5,
                 fill: 'none'

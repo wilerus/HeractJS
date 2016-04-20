@@ -61,7 +61,7 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     private startTaskSelection() {
-        if (!GCMediator.getState().isDragging) {
+        if (!GCMediator.getState().isDragging && !GCMediator.getState().isPanning) {
             if (GCMediator.getState().selectedTasks[0]) {
                 GCMediator.dispatch({ type: 'deselectAllTasks' })
             }
@@ -130,9 +130,8 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     private startBarUpdate(event: MouseEvent) {
-        document.onmousemove = null
-        if (event.button !== 2) {
-            let eventTarget: any = event.target
+        let eventTarget: any = event.target
+        if (event.button !== 2 && eventTarget.classList[0] !== 'barSelectBody') {
             let parentElement: any = null
             let parentCoords: any = null
             if (eventTarget.getAttribute('class') === 'barChartFillBody') {
@@ -314,7 +313,7 @@ export class TaskBar extends React.Component<any, any> {
                 }.bind(this, hoverElement), 500)
 
                 document.onmousemove = (event) => {
-                    let clickCoordX = event.clientX
+                    const clickCoordX = event.clientX
                     if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
                         el.style.cursor = 'move'
                     } else if (clickCoordX > elementRect.right - 15) {
@@ -338,9 +337,8 @@ export class TaskBar extends React.Component<any, any> {
     private clearTempElements(event: Event) {
         const currentState = GCMediator.getState()
 
-        currentState.ganttChartView.refs.infoPopup.hide()
-
-        if (!currentState.isDragging) {
+        if (!currentState.isDragging && !currentState.isPanning) {
+            currentState.ganttChartView.refs.infoPopup.hide()
             document.onmousemove = null
             document.onmouseup = null
             const eventTarget: any = event.target
@@ -380,6 +378,7 @@ export class TaskBar extends React.Component<any, any> {
         const modalWindow = currentState.ganttChartView.refs.modalWindow
 
         currentState.ganttChartView.refs.infoPopup.hide()
+        currentState.ganttChartView.refs.actionChartPopup.hide()
         modalWindow.show()
 
         modalWindow.setState({
@@ -423,8 +422,11 @@ export class TaskBar extends React.Component<any, any> {
 
     public static selectTask(taskId: string) {
         const selectedElement = document.getElementById(taskId)
-        if (selectedElement && selectedElement.tagName === 'rect') {
-            selectedElement.setAttribute('class', 'barChartBody barSelected')
+        if (selectedElement && selectedElement.getAttribute('class') !== 'barSelectBody') {
+            const parent = selectedElement.parentNode as any
+            const selectingElement = parent.getElementsByClassName('barSelectBody')[0]
+
+            selectingElement.setAttribute('class', 'barSelectBody barSelected')
         }
     }
 
@@ -437,10 +439,17 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     public static deselectAllTasks(tasks: any) {
+        const currentState = GCMediator.getState()
+
+        currentState.ganttChartView.refs.infoPopup.hide()
+        currentState.ganttChartView.refs.actionChartPopup.hide()
         for (let i = 0; i < tasks.length; i++) {
             const selectedElement = document.getElementById(tasks[i])
-            if (selectedElement && selectedElement.tagName === 'rect') {
-                selectedElement.setAttribute('class', 'barChartBody')
+            if (selectedElement && selectedElement.getAttribute('class') !== 'barSelectBody') {
+                const parent = selectedElement.parentNode as any
+                const selectingElement = parent.getElementsByClassName('barSelectBody')[0]
+
+                selectingElement.setAttribute('class', 'barSelectBody')
             }
         }
     }
@@ -457,8 +466,12 @@ export class TaskBar extends React.Component<any, any> {
                 onDoubleClick: this.showModalWindow.bind(this),
                 onClick: this.startTaskSelection.bind(this)
             },
+                React.createElement('rect', { // progress element
+                    className: 'barSelectBody',
+                    y: this.state.position,
+                    x: 0
+                }),
                 React.createElement('rect', {
-                    // main element
                     className: 'barChartBody',
                     id: this.props.data.id,
                     y: this.state.position + 4,
@@ -469,7 +482,6 @@ export class TaskBar extends React.Component<any, any> {
                 }),
                 React.createElement('rect', { // progress element
                     className: 'barChartFillBody',
-                    group: this.props.data.barClass,
                     y: this.state.position + 5,
                     x: (this.state.startDate) * GCMediator.getState().cellCapacity + 1,
                     width: this.state.progress * this.state.duration * GCMediator.getState().cellCapacity / 100 - 2
@@ -482,29 +494,27 @@ export class TaskBar extends React.Component<any, any> {
             )
         } else if (this.state.type === 'milestone') {
             element = React.createElement('g', {
-                    onMouseEnter: this.handleRectHover.bind(this),
-                    onMouseOut: this.clearTempElements.bind(this),
-                    onMouseDown: this.startBarUpdate.bind(this),
-                    onContextMenu: this.contextMenu.bind(this),
-                    onDoubleClick: this.showModalWindow.bind(this),
-                    onClick: this.startTaskSelection.bind(this),
-                    y: this.state.position + 4,
-                    x: this.state.startDate * GCMediator.getState().cellCapacity
+                onMouseEnter: this.handleRectHover.bind(this),
+                onMouseOut: this.clearTempElements.bind(this),
+                onMouseDown: this.startBarUpdate.bind(this),
+                onContextMenu: this.contextMenu.bind(this),
+                onDoubleClick: this.showModalWindow.bind(this),
+                onClick: this.startTaskSelection.bind(this),
+                y: this.state.position + 4,
+                x: this.state.startDate * GCMediator.getState().cellCapacity
             },
+                React.createElement('rect', {
+                    className: 'barSelectBody',
+                    y: this.state.position,
+                    x: 0
+                }),
                 React.createElement('rect', {
                     className: 'milestoneBody',
                     id: this.props.data.id,
                     y: this.state.position + 4,
                     x: this.state.startDate * GCMediator.getState().cellCapacity,
-                    width: 20,
-                   // transform: 'translate(34,34) rotate(45)'
-
-                    //transform: ({
-                    //    rotateX: '-35deg',
-                    //    rotateY: '45deg'
-                    //})
-                    origin: '50% 50%',
-                    transform: 'rotate(45)'
+                    rx: 3,
+                    ry: 3
                 }),
                 React.createElement('text', {
                     className: 'barTitle',
@@ -523,13 +533,17 @@ export class TaskBar extends React.Component<any, any> {
                 y: this.state.position + 4,
                 x: this.state.startDate * GCMediator.getState().cellCapacity
             },
+                React.createElement('rect', { // progress element
+                    className: 'barSelectBody',
+                    y: this.state.position,
+                    x: 0
+                }),
                 React.createElement('rect', {
                     className: 'projectBody',
                     id: this.props.data.id,
-                    y: this.state.position + 4,
+                    y: this.state.position + 10,
                     x: this.state.startDate * GCMediator.getState().cellCapacity,
                     width: this.state.duration * GCMediator.getState().cellCapacity
-                    //transform: 'rotate(45)'
                 }),
                 React.createElement('text', {
                     className: 'barTitle',

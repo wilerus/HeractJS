@@ -192,6 +192,7 @@ export class AppMediator {
                     action.data = newState.selectedTasks
                     newState.selectedTasks = []
                 }
+                isHistoryNeed = true
                 break
 
             case 'deselectTask':
@@ -293,14 +294,14 @@ export class AppMediator {
                         }
                     })
                 }
-
+                action.data = '123'
                 isHistoryNeed = true
                 break
 
             default:
                 return state
         }
-        if (isHistoryNeed) {
+        if (isHistoryNeed && action.data !== undefined) {
             newState.history.push({
                 type: action.type,
                 data: action.data
@@ -318,9 +319,8 @@ export class AppMediator {
             items: ChartData.ganttBars,
             timeLine: ChartData.timelineWeek,
 
-            taskline: ChartData.taskline,
             tasklineTimeItems: ChartData.timelineMonthMin,
-            tasklineTasks: [],
+            tasklineTasks: ChartData.tasklineTasks,
             tasklineMilestones: [],
             tasklineCallouts: [],
             tasklineCellCapacity: 54 / 72,

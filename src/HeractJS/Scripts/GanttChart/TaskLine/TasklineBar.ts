@@ -177,7 +177,7 @@ export class TasklineBar extends React.Component<any, any> {
                         data: {
                             duration: this.state.duration,
                             completeDate: this.state.completeDate,
-                            position: this.state.position 
+                            position: this.state.position
                         }
                     })
                 }.bind(this)
@@ -192,7 +192,7 @@ export class TasklineBar extends React.Component<any, any> {
                         data: {
                             duration: this.state.duration,
                             startDate: this.state.startDate,
-                            position: this.state.position 
+                            position: this.state.position
                         }
                     })
                 }.bind(this)

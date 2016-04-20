@@ -56,11 +56,9 @@ export class ChartView extends React.Component<any, any> {
             if (this.state.isCtrlPressed) {
                 this.updateTimeline()
             } else {
-                debugger;
                 const currentScroll = GCMediator.getState().scrollPosition
                 let scrollPosition = Math.round(event.deltaY / 22) + currentScroll
-
-                if (scrollPosition < 0 && currentScroll !== 0) {
+                if (scrollPosition <= 0 && currentScroll !== 0) {
                     scrollPosition = 0
                 }
 
@@ -140,17 +138,21 @@ export class ChartView extends React.Component<any, any> {
         })
         document.getElementById('ganttChart').onmousedown = (event: MouseEvent) => {
             const eventTarget = event.target as any
-            if (eventTarget.id === 'gridPattern') {
+            if (eventTarget.tagName !== 'BUTTON') {
                 const view: any = document.getElementById('ganttChart')
                 const timeline: any = document.getElementById('timelineContainer')
                 const startScroll = view.scrollLeft
                 const startPoint = event.pageX
-
-                GCMediator.dispatch({ type: 'deselectAllTasks' })
-                GCMediator.dispatch({ type: 'startPanning' })
-                document.body.style.webkitUserSelect = 'none'
-
+                const currentState = GCMediator.getState()
+                event.stopPropagation()
+                event.stopImmediatePropagation()
+                event.preventDefault()
                 document.onmousemove = (event: MouseEvent) => {
+                    if (!currentState.isPanning) {
+                        //GCMediator.dispatch({ type: 'deselectAllTasks' })
+                        GCMediator.dispatch({ type: 'startPanning' })
+                        document.body.style.webkitUserSelect = 'none'
+                    }
                     view.scrollLeft = startPoint - event.pageX + startScroll
                     timeline.scrollLeft = startPoint - event.pageX + startScroll
                 }
@@ -347,25 +349,6 @@ export class ChartView extends React.Component<any, any> {
                         React.createElement('path', {
                             d: 'M 0 0 L 40 0 L 20 20 z'
                         })),
-                    React.createElement('pattern', {
-                        id: 'grid',
-                        width: this.state.columnWidth,
-                        height: 22,
-                        patternUnits: 'userSpaceOnUse'
-                    },
-                        React.createElement('rect', {
-                            width: this.state.columnWidth,
-                            height: 22,
-                            fill: 'url(#smallGrid)',
-                            stroke: '#dfe4e8',
-                            strokeWidth: '1'
-                        })),
-                    React.createElement('rect', {
-                        id: 'gridPattern',
-                        width: '100%',
-                        height: '100%',
-                        fill: 'url(#grid)'
-                    }),
                     //React.createElement('ReactCSSTransitionGroup', {
                     //    width: '1000px',
                     //    height: '1000px',

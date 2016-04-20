@@ -2,10 +2,12 @@
 
 import {TasklineTimeItem}  from './TasklineTimeItem'
 import {TasklineBar}  from './TasklineBar'
+import {TasklineMilestone}  from './TasklineMilestone'
 import {AppMediator} from '../../../scripts/services/AppMediator'
 let GCMediator: any = AppMediator.getInstance()
 
 export class TaskLineView extends React.Component<any, any> {
+
     constructor() {
         super()
         this.state = {
@@ -57,6 +59,7 @@ export class TaskLineView extends React.Component<any, any> {
 
     public render() {
         const tasklineTimeline = this.state.TasklineTimeItems.map((timeLineItem: any) => {
+            timeLineItem.id += 'TLI'
             return React.createElement(TasklineTimeItem, {
                 key: timeLineItem.id,
                 data: timeLineItem
@@ -64,6 +67,7 @@ export class TaskLineView extends React.Component<any, any> {
         })
 
         const tasklineBars = this.state.tasklineTasks.map((timeLineItem: any) => {
+            timeLineItem.id += 'TLI'
             return React.createElement(TasklineBar, {
                 key: timeLineItem.id,
                 data: timeLineItem
@@ -71,15 +75,17 @@ export class TaskLineView extends React.Component<any, any> {
         })
 
         const tasklineMilestones = this.state.tasklineMilestones.map((timeLineItem: any) => {
-            return React.createElement(TasklineBar, {
+            timeLineItem.id += 'TLI'
+            return React.createElement(TasklineMilestone, {
                 key: timeLineItem.id,
                 data: timeLineItem
             })
         })
 
         const tasklineCallouts = this.state.tasklineCallouts.map((timeLineItem: any) => {
+            timeLineItem.id += 'TLI'
             return React.createElement(TasklineBar, {
-                key: timeLineItem.id,
+                key: timeLineItem.id + 'TLI',
                 data: timeLineItem
             })
         })

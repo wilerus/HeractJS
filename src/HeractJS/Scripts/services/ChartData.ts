@@ -15,8 +15,8 @@ export class ChartData {
     public static timelineDayMin: Object[] = []
     public static timelineYearMin: Object[] = []
 
-    public static ganttBars: Object[] = []
-    public static taskline: Object[] = []
+    public static ganttBars: any[] = []
+    public static tasklineTasks: Object[] = []
 
     public weekData: string[] = [
         'Monday',
@@ -53,29 +53,45 @@ export class ChartData {
     ]
 
     constructor() {
-        for (var i = 0; i < this.amountOfElements; i++) {
-            let type = '123'
+        let type: string = ''
+        let text: string = ''
+        let projectCount: number = 1
+        let taskCount: number = 1
+        let milestoneCount: number = 1
+        let duration = 40
+        let topMargin: number = 0
+        let leftMargin: number = 0
+        let link: Object = null
+        for (let i = 0; i < this.amountOfElements; i++) {
+            leftMargin = 40 * (i - projectCount + 1)
+
             if (i % 10 === 0) {
-                this.counter++;
-                type =  'project'
+                type = 'project'
+                text = `Project ${projectCount}`
+                duration = 360
+                if (i !== 0) {
+                    ChartData.ganttBars[i - 1].link = null
+                }
+                projectCount++
             } else if (i % 4 === 0) {
-                this.counter++;
                 type = 'milestone'
+                duration = 20
+                text = `Milestone ${milestoneCount}`
+                milestoneCount++
             } else {
                 type = 'task'
+                text = `Task ${taskCount}`
+                duration = 40
+                taskCount++
             }
 
-            let duration = 40
-
-            if (type === 'project') {
-                duration = 400
-            } else if (type === 'milestone'){
-                duration = 20
+            link = {
+                id: `link${i}`,
+                to: type === 'project' ? `bar${i + 10}` : `bar${i + 1}`,
+                type: 'finichToStart'
             }
 
-        let topMargin: number = 22 * i
-        let text = i % 5 === 0 ? `Milestone ${this.counter + 1}` : `Task ${i + 1}`
-        let leftMargin = 40 * i
+            topMargin = 22 * i
 
             ChartData.ganttBars.push({
                 id: `bar${i}`,
@@ -87,17 +103,12 @@ export class ChartData {
                 finishDate: leftMargin,
                 position: topMargin,
                 type: type,
-                link: {
-                    id: `link${i}`,
-                    to: type === 'project' ? `bar${i + 10}`: `bar${i + 1}`,
-                    type: 'finichToStart'
-                }
+                link: link
             });
 
-            if (i % 5 === 0) {
-                ChartData.taskline.push(ChartData.ganttBars[i])
+            if (taskCount % 3 === 0 && taskCount < 100) {
+                ChartData.tasklineTasks.push(ChartData.ganttBars[i])
             }
-
         }//gantt bar config
 
         for (let i = 0; i <= 10; i++) {
@@ -106,7 +117,6 @@ export class ChartData {
                 text: `Week${i}`,
                 style: {
                     top: 0,
-                    height: 25,
                     width: 508,
                     marginLeft: 508 * i
                 }
@@ -117,8 +127,7 @@ export class ChartData {
                     id: `timelineWeekM${n}${i}`,
                     text: this.weekData[n],
                     style: {
-                        top: 25,
-                        height: 25,
+                        top: 20,
                         width: 72,
                         marginLeft: 508 * i + 72 * n
                     }
@@ -133,7 +142,6 @@ export class ChartData {
                 text: this.monthData[i],
                 style: {
                     top: 0,
-                    height: 25,
                     width: 594,
                     marginLeft: 594 * i
                 }
@@ -144,8 +152,7 @@ export class ChartData {
                     id: `timelineMonthM${this.monthData[i] + n}`,
                     text: (n * 3).toString(),
                     style: {
-                        top: 25,
-                        height: 25,
+                        top: 20,
                         width: 54,
                         marginLeft: 594 * i + 54 * n
                     }
@@ -160,7 +167,6 @@ export class ChartData {
                 text: this.weekData[i],
                 style: {
                     top: 0,
-                    height: 25,
                     width: 480,
                     marginLeft: 480 * i
                 }
@@ -171,8 +177,7 @@ export class ChartData {
                     id: `timelineDay${n}${i}`,
                     text: `H${n * 3}`,
                     style: {
-                        top: 25,
-                        height: 25,
+                        top: 20,
                         width: 60,
                         marginLeft: 480 * i + 60 * n
                     }
@@ -188,7 +193,6 @@ export class ChartData {
                 text: this.yearData[i],
                 style: {
                     top: 0,
-                    height: 25,
                     width: 648,
                     marginLeft: 648 * i
                 }
@@ -199,8 +203,7 @@ export class ChartData {
                     id: `timelineYearM${n}${i}`,
                     text: this.monthData[n],
                     style: {
-                        top: 25,
-                        height: 25,
+                        top: 20,
                         width: 54,
                         marginLeft: 600 * i + 54 * n
                     }
