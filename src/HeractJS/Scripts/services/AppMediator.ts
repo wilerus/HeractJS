@@ -85,7 +85,7 @@ export class AppMediator {
                 const newData = action.data
                 // const newDataLength = newData.length
                 for (let prop in newData) {
-                    newState.items[action.data.position / 22][prop] = newData[prop]
+                    newState.items[action.data.position / 24][prop] = newData[prop]
                 }
                 isHistoryNeed = true
                 break

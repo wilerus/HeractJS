@@ -144,9 +144,7 @@ export class ChartView extends React.Component<any, any> {
                 const startScroll = view.scrollLeft
                 const startPoint = event.pageX
                 const currentState = GCMediator.getState()
-                event.stopPropagation()
-                event.stopImmediatePropagation()
-                event.preventDefault()
+
                 document.onmousemove = (event: MouseEvent) => {
                     if (!currentState.isPanning) {
                         //GCMediator.dispatch({ type: 'deselectAllTasks' })

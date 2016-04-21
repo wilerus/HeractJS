@@ -29,8 +29,7 @@
 .barChartBody {
     position: absolute;
     height: 15px;
-    fill: rgba(150,200,150,0.5);
-    stroke-width: 2px;
+    fill: rgb(160, 230, 160);
     stroke: rgb(100,170,100);
 }
 
@@ -49,7 +48,6 @@
     position: absolute;
     stroke-width: 2px;
     stroke: rgb(40, 40, 100);
-    /**/
     height: 2px;
 }
 .barChartFillBody {
@@ -61,16 +59,24 @@
 .barTitle {
     fill: black;
     height: 14px;
-    text-align: center;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    text-anchor: middle;
     pointer-events: none;
     text-shadow: 0 0 4px rgba(255, 255, 255, 0.5) !important;
 }
-
+.taskLineTaskTitle {
+    fill: black;
+    height: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.5) !important;
+    overflow: hidden;
+}
 .barOver {
     stroke-width: 1px;
     stroke: rgb(80,80,220);
@@ -78,15 +84,16 @@
 /* ------ barSelectBody -------*/
 .barSelectBody {
     position: absolute;
-    height: 22px;
+    height: 23px;
     width: 100%;
     fill: white;
     stroke-width: 1px;
     stroke: rgb(235,235,235);
+    transition: stroke 0.2s, fill 0.2s;
 }
 
 .barSelected {
-    height: 22px;
+    height: 23px;
     fill: rgb(240,240,240);
     stroke: rgb(200,200,200);
 }
@@ -180,6 +187,7 @@
     z-index: 210;
     display: none;
     pointer-events: none;
+    transition: top 0.3s;
 }
 
 .infoPopupTitle {
@@ -385,7 +393,41 @@
     cursor: pointer;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6) !important;
 }
-/*------ Toolbar style ----*/
+.toolbarButtonFixed {
+    height: 20px;
+    width: 100px;
+    margin-top: 3px;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    color: white;
+    vertical-align: top;
+    float: right;
+    margin-right: 330px;
+}
+.viewModeSelector {
+    position: fixed;
+    width: 200px;
+    height: 150px;
+    background-color: white;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    z-index: -1;
+    opacity: 0;
+    transition: top .2s, opacity .2s;
+    top: 30px;
+    right: 25px;
+    padding: 5px;
+}
+.toolbarCheckbox {
+    display:inline-block !important;
+    width:19px;
+    height:19px;
+    margin-bottom: 20px !important;
+    background-color:black;
+    -webkit-appearance: checkbox !important;
+    float: right;
+}
+/*------ ------- ----*/
 .tasklineContainer {
     width: auto;
     height: 160px;
@@ -422,8 +464,17 @@
     position: relative;
     background-color: white;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    height: 166px;
+    transition: height 0.2s;
 }
 
 .tasklineTimeLineText {
     color: black;
+}
+.js-module-region-right {
+    transition: width 0.2s;
+}
+
+.js-module-region-left {
+    transition: width 0.2s;
 }

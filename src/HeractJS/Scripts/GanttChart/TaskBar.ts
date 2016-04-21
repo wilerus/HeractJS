@@ -131,6 +131,7 @@ export class TaskBar extends React.Component<any, any> {
 
     private startBarUpdate(event: MouseEvent) {
         let eventTarget: any = event.target
+
         if (event.button !== 2 && eventTarget.classList[0] !== 'barSelectBody') {
             let parentElement: any = null
             let parentCoords: any = null
@@ -303,23 +304,31 @@ export class TaskBar extends React.Component<any, any> {
             if (!currentState.isDragging) {
                 const el = DOM.findDOMNode(this) as any
                 const elementRect = eventTarget.getBoundingClientRect()
-                const hoverElement = event.target as any
+                let hoverElement = event.target as any
+                if (hoverElement.classList[0] === 'barSelectBody') {
+                    hoverElement = hoverElement.parentNode.getElementsByClassName('barChartBody')[0] ||
+                        hoverElement.parentNode.getElementsByClassName('milestoneBody')[0] ||
+                        hoverElement.parentNode.getElementsByClassName('projectBody')[0]
+                }
+                if (hoverElement) {
+                    setTimeout(function (hoverElement) {
+                        const currentHoverElement = hoverElement.parentElement.querySelector(':hover')
+                        if (currentHoverElement && (currentHoverElement === hoverElement ||
+                            currentHoverElement.classList[0] === 'barSelectBody') &&
+                            !GCMediator.getState().isCurrentlyDragging) {
+                            this.showInfoPopup(hoverElement)
+                        }
+                    }.bind(this, hoverElement), 500)
 
-                setTimeout(function (hoverElement) {
-                    if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
-                        !GCMediator.getState().isCurrentlyDragging) {
-                        this.showInfoPopup(hoverElement)
-                    }
-                }.bind(this, hoverElement), 500)
-
-                document.onmousemove = (event) => {
-                    const clickCoordX = event.clientX
-                    if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
-                        el.style.cursor = 'move'
-                    } else if (clickCoordX > elementRect.right - 15) {
-                        el.style.cursor = 'e-resize'
-                    } else if (clickCoordX < elementRect.left + 15) {
-                        el.style.cursor = 'e-resize'
+                    document.onmousemove = (event) => {
+                        const clickCoordX = event.clientX
+                        if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
+                            el.style.cursor = 'move'
+                        } else if (clickCoordX > elementRect.right - 15) {
+                            el.style.cursor = 'e-resize'
+                        } else if (clickCoordX < elementRect.left + 15) {
+                            el.style.cursor = 'e-resize'
+                        }
                     }
                 }
             } else if (this !== currentState.draggingElement && this !== currentState.dropTarget) {

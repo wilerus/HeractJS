@@ -2,6 +2,7 @@
 
 import {AppMediator} from '../../scripts/services/AppMediator'
 let GCMediator: any = AppMediator.getInstance()
+let br = React.createFactory('br');
 
 export class GanttToolbar extends React.Component<any, any> {
     constructor() {
@@ -73,6 +74,65 @@ export class GanttToolbar extends React.Component<any, any> {
     private showHistoryActions() {
         document.getElementById('undoButton').style.display = 'initial'
         document.getElementById('redoButton').style.display = 'initial'
+    }
+    private showViewModeDropdown() {
+        document.getElementById('viewModeSelector').style.opacity = '1'
+        document.getElementById('viewModeSelector').style.top = '62px'
+    }
+
+    private setGridVisibility(event: Event) {
+        if (event.currentTarget.checked) {
+            if (!document.getElementById('chartCheckbox').checked) {
+                document.getElementsByClassName('js-module-region-left')[0].style.width = '100%'
+                document.getElementsByClassName('content-wrapper')[0].style.height = '100%'
+                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px'
+            } else {
+                document.getElementsByClassName('js-module-region-left')[0].style.width = '40%'
+                document.getElementsByClassName('js-module-region-right')[0].style.width = '60%'
+            }
+        } else {
+            if (!document.getElementById('chartCheckbox').checked) {
+                document.getElementsByClassName('content-wrapper')[0].style.height = 0
+                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '100%'
+            } else {
+                document.getElementsByClassName('js-module-region-left')[0].style.width = '0'
+                document.getElementsByClassName('js-module-region-right')[0].style.width = '100%'
+                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px'
+                document.getElementsByClassName('content-wrapper')[0].style.height = '100%'
+            }
+        }
+    }
+
+    private setChartVisibility(event: Event) {
+        if (event.currentTarget.checked) {
+            if (!document.getElementById('gridCheckbox').checked) {
+                document.getElementsByClassName('js-module-region-right')[0].style.width = '100%'
+                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px'
+                document.getElementsByClassName('content-wrapper')[0].style.height = '100%'
+            } else {
+                document.getElementsByClassName('js-module-region-left')[0].style.width = '40%'
+                document.getElementsByClassName('js-module-region-right')[0].style.width = '60%'
+            }
+        } else {
+            if (!document.getElementById('gridCheckbox').checked) {
+                document.getElementsByClassName('content-wrapper')[0].style.height = 0
+                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '100%'
+            } else {
+                document.getElementsByClassName('js-module-region-right')[0].style.width = '0'
+                document.getElementsByClassName('js-module-region-left')[0].style.width = '100%'
+                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px'
+                document.getElementsByClassName('content-wrapper')[0].style.height = '100%'
+            }
+        }
+
+    }
+
+    private setTimelineVisibility(event: Event) {
+        if (event.currentTarget.checked) {
+            document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px'
+        } else {
+            document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '0'
+        }
     }
 
     private undo() {
@@ -176,7 +236,38 @@ export class GanttToolbar extends React.Component<any, any> {
                 className: 'toolbarButton',
                 id: 'reopenTaskButton',
                 onClick: this.reopenTask.bind(this)
-            }, 'Reopen task')
+            }, 'Reopen task'),
+            React.createElement('button', {
+                className: 'toolbarButtonFixed',
+                id: 'viewModeOpener',
+                onClick: this.showViewModeDropdown.bind(this)
+            }, 'View mode'),
+            React.createElement('div', {
+                className: 'viewModeSelector',
+                id: 'viewModeSelector'
+            }, React.createElement('label', {}, 'Show grid:'),
+                React.createElement('input', {
+                    className: 'toolbarCheckbox',
+                    id: 'gridCheckbox',
+                    type: 'checkbox',
+                    defaultChecked: true,
+                    onChange: this.setGridVisibility.bind(this)
+                }), br(), React.createElement('label', {}, 'Show chart:'),
+                React.createElement('input', {
+                    className: 'toolbarCheckbox',
+                    id: 'chartCheckbox',
+                    type: 'checkbox',
+                    defaultChecked: true,
+                    onChange: this.setChartVisibility.bind(this)
+                }), br(), React.createElement('label', {}, 'Show timeline:'),
+                React.createElement('input', {
+                    className: 'toolbarCheckbox',
+                    id: 'timelineCheckbox',
+                    type: 'checkbox',
+                    defaultChecked: true,
+                    onChange: this.setTimelineVisibility.bind(this)
+                })
+            )
         )
     }
 }

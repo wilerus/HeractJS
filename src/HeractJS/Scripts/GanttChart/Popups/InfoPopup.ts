@@ -17,11 +17,13 @@ export class InfoPopup extends React.Component<any, any> {
     public hide() {
         const item = DOM.findDOMNode(this) as any
         item.style.display = 'none'
+       // item.style.top = '100px'
     }
 
     public show() {
         const item = DOM.findDOMNode(this) as any
         item.style.display = 'block'
+        //item.style.top = 0
     }
 
     public render() {

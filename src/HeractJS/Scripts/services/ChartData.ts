@@ -91,7 +91,7 @@ export class ChartData {
                 type: 'finichToStart'
             }
 
-            topMargin = 22 * i
+            topMargin = 24 * i
 
             ChartData.ganttBars.push({
                 id: `bar${i}`,

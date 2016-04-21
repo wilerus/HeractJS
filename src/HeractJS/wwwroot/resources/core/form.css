@@ -260,6 +260,7 @@
     overflow: hidden;
     -moz-text-overflow: ellipsis;
     text-overflow: ellipsis;
+    background-color: transparent;
 }
 .field_clear {
     padding-right: 8px;

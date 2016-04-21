@@ -59,34 +59,38 @@ export class TaskLineView extends React.Component<any, any> {
 
     public render() {
         const tasklineTimeline = this.state.TasklineTimeItems.map((timeLineItem: any) => {
-            timeLineItem.id += 'TLI'
+            const itemData = timeLineItem
+            itemData.id += 'TLI'
             return React.createElement(TasklineTimeItem, {
-                key: timeLineItem.id,
-                data: timeLineItem
+                key: itemData.id,
+                data: itemData
             })
         })
 
         const tasklineBars = this.state.tasklineTasks.map((timeLineItem: any) => {
-            timeLineItem.id += 'TLI'
+            const itemData = timeLineItem
+            itemData.id += 'TLI'
             return React.createElement(TasklineBar, {
-                key: timeLineItem.id,
-                data: timeLineItem
+                key: itemData.id,
+                data: itemData
             })
         })
 
         const tasklineMilestones = this.state.tasklineMilestones.map((timeLineItem: any) => {
-            timeLineItem.id += 'TLI'
+            const itemData = timeLineItem
+            itemData.id += 'TLI'
             return React.createElement(TasklineMilestone, {
-                key: timeLineItem.id,
-                data: timeLineItem
+                key: itemData.id,
+                data: itemData
             })
         })
 
         const tasklineCallouts = this.state.tasklineCallouts.map((timeLineItem: any) => {
-            timeLineItem.id += 'TLI'
+            const itemData = timeLineItem
+            itemData.id += 'TLI'
             return React.createElement(TasklineBar, {
-                key: timeLineItem.id + 'TLI',
-                data: timeLineItem
+                key: itemData.id,
+                data: itemData
             })
         })
 
