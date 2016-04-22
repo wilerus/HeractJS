@@ -128,7 +128,7 @@ declare namespace __React {
         state: S;
         context: {};
         refs: {
-            [key: string]: ReactInstance
+            [key: string]: ReactInstance;
         };
     }
 

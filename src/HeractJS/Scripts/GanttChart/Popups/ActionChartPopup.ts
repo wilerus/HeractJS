@@ -3,12 +3,11 @@ import DOM = require('react-dom')
 
 import {AppMediator} from '../../../scripts/services/AppMediator'
 
-let GCMediator: any = AppMediator.getInstance()
+let GCMediator: any = AppMediator.getInstance();
 
 export class ActionChartPopup extends React.Component<any, any> {
     constructor(props, context) {
-        super(props, context)
-
+        super(props, context);
         this.state = {
             left: 0,
             top: 0,
@@ -17,22 +16,22 @@ export class ActionChartPopup extends React.Component<any, any> {
             endDate: 'Placeholder',
             duration: 'Placeholder',
             description: 'description'
-        }
+        };
     }
 
     public hide() {
-        const item = DOM.findDOMNode(this) as any
-        item.style.display = 'none'
+        const item = DOM.findDOMNode(this) as any;
+        item.style.display = 'none';
     }
 
     public show() {
-        const item = DOM.findDOMNode(this) as any
-        item.style.display = 'block'
+        const item = DOM.findDOMNode(this) as any;
+        item.style.display = 'block';
     }
 
     private addToTaskline() {
-        GCMediator.dispatch({ type: 'addToTaskline' })
-        this.hide()
+        GCMediator.dispatch({ type: 'addToTaskline' });
+        this.hide();
     }
 
     public render() {
@@ -51,6 +50,6 @@ export class ActionChartPopup extends React.Component<any, any> {
                 className: 'addToTasklineButton',
                 onClick: this.addToTaskline.bind(this)
             }, 'Add to taskline')
-        )
+        );
     }
 };

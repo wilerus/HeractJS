@@ -14,15 +14,15 @@ import {GanttToolbar}  from './Toolbar'
 import {TaskLineView}  from './Taskline/TaskLine'
 import {AppMediator} from '../../scripts/services/AppMediator'
 
-let GCMediator: any = AppMediator.getInstance()
+let GCMediator: any = AppMediator.getInstance();
 
 export class ChartView extends React.Component<any, any> {
 
     constructor() {
-        super()
-        const gridCapacity = Math.round(document.documentElement.clientHeight / 22)
+        super();
+        const gridCapacity = Math.round(document.documentElement.clientHeight / 22);
         const items = GCMediator.getState().items;
-        const displayingElements = items.slice(0, gridCapacity + 30)
+        const displayingElements = items.slice(0, gridCapacity + 30);
         this.state = {
             timeLine: GCMediator.getState().timeLine,
             columnWidth: GCMediator.getState().columnWidth,
@@ -34,47 +34,42 @@ export class ChartView extends React.Component<any, any> {
             startPosition: 0,
             endPosition: gridCapacity + 30,
             isCtrlPressed: false
-        }
-
+        };
         document.onkeydown = function (event: MouseEvent) {
             if (event.ctrlKey) {
                 this.setState({
                     isCtrlPressed: true
-                })
+                });
             }
-        }.bind(this)
-
+        }.bind(this);
         document.onkeyup = function () {
             this.setState({
                 isCtrlPressed: false
-            })
-        }.bind(this)
-
+            });
+        }.bind(this);
         document.onwheel = function (event: any) {
-            event.preventDefault()
-            event.stopPropagation()
+            event.preventDefault();
+            event.stopPropagation();
             if (this.state.isCtrlPressed) {
-                this.updateTimeline()
+                this.updateTimeline();
             } else {
-                const currentScroll = GCMediator.getState().scrollPosition
-                let scrollPosition = Math.round(event.deltaY / 22) + currentScroll
+                const currentScroll = GCMediator.getState().scrollPosition;
+                let scrollPosition = Math.round(event.deltaY / 22) + currentScroll;
                 if (scrollPosition <= 0 && currentScroll !== 0) {
-                    scrollPosition = 0
+                    scrollPosition = 0;
                 }
 
                 if (scrollPosition >= 0) {
                     GCMediator.dispatch({
                         type: 'scrollGrid',
                         data: scrollPosition
-                    })
-
-                    this.buildElements(scrollPosition)
+                    });
+                    this.buildElements(scrollPosition);
                 }
             }
-        }.bind(this)
-
+        }.bind(this);
         GCMediator.subscribe(function () {
-            const change = GCMediator.getLastChange()
+            const change = GCMediator.getLastChange();
             if (change) {
                 switch (change.type) {
                     case 'removeTask':
@@ -83,161 +78,153 @@ export class ChartView extends React.Component<any, any> {
                     case 'removeLink':
                     case 'completeTask':
                     case 'reopenTask':
-                        this.rebuildElements()
-                        break
-
+                        this.rebuildElements();
+                        break;
                     case 'selectTask':
-                        TaskBar.selectTask(change.data)
-                        break
-
+                        TaskBar.selectTask(change.data);
+                        break;
                     case 'deselectAllTasks':
                         if (change.data) {
-                            TaskBar.deselectAllTasks(change.data)
+                            TaskBar.deselectAllTasks(change.data);
                         }
-                        break
-
+                        break;
                     case 'scrollGrid':
-                        this.scrollChart(change.data)
-                        break
-
+                        this.scrollChart(change.data);
+                        break;
                     case 'setTimelineStep':
                         this.setState({
                             timeLine: GCMediator.getState().timeLine,
                             columnWidth: GCMediator.getState().columnWidth
-                        })
-                        break
-
+                        });
+                        break;
                     default:
-                        break
+                        break;
                 }
             }
-        }.bind(this))
+        }.bind(this));
     }
 
     public selectTask(index: string) {
-        TaskBar.selectTask(index)
+        TaskBar.selectTask(index);
     }
 
     public deselectAllTasks(tasks) {
-        TaskBar.deselectAllTasks(tasks)
+        TaskBar.deselectAllTasks(tasks);
     }
 
     private componentDidMount() {
         const container = document.getElementById('ganttChartView');
         container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * this.state.batchSize).toString();
-        const displayingElements = this.state.displayingElements
-        const displayingLinks = []
+        const displayingElements = this.state.displayingElements;
+        const displayingLinks = [];
         for (let i = 0; i < displayingElements.length - 1; i++) {
             if (displayingElements[i].link) {
-                displayingElements[i].link.from = displayingElements[i].id
-                displayingLinks.push(displayingElements[i].link)
+                displayingElements[i].link.from = displayingElements[i].id;
+                displayingLinks.push(displayingElements[i].link);
             }
         }
         this.setState({
             displayingLinks: displayingLinks
-        })
+        });
         document.getElementById('ganttChart').onmousedown = (event: MouseEvent) => {
-            const eventTarget = event.target as any
+            const eventTarget = event.target as any;
             if (eventTarget.tagName !== 'BUTTON') {
-                const view: any = document.getElementById('ganttChart')
-                const timeline: any = document.getElementById('timelineContainer')
-                const startScroll = view.scrollLeft
-                const startPoint = event.pageX
-                const currentState = GCMediator.getState()
-
+                const view: any = document.getElementById('ganttChart');
+                const timeline: any = document.getElementById('timelineContainer');
+                const startScroll = view.scrollLeft;
+                const startPoint = event.pageX;
+                const currentState = GCMediator.getState();
                 document.onmousemove = (event: MouseEvent) => {
                     if (!currentState.isPanning) {
                         //GCMediator.dispatch({ type: 'deselectAllTasks' })
-                        GCMediator.dispatch({ type: 'startPanning' })
-                        document.body.style.webkitUserSelect = 'none'
+                        GCMediator.dispatch({ type: 'startPanning' });
+                        document.body.style.webkitUserSelect = 'none';
                     }
-                    view.scrollLeft = startPoint - event.pageX + startScroll
-                    timeline.scrollLeft = startPoint - event.pageX + startScroll
-                }
-
+                    view.scrollLeft = startPoint - event.pageX + startScroll;
+                    timeline.scrollLeft = startPoint - event.pageX + startScroll;
+                };
                 document.onmouseup = () => {
-                    GCMediator.dispatch({ type: 'stopPanning' })
-                    document.body.style.webkitUserSelect = 'inherit'
-                    document.onmousemove = null
-                }
+                    GCMediator.dispatch({ type: 'stopPanning' });
+                    document.body.style.webkitUserSelect = 'inherit';
+                    document.onmousemove = null;
+                };
             }
-        }
+        };
     }
 
     private shouldComponentUpdate(nextProps: any, nextState: any) {
         if (this.state.displayingElements !== nextState.displayingElements ||
             this.state.timeLine !== nextState.timeLine ||
             this.state.displayingLinks !== nextState.displayingLinks) {
-            return true
+            return true;
         } else {
-            return false
+            return false;
         }
     }
 
     private scrollChart(position: number) {
-        const view: any = document.getElementById('ganttChart')
-        view.scrollTop = 22 * position
+        const view: any = document.getElementById('ganttChart');
+        view.scrollTop = 22 * position;
     }
 
     public updateTimeline() {
-        const currentState = GCMediator.getState()
+        const currentState = GCMediator.getState();
         switch (GCMediator.getState().timelineStep) {
             case 0:
                 GCMediator.dispatch({
                     type: 'setTimelineStep',
                     data: 1
-                })
-                break
+                });
+                break;
             case 1:
                 GCMediator.dispatch({
                     type: 'setTimelineStep',
                     data: 2
-                })
-                break
+                });
+                break;
             case 2:
                 GCMediator.dispatch({
                     type: 'setTimelineStep',
                     data: 3
-                })
-                break
+                });
+                break;
             case 3:
                 GCMediator.dispatch({
                     type: 'setTimelineStep',
                     data: 0
-                })
-                break
+                });
+                break;
             default:
-                this.state.timelineData = currentState.timelineDay
+                this.state.timelineData = currentState.timelineDay;
         }
     }
 
     public buildElements(scrollPosition: number) {
-        let elements = [] //
-        const displayElements = this.state.displayingElements
-        let startPos = this.state.startPosition
-        let endPos = this.state.endPosition
-        const items = GCMediator.getState().items
+        let elements = []; //
+        const displayElements = this.state.displayingElements;
+        let startPos = this.state.startPosition;
+        let endPos = this.state.endPosition;
+        const items = GCMediator.getState().items;
         if (scrollPosition - 15 <= startPos && startPos !== 0) {
-            const startIndex = startPos - 10 > 0 ? startPos - 10 : 0
-            const itemsToAdd = items.slice(startIndex, startIndex + 10)
-            endPos -= (startPos - startIndex)
-            startPos = startIndex
-
-            elements = elements.concat(itemsToAdd, displayElements.slice(0, displayElements.length - 10))
+            const startIndex = startPos - 10 > 0 ? startPos - 10 : 0;
+            const itemsToAdd = items.slice(startIndex, startIndex + 10);
+            endPos -= (startPos - startIndex);
+            startPos = startIndex;
+            elements = elements.concat(itemsToAdd, displayElements.slice(0, displayElements.length - 10));
         } else if (scrollPosition - 25 >= startPos) {
-            const itemsToAdd = items.slice(endPos, endPos + 10)
-            startPos += 10
-            endPos += 10
-            elements = elements.concat(displayElements.slice(10, displayElements.length), itemsToAdd)
+            const itemsToAdd = items.slice(endPos, endPos + 10);
+            startPos += 10;
+            endPos += 10;
+            elements = elements.concat(displayElements.slice(10, displayElements.length), itemsToAdd);
         }
         if (elements.length) {
-            const container = document.getElementById('ganttChartView')
-            container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * endPos).toString()
-            const links = []
+            const container = document.getElementById('ganttChartView');
+            container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * endPos).toString();
+            const links = [];
             for (let i = 0; i < elements.length - 1; i++) {
                 if (elements[i].link) {
-                    elements[i].link.from = elements[i].id
-                    links.push(elements[i].link)
+                    elements[i].link.from = elements[i].id;
+                    links.push(elements[i].link);
                 }
             }
             this.setState({
@@ -247,24 +234,22 @@ export class ChartView extends React.Component<any, any> {
             }, function () {
                 this.setState({
                     displayingLinks: links
-                })
-            }.bind(this))
+                });
+            }.bind(this));
         }
     }
 
     public rebuildElements() {
-        let elements = []
-        const startPos = this.state.startPosition
-        const endPos = this.state.endPosition
-        const items = GCMediator.getState().items
-
-        elements = items.slice(startPos, endPos)
-
-        const links = []
+        let elements = [];
+        const startPos = this.state.startPosition;
+        const endPos = this.state.endPosition;
+        const items = GCMediator.getState().items;
+        elements = items.slice(startPos, endPos);
+        const links = [];
         for (let i = 0; i < elements.length - 2; i++) {
             if (elements[i].link) {
-                elements[i].link.from = elements[i].id
-                links.push(elements[i].link)
+                elements[i].link.from = elements[i].id;
+                links.push(elements[i].link);
             }
         }
         this.setState({
@@ -273,9 +258,9 @@ export class ChartView extends React.Component<any, any> {
             this.setState({
                 displayingLinks: links
             }, function () {
-                this.forceUpdate()
-            }.bind(this))
-        }.bind(this))
+                this.forceUpdate();
+            }.bind(this));
+        }.bind(this));
     }
 
     public render() {
@@ -283,25 +268,23 @@ export class ChartView extends React.Component<any, any> {
             return React.createElement(TaskBar, {
                 key: ganttBar.id,
                 data: ganttBar
-            })
-        })
-
+            });
+        });
         const links = this.state.displayingLinks.map((link: any) => {
             if (link) {
                 return React.createElement(TaskLink, {
                     ref: link.id,
                     key: link.id,
                     data: link
-                })
+                });
             }
-        })
-
+        });
         const timeline = this.state.timeLine.map((timeLineItem: any) => {
             return React.createElement(Timeline, {
                 key: timeLineItem.id,
                 data: timeLineItem
-            })
-        })
+            });
+        });
         return React.createElement('div', {
             id: 'ganttChartContainer',
             className: 'ganttChartContainer'
@@ -360,26 +343,26 @@ export class ChartView extends React.Component<any, any> {
                     links
                 )
             )
-        )
+        );
     }
 }
 
 export class Initializer {
     constructor() {
-        const mainView = DOM.render(React.createElement(ChartView), document.getElementsByClassName('js-module-region-right')[0]) as any
-        const toolbar = DOM.render(React.createElement(GanttToolbar), document.getElementsByClassName('js-module-gantt-toolbar')[0]) as any
-        const taskLine = DOM.render(React.createElement(TaskLineView), document.getElementsByClassName('js-module-gantt-taskline')[0]) as any
+        const mainView = DOM.render(React.createElement(ChartView), document.getElementsByClassName('js-module-region-right')[0]) as any;
+        const toolbar = DOM.render(React.createElement(GanttToolbar), document.getElementsByClassName('js-module-gantt-toolbar')[0]) as any;
+        const taskLine = DOM.render(React.createElement(TaskLineView), document.getElementsByClassName('js-module-gantt-taskline')[0]) as any;
         GCMediator.dispatch({
             type: 'setGanttChartView',
             data: mainView
-        })
+        });
         GCMediator.dispatch({
             type: 'setGanttToolbar',
             data: toolbar
-        })
+        });
         GCMediator.dispatch({
             type: 'setGantttTaskLine',
             data: taskLine
-        })
+        });
     }
 }

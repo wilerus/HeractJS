@@ -2,22 +2,20 @@
 // initial set up
 
 export class ChartBarItems<TData>{
-    id: string
-    order: number
-    collapsed: boolean
-    position: number
-
-    name: string
-    description: string
-    assignee: string
-    parent: string
-    predecessors: string
-
-    progress: number
-    duration: number
-    startDate: number
-    finish: number
-    priority: string
+    id: string;
+    order: number;
+    collapsed: boolean;
+    position: number;
+    name: string;
+    description: string;
+    assignee: string;
+    parent: string;
+    predecessors: string;
+    progress: number;
+    duration: number;
+    startDate: number;
+    finish: number;
+    priority: string;
 
     constructor(taskData) {
         this.id = taskData.id;

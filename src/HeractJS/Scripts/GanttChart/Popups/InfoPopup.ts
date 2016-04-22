@@ -11,18 +11,18 @@ export class InfoPopup extends React.Component<any, any> {
             endDate: 'Placeholder',
             duration: 'Placeholder',
             description: 'description'
-        }
+        };
     }
 
     public hide() {
-        const item = DOM.findDOMNode(this) as any
-        item.style.display = 'none'
-       // item.style.top = '100px'
+        const item = DOM.findDOMNode(this) as any;
+        item.style.display = 'none';
+        // item.style.top = '100px'
     }
 
     public show() {
-        const item = DOM.findDOMNode(this) as any
-        item.style.display = 'block'
+        const item = DOM.findDOMNode(this) as any;
+        item.style.display = 'block';
         //item.style.top = 0
     }
 
@@ -50,6 +50,6 @@ export class InfoPopup extends React.Component<any, any> {
             React.createElement('div', {
                 className: 'infoPopupText'
             }, `Duration ${this.state.duration} hours`)
-        )
+        );
     }
 };

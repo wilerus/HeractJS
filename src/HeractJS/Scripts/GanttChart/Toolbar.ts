@@ -1,104 +1,99 @@
 ﻿import React = require('react')
 
 import {AppMediator} from '../../scripts/services/AppMediator'
-let GCMediator: any = AppMediator.getInstance()
+let GCMediator: any = AppMediator.getInstance();
 let br = React.createFactory('br');
 
 export class GanttToolbar extends React.Component<any, any> {
     constructor() {
-        super()
+        super();
         this.state = {
             marginLeft: '',
             width: '',
             top: '',
             height: '',
             text: ''
-        }
-
+        };
         GCMediator.subscribe(function () {
-            const change = GCMediator.getLastChange()
+            const change = GCMediator.getLastChange();
             if (change) {
-                this.showHistoryActions()
+                this.showHistoryActions();
                 switch (change.type) {
                     case 'selectTask':
-                        this.showTaskActions()
-                        break
-
+                        this.showTaskActions();
+                        break;
                     case 'removeTask':
-                        this.hideTaskActions()
-                        break
-
+                        this.hideTaskActions();
+                        break;
                     case 'deselectAllTasks':
-                        this.hideTaskActions()
-                        break
-
+                        this.hideTaskActions();
+                        break;
                     case 'removeLink':
-                        document.getElementById('removeLinkButton').style.display = 'none'
-                        break
-
+                        document.getElementById('removeLinkButton').style.display = 'none';
+                        break;
                     default:
-                        break
+                        break;
                 }
             }
-        }.bind(this))
+        }.bind(this));
     }
     private componentDidMount() {
-        this.hideTaskActions()
+        this.hideTaskActions();
     }
     private hideTaskActions() {
-        document.getElementById('removeTaskButton').style.display = 'none'
-        document.getElementById('moveToTaskButton').style.display = 'none'
-        document.getElementById('addLinkButton').style.display = 'none'
-        document.getElementById('completeTaskButton').style.display = 'none'
-        document.getElementById('reopenTaskButton').style.display = 'none'
-        document.getElementById('removeLinkButton').style.display = 'none'
-        document.getElementById('undoButton').style.display = 'none'
-        document.getElementById('redoButton').style.display = 'none'
+        document.getElementById('removeTaskButton').style.display = 'none';
+        document.getElementById('moveToTaskButton').style.display = 'none';
+        document.getElementById('addLinkButton').style.display = 'none';
+        document.getElementById('completeTaskButton').style.display = 'none';
+        document.getElementById('reopenTaskButton').style.display = 'none';
+        document.getElementById('removeLinkButton').style.display = 'none';
+        document.getElementById('undoButton').style.display = 'none';
+        document.getElementById('redoButton').style.display = 'none';
     }
 
     private showTaskActions() {
-        const currentState = GCMediator.getState()
-        document.getElementById('removeTaskButton').style.display = 'initial'
-        document.getElementById('moveToTaskButton').style.display = 'initial'
+        const currentState = GCMediator.getState();
+        document.getElementById('removeTaskButton').style.display = 'initial';
+        document.getElementById('moveToTaskButton').style.display = 'initial';
         if (currentState.selectedTasks[0]) {
-            const element = currentState.items.find((element) => { if (element.id === currentState.selectedTasks[0]) return true })
+            const element = currentState.items.find((element) => { if (element.id === currentState.selectedTasks[0]) return true });
             if (element.link) {
-                document.getElementById('removeLinkButton').style.display = 'initial'
+                document.getElementById('removeLinkButton').style.display = 'initial';
             }
         }
-        document.getElementById('addLinkButton').style.display = 'initial'
-        document.getElementById('completeTaskButton').style.display = 'initial'
-        document.getElementById('reopenTaskButton').style.display = 'initial'
+        document.getElementById('addLinkButton').style.display = 'initial';
+        document.getElementById('completeTaskButton').style.display = 'initial';
+        document.getElementById('reopenTaskButton').style.display = 'initial';
     }
 
     private showHistoryActions() {
-        document.getElementById('undoButton').style.display = 'initial'
-        document.getElementById('redoButton').style.display = 'initial'
+        document.getElementById('undoButton').style.display = 'initial';
+        document.getElementById('redoButton').style.display = 'initial';
     }
     private showViewModeDropdown() {
-        document.getElementById('viewModeSelector').style.opacity = '1'
-        document.getElementById('viewModeSelector').style.top = '62px'
+        document.getElementById('viewModeSelector').style.opacity = '1';
+        document.getElementById('viewModeSelector').style.top = '62px';
     }
 
     private setGridVisibility(event: Event) {
         if (event.currentTarget.checked) {
             if (!document.getElementById('chartCheckbox').checked) {
-                document.getElementsByClassName('js-module-region-left')[0].style.width = '100%'
-                document.getElementsByClassName('content-wrapper')[0].style.height = '100%'
-                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px'
+                document.getElementsByClassName('js-module-region-left')[0].style.width = '100%';
+                document.getElementsByClassName('content-wrapper')[0].style.height = '100%';
+                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px';
             } else {
-                document.getElementsByClassName('js-module-region-left')[0].style.width = '40%'
-                document.getElementsByClassName('js-module-region-right')[0].style.width = '60%'
+                document.getElementsByClassName('js-module-region-left')[0].style.width = '40%';
+                document.getElementsByClassName('js-module-region-right')[0].style.width = '60%';
             }
         } else {
             if (!document.getElementById('chartCheckbox').checked) {
-                document.getElementsByClassName('content-wrapper')[0].style.height = 0
-                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '100%'
+                document.getElementsByClassName('content-wrapper')[0].style.height = 0;
+                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '100%';
             } else {
-                document.getElementsByClassName('js-module-region-left')[0].style.width = '0'
-                document.getElementsByClassName('js-module-region-right')[0].style.width = '100%'
-                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px'
-                document.getElementsByClassName('content-wrapper')[0].style.height = '100%'
+                document.getElementsByClassName('js-module-region-left')[0].style.width = '0';
+                document.getElementsByClassName('js-module-region-right')[0].style.width = '100%';
+                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px';
+                document.getElementsByClassName('content-wrapper')[0].style.height = '100%';
             }
         }
     }
@@ -106,22 +101,22 @@ export class GanttToolbar extends React.Component<any, any> {
     private setChartVisibility(event: Event) {
         if (event.currentTarget.checked) {
             if (!document.getElementById('gridCheckbox').checked) {
-                document.getElementsByClassName('js-module-region-right')[0].style.width = '100%'
-                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px'
-                document.getElementsByClassName('content-wrapper')[0].style.height = '100%'
+                document.getElementsByClassName('js-module-region-right')[0].style.width = '100%';
+                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px';
+                document.getElementsByClassName('content-wrapper')[0].style.height = '100%';
             } else {
-                document.getElementsByClassName('js-module-region-left')[0].style.width = '40%'
-                document.getElementsByClassName('js-module-region-right')[0].style.width = '60%'
+                document.getElementsByClassName('js-module-region-left')[0].style.width = '40%';
+                document.getElementsByClassName('js-module-region-right')[0].style.width = '60%';
             }
         } else {
             if (!document.getElementById('gridCheckbox').checked) {
-                document.getElementsByClassName('content-wrapper')[0].style.height = 0
-                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '100%'
+                document.getElementsByClassName('content-wrapper')[0].style.height = 0;
+                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '100%';
             } else {
-                document.getElementsByClassName('js-module-region-right')[0].style.width = '0'
-                document.getElementsByClassName('js-module-region-left')[0].style.width = '100%'
-                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px'
-                document.getElementsByClassName('content-wrapper')[0].style.height = '100%'
+                document.getElementsByClassName('js-module-region-right')[0].style.width = '0';
+                document.getElementsByClassName('js-module-region-left')[0].style.width = '100%';
+                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px';
+                document.getElementsByClassName('content-wrapper')[0].style.height = '100%';
             }
         }
 
@@ -129,63 +124,63 @@ export class GanttToolbar extends React.Component<any, any> {
 
     private setTimelineVisibility(event: Event) {
         if (event.currentTarget.checked) {
-            document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px'
+            document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px';
         } else {
-            document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '0'
+            document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '0';
         }
     }
 
     private undo() {
-        GCMediator.undo()
+        GCMediator.undo();
     }
 
     private redo() {
-        GCMediator.redo()
+        GCMediator.redo();
     }
 
     private removeTask() {
         GCMediator.dispatch({
             type: 'removeTask'
-        })
+        });
     }
 
     private createTask() {
-        GCMediator.dispatch({ type: 'createTask' })
+        GCMediator.dispatch({ type: 'createTask' });
     }
 
     private moveToTask() {
         GCMediator.dispatch({
             type: 'moveToTask',
             task: ''
-        })
+        });
     }
 
     private addLink() {
         GCMediator.dispatch({
             type: 'addLink',
             data: ''
-        })
+        });
     }
 
     private removeLink() {
         GCMediator.dispatch({
             type: 'removeLink',
             data: ''
-        })
+        });
     }
 
     private completeTask() {
         GCMediator.dispatch({
             type: 'completeTask',
             data: ''
-        })
+        });
     }
 
     private reopenTask() {
         GCMediator.dispatch({
             type: 'reopenTask',
             data: ''
-        })
+        });
     }
 
     public render() {
@@ -268,6 +263,6 @@ export class GanttToolbar extends React.Component<any, any> {
                     onChange: this.setTimelineVisibility.bind(this)
                 })
             )
-        )
+        );
     }
 }

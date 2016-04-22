@@ -9,16 +9,16 @@ export class ModalWindow extends React.Component<any, any> {
             endDate: 'Placeholder',
             duration: 'Placeholder',
             description: 'description'
-        }
+        };
     }
 
     public hide() {
-        const item = DOM.findDOMNode(this) as any
+        const item = DOM.findDOMNode(this) as any;
         item.style.display = 'none';
     }
 
     public show() {
-        const item = DOM.findDOMNode(this) as any
+        const item = DOM.findDOMNode(this) as any;
         item.style.display = 'flex';
     }
 
@@ -96,6 +96,6 @@ export class ModalWindow extends React.Component<any, any> {
                     }, 'Cancel')
                 )
             )
-        )
+        );
     }
 };

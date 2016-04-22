@@ -4,21 +4,20 @@ import {TasklineTimeItem}  from './TasklineTimeItem'
 import {TasklineBar}  from './TasklineBar'
 import {TasklineMilestone}  from './TasklineMilestone'
 import {AppMediator} from '../../../scripts/services/AppMediator'
-let GCMediator: any = AppMediator.getInstance()
+let GCMediator: any = AppMediator.getInstance();
 
 export class TaskLineView extends React.Component<any, any> {
 
     constructor() {
-        super()
+        super();
         this.state = {
             TasklineTimeItems: GCMediator.getState().tasklineTimeItems,
             tasklineTasks: GCMediator.getState().tasklineTasks,
             tasklineMilestones: GCMediator.getState().tasklineMilestones,
             tasklineCallouts: GCMediator.getState().tasklineCallouts
-        }
-
+        };
         GCMediator.subscribe(function () {
-            const change = GCMediator.getLastChange()
+            const change = GCMediator.getLastChange();
             if (change) {
                 switch (change.type) {
                     case 'addToTaskline':
@@ -26,74 +25,66 @@ export class TaskLineView extends React.Component<any, any> {
                             tasklineTasks: GCMediator.getState().tasklineTasks,
                             tasklineMilestones: GCMediator.getState().tasklineMilestones,
                             tasklineCallouts: GCMediator.getState().tasklineCallouts
-                        })
-                        break
-
+                        });
+                        break;
                     default:
-                        break
+                        break;
                 }
             }
-        }.bind(this))
+        }.bind(this));
     }
 
     private componentDidMount() {
         document.getElementById('tasklineContainer').onmousedown = (event: MouseEvent) => {
-            const view: any = document.getElementById('tasklineContainer').parentElement
-            const startScroll = view.scrollLeft
-            const startPoint = event.pageX
-
-            GCMediator.dispatch({ type: 'startPanning' })
-            document.body.style.webkitUserSelect = 'none'
-
+            const view: any = document.getElementById('tasklineContainer').parentElement;
+            const startScroll = view.scrollLeft;
+            const startPoint = event.pageX;
+            GCMediator.dispatch({ type: 'startPanning' });
+            document.body.style.webkitUserSelect = 'none';
             document.onmousemove = (event: MouseEvent) => {
-                view.scrollLeft = startPoint - event.pageX + startScroll
-            }
-
+                view.scrollLeft = startPoint - event.pageX + startScroll;
+            };
             document.onmouseup = () => {
-                GCMediator.dispatch({ type: 'stopPanning' })
-                document.body.style.webkitUserSelect = 'inherit'
-                document.onmousemove = null
-            }
-        }
+                GCMediator.dispatch({ type: 'stopPanning' });
+                document.body.style.webkitUserSelect = 'inherit';
+                document.onmousemove = null;
+            };
+        };
     }
 
     public render() {
         const tasklineTimeline = this.state.TasklineTimeItems.map((timeLineItem: any) => {
-            const itemData = timeLineItem
-            itemData.id += 'TLI'
+            const itemData = timeLineItem;
+            itemData.id += 'TLI';
             return React.createElement(TasklineTimeItem, {
                 key: itemData.id,
                 data: itemData
-            })
-        })
-
+            });
+        });
         const tasklineBars = this.state.tasklineTasks.map((timeLineItem: any) => {
-            const itemData = timeLineItem
-            itemData.id += 'TLI'
+            const itemData = timeLineItem;
+            itemData.id += 'TLI';
             return React.createElement(TasklineBar, {
                 key: itemData.id,
                 data: itemData
-            })
-        })
-
+            });
+        });
         const tasklineMilestones = this.state.tasklineMilestones.map((timeLineItem: any) => {
-            const itemData = timeLineItem
-            itemData.id += 'TLI'
+            const itemData = timeLineItem;
+            itemData.id += 'TLI';
             return React.createElement(TasklineMilestone, {
                 key: itemData.id,
                 data: itemData
-            })
-        })
-
+            });
+        });
         const tasklineCallouts = this.state.tasklineCallouts.map((timeLineItem: any) => {
-            const itemData = timeLineItem
-            itemData.id += 'TLI'
+            const itemData = timeLineItem;
+            itemData.id += 'TLI';
             return React.createElement(TasklineBar, {
                 key: itemData.id,
                 data: itemData
-            })
-        })
-
+            });
+        });
         return React.createElement('div', {
             id: 'tasklineContainer',
             className: 'tasklineContainer'
@@ -113,6 +104,6 @@ export class TaskLineView extends React.Component<any, any> {
             React.createElement('svg', {
                 className: 'tasklineMilestones',
                 id: 'tasklineMilestones'
-            }, tasklineMilestones))
+            }, tasklineMilestones));
     }
 };

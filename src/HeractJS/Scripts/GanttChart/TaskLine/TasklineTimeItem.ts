@@ -2,14 +2,14 @@
 
 export class TasklineTimeItem extends React.Component<any, any> {
     constructor() {
-        super()
+        super();
         this.state = {
             marginLeft: '',
             width: '',
             top: '',
             height: '',
             text: ''
-        }
+        };
     }
 
     private componentDidMount() {
@@ -19,7 +19,7 @@ export class TasklineTimeItem extends React.Component<any, any> {
             top: this.props.data.style.top,
             height: this.props.data.style.height,
             text: this.props.data.text
-        })
+        });
     }
 
     public render() {
@@ -42,6 +42,6 @@ export class TasklineTimeItem extends React.Component<any, any> {
                 x: this.state.marginLeft + this.state.width * 0.5,
                 y: 20
             }, this.state.text)
-        )
+        );
     }
 };

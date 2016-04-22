@@ -1,40 +1,38 @@
 ﻿import React = require('react')
 import {AppMediator} from '../../scripts/services/AppMediator'
 
-let GCMediator: any = AppMediator.getInstance()
+let GCMediator: any = AppMediator.getInstance();
 
 export class TaskLink extends React.Component<any, any> {
 
     constructor(props,context) {
-        super(props, context)
-
+        super(props, context);
         GCMediator.subscribe(function () {
-            const change = GCMediator.getLastChange()
+            const change = GCMediator.getLastChange();
             if (change) {
                 switch (change.type) {
                     case 'setTimelineStep':
-                        this.buildConnection()
-                        break
+                        this.buildConnection();
+                        break;
                     case 'stopDragging':
-                        this.buildConnection()
-                        break
+                        this.buildConnection();
+                        break;
                     default:
-                        break
+                        break;
                 }
             }
-        }.bind(this))
-
+        }.bind(this));
         this.state = {
             firstPoint: '',
             secondPoint: '',
             thirdPoint: ''
                 // endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
-        }
+        };
     }
 
     public buildConnection() {
-        const firstPoint = document.getElementById(this.props.data.from)
-        const secondPoint = document.getElementById(this.props.data.to)
+        const firstPoint = document.getElementById(this.props.data.from);
+        const secondPoint = document.getElementById(this.props.data.to);
         //const currentState = GCMediator.getState().ganttChartView.displayingElements
         //const firstElementType = currentState.find((element, index) => {
         //    if (element.id === firstPoint) {
@@ -49,13 +47,12 @@ export class TaskLink extends React.Component<any, any> {
         //})
 
         if (firstPoint && secondPoint) {
-            const firstPointCoordsX = parseInt(firstPoint.getAttribute('x'))
-            const firstPointCoordsY = parseInt(firstPoint.getAttribute('y'))
-            const firstPointCoordsWidth = firstPoint.getBoundingClientRect().width
-
-            const secondPointCoordsX = parseInt(secondPoint.getAttribute('x'))
-            const secondPointCoordsY = parseInt(secondPoint.getAttribute('y'))
-            const secondPointCoordsWidth = secondPoint.getBoundingClientRect().width
+            const firstPointCoordsX = parseInt(firstPoint.getAttribute('x'));
+            const firstPointCoordsY = parseInt(firstPoint.getAttribute('y'));
+            const firstPointCoordsWidth = firstPoint.getBoundingClientRect().width;
+            const secondPointCoordsX = parseInt(secondPoint.getAttribute('x'));
+            const secondPointCoordsY = parseInt(secondPoint.getAttribute('y'));
+            const secondPointCoordsWidth = secondPoint.getBoundingClientRect().width;
 
             //if (firstPointCoordsX < secondPointCoordsX - 10) {
             this.setState({
@@ -63,7 +60,7 @@ export class TaskLink extends React.Component<any, any> {
                 secondPoint: (secondPointCoordsX + 7) + ' , ' + (firstPointCoordsY + 7),
                 thirdPoint: (secondPointCoordsX + 7) + ' , ' + (secondPointCoordsY - 4)
                 // endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
-            })
+            });
             //} else if (firstPointCoordsX - 10 > secondPointCoordsX) {
             //    this.setState({
             //        firstPoint: (firstPointCoordsX) + ' , ' + (firstPointCoordsY + 7),
@@ -83,10 +80,10 @@ export class TaskLink extends React.Component<any, any> {
     }
 
     private componentWillMount() {
-        this.buildConnection()
+        this.buildConnection();
     }
     private componentWillReceiveProps() {
-        this.buildConnection()
+        this.buildConnection();
     }
 
     public render() {
@@ -98,6 +95,6 @@ export class TaskLink extends React.Component<any, any> {
             strokeLinejoin: 'round',
             markerEnd: 'url(#triangle)',
             fill: 'none'
-        })
+        });
     }
 }

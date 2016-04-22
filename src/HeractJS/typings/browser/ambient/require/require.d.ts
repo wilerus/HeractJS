@@ -36,8 +36,8 @@ declare module 'module' {
 		config: () => any;
 		id: string;
 		uri: string;
-	}
-	export = mod;
+	};
+    export = mod;
 }
 
 interface RequireError extends Error {

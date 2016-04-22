@@ -2,22 +2,19 @@
 // initial set up
 
 export class ChartData {
-    public amountOfElements: number = 100000
+    public amountOfElements: number = 100000;
     public counter: number = 0;
 
-    public static timelineWeek: Object[] = []
-    public static timelineMonth: Object[] = []
-    public static timelineDay: Object[] = []
-    public static timelineYear: Object[] = []
-
-    public static timelineWeekMin: Object[] = []
-    public static timelineMonthMin: Object[] = []
-    public static timelineDayMin: Object[] = []
-    public static timelineYearMin: Object[] = []
-
-    public static ganttBars: any[] = []
-    public static tasklineTasks: Object[] = []
-
+    public static timelineWeek: Object[] = [];
+    public static timelineMonth: Object[] = [];
+    public static timelineDay: Object[] = [];
+    public static timelineYear: Object[] = [];
+    public static timelineWeekMin: Object[] = [];
+    public static timelineMonthMin: Object[] = [];
+    public static timelineDayMin: Object[] = [];
+    public static timelineYearMin: Object[] = [];
+    public static ganttBars: any[] = [];
+    public static tasklineTasks: Object[] = [];
     public weekData: string[] = [
         'Monday',
         'Tuesday',
@@ -26,7 +23,7 @@ export class ChartData {
         'Friday',
         'Saturday',
         'Sunday'
-    ]
+    ];
     public monthData: string[] = [
         'January',
         'February',
@@ -40,7 +37,7 @@ export class ChartData {
         'October',
         'November',
         'December'
-    ]
+    ];
     public yearData: string[] = [
         '2016',
         '2017',
@@ -50,49 +47,46 @@ export class ChartData {
         '2021',
         '2022',
         '2023'
-    ]
+    ];
 
     constructor() {
-        let type: string = ''
-        let text: string = ''
-        let projectCount: number = 1
-        let taskCount: number = 1
-        let milestoneCount: number = 1
-        let duration = 40
-        let topMargin: number = 0
-        let leftMargin: number = 0
-        let link: Object = null
+        let type: string = '';
+        let text: string = '';
+        let projectCount: number = 1;
+        let taskCount: number = 1;
+        let milestoneCount: number = 1;
+        let duration = 40;
+        let topMargin: number = 0;
+        let leftMargin: number = 0;
+        let link: Object = null;
         for (let i = 0; i < this.amountOfElements; i++) {
-            leftMargin = 40 * (i - projectCount + 1)
-
+            leftMargin = 40 * (i - projectCount + 1);
             if (i % 10 === 0) {
-                type = 'project'
-                text = `Project ${projectCount}`
-                duration = 360
+                type = 'project';
+                text = `Project ${projectCount}`;
+                duration = 360;
                 if (i !== 0) {
-                    ChartData.ganttBars[i - 1].link = null
+                    ChartData.ganttBars[i - 1].link = null;
                 }
-                projectCount++
+                projectCount++;
             } else if (i % 4 === 0) {
-                type = 'milestone'
-                duration = 20
-                text = `Milestone ${milestoneCount}`
-                milestoneCount++
+                type = 'milestone';
+                duration = 20;
+                text = `Milestone ${milestoneCount}`;
+                milestoneCount++;
             } else {
-                type = 'task'
-                text = `Task ${taskCount}`
-                duration = 40
-                taskCount++
+                type = 'task';
+                text = `Task ${taskCount}`;
+                duration = 40;
+                taskCount++;
             }
 
             link = {
                 id: `link${i}`,
                 to: type === 'project' ? `bar${i + 10}` : `bar${i + 1}`,
                 type: 'finichToStart'
-            }
-
-            topMargin = 24 * i
-
+            };
+            topMargin = 24 * i;
             ChartData.ganttBars.push({
                 id: `bar${i}`,
                 progress: 25,
@@ -107,7 +101,7 @@ export class ChartData {
             });
 
             if (taskCount % 3 === 0 && taskCount < 100) {
-                ChartData.tasklineTasks.push(ChartData.ganttBars[i])
+                ChartData.tasklineTasks.push(ChartData.ganttBars[i]);
             }
         }//gantt bar config
 
@@ -134,8 +128,7 @@ export class ChartData {
                 });
             }
         }//timelineWeek
-        ChartData.timelineWeek = ChartData.timelineWeek.concat(ChartData.timelineWeekMin)
-
+        ChartData.timelineWeek = ChartData.timelineWeek.concat(ChartData.timelineWeekMin);
         for (let i = 0; i <= 11; i++) {
             ChartData.timelineMonth.push({
                 id: `timelineMonth${i}`,
@@ -159,8 +152,7 @@ export class ChartData {
                 });
             }
         }//timelineMonth
-        ChartData.timelineMonth = ChartData.timelineMonth.concat(ChartData.timelineMonthMin)
-
+        ChartData.timelineMonth = ChartData.timelineMonth.concat(ChartData.timelineMonthMin);
         for (let i = 0; i < 6; i++) {
             ChartData.timelineDay.push({
                 id: `timelineDay${i}`,
@@ -185,8 +177,7 @@ export class ChartData {
             }
         }//timelineDay
 
-        ChartData.timelineDay = ChartData.timelineDay.concat(ChartData.timelineDayMin)
-
+        ChartData.timelineDay = ChartData.timelineDay.concat(ChartData.timelineDayMin);
         for (let i = 0; i <= 8; i++) {
             ChartData.timelineYear.push({
                 id: `timelineYear${i}`,
@@ -211,6 +202,6 @@ export class ChartData {
             }
         }//timelineYear
 
-        ChartData.timelineYear = ChartData.timelineYear.concat(ChartData.timelineYearMin)
+        ChartData.timelineYear = ChartData.timelineYear.concat(ChartData.timelineYearMin);
     }
 }
