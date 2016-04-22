@@ -25,8 +25,8 @@ export class TaskLink extends React.Component<any, any> {
         this.state = {
             firstPoint: '',
             secondPoint: '',
-            thirdPoint: ''
-                // endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
+            thirdPoint: '',
+            endPoint: ''
         };
     }
 
@@ -47,6 +47,7 @@ export class TaskLink extends React.Component<any, any> {
         //})
 
         if (firstPoint && secondPoint) {
+      //  firstPoint.addEventListener('transitionend', () => {
             const firstPointCoordsX = parseInt(firstPoint.getAttribute('x'));
             const firstPointCoordsY = parseInt(firstPoint.getAttribute('y'));
             const firstPointCoordsWidth = firstPoint.getBoundingClientRect().width;
@@ -55,12 +56,15 @@ export class TaskLink extends React.Component<any, any> {
             const secondPointCoordsWidth = secondPoint.getBoundingClientRect().width;
 
             //if (firstPointCoordsX < secondPointCoordsX - 10) {
+            //if (this) {
             this.setState({
                 firstPoint: (firstPointCoordsX + firstPointCoordsWidth - 3) + ' , ' + (firstPointCoordsY + 7),
                 secondPoint: (secondPointCoordsX + 7) + ' , ' + (firstPointCoordsY + 7),
                 thirdPoint: (secondPointCoordsX + 7) + ' , ' + (secondPointCoordsY - 4)
                 // endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
             });
+          //  }
+
             //} else if (firstPointCoordsX - 10 > secondPointCoordsX) {
             //    this.setState({
             //        firstPoint: (firstPointCoordsX) + ' , ' + (firstPointCoordsY + 7),
@@ -77,11 +81,23 @@ export class TaskLink extends React.Component<any, any> {
             //    })
             //}
         } 
+       // }, false);
     }
 
-    private componentWillMount() {
+    public componentDidMount() {
         this.buildConnection();
     }
+    private shouldComponentUpdate(nextProps: any, nextState: any) {
+        if (this.state.firstPoint !== nextState.firstPoint ||
+            this.state.secondPoint !== nextState.secondPoint ||
+            this.state.thirdPoint !== nextState.thirdPoint ||
+            this.state.endPoint !== nextState.endPoint) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     private componentWillReceiveProps() {
         this.buildConnection();
     }

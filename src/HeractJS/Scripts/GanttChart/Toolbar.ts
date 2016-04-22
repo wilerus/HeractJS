@@ -5,14 +5,15 @@ let GCMediator: any = AppMediator.getInstance();
 let br = React.createFactory('br');
 
 export class GanttToolbar extends React.Component<any, any> {
+
     constructor() {
         super();
+
         this.state = {
-            marginLeft: '',
-            width: '',
-            top: '',
-            height: '',
-            text: ''
+            grid: document.getElementsByClassName('js-module-region-left')[0] as any,
+            chart: document.getElementsByClassName('js-module-region-right')[0] as any,
+            timeline: document.getElementsByClassName('js-module-gantt-taskline')[0] as any,
+            wrapper: document.getElementsByClassName('content-wrapper')[0] as any
         };
         GCMediator.subscribe(function () {
             const change = GCMediator.getLastChange();
@@ -37,9 +38,15 @@ export class GanttToolbar extends React.Component<any, any> {
             }
         }.bind(this));
     }
+
     private componentDidMount() {
         this.hideTaskActions();
+        this.setState({
+            chartCheckbox: document.getElementById('chartCheckbox'),
+            gridCheckbox: document.getElementById('gridCheckbox')
+        })
     }
+
     private hideTaskActions() {
         document.getElementById('removeTaskButton').style.display = 'none';
         document.getElementById('moveToTaskButton').style.display = 'none';
@@ -70,63 +77,70 @@ export class GanttToolbar extends React.Component<any, any> {
         document.getElementById('undoButton').style.display = 'initial';
         document.getElementById('redoButton').style.display = 'initial';
     }
+
     private showViewModeDropdown() {
         document.getElementById('viewModeSelector').style.opacity = '1';
         document.getElementById('viewModeSelector').style.top = '62px';
     }
 
+    public static hideViewModeDropdown() {
+        document.getElementById('viewModeSelector').style.opacity = '0';
+        document.getElementById('viewModeSelector').style.top = '30px';
+    }
+
     private setGridVisibility(event: Event) {
-        if (event.currentTarget.checked) {
-            if (!document.getElementById('chartCheckbox').checked) {
-                document.getElementsByClassName('js-module-region-left')[0].style.width = '100%';
-                document.getElementsByClassName('content-wrapper')[0].style.height = '100%';
-                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px';
+        const eventTarget = event.currentTarget as any
+        if (eventTarget.checked) {
+            if (!this.state.chartCheckbox.checked) {
+                this.state.grid.style.width = '100%';
+                this.state.wrapper.style.height = '100%';
+                this.state.timeline.style.height = '166px';
             } else {
-                document.getElementsByClassName('js-module-region-left')[0].style.width = '40%';
-                document.getElementsByClassName('js-module-region-right')[0].style.width = '60%';
+                this.state.grid.style.width = '40%';
+                this.state.chart.style.width = '60%';
             }
         } else {
-            if (!document.getElementById('chartCheckbox').checked) {
-                document.getElementsByClassName('content-wrapper')[0].style.height = 0;
-                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '100%';
+            if (!this.state.chartCheckbox.checked) {
+                this.state.wrapper.style.height = 0;
+                this.state.timeline.style.height = '100%';
             } else {
-                document.getElementsByClassName('js-module-region-left')[0].style.width = '0';
-                document.getElementsByClassName('js-module-region-right')[0].style.width = '100%';
-                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px';
-                document.getElementsByClassName('content-wrapper')[0].style.height = '100%';
+                this.state.grid.style.width = '0';
+                this.state.chart.style.width = '100%';
+                this.state.wrapper.style.height = '100%';
             }
         }
     }
 
     private setChartVisibility(event: Event) {
-        if (event.currentTarget.checked) {
-            if (!document.getElementById('gridCheckbox').checked) {
-                document.getElementsByClassName('js-module-region-right')[0].style.width = '100%';
-                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px';
-                document.getElementsByClassName('content-wrapper')[0].style.height = '100%';
+        const eventTarget = event.currentTarget as any
+        if (eventTarget.checked) {
+            if (!this.state.gridCheckbox.checked) {
+                this.state.chart.style.width = '100%';
+                this.state.timeline.style.height = '166px';
+                this.state.wrapper.style.height = '100%';
             } else {
-                document.getElementsByClassName('js-module-region-left')[0].style.width = '40%';
-                document.getElementsByClassName('js-module-region-right')[0].style.width = '60%';
+                this.state.grid.style.width = '40%';
+                this.state.chart.style.width = '60%';
             }
         } else {
-            if (!document.getElementById('gridCheckbox').checked) {
-                document.getElementsByClassName('content-wrapper')[0].style.height = 0;
-                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '100%';
+            if (!this.state.gridCheckbox.checked) {
+                this.state.wrapper.style.height = 0;
+                this.state.timeline.style.height = '100%';
             } else {
-                document.getElementsByClassName('js-module-region-right')[0].style.width = '0';
-                document.getElementsByClassName('js-module-region-left')[0].style.width = '100%';
-                document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px';
-                document.getElementsByClassName('content-wrapper')[0].style.height = '100%';
+                this.state.chart.style.width = '0';
+                this.state.grid.style.width = '100%';
+                this.state.wrapper.style.height = '100%';
             }
         }
 
     }
 
     private setTimelineVisibility(event: Event) {
-        if (event.currentTarget.checked) {
-            document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '166px';
+        const eventTarget = event.currentTarget as any
+        if (eventTarget.checked) {
+            this.state.timeline.style.height = '166px';
         } else {
-            document.getElementsByClassName('js-module-gantt-taskline')[0].style.height = '0';
+            this.state.timeline.style.height = '0';
         }
     }
 
@@ -240,21 +254,21 @@ export class GanttToolbar extends React.Component<any, any> {
             React.createElement('div', {
                 className: 'viewModeSelector',
                 id: 'viewModeSelector'
-            }, React.createElement('label', {}, 'Show grid:'),
+            }, React.createElement('label', { id: 'gridLabel' }, 'Show grid:'),
                 React.createElement('input', {
                     className: 'toolbarCheckbox',
                     id: 'gridCheckbox',
                     type: 'checkbox',
                     defaultChecked: true,
                     onChange: this.setGridVisibility.bind(this)
-                }), br(), React.createElement('label', {}, 'Show chart:'),
+                }), br(), React.createElement('label', { id: 'chartLabel' }, 'Show chart:'),
                 React.createElement('input', {
                     className: 'toolbarCheckbox',
                     id: 'chartCheckbox',
                     type: 'checkbox',
                     defaultChecked: true,
                     onChange: this.setChartVisibility.bind(this)
-                }), br(), React.createElement('label', {}, 'Show timeline:'),
+                }), br(), React.createElement('label', { id: 'timelineLabel' }, 'Show timeline:'),
                 React.createElement('input', {
                     className: 'toolbarCheckbox',
                     id: 'timelineCheckbox',

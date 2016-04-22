@@ -78,8 +78,6 @@ export class AppMediator {
                 break;
             case 'editTask':
                 const newData = action.data;
-                // const newDataLength = newData.length
-
                 for (let prop in newData) {
                     if (prop !== 'position') {
                         newState.items[action.data.position][prop] = newData[prop]
@@ -115,6 +113,9 @@ export class AppMediator {
                 break;
             case 'setGanttChartView':
                 newState.ganttChartView = action.data;
+                break;
+            case 'setGanttToolbar':
+                newState.toolbar = action.data;
                 break;
             case 'setDropTarget':
                 newState.dropTarget = action.data;
@@ -298,7 +299,7 @@ export class AppMediator {
             isDragging: false,
             isLinking: false,
             isCurrentlySizing: false,
-
+            toolbar: null,
             isLineDrawStarted: false,
 
             timelineStep: 0,

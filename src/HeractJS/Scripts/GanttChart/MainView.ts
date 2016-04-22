@@ -20,14 +20,12 @@ export class ChartView extends React.Component<any, any> {
 
     constructor() {
         super();
-        const gridCapacity = Math.round(document.documentElement.clientHeight / 22);
-        const items = GCMediator.getState().items;
-        const displayingElements = items.slice(0, gridCapacity + 30);
+        const gridCapacity = Math.round(document.documentElement.clientHeight / 24);
         this.state = {
             timeLine: GCMediator.getState().timeLine,
             columnWidth: GCMediator.getState().columnWidth,
-            elementHeight: 22,
-            displayingElements: displayingElements,
+            elementHeight: 24,
+            displayingElements: [],
             displayingLinks: [],
             gridCapacity: gridCapacity,
             batchSize: 30,
@@ -113,19 +111,8 @@ export class ChartView extends React.Component<any, any> {
     }
 
     private componentDidMount() {
-        const container = document.getElementById('ganttChartView');
-        container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * this.state.batchSize).toString();
-        const displayingElements = this.state.displayingElements;
-        const displayingLinks = [];
-        for (let i = 0; i < displayingElements.length - 1; i++) {
-            if (displayingElements[i].link) {
-                displayingElements[i].link.from = displayingElements[i].id;
-                displayingLinks.push(displayingElements[i].link);
-            }
-        }
-        this.setState({
-            displayingLinks: displayingLinks
-        });
+        this.rebuildElements();
+
         document.getElementById('ganttChart').onmousedown = (event: MouseEvent) => {
             const eventTarget = event.target as any;
 
@@ -151,6 +138,19 @@ export class ChartView extends React.Component<any, any> {
                 };
             }
         };
+
+        document.onclick = (event: MouseEvent) => {
+            const currentState = GCMediator.getState();
+            const eventTarget = event.target as any;
+
+            currentState.ganttChartView.refs.infoPopup.hide();
+            currentState.ganttChartView.refs.modalWindow.hide();
+            currentState.ganttChartView.refs.actionChartPopup.hide();
+
+            if (eventTarget.tagName !== 'BUTTON') {
+                GanttToolbar.hideViewModeDropdown();
+            }
+        }
     }
 
     private shouldComponentUpdate(nextProps: any, nextState: any) {
@@ -201,7 +201,7 @@ export class ChartView extends React.Component<any, any> {
     }
 
     public buildElements(scrollPosition: number) {
-        let elements = []; //
+        let elements: any[] = []; 
         const displayElements = this.state.displayingElements;
         let startPos = this.state.startPosition;
         let endPos = this.state.endPosition;
@@ -212,17 +212,17 @@ export class ChartView extends React.Component<any, any> {
             endPos -= (startPos - startIndex);
             startPos = startIndex;
             elements = elements.concat(itemsToAdd, displayElements.slice(0, displayElements.length - 10));
-        } else if (scrollPosition - 25 >= startPos) {
-            const itemsToAdd = items.slice(endPos, endPos + 10);
-            startPos += 10;
-            endPos += 10;
-            elements = elements.concat(displayElements.slice(10, displayElements.length), itemsToAdd);
+        } else if (endPos - scrollPosition < 31 + this.state.batchSize ) {
+            elements = items.slice(scrollPosition, scrollPosition + 72);
+
+            startPos = scrollPosition;
+            endPos = scrollPosition + 72;
         }
         if (elements.length) {
             const container = document.getElementById('ganttChartView');
             container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * endPos).toString();
-            const links = [];
-            for (let i = 0; i < elements.length - 1; i++) {
+            const links:any[] = [];
+            for (let i = 0; i < elements.length - 2; i++) {
                 if (elements[i].link) {
                     elements[i].link.from = elements[i].id;
                     links.push(elements[i].link);

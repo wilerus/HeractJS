@@ -31,6 +31,7 @@
     height: 15px;
     fill: rgb(160, 230, 160);
     stroke: rgb(100,170,100);
+       /* transition: all .2s;*/
 }
 
 .milestoneBody {
@@ -50,10 +51,12 @@
     stroke: rgb(40, 40, 100);
     height: 2px;
 }
+
 .barChartFillBody {
     position: absolute;
     height: 13px;
     fill: rgb(100,170,100);
+   /* transition: all .2s;*/
 }
 
 .barTitle {
@@ -66,6 +69,7 @@
     pointer-events: none;
     text-shadow: 0 0 4px rgba(255, 255, 255, 0.5) !important;
 }
+
 .taskLineTaskTitle {
     fill: black;
     height: 14px;
@@ -77,10 +81,7 @@
     text-shadow: 0 0 4px rgba(255, 255, 255, 0.5) !important;
     overflow: hidden;
 }
-.barOver {
-    stroke-width: 1px;
-    stroke: rgb(80,80,220);
-}
+
 /* ------ barSelectBody -------*/
 .barSelectBody {
     position: absolute;
@@ -89,8 +90,13 @@
     fill: white;
     stroke-width: 1px;
     stroke: rgb(235,235,235);
-    transition: stroke 0.2s, fill 0.2s;
+    transition: all 0.2s;
 }
+
+    .barSelectBody:hover {
+        stroke-width: 1px;
+        stroke: rgb(80,80,220);
+    }
 
 .barSelected {
     height: 23px;
@@ -108,6 +114,7 @@
 .ganttChart {
     width: 100%;
     overflow: auto;
+    transition: all .2s;
 }
 
 .ganttChartContainer {
@@ -148,6 +155,7 @@
 .ganttTimeline {
     width: 3000px;
     height: 49px;
+    transition: all .2s;
 }
 
 .ganttTaskLine {
@@ -164,10 +172,10 @@
     box-shadow: 0 0 8px rgba(0, 0, 0,0.8);
 }
 
-.timelineContainer::-webkit-scrollbar {
-    width: 0 !important;
-    height: 0 !important;
-}
+    .timelineContainer::-webkit-scrollbar {
+        width: 0 !important;
+        height: 0 !important;
+    }
 
 .timeLineText {
     font-size: 11px;
@@ -241,6 +249,7 @@
     background-color: #299cb4;
     text-shadow: 0 0 3px rgba(0, 0, 0, 0.6) !important;
 }
+
 .addToTasklineButton {
     height: 22px;
     width: 100%;
@@ -389,10 +398,12 @@
     color: white;
     vertical-align: top;
 }
-.toolbarButton:hover {
-    cursor: pointer;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6) !important;
-}
+
+    .toolbarButton:hover {
+        cursor: pointer;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6) !important;
+    }
+
 .toolbarButtonFixed {
     height: 20px;
     width: 100px;
@@ -405,27 +416,43 @@
     float: right;
     margin-right: 330px;
 }
+
 .viewModeSelector {
     position: fixed;
     width: 200px;
-    height: 150px;
+    height: 115px;
     background-color: white;
     box-shadow: 0 0 8px rgba(0,0,0,0.5);
     z-index: -1;
     opacity: 0;
-    transition: top .2s, opacity .2s;
+    transition: all .2s;
     top: 30px;
     right: 25px;
     padding: 5px;
 }
+
 .toolbarCheckbox {
-    display:inline-block !important;
-    width:19px;
-    height:19px;
+    width: 19px;
+    height: 19px;
     margin-bottom: 20px !important;
-    background-color:black;
+    background-color: black;
     -webkit-appearance: checkbox !important;
-    float: right;
+    right: 0;
+}
+
+#gridCheckbox, #gridLabel {
+    top: 1rem;
+    position: absolute;
+}
+
+#chartCheckbox, #chartLabel {
+    top: 3rem;
+    position: absolute;
+}
+
+#timelineCheckbox, #timelineLabel {
+    top: 5rem;
+    position: absolute;
 }
 /*------ ------- ----*/
 .tasklineContainer {
@@ -449,8 +476,8 @@
 .tasklineBars {
     width: 3000px;
     height: 60px;
-    border-top:1px solid rgb(200,200,200);
-    border-bottom:1px solid rgb(200,200,200);
+    border-top: 1px solid rgb(200,200,200);
+    border-bottom: 1px solid rgb(200,200,200);
 }
 
 .tasklineMilestones {
@@ -471,6 +498,7 @@
 .tasklineTimeLineText {
     color: black;
 }
+
 .js-module-region-right {
     transition: width 0.2s ease-out;
 }
