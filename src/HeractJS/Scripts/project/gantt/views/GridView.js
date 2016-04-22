@@ -36,8 +36,8 @@ define([
                             window.application.appMediator.dispatch({
                                 type: 'editTask',
                                 data: {
-                                    value: this.changed.value,
-                                    index: index
+                                    name: this.changed.value,
+                                    position: index + 1
                                 }
                             })
                             return index

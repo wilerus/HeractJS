@@ -29,9 +29,9 @@ export class AppMediator {
                             prevElIndex = index;
                             return true;
                         }
-                    });
-                    selectedTaskPosition = prevElement.position + 22;
-                    selectedTaskStartDate = prevElement.startDate + prevElement.duration;
+                    })
+                    selectedTaskPosition = prevElement.position + 24
+                    selectedTaskStartDate = prevElement.startDate + prevElement.duration
                     newState.items.splice(prevElIndex + 1, 0, {
                         id: `bar${newState.items.length + 1}`,
                         barClass: '',
@@ -45,11 +45,11 @@ export class AppMediator {
                         link: null
                     });
                     for (let i = prevElIndex + 2; i < newState.items.length; i++) {
-                        newState.items[i].position = 22 * i;
+                        newState.items[i].position = 24 * i
                     }
                 } else {
-                    selectedTaskPosition = 22 * newState.items.length;
-                    selectedTaskStartDate = 50 * newState.items.length;
+                    selectedTaskPosition = 24 * newState.items.length
+                    selectedTaskStartDate = 50 * newState.items.length
                 }
                 isHistoryNeed = true;
                 break;
@@ -69,8 +69,8 @@ export class AppMediator {
                         newState.items.splice(elementIndex, 1);
                         newState.items[elementIndex - 1].link = null;
                         for (let i = elementIndex; i < newState.items.length; i++) {
-                            newState.items[i].position = 22 * i;
-                            newState.items[i].startDate -= taskDuration;
+                            newState.items[i].position = 24 * i
+                            newState.items[i].startDate -= taskDuration
                         }
                     }
                 }
@@ -79,8 +79,11 @@ export class AppMediator {
             case 'editTask':
                 const newData = action.data;
                 // const newDataLength = newData.length
+
                 for (let prop in newData) {
-                    newState.items[action.data.position / 24][prop] = newData[prop];
+                    if (prop !== 'position') {
+                        newState.items[action.data.position][prop] = newData[prop]
+                    }
                 }
                 isHistoryNeed = true;
                 break;

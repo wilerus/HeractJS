@@ -139,49 +139,23 @@ export class TaskBar extends React.Component<any, any> {
                 this.updateComplitionState(event);
             } else if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
                 this.startBarRelocation(event);
-                document.onmouseup = function (event: MouseEvent) {
-                    //this.addNewConnection()
-                    GCMediator.dispatch({
-                        type: 'editTask',
-                        data: {
-                            duration: this.state.duration,
-                            startDate: this.state.startDate,
-                            completeDate: this.state.completeDate,
-                            position: this.state.position
-                        }
-                    });
-                    GCMediator.dispatch({ type: 'stopDragging' });
-                    this.clearTempElements(event);
-                }.bind(this);
             } else if (clickCoordX > elementRect.right - 15) {
                 this.updateСompleteDate(event);
-                document.onmouseup = function (event: MouseEvent) {
-                    GCMediator.dispatch({
-                        type: 'editTask',
-                        data: {
-                            duration: this.state.duration,
-                            completeDate: this.state.completeDate,
-                            position: this.state.position
-                        }
-                    });
-                    GCMediator.dispatch({ type: 'stopDragging' });
-                    this.clearTempElements(event);
-                }.bind(this);
             } else if (clickCoordX < elementRect.left + 15) {
                 this.updateStartDate(event);
-                document.onmouseup = function (event: MouseEvent) {
-                    GCMediator.dispatch({
-                        type: 'editTask',
-                        data: {
-                            duration: this.state.duration,
-                            startDate: this.state.startDate,
-                            position: this.state.position
-                        }
-                    });
-                    GCMediator.dispatch({ type: 'stopDragging' });
-                    this.clearTempElements(event);
-                }.bind(this);
             }
+            document.onmouseup = function (event: MouseEvent) {
+                GCMediator.dispatch({
+                    type: 'editTask',
+                    data: {
+                        duration: this.state.duration,
+                        startDate: this.state.startDate,
+                        position: this.state.position / 24
+                    }
+                })
+                GCMediator.dispatch({ type: 'stopDragging' })
+                this.clearTempElements(event)
+            }.bind(this)
         }
     }
 
@@ -250,11 +224,6 @@ export class TaskBar extends React.Component<any, any> {
                     progress: newComplition
                 });
             }.bind(this);
-            document.onmouseup = function (event) {
-                this.clearTempElements(event);
-                document.onmousemove = null;
-                document.onmouseup = null;
-            }.bind(this);
         }
     }
 
@@ -269,9 +238,7 @@ export class TaskBar extends React.Component<any, any> {
                 endP: currentState.dropTarget,
                 type: 'connection'
             }
-        });
-        document.onmousemove = null;
-        this.clearTempElements(event);
+        })
     }
 
     private handleRectHover(event: Event) {

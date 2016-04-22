@@ -128,7 +128,8 @@ export class ChartView extends React.Component<any, any> {
         });
         document.getElementById('ganttChart').onmousedown = (event: MouseEvent) => {
             const eventTarget = event.target as any;
-            if (eventTarget.tagName !== 'BUTTON') {
+
+            if (eventTarget.classList[0] === 'barSelectBody' && eventTarget.tagName !== 'BUTTON') {
                 const view: any = document.getElementById('ganttChart');
                 const timeline: any = document.getElementById('timelineContainer');
                 const startScroll = view.scrollLeft;
@@ -257,10 +258,8 @@ export class ChartView extends React.Component<any, any> {
         }, function () {
             this.setState({
                 displayingLinks: links
-            }, function () {
-                this.forceUpdate();
-            }.bind(this));
-        }.bind(this));
+            })
+        }.bind(this))
     }
 
     public render() {

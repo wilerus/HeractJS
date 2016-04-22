@@ -472,9 +472,9 @@
     color: black;
 }
 .js-module-region-right {
-    transition: width 0.2s;
+    transition: width 0.2s ease-out;
 }
 
 .js-module-region-left {
-    transition: width 0.2s;
+    transition: width 0.2s ease-out;
 }

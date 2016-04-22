@@ -84,7 +84,7 @@ export class ChartData {
             link = {
                 id: `link${i}`,
                 to: type === 'project' ? `bar${i + 10}` : `bar${i + 1}`,
-                type: 'finichToStart'
+                type: 'finishToStart'
             };
             topMargin = 24 * i;
             ChartData.ganttBars.push({
