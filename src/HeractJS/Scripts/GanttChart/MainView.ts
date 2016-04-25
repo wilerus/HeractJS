@@ -165,7 +165,7 @@ export class ChartView extends React.Component<any, any> {
 
     private scrollChart(position: number) {
         const view: any = document.getElementById('ganttChart');
-        view.scrollTop = 22 * position;
+        view.scrollTop = 24 * position;
     }
 
     public updateTimeline() {
@@ -201,27 +201,21 @@ export class ChartView extends React.Component<any, any> {
     }
 
     public buildElements(scrollPosition: number) {
-        let elements: any[] = []; 
-        const displayElements = this.state.displayingElements;
+        let elements: any[];
         let startPos = this.state.startPosition;
         let endPos = this.state.endPosition;
+        const batchSize = this.state.batchSize;
         const items = GCMediator.getState().items;
-        if (scrollPosition - 15 <= startPos && startPos !== 0) {
-            const startIndex = startPos - 10 > 0 ? startPos - 10 : 0;
-            const itemsToAdd = items.slice(startIndex, startIndex + 10);
-            endPos -= (startPos - startIndex);
-            startPos = startIndex;
-            elements = elements.concat(itemsToAdd, displayElements.slice(0, displayElements.length - 10));
-        } else if (endPos - scrollPosition < 31 + this.state.batchSize ) {
-            elements = items.slice(scrollPosition, scrollPosition + 72);
+        if (endPos - scrollPosition < 31 + batchSize || (startPos - scrollPosition < batchSize && startPos !== 0)) {
+            const newStartPos = scrollPosition - batchSize;
+            startPos = newStartPos > 0 ? newStartPos : 0;
+            endPos = scrollPosition + 31 + batchSize;
 
-            startPos = scrollPosition;
-            endPos = scrollPosition + 72;
-        }
-        if (elements.length) {
+            elements = items.slice(startPos, endPos);
+
             const container = document.getElementById('ganttChartView');
             container.style.height = (document.documentElement.clientHeight + this.state.elementHeight * endPos).toString();
-            const links:any[] = [];
+            const links: any[] = [];
             for (let i = 0; i < elements.length - 2; i++) {
                 if (elements[i].link) {
                     elements[i].link.from = elements[i].id;
