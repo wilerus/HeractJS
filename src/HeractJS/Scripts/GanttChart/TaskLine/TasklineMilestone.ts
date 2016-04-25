@@ -1,7 +1,7 @@
 ﻿import React = require('react')
 import DOM = require('react-dom')
 
-import {AppMediator} from '../../../scripts/services/AppMediator'
+import {AppMediator} from '../../../scripts/services/ApplicationMediator'
 
 let GCMediator: any = AppMediator.getInstance();
 
@@ -279,35 +279,21 @@ export class TasklineMilestone extends React.Component<any, any> {
     private handleRectHover(event: Event) {
         const currentState = GCMediator.getState();
         if (!currentState.isPanning) {
-            const eventTarget: any = event.target;
             if (!currentState.isDragging) {
                 const el = DOM.findDOMNode(this) as any;
-                const elementRect = eventTarget.getBoundingClientRect();
                 const hoverElement = event.target as any;
                 setTimeout(function (hoverElement) {
                     if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
                         !GCMediator.getState().isCurrentlyDragging) {
-                        this.showPopup(hoverElement);
+                        this.showInfoPopup(hoverElement);
                     }
                 }.bind(this, hoverElement), 500);
-                document.onmousemove = (event) => {
-                    let clickCoordX = event.clientX;
-                    if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
-                        el.style.cursor = 'move';
-                    } else if (clickCoordX > elementRect.right - 15) {
-                        el.style.cursor = 'e-resize';
-                    } else if (clickCoordX < elementRect.left + 15) {
-                        el.style.cursor = 'e-resize';
-                    }
-                };
+                el.style.cursor = 'move';
             } else if (this !== currentState.draggingElement && this !== currentState.dropTarget) {
                 GCMediator.dispatch({
                     type: 'setDropTarget',
                     data: this
                 });
-            }
-            if (eventTarget.getAttribute('class') === 'barChartBody') {
-                eventTarget.setAttribute('class', 'barChartBody barOver');
             }
         }
     }
@@ -318,27 +304,15 @@ export class TasklineMilestone extends React.Component<any, any> {
         if (!currentState.isDragging) {
             document.onmousemove = null;
             document.onmouseup = null;
-            const eventTarget: any = event.target;
-            if (eventTarget.getAttribute('class') === 'barChartBody barOver' && !currentState.isCurrentlyDragging) {
-                eventTarget.setAttribute('class', 'barChartBody');
-            }
 
             if (currentState.templine) {
                 document.getElementById('ganttChartView').removeChild(GCMediator.getState().templine);
                 GCMediator.dispatch({ type: 'removeTempline' });
             }
             if (currentState.draggingElement) {
-                const el = DOM.findDOMNode(currentState.draggingElement).getElementsByClassName('barChartBody barOver');
-                if (el.length) {
-                    el[0].setAttribute('class', 'barChartBody');
-                }
                 GCMediator.dispatch({ type: 'removeDraggingElement' });
             }
             if (currentState.dropTarget) {
-                const el = DOM.findDOMNode(currentState.dropTarget).getElementsByClassName('barChartBody barOver');
-                if (el.length) {
-                    el[0].setAttribute('class', 'barChartBody');
-                }
                 GCMediator.dispatch({ type: 'removeDropTarget' });
             }
         }
@@ -348,6 +322,22 @@ export class TasklineMilestone extends React.Component<any, any> {
         this.showActionPopup(event.target);
         event.preventDefault();
         event.stopPropagation();
+    }
+
+    private showInfoPopup(hoverElement) {
+        const coords = hoverElement.getBoundingClientRect();
+        const popup = GCMediator.getState().ganttChartView.refs.infoPopup;
+
+        popup.setState({
+            left: coords.left + coords.width / 2 - 100,
+            top: coords.top - 160,
+            title: this.state.name,
+            startDate: this.state.startDate,
+            endDate: this.state.startDate + this.state.duration,
+            duration: this.state.duration,
+            description: this.state.description
+        });
+        popup.show();
     }
 
     private showModalWindow() {
@@ -378,9 +368,9 @@ export class TasklineMilestone extends React.Component<any, any> {
     }
 
     public static selectTask(taskId: string) {
-        const selectedElement = document.getElementById(taskId);
+        const selectedElement = document.getElementById(taskId + 'TLI');
         if (selectedElement && selectedElement.tagName === 'rect') {
-            selectedElement.setAttribute('class', 'barChartBody barSelected');
+            selectedElement.setAttribute('class', 'milestoneBody milestoneSelected');
         }
     }
 
@@ -394,14 +384,16 @@ export class TasklineMilestone extends React.Component<any, any> {
 
     public static deselectAllTasks(tasks: any) {
         for (let i = 0; i < tasks.length; i++) {
-            const selectedElement = document.getElementById(tasks[i]);
+            const selectedElement = document.getElementById(tasks[i] + 'TLI');
             if (selectedElement && selectedElement.tagName === 'rect') {
-                selectedElement.setAttribute('class', 'barChartBody');
+                selectedElement.setAttribute('class', 'milestoneBody');
             }
         }
     }
 
     public render() {
+        const startDate = this.state.startDate;
+        const columnWidth = this.state.columnWidth;
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
             onMouseOut: this.clearTempElements.bind(this),
@@ -413,22 +405,22 @@ export class TasklineMilestone extends React.Component<any, any> {
             React.createElement('rect', {
                 className: 'milestoneBody',
                 id: this.props.data.id,
-                x: this.state.startDate * this.state.columnWidth,
+                x: startDate * columnWidth,
                 y: 3,
                 rx: 3,
                 ry: 3
             }),
             React.createElement('line', {
-                x1: this.state.startDate * this.state.columnWidth + 7.5,
+                x1: startDate * columnWidth + 7.5,
                 y1: 20,
-                x2: this.state.startDate * this.state.columnWidth + 7.5,
+                x2: startDate * columnWidth + 7.5,
                 y2: 30,
                 strokeWidth: 1,
                 stroke: 'rgb(120,120,120)'
             }),
             React.createElement('text', {
                 className: 'barTitle',
-                x: this.state.startDate * this.state.columnWidth + this.state.duration * this.state.columnWidth,
+                x: startDate * columnWidth + this.state.duration * columnWidth/2,
                 y: 40
             }, 'This will be date')
         );

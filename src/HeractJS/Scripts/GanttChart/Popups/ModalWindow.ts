@@ -38,7 +38,8 @@ export class ModalWindow extends React.Component<any, any> {
                     React.createElement('input', {
                         type: 'text',
                         className: 'infoPopupTitle',
-                        value: this.state.title
+                        onChange: null,
+                        defaultValue: this.state.title
                     })
                 ),
                 React.createElement('div', {
@@ -48,7 +49,8 @@ export class ModalWindow extends React.Component<any, any> {
                     React.createElement('input', {
                         type: 'text',
                         className: 'infoPopupDescription',
-                        value: this.state.description
+                        onChange: null,
+                        defaultValue: this.state.description
                     }),
                     React.createElement('span', {
                         className: 'GCInputLabel'
@@ -57,6 +59,7 @@ export class ModalWindow extends React.Component<any, any> {
                         id: 'modalWindowInputStart',
                         type: 'datetime-local',
                         className: 'modalWindowInput',
+                        onChange: null,
                         defaultValue: this.state.startDate
                     }),
                     React.createElement('span', {
@@ -66,6 +69,7 @@ export class ModalWindow extends React.Component<any, any> {
                         id: 'modalWindowInputFinish',
                         type: 'datetime-local',
                         className: 'modalWindowInput',
+                        onChange: null,
                         defaultValue: this.state.completeDate
                     }),
                     React.createElement('span', {
@@ -75,6 +79,7 @@ export class ModalWindow extends React.Component<any, any> {
                         id: 'modalWindowInputDuration',
                         type: 'datetime-local',
                         className: 'modalWindowInput',
+                        onChange: null,
                         defaultValue: this.state.completeDate
                     })
                 ),

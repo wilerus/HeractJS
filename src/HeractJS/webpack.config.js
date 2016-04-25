@@ -12,7 +12,7 @@ module.exports = {
         //  'shared': './scripts/project/shared/bootstrap.js',
         //  'navigation': './scripts/project/navigation/module.js',
         'project': './Scripts/project/Application.js',
-        'services': './Scripts/services/AppMediator.ts',
+        'services': './Scripts/services/ApplicationMediator.ts',
         'gantt': './Scripts/GanttChart/MainView.ts'
     },
     devtool: "#inline-source-map",
@@ -42,7 +42,7 @@ module.exports = {
             'profileProfileInitializer': path.resolve(__dirname + '/scripts/project/profile/profile/Initializer'),
             'navigation': path.resolve(__dirname + '/scripts/project/navigation/module.js'),
             'LANGMAPEN': path.resolve(__dirname + '/wwwroot/js/compiled/localizationmap.en.js'),
-            'appMediator': path.resolve(__dirname + '/scripts/services/AppMediator'),
+            'appMediator': path.resolve(__dirname + '/scripts/services/ApplicationMediator'),
             'ganttChart': path.resolve(__dirname + '/scripts/GanttChart/MainView'),
             'form': path.resolve(__dirname + '/scripts/project/form')
         }

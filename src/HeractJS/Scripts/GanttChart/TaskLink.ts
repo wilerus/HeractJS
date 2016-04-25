@@ -1,5 +1,5 @@
 ﻿import React = require('react')
-import {AppMediator} from '../../scripts/services/AppMediator'
+import {AppMediator} from '../../scripts/services/ApplicationMediator'
 
 let GCMediator: any = AppMediator.getInstance();
 

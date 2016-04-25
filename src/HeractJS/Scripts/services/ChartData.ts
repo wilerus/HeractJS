@@ -10,11 +10,16 @@ export class ChartData {
     public static timelineDay: Object[] = [];
     public static timelineYear: Object[] = [];
     public static timelineWeekMin: Object[] = [];
+    public static timelineWeekMax: Object[] = [];
     public static timelineMonthMin: Object[] = [];
+    public static timelineMonthMax: Object[] = [];
     public static timelineDayMin: Object[] = [];
+    public static timelineDayMax: Object[] = [];
     public static timelineYearMin: Object[] = [];
     public static ganttBars: any[] = [];
     public static tasklineTasks: Object[] = [];
+    public static tasklineMilestones: Object[] = [];
+    public static tasklineCallouts: Object[] = [];
     public weekData: string[] = [
         'Monday',
         'Tuesday',
@@ -96,12 +101,21 @@ export class ChartData {
                 startDate: leftMargin,
                 finishDate: leftMargin,
                 position: topMargin,
+                callout: i % 8 === 0 && type !== 'milestone', 
                 type: type,
                 link: link
             });
 
             if (taskCount % 3 === 0 && taskCount < 100) {
-                ChartData.tasklineTasks.push(ChartData.ganttBars[i]);
+                if (ChartData.ganttBars[i].type === 'task') {
+                    ChartData.tasklineTasks.push(ChartData.ganttBars[i]);
+                } else if (ChartData.ganttBars[i].type === 'milestone') {
+                    ChartData.tasklineMilestones.push(ChartData.ganttBars[i]);
+                }
+            }
+
+            if (ChartData.ganttBars[i].callout && taskCount < 100) {
+                ChartData.tasklineCallouts.push(ChartData.ganttBars[i]);
             }
         }//gantt bar config
 
@@ -124,6 +138,17 @@ export class ChartData {
                         top: 20,
                         width: 72,
                         marginLeft: 508 * i + 72 * n
+                    }
+                });
+            }
+            for (let n = 0; n < this.weekData.length; n++) {
+                ChartData.timelineWeekMax.push({
+                    id: `timelineWeekM${n}${i}`,
+                    text: `this.weekData[n]'Week${i}'16`,
+                    style: {
+                        top: 20,
+                        width: 87,
+                        marginLeft:609 * i+87 * n
                     }
                 });
             }
@@ -151,6 +176,17 @@ export class ChartData {
                     }
                 });
             }
+            for (let n = 0; n <= 10; n++) {
+                ChartData.timelineMonthMax.push({
+                    id: `timelineMonthM${this.monthData[i] + n}`,
+                    text: `${n * 3}'${this.monthData[i]}'16`,
+                    style: {
+                        top: 20,
+                        width: 85,
+                        marginLeft: 935 * i + 85 * n
+                    }
+                });
+            }
         }//timelineMonth
         ChartData.timelineMonth = ChartData.timelineMonth.concat(ChartData.timelineMonthMin);
         for (let i = 0; i < 6; i++) {
@@ -172,6 +208,18 @@ export class ChartData {
                         top: 20,
                         width: 60,
                         marginLeft: 480 * i + 60 * n
+                    }
+                });
+            }
+
+            for (let n = 0; n < 8; n++) {
+                ChartData.timelineDayMax.push({
+                    id: `timelineDay${n}${i}`,
+                    text: `timelineDay${n}${i}'this.weekData[i]'16`,
+                    style: {
+                        top: 20,
+                        width: 80,
+                        marginLeft:64*i+ 80 * n
                     }
                 });
             }

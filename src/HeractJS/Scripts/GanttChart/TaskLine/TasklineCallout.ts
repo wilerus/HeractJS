@@ -5,7 +5,7 @@ import {AppMediator} from '../../../scripts/services/ApplicationMediator'
 
 let GCMediator: any = AppMediator.getInstance();
 
-export class TasklineBar extends React.Component<any, any> {
+export class TasklineCallouts extends React.Component<any, any> {
 
     constructor(props, context) {
         super(props, context);
@@ -21,7 +21,6 @@ export class TasklineBar extends React.Component<any, any> {
             assignee: props.data.assignee,
             parent: props.data.parent,
             predecessors: props.data.startDate,
-            date: 'This will be date',
 
             progress: props.data.progress,
             duration: props.data.duration,
@@ -79,8 +78,6 @@ export class TasklineBar extends React.Component<any, any> {
             type: 'setDraggingElement',
             data: this
         });
-        const eventTarget: any = event.target;
-        const startY = event.clientY;
         const startX = event.clientX;
         document.onmousemove = function (event: MouseEvent) {
             if (Math.abs(event.clientX - startX) > 30) {
@@ -94,28 +91,6 @@ export class TasklineBar extends React.Component<any, any> {
                         startDate: newStartDate
                     });
                 }.bind(this);
-            }
-
-            if (Math.abs(event.clientY - startY) > 30) {
-                const templine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                templine.setAttribute('id', 'templine');
-                eventTarget.parentNode.setAttribute('transform', 'translate(0, 0)');
-                templine.setAttribute('x1', (parseInt(eventTarget.getAttribute('x')) + eventTarget.getAttribute('width') / 2).toString());
-                templine.setAttribute('strokeWidth', '2');
-                templine.setAttribute('y1', (eventTarget.getAttribute('y')).toString());
-                templine.setAttribute('stroke', 'rgb(80,80,220)');
-
-                const parentNode: any = DOM.findDOMNode(this).parentNode;
-                const leftMargin = parentNode.getBoundingClientRect().left;
-                document.onmousemove = (event: MouseEvent) => {
-                    templine.setAttribute('x2', (event.clientX - leftMargin).toString());
-                    templine.setAttribute('y2', (event.clientY - 100).toString());
-                };
-                GCMediator.dispatch({
-                    type: 'setTempline',
-                    data: templine
-                });
-                document.getElementById('ganttChartView').appendChild(templine);
             }
         }.bind(this);
     }
@@ -132,7 +107,6 @@ export class TasklineBar extends React.Component<any, any> {
                         this.showInfoPopup(hoverElement);
                     }
                 }.bind(this, hoverElement), 500);
-
                 el.style.cursor = 'move';
             } else if (this !== currentState.draggingElement && this !== currentState.dropTarget) {
                 GCMediator.dispatch({
@@ -215,6 +189,8 @@ export class TasklineBar extends React.Component<any, any> {
     }
 
     public render() {
+        const startDate = this.state.startDate * this.state.columnWidth;
+        const duration = this.state.duration * this.state.columnWidth;
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
             onMouseOut: this.clearTempElements.bind(this),
@@ -228,28 +204,31 @@ export class TasklineBar extends React.Component<any, any> {
                     id: this.props.data.id + 'clipRect',
                     x: this.state.startDate * this.state.columnWidth,
                     height: 28,
-                    width: this.state.duration * this.state.columnWidth
+                    width: duration
                 }))),
-            React.createElement('rect', {
-                className: 'tasklineBarBody',
-                id: this.props.data.id,
-                x: this.state.startDate * this.state.columnWidth,
-                width: this.state.duration * this.state.columnWidth
+            React.createElement('path', {
+                d: `M${startDate} 35 C ${startDate + 3} 30, ${startDate + 3} 30, ${startDate + 7} 30,
+                    L${startDate + 7} 30, ${duration - 7 + startDate} 30,
+                    M${duration + startDate -7} 30 C ${duration - 3 + startDate} 30, ${duration + startDate - 3} 30, ${duration + startDate} 35`,
+                stroke: 'black',
+                fill:'transparent'
             }),
             React.createElement('text', {
                 className: 'taskLineTaskTitle',
-                x: this.state.startDate * this.state.columnWidth,
-                width: this.state.duration * this.state.columnWidth,
+                x: startDate + duration/2,
+                textAnchor: 'middle',
                 clipPath: `url(#${this.props.data.id}clipPath)`,
-                y: 12
+                width: duration,
+                y: 13
             }, `${this.props.data.name} - ${this.props.data.description}`),
             React.createElement('text', {
                 className: 'taskLineTaskDate',
-                x: this.state.startDate * this.state.columnWidth,
-                width: this.state.duration * this.state.columnWidth,
+                x: startDate + duration / 2,
                 clipPath: `url(#${this.props.data.id}clipPath)`,
-                y: 24
-            }, this.state.date)
+                textAnchor: 'middle',
+                width: duration,
+                y: 27
+            },'This will be date' )
         );
     }
 }

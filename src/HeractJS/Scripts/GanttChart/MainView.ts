@@ -12,7 +12,7 @@ import {ModalWindow} from './Popups/ModalWindow'
 import {Timeline}  from './Timeline'
 import {GanttToolbar}  from './Toolbar'
 import {TaskLineView}  from './Taskline/TaskLine'
-import {AppMediator} from '../../scripts/services/AppMediator'
+import {AppMediator} from '../../scripts/services/ApplicationMediator'
 
 let GCMediator: any = AppMediator.getInstance();
 

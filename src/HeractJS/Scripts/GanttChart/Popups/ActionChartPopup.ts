@@ -1,7 +1,7 @@
 ﻿import React = require('react')
 import DOM = require('react-dom')
 
-import {AppMediator} from '../../../scripts/services/AppMediator'
+import {AppMediator} from '../../../scripts/services/ApplicationMediator'
 
 let GCMediator: any = AppMediator.getInstance();
 

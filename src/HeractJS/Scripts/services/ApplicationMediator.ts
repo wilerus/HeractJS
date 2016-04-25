@@ -290,11 +290,11 @@ export class AppMediator {
             items: ChartData.ganttBars,
             timeLine: ChartData.timelineWeek,
 
-            tasklineTimeItems: ChartData.timelineMonthMin,
+            tasklineTimeItems: ChartData.timelineMonthMax,
             tasklineTasks: ChartData.tasklineTasks,
-            tasklineMilestones: [],
-            tasklineCallouts: [],
-            tasklineCellCapacity: 54 / 72,
+            tasklineMilestones: ChartData.tasklineMilestones,
+            tasklineCallouts: ChartData.tasklineCallouts,
+            tasklineCellCapacity: 85 / 72,
 
             isDragging: false,
             isLinking: false,

@@ -54,7 +54,7 @@
     align-content: stretch;
     align-items: stretch;
     justify-content: flex-start;
-    border-right: 1px solid gray;
+    box-shadow: 0 0 8px rgba(0,0,0,0.8);
 }
 .content-region-right {
     height: 100%;

@@ -93,6 +93,8 @@ a:hover {
 .menu-container {
     width: 260px;
     height: 100%;
+    box-shadow: 0 0 8px rgba(0,0,0,0.8);
+    position: absolute;
 }
 .l-left-menu {
     height: 100%;

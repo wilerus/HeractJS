@@ -43,8 +43,15 @@
     width: 15px;
     transform-origin: 50% 50%;
     transform: rotateZ(45deg);
+    transition: all .2s;
 }
-
+.milestoneBody:hover {
+   stroke:  rgb(130, 130, 255);
+}
+.milestoneSelected {
+    stroke: rgb(130, 130, 255);
+    stroke-width: 3px;
+}
 .projectBody {
     position: absolute;
     stroke-width: 2px;
@@ -454,7 +461,7 @@
     top: 5rem;
     position: absolute;
 }
-/*------ ------- ----*/
+/*------Taskline style ------- ----*/
 .tasklineContainer {
     width: auto;
     height: 160px;
@@ -464,8 +471,7 @@
 
 .taskLineCallouts {
     width: 3000px;
-    height: 30px;
-    background-color: rgb(57,165,182);
+    height: 35px;
 }
 
 .tasklineTimeline {
@@ -497,6 +503,7 @@
 
 .tasklineTimeLineText {
     color: black;
+    text-anchor: middle;
 }
 
 .js-module-region-right {
@@ -505,4 +512,13 @@
 
 .js-module-region-left {
     transition: width 0.2s ease-out;
+}
+
+.tasklineBarBody {
+    position: absolute;
+    height: 28px;
+    fill: rgb(160, 230, 160);
+    stroke: rgb(80,140,70);
+    stroke-width: 0.5px;
+       /* transition: all .2s;*/
 }

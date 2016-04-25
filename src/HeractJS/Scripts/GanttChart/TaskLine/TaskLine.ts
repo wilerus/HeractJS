@@ -3,9 +3,11 @@
 import {TasklineTimeItem}  from './TasklineTimeItem'
 import {TasklineBar}  from './TasklineBar'
 import {TasklineMilestone}  from './TasklineMilestone'
-import {AppMediator} from '../../../scripts/services/AppMediator'
-let GCMediator: any = AppMediator.getInstance();
+import {TasklineCallouts} from './TasklineCallout'
 
+import {AppMediator} from '../../../scripts/services/ApplicationMediator'
+let GCMediator: any = AppMediator.getInstance();
+let objectConstuctor = Object as any //just to get rid of console lint junk
 export class TaskLineView extends React.Component<any, any> {
 
     constructor() {
@@ -15,7 +17,8 @@ export class TaskLineView extends React.Component<any, any> {
             tasklineTasks: GCMediator.getState().tasklineTasks,
             tasklineMilestones: GCMediator.getState().tasklineMilestones,
             tasklineCallouts: GCMediator.getState().tasklineCallouts
-        };
+        }; 
+
         GCMediator.subscribe(function () {
             const change = GCMediator.getLastChange();
             if (change) {
@@ -26,6 +29,51 @@ export class TaskLineView extends React.Component<any, any> {
                             tasklineMilestones: GCMediator.getState().tasklineMilestones,
                             tasklineCallouts: GCMediator.getState().tasklineCallouts
                         });
+                        break;
+                    case 'removeTask':
+                    case 'createTask':
+                    case 'editTask':
+                    case 'removeLink':
+                    case 'completeTask':
+                    case 'reopenTask':
+                       // this.rebuildElements();
+                        break;
+                    case 'selectTask':
+                        GCMediator.getState().ganttChartView.state.displayingElements.find((element) => {
+                            if (element.id === change.data) {
+                                switch (element.type) {
+                                    case 'milestone':
+                                        TasklineMilestone.selectTask(change.data);
+                                        break;
+                                    case 'task':
+                                    case 'project':
+                                        TasklineBar.selectTask(change.data);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                return
+                            }
+                        })
+                        break;
+                    case 'deselectAllTasks':
+                        GCMediator.getState().ganttChartView.state.displayingElements.find((element) => {
+                            let index = 0
+                            if (element.id === change.data[index]) {
+                                switch (element.type) {
+                                    case 'milestone':
+                                        TasklineMilestone.deselectAllTasks(change.data);
+                                        break;
+                                    case 'task':
+                                    case 'project':
+                                        TasklineBar.deselectAllTasks(change.data);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                index++
+                            }
+                        })
                         break;
                     default:
                         break;
@@ -54,7 +102,7 @@ export class TaskLineView extends React.Component<any, any> {
 
     public render() {
         const tasklineTimeline = this.state.TasklineTimeItems.map((timeLineItem: any) => {
-            const  itemData = Object.assign({}, timeLineItem) 
+            const itemData = objectConstuctor.assign({}, timeLineItem) 
             itemData.id += 'TLI'
             return React.createElement(TasklineTimeItem, {
                 key: itemData.id,
@@ -62,7 +110,7 @@ export class TaskLineView extends React.Component<any, any> {
             });
         });
         const tasklineBars = this.state.tasklineTasks.map((timeLineItem: any) => {
-            const itemData = Object.assign({}, timeLineItem) 
+            const itemData = objectConstuctor.assign({}, timeLineItem) 
             itemData.id += 'TLI'
             return React.createElement(TasklineBar, {
                 key: itemData.id,
@@ -70,7 +118,7 @@ export class TaskLineView extends React.Component<any, any> {
             });
         });
         const tasklineMilestones = this.state.tasklineMilestones.map((timeLineItem: any) => {
-            const itemData = Object.assign({}, timeLineItem) 
+            const itemData = objectConstuctor.assign({}, timeLineItem) 
             itemData.id += 'TLI'
             return React.createElement(TasklineMilestone, {
                 key: itemData.id,
@@ -78,9 +126,9 @@ export class TaskLineView extends React.Component<any, any> {
             });
         });
         const tasklineCallouts = this.state.tasklineCallouts.map((timeLineItem: any) => {
-            const itemData = Object.assign({}, timeLineItem) 
+            const itemData = objectConstuctor.assign({}, timeLineItem) 
             itemData.id += 'TLI'
-            return React.createElement(TasklineBar, {
+            return React.createElement(TasklineCallouts, {
                 key: itemData.id,
                 data: itemData
             });
