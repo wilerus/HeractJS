@@ -199,17 +199,17 @@ export class TasklineBar extends React.Component<any, any> {
     }
 
     public static selectTask(taskId: string) {
-        const selectedElement = document.getElementById(taskId);
+        const selectedElement = document.getElementById(taskId + 'TLI');
         if (selectedElement && selectedElement.tagName === 'rect') {
-            selectedElement.setAttribute('class', 'barChartBody barSelected');
+            selectedElement.setAttribute('class', 'tasklineBarBody tasklineBarSelected');
         }
     }
 
     public static deselectAllTasks(tasks: any) {
         for (let i = 0; i < tasks.length; i++) {
-            const selectedElement = document.getElementById(tasks[i]);
+            const selectedElement = document.getElementById(tasks[i] + 'TLI');
             if (selectedElement && selectedElement.tagName === 'rect') {
-                selectedElement.setAttribute('class', 'barChartBody');
+                selectedElement.setAttribute('class', 'tasklineBarBody');
             }
         }
     }
@@ -224,12 +224,12 @@ export class TasklineBar extends React.Component<any, any> {
             React.createElement('defs', {
             }, React.createElement('clipPath', {
                 id: this.props.data.id + 'clipPath'
-                }, React.createElement('rect', {
-                    id: this.props.data.id + 'clipRect',
-                    x: this.state.startDate * this.state.columnWidth,
-                    height: 28,
-                    width: this.state.duration * this.state.columnWidth
-                }))),
+            }, React.createElement('rect', {
+                id: this.props.data.id + 'clipRect',
+                x: this.state.startDate * this.state.columnWidth,
+                height: 28,
+                width: this.state.duration * this.state.columnWidth
+            }))),
             React.createElement('rect', {
                 className: 'tasklineBarBody',
                 id: this.props.data.id,
