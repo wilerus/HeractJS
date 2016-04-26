@@ -101,7 +101,7 @@ export class ChartData {
                 startDate: leftMargin,
                 finishDate: leftMargin,
                 position: topMargin,
-                callout: i % 8 === 0 && type !== 'milestone', 
+                callout: i % 8 === 0 && type !== 'milestone',
                 type: type,
                 link: link
             });
@@ -120,15 +120,15 @@ export class ChartData {
         }//gantt bar config
 
         for (let i = 0; i <= 10; i++) {
-            ChartData.timelineWeek.push({
-                id: `timelineWeek${i}`,
-                text: `Week${i}`,
-                style: {
-                    top: 0,
-                    width: 508,
-                    marginLeft: 508 * i
-                }
-            });
+            //ChartData.timelineWeek.push({
+            //    id: `timelineWeek${i}`,
+            //    text: `Week${i}`,
+            //    style: {
+            //        top: 0,
+            //        width: 508,
+            //        marginLeft: 508 * i
+            //    }
+            //});
 
             for (let n = 0; n < this.weekData.length; n++) {
                 ChartData.timelineWeekMin.push({
@@ -144,31 +144,30 @@ export class ChartData {
             for (let n = 0; n < this.weekData.length; n++) {
                 ChartData.timelineWeekMax.push({
                     id: `timelineWeekM${n}${i}`,
-                    text: `this.weekData[n]'Week${i}'16`,
+                    text: `${this.weekData[n]}'W${i}'16`,
                     style: {
-                        top: 20,
                         width: 87,
-                        marginLeft:609 * i+87 * n
+                        marginLeft: 609 * i + 87 * n
                     }
                 });
             }
         }//timelineWeek
-        ChartData.timelineWeek = ChartData.timelineWeek.concat(ChartData.timelineWeekMin);
+        ChartData.timelineWeek = ChartData.timelineWeek.concat(ChartData.timelineWeekMax);
         for (let i = 0; i <= 11; i++) {
-            ChartData.timelineMonth.push({
-                id: `timelineMonth${i}`,
-                text: this.monthData[i],
-                style: {
-                    top: 0,
-                    width: 594,
-                    marginLeft: 594 * i
-                }
-            });
+            //ChartData.timelineMonth.push({
+            //    id: `timelineMonth${i}`,
+            //    text: this.monthData[i],
+            //    style: {
+            //        top: 0,
+            //        width: 594,
+            //        marginLeft: 594 * i
+            //    }
+            //});
 
             for (let n = 0; n <= 10; n++) {
                 ChartData.timelineMonthMin.push({
                     id: `timelineMonthM${this.monthData[i] + n}`,
-                    text: (n * 3).toString(),
+                    text: `${n * 3}`,
                     style: {
                         top: 20,
                         width: 54,
@@ -181,24 +180,23 @@ export class ChartData {
                     id: `timelineMonthM${this.monthData[i] + n}`,
                     text: `${n * 3}'${this.monthData[i]}'16`,
                     style: {
-                        top: 20,
                         width: 85,
                         marginLeft: 935 * i + 85 * n
                     }
                 });
             }
         }//timelineMonth
-        ChartData.timelineMonth = ChartData.timelineMonth.concat(ChartData.timelineMonthMin);
+        ChartData.timelineMonth = ChartData.timelineMonth.concat(ChartData.timelineMonthMax);
         for (let i = 0; i < 6; i++) {
-            ChartData.timelineDay.push({
-                id: `timelineDay${i}`,
-                text: this.weekData[i],
-                style: {
-                    top: 0,
-                    width: 480,
-                    marginLeft: 480 * i
-                }
-            });
+            //ChartData.timelineDay.push({
+            //    id: `timelineDay${i}`,
+            //    text: this.weekData[i],
+            //    style: {
+            //        top: 0,
+            //        width: 480,
+            //        marginLeft: 480 * i
+            //    }
+            //});
 
             for (let n = 0; n < 8; n++) {
                 ChartData.timelineDayMin.push({
@@ -215,34 +213,32 @@ export class ChartData {
             for (let n = 0; n < 8; n++) {
                 ChartData.timelineDayMax.push({
                     id: `timelineDay${n}${i}`,
-                    text: `timelineDay${n}${i}'this.weekData[i]'16`,
+                    text: `H${n * 3}'${this.weekData[i]}'16`,
                     style: {
-                        top: 20,
                         width: 80,
-                        marginLeft:64*i+ 80 * n
+                        marginLeft: 64 * i + 80 * n
                     }
                 });
             }
         }//timelineDay
 
-        ChartData.timelineDay = ChartData.timelineDay.concat(ChartData.timelineDayMin);
+        ChartData.timelineDay = ChartData.timelineDay.concat(ChartData.timelineDayMax);
         for (let i = 0; i <= 8; i++) {
-            ChartData.timelineYear.push({
-                id: `timelineYear${i}`,
-                text: this.yearData[i],
-                style: {
-                    top: 0,
-                    width: 648,
-                    marginLeft: 648 * i
-                }
-            });
+            //ChartData.timelineYear.push({
+            //    id: `timelineYear${i}`,
+            //    text: this.yearData[i],
+            //    style: {
+            //        top: 0,
+            //        width: 648,
+            //        marginLeft: 648 * i
+            //    }
+            //});
 
             for (let n = 0; n <= 11; n++) {
                 ChartData.timelineYearMin.push({
                     id: `timelineYearM${n}${i}`,
                     text: this.monthData[n],
                     style: {
-                        top: 20,
                         width: 54,
                         marginLeft: 600 * i + 54 * n
                     }

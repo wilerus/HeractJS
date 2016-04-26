@@ -5,7 +5,7 @@ let GCMediator: any = AppMediator.getInstance();
 
 export class TaskLink extends React.Component<any, any> {
 
-    constructor(props,context) {
+    constructor(props, context) {
         super(props, context);
         GCMediator.subscribe(function () {
             const change = GCMediator.getLastChange();
@@ -33,21 +33,16 @@ export class TaskLink extends React.Component<any, any> {
     public buildConnection() {
         const firstPoint = document.getElementById(this.props.data.from);
         const secondPoint = document.getElementById(this.props.data.to);
-        //const currentState = GCMediator.getState().ganttChartView.displayingElements
-        //const firstElementType = currentState.find((element, index) => {
-        //    if (element.id === firstPoint) {
-        //        return true
-        //    }
-        //})
-
-        //const secondElementType = currentState.find((element, index) => {
-        //    if (element.id === secondPoint) {
-        //        return true
-        //    }
-        //})
 
         if (firstPoint && secondPoint) {
-      //  firstPoint.addEventListener('transitionend', () => {
+            const currentState = GCMediator.getState().items
+            const firstElementType = currentState.find((element) => {
+                if (element.id === firstPoint.id) {
+                    return true
+                }
+            })
+            const xDelta = firstElementType.type === 'milestone' ? -3 : 0
+            const yDelta = firstElementType.type === 'project' ? 1 : 7
             const firstPointCoordsX = parseInt(firstPoint.getAttribute('x'));
             const firstPointCoordsY = parseInt(firstPoint.getAttribute('y'));
             const firstPointCoordsWidth = firstPoint.getBoundingClientRect().width;
@@ -56,14 +51,13 @@ export class TaskLink extends React.Component<any, any> {
             const secondPointCoordsWidth = secondPoint.getBoundingClientRect().width;
 
             //if (firstPointCoordsX < secondPointCoordsX - 10) {
-            //if (this) {
             this.setState({
-                firstPoint: (firstPointCoordsX + firstPointCoordsWidth - 3) + ' , ' + (firstPointCoordsY + 7),
-                secondPoint: (secondPointCoordsX + 7) + ' , ' + (firstPointCoordsY + 7),
+                firstPoint: (firstPointCoordsX + firstPointCoordsWidth + xDelta) + ' , ' + (firstPointCoordsY + yDelta),
+                secondPoint: (secondPointCoordsX + 7) + ' , ' + (firstPointCoordsY + yDelta),
                 thirdPoint: (secondPointCoordsX + 7) + ' , ' + (secondPointCoordsY - 4)
                 // endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
             });
-          //  }
+            //  }
 
             //} else if (firstPointCoordsX - 10 > secondPointCoordsX) {
             //    this.setState({
@@ -80,8 +74,7 @@ export class TaskLink extends React.Component<any, any> {
             //       // endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
             //    })
             //}
-        } 
-       // }, false);
+        }
     }
 
     public componentDidMount() {

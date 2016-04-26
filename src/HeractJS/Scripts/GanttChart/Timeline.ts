@@ -39,7 +39,7 @@ export class Timeline extends React.Component<any, any> {
             React.createElement('text', {
                 className: 'timeLineText',
                 x: this.state.marginLeft + this.state.width * 0.5,
-                y: this.state.top + 20
+                y: 20
             }, this.state.text)
         );
     }

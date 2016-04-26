@@ -44,7 +44,7 @@
     position: relative;
 }
 .content-region-left {
-    width: 40%;
+    width: 30%;
     overflow: hidden;
     overflow-x: auto;
     position: relative;
@@ -58,7 +58,7 @@
 }
 .content-region-right {
     height: 100%;
-    width: 60%;
+    width: 70%;
 }
 .content-wrapper {
     display: flex;

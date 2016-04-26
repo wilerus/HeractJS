@@ -1090,7 +1090,7 @@ p + p {
 .list {
     max-height: 100%;
     /*min-height: 4.7rem;*/
-    padding-left: 1.9rem;
+    /*padding-left: 1.9rem;*/
     font-size: 1.9rem;
     margin: 0;
     overflow: auto;

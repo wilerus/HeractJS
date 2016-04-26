@@ -146,6 +146,7 @@ export class ChartView extends React.Component<any, any> {
             currentState.ganttChartView.refs.infoPopup.hide();
             currentState.ganttChartView.refs.modalWindow.hide();
             currentState.ganttChartView.refs.actionChartPopup.hide();
+            currentState.ganttChartView.refs.actionTasklinePopup.hide();
 
             if (eventTarget.tagName !== 'BUTTON') {
                 GanttToolbar.hideViewModeDropdown();

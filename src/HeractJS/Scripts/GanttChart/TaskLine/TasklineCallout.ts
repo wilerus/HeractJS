@@ -200,26 +200,26 @@ export class TasklineCallouts extends React.Component<any, any> {
             React.createElement('defs', {
             }, React.createElement('clipPath', {
                 id: this.props.data.id + 'clipPath'
-                }, React.createElement('rect', {
-                    id: this.props.data.id + 'clipRect',
-                    x: this.state.startDate * this.state.columnWidth,
-                    height: 28,
-                    width: duration
-                }))),
+            }, React.createElement('rect', {
+                id: this.props.data.id + 'clipRect',
+                x: this.state.startDate * this.state.columnWidth,
+                height: 29,
+                width: duration
+            }))),
             React.createElement('path', {
-                d: `M${startDate} 35 C ${startDate + 3} 30, ${startDate + 3} 30, ${startDate + 7} 30,
-                    L${startDate + 7} 30, ${duration - 7 + startDate} 30,
-                    M${duration + startDate -7} 30 C ${duration - 3 + startDate} 30, ${duration + startDate - 3} 30, ${duration + startDate} 35`,
+                d: `M${startDate} 37 C ${startDate + 3} 32, ${startDate + 3} 32, ${startDate + 7} 32,
+                    L${startDate + 7} 32, ${duration - 7 + startDate} 32,
+                    M${duration + startDate - 7} 32 C ${duration - 3 + startDate} 32, ${duration + startDate - 3} 32, ${duration + startDate} 37`,
                 stroke: 'black',
-                fill:'transparent'
+                fill: 'transparent'
             }),
             React.createElement('text', {
                 className: 'taskLineTaskTitle',
-                x: startDate + duration/2,
+                x: startDate + duration / 2,
                 textAnchor: 'middle',
                 clipPath: `url(#${this.props.data.id}clipPath)`,
                 width: duration,
-                y: 13
+                y: 14
             }, `${this.props.data.name} - ${this.props.data.description}`),
             React.createElement('text', {
                 className: 'taskLineTaskDate',
@@ -227,8 +227,8 @@ export class TasklineCallouts extends React.Component<any, any> {
                 clipPath: `url(#${this.props.data.id}clipPath)`,
                 textAnchor: 'middle',
                 width: duration,
-                y: 27
-            },'This will be date' )
+                y: 29
+            }, 'This will be date')
         );
     }
 }

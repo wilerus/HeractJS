@@ -13,10 +13,14 @@ export class AppMediator {
 
     private reduser(state: any, action: any) {
         let newState = state;
+        let items = newState.items;
+        if (!items || items.length === 0) {
+            return state;
+        }
         let isHistoryNeed = false;
         switch (action.type) {
             case 'reset':
-                newState.items = action.data;
+                items = action.data;
                 break;
             case 'createTask':
                 action.data = 'item';
@@ -24,7 +28,7 @@ export class AppMediator {
                 let selectedTaskStartDate = 0;
                 if (newState.selectedTasks) {
                     let prevElIndex = 0;
-                    const prevElement = newState.items.find((element, index) => {
+                    const prevElement = items.find((element, index) => {
                         if (element.id === newState.selectedTasks[0]) {
                             prevElIndex = index;
                             return true;
@@ -32,55 +36,49 @@ export class AppMediator {
                     })
                     selectedTaskPosition = prevElement.position + 24
                     selectedTaskStartDate = prevElement.startDate + prevElement.duration
-                    newState.items.splice(prevElIndex + 1, 0, {
-                        id: `bar${newState.items.length + 1}`,
+                    items.splice(prevElIndex + 1, 0, {
+                        id: `bar${items.length + 1}`,
                         barClass: '',
                         progress: 25,
                         duration: 40,
-                        name: `Task ${newState.items.length + 1}`,
-                        description: `Description for ${newState.items.length + 1}`,
+                        name: `Task ${items.length + 1}`,
+                        description: `Description for ${items.length + 1}`,
                         startDate: selectedTaskStartDate,
                         type: 'task',
                         position: selectedTaskPosition,
                         link: null
                     });
-                    for (let i = prevElIndex + 2; i < newState.items.length; i++) {
-                        newState.items[i].position = 24 * i
+                    for (let i = prevElIndex + 2; i < items.length; i++) {
+                        items[i].position = 24 * i
                     }
+
                 } else {
-                    selectedTaskPosition = 24 * newState.items.length
-                    selectedTaskStartDate = 50 * newState.items.length
+                    selectedTaskPosition = 24 * items.length
+                    selectedTaskStartDate = 50 * items.length
                 }
                 isHistoryNeed = true;
                 break;
             case 'removeTask':
-                let element: any;
-                let elementIndex: number;
-                if (newState.items.length > 0) {
-                    element = newState.items.find((element: any, index: number) => {
-                        if (element.id === newState.selectedTasks[0]) {
-                            return index;
-                        }
-                    });
-                    elementIndex = newState.items.indexOf(element);
-                    const taskDuration = element.duration;
-                    if (element) {
+                items.find((element: any) => {
+                    if (element.id === newState.selectedTasks[0]) {
+                        const elementIndex = items.indexOf(element);
+                        const taskDuration = element.duration;
                         action.data = elementIndex;
-                        newState.items.splice(elementIndex, 1);
-                        newState.items[elementIndex - 1].link = null;
-                        for (let i = elementIndex; i < newState.items.length; i++) {
-                            newState.items[i].position = 24 * i
-                            newState.items[i].startDate -= taskDuration
+                        items.splice(elementIndex, 1);
+                        items[elementIndex - 1].link = null;
+                        for (let i = elementIndex; i < items.length; i++) {
+                            items[i].position = 24 * i
+                            items[i].startDate -= taskDuration
                         }
                     }
-                }
+                });
                 isHistoryNeed = true;
                 break;
             case 'editTask':
                 const newData = action.data;
                 for (let prop in newData) {
                     if (prop !== 'position') {
-                        newState.items[action.data.position][prop] = newData[prop]
+                        items[action.data.position][prop] = newData[prop]
                     }
                 }
                 isHistoryNeed = true;
@@ -168,7 +166,7 @@ export class AppMediator {
                     newState.selectedTasks.push(newState.selectedTask);
                     newState.selectedTask = null;
                 }
-                newState.selectedTasks.push(action.data); //todo check if exist
+                newState.selectedTasks.push(action.data);
                 break;
             case 'deselectAllTasks':
                 if (newState.selectedTasks && newState.selectedTasks.length) {
@@ -180,67 +178,42 @@ export class AppMediator {
             case 'deselectTask':
                 let selectedTasks = newState.selectedTasks;
                 if (selectedTasks.length > 0) {
-                    let elementIndex = selectedTasks.find((element: any, index: number) => {
+                    selectedTasks.find((element: any, index: number) => {
                         if (element.state.id === action.data.state.id) {
-                            return index;
+                            selectedTasks.splice(index, 1);
                         }
                     });
-                    if (elementIndex) {
-                        newState.selectedTasks.splice(elementIndex, 1);
-                    }
-                } else {
-                    newState.selectedTask = null;
                 }
                 break;
             case 'completeTask':
-                element = null;
-                elementIndex = 0;
-                if (newState.items.length > 0) {
-                    element = newState.items.find((element: any, index: number) => {
-                        if (element.id === newState.selectedTasks[0]) {
-                            return index;
-                        }
-                    });
-                    elementIndex = newState.items.indexOf(element);
-                    if (element) {
+                items.find((element: any) => {
+                    if (element.id === newState.selectedTasks[0]) {
+                        const elementIndex = items.indexOf(element);
                         action.data = elementIndex;
-                        newState.items[elementIndex].progress = 100;
+                        items[elementIndex].progress = 100;
                     }
-                }
+                });
                 isHistoryNeed = true;
                 break;
             case 'reopenTask':
-                element = null;
-                elementIndex = 0;
-                if (newState.items.length > 0) {
-                    element = newState.items.find((element: any, index: number) => {
-                        if (element.id === newState.selectedTasks[0]) {
-                            return index;
-                        }
-                    });
-                    elementIndex = newState.items.indexOf(element);
-                    if (element) {
+                items.find((element: any) => {
+                    if (element.id === newState.selectedTasks[0]) {
+                        const elementIndex = items.indexOf(element);
                         action.data = elementIndex;
-                        newState.items[elementIndex].progress = 0;
+                        items[elementIndex].progress = 0;
                     }
-                }
+                });
                 isHistoryNeed = true;
                 break;
             case 'removeLink':
-                element = null;
-                elementIndex = 0;
-                if (newState.items.length > 0) {
-                    element = newState.items.find((element: any, index: number) => {
-                        if (element.id === newState.selectedTasks[0]) {
-                            return index;
-                        }
-                    });
-                    elementIndex = newState.items.indexOf(element);
-                    if (element) {
+                items.find((element: any) => {
+                    if (element.id === newState.selectedTasks[0]) {
+                        const elementIndex = items.indexOf(element);
                         action.data = elementIndex;
-                        newState.items[elementIndex].link = null;
+                        items[elementIndex].link = null;
+                        return true;
                     }
-                }
+                });
                 isHistoryNeed = true;
                 break;
             case 'scrollGrid':
@@ -257,42 +230,38 @@ export class AppMediator {
                 isHistoryNeed = true;
                 break;
             case 'addToTaskline':
-                if (newState.items.length > 0) {
-                    element = newState.items.find((element: any) => {
-                        if (element.id === newState.selectedTasks[0]) {
-                            if (element.type === 'task') {
-                                newState.tasklineTasks.push(element);
-                            } else if (element.type === 'milestone') {
-                                newState.tasklineMilestones.push(element);
-                            }
+                items.find((element: any) => {
+                    if (element.id === newState.selectedTasks[0]) {
+                        if (element.type === 'task') {
+                            newState.tasklineTasks.push(element);
+                        } else if (element.type === 'milestone') {
+                            newState.tasklineMilestones.push(element);
                         }
-                    });
-                }
+                    }
+                });
                 action.data = '123';
                 isHistoryNeed = true;
                 break;
             case 'removeFromTaskline':
-                if (newState.items.length > 0) {
-                    element = newState.items.find((element: any) => {
-                        if (element.id === newState.selectedTasks[0]) {
-                            if (element.type === 'task') {
-                                newState.tasklineTasks.find((task: any, index: number) => {
-                                    if (task.id === element.id) {
-                                        newState.tasklineTasks.splice(index, 1);
-                                        return true;
-                                    }
-                                });
-                            } else if (element.type === 'milestone') {
-                                newState.tasklineMilestones.find((task: any, index: number) => {
-                                    if (task.id === element.id) {
-                                        newState.tasklineMilestones.splice(index, 1);
-                                        return true;
-                                    }
-                                });
-                            }
+                items.find((element: any) => {
+                    if (element.id === newState.selectedTasks[0]) {
+                        if (element.type === 'task') {
+                            newState.tasklineTasks.find((task: any, index: number) => {
+                                if (task.id === element.id) {
+                                    newState.tasklineTasks.splice(index, 1);
+                                    return true;
+                                }
+                            });
+                        } else if (element.type === 'milestone') {
+                            newState.tasklineMilestones.find((task: any, index: number) => {
+                                if (task.id === element.id) {
+                                    newState.tasklineMilestones.splice(index, 1);
+                                    return true;
+                                }
+                            });
                         }
-                    });
-                }
+                    }
+                });
                 action.data = '123';
                 isHistoryNeed = true;
                 break;
@@ -324,21 +293,21 @@ export class AppMediator {
             isDragging: false,
             isLinking: false,
             isCurrentlySizing: false,
-            toolbar: null,
+            toolbar: null as any,
             isLineDrawStarted: false,
 
             timelineStep: 0,
             scrollPosition: 0,
 
             columnWidth: 72,
-            ganttChartView: null,
+            ganttChartView: null as any,
             cellCapacity: 72 / 24,
 
-            dropTarget: null,
-            draggingElement: null,
+            dropTarget: null as any,
+            draggingElement: null as any,
             selectedTasks: [],
             history: [],
-            tempLine: null,
+            tempLine: null as any,
 
             isCallbackNeed: false
         };
@@ -395,4 +364,4 @@ export class AppMediator {
     public redo() {
         return AppMediator.store.subscribe();
     }
-}
+} 

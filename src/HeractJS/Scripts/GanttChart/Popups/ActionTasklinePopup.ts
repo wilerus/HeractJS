@@ -36,7 +36,7 @@ export class ActionTasklinePopup extends React.Component<any, any> {
 
     public render() {
         return React.createElement('div', {
-            id: 'actionPopup',
+            id: 'actionTimelinePopup',
             className: 'actionPopup',
             style: {
                 left: this.state.left,

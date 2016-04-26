@@ -7,7 +7,7 @@ let GCMediator: any = AppMediator.getInstance();
 
 export class TaskBar extends React.Component<any, any> {
 
-    constructor(props, context) {
+    constructor(props: any, context: any) {
         super(props, context);
         this.state = {
             id: props.data.id,
@@ -60,8 +60,9 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     private startTaskSelection() {
-        if (!GCMediator.getState().isDragging && !GCMediator.getState().isPanning) {
-            if (GCMediator.getState().selectedTasks[0]) {
+        const currentState = GCMediator.getState();
+        if (!currentState.isDragging && !currentState.isPanning) {
+            if (currentState.selectedTasks[0]) {
                 GCMediator.dispatch({ type: 'deselectAllTasks' });
             }
 
@@ -133,20 +134,20 @@ export class TaskBar extends React.Component<any, any> {
             const clickCoordX = event.clientX;
             GCMediator.dispatch({ type: 'startDragging' });
             if (parentElement && parentCoords && clickCoordX > parentCoords.right - 15) {
-                this.updateComplitionState(event);
+                this.updateComplitionState(event, eventTarget);
             } else if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
                 this.startBarRelocation(event);
             } else if (clickCoordX > elementRect.right - 15) {
-                this.updateСompleteDate(event);
+                this.updateСompleteDate(event, eventTarget);
             } else if (clickCoordX < elementRect.left + 15) {
-                this.updateStartDate(event);
+                this.updateStartDate(event, eventTarget);
             }
             document.onmouseup = function (event: MouseEvent) {
                 GCMediator.dispatch({
                     type: 'editTask',
                     data: {
-                        duration: this.state.duration,
-                        startDate: this.state.startDate,
+                        duration: eventTarget.getAttribute('width') / GCMediator.getState().cellCapacity,
+                        startDate: parseInt(event.target.getAttribute('x')) / GCMediator.getState().cellCapacity,
                         position: this.state.position / 24
                     }
                 })
@@ -156,72 +157,45 @@ export class TaskBar extends React.Component<any, any> {
         }
     }
 
-    private updateСompleteDate(event: MouseEvent) {
+    private updateСompleteDate(event: any, eventTarget: any) {
         const cellCapacity = GCMediator.getState().cellCapacity;
         const duration = this.state.duration;
         const startPoint = event.pageX - duration * cellCapacity;
         let newDuration = startPoint;
-        let newCompletion = this.state.progress / cellCapacity;
         document.onmousemove = function (event) {
-            newDuration = (event.pageX - startPoint) / cellCapacity;
+            newDuration = event.pageX - startPoint;
             if (newDuration) {
-                newCompletion = this.state.progress / cellCapacity;
-                if (newCompletion > newDuration || newCompletion === duration) {
-                    this.setState({
-                        progress: Math.round(newDuration)
-                    });
-                }
-                this.setState({
-                    duration: Math.round(newDuration)
-                });
+                eventTarget.setAttribute('width', newDuration)
             }
         }.bind(this);
     }
 
-    private updateStartDate(event: MouseEvent) {
+    private updateStartDate(event: MouseEvent, eventTarget: any) {
         if (!document.onmousemove) {
-            const currentState = GCMediator.getState();
-            const cellCapacity = currentState.cellCapacity;
-            const startDate = this.state.startDate;
-            const startPointStartDate = event.pageX - startDate * cellCapacity;
-            document.onmousemove = function (event: MouseEvent) {
-                const newStartDate = (event.pageX - startPointStartDate) / cellCapacity;
-                const newDuration = this.state.duration - (newStartDate - this.state.startDate);
-                if (this.state.startDate !== newStartDate && newDuration > 1 && newStartDate > 1) {
-                    // let newCompletion = this.state.progress
-                    //if (newCompletion > newDuration || newCompletion === this.state.duration) {
-                    //    newCompletion = newDuration
-                    //}
-                    this.setState({
-                        startDate: Math.round(newStartDate),
-                        duration: Math.round(newDuration)
-                        // progress: newCompletion
-                    });
+            const startDate = event.pageX;
+            const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
+            const startWidth = parseInt(eventTarget.getAttribute('width'));
+            const fillTarget = eventTarget.parentNode.getElementsByClassName('barChartFillBody')[0];
+            document.onmousemove = (event: MouseEvent) => {
+                const newStartDate = startPointStartDate + (event.pageX - startDate);
+                const newWidth = startWidth + (startDate - event.pageX);
+                if (newStartDate > 0) {
+                    eventTarget.setAttribute('x', newStartDate)
+                    fillTarget.setAttribute('x', newStartDate)
+                    eventTarget.setAttribute('width', newWidth)
                 }
-            }.bind(this);
+            };
         }
     }
 
-    private updateComplitionState(event: MouseEvent) {
-        const eventTarget: any = event.target;
-        const elementRect = eventTarget.getBoundingClientRect();
-        const clickCoordX = event.clientX;
-        if (clickCoordX > elementRect.right - 15) {
-            document.onmousemove = function (event) {
-                const parentNode: any = DOM.findDOMNode(this).parentNode;
-                const leftMargin = parentNode.getBoundingClientRect().left;
-                let newComplition = event.pageX - event.target.getAttribute('x') - leftMargin;
-                newComplition = newComplition / GCMediator.getState().cellCapacity;
-                if (newComplition <= 0) {
-                    newComplition = 0;
-                } else if (this.state.duration < newComplition) {
-                    newComplition = this.state.duration;
-                }
-                this.setState({
-                    progress: newComplition
-                });
-            }.bind(this);
-        }
+    private updateComplitionState(event: MouseEvent, eventTarget) {
+        const clickCoordX = event.pageX;
+        const target = eventTarget.parentNode.getElementsByClassName('barChartFillBody')[0];
+        const width = parseInt(target.getAttribute('width'));
+        document.onmousemove = function (event) {
+            const newComplition = width + (event.pageX - clickCoordX);
+            target.setAttribute('width', newComplition);
+        }.bind(this);
     }
 
     private addNewConnection(event: MouseEvent) {

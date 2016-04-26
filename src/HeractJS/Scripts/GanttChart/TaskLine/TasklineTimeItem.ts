@@ -31,15 +31,15 @@ export class TasklineTimeItem extends React.Component<any, any> {
                 y: -1,
                 x: this.state.marginLeft,
                 width: this.state.width,
-                height: 27,
+                height: 21,
                 stroke: 'black',
                 strokeWidth: 0.5,
                 fill: 'none'
             }),
             React.createElement('text', {
                 className: 'tasklineTimeLineText',
-                x: this.state.marginLeft + this.state.width/2,
-                y: 20
+                x: this.state.marginLeft + this.state.width / 2,
+                y: 13
             }, this.state.text)
         );
     }

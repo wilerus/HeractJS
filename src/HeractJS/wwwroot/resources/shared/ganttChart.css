@@ -161,7 +161,7 @@
 /* Bar chart */
 .ganttTimeline {
     width: 3000px;
-    height: 49px;
+    height: 27px;
     transition: all .2s;
 }
 
@@ -173,16 +173,15 @@
 .timelineContainer {
     overflow-x: auto;
     overflow-y: hidden;
-    height: 49px;
+    height: 27px;
     flex: none;
     z-index: 90;
     box-shadow: 0 0 8px rgba(0, 0, 0,0.8);
 }
-
-    .timelineContainer::-webkit-scrollbar {
-        width: 0 !important;
-        height: 0 !important;
-    }
+.timelineContainer::-webkit-scrollbar, .js-module-gantt-taskline::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+}
 
 .timeLineText {
     font-size: 11px;
@@ -483,18 +482,17 @@
 
 .taskLineCallouts {
     width: 3000px;
-    height: 35px;
+    height: 37px;
 }
 
 .tasklineTimeline {
     width: 3000px;
-    height: 25px;
+    height: 20px;
 }
 
 .tasklineBars {
     width: 3000px;
-    height: 60px;
-    border-top: 1px solid rgb(200,200,200);
+    height: 63px;
     border-bottom: 1px solid rgb(200,200,200);
 }
 
