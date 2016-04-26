@@ -24,6 +24,7 @@ export class TaskLineView extends React.Component<any, any> {
             if (change) {
                 switch (change.type) {
                     case 'addToTaskline':
+                    case 'removeFromTaskline':
                         this.setState({
                             tasklineTasks: GCMediator.getState().tasklineTasks,
                             tasklineMilestones: GCMediator.getState().tasklineMilestones,

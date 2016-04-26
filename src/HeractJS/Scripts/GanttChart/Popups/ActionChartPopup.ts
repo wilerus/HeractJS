@@ -34,6 +34,11 @@ export class ActionChartPopup extends React.Component<any, any> {
         this.hide();
     }
 
+    private removeFromTaskline() {
+        GCMediator.dispatch({ type: 'removeFromTaskline' });
+        this.hide();
+    }
+
     public render() {
         return React.createElement('div', {
             id: 'actionPopup',
@@ -49,7 +54,11 @@ export class ActionChartPopup extends React.Component<any, any> {
             React.createElement('button', {
                 className: 'addToTasklineButton',
                 onClick: this.addToTaskline.bind(this)
-            }, 'Add to taskline')
+            }, 'Add to taskline'),
+            React.createElement('button', {
+                className: 'removeFromTasklineButton',
+                onClick: this.removeFromTaskline.bind(this)
+            }, 'Remove from taskline')
         );
     }
 };

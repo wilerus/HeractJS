@@ -29,8 +29,8 @@ export class ActionTasklinePopup extends React.Component<any, any> {
         item.style.display = 'block';
     }
 
-    private addToTaskline() {
-        GCMediator.dispatch({ type: 'addToTaskline' });
+    private removeFromTaskline() {
+        GCMediator.dispatch({ type: 'removeFromTaskline' });
         this.hide();
     }
 
@@ -47,9 +47,9 @@ export class ActionTasklinePopup extends React.Component<any, any> {
                 className: 'actionPopupTitle'
             }, this.state.title),
             React.createElement('button', {
-                className: 'addToTasklineButton',
-                onClick: this.addToTaskline.bind(this)
-            }, 'Add to taskline')
+                className: 'removeFromTasklineButton',
+                onClick: this.removeFromTaskline.bind(this)
+            }, 'Remove from taskline')
         );
     }
 };

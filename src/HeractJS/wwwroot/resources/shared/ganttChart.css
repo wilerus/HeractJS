@@ -49,8 +49,8 @@
    stroke:  rgb(130, 130, 255);
 }
 .milestoneSelected {
-    stroke: rgb(130, 130, 255);
-    stroke-width: 3px;
+    stroke: rgb(50, 50, 180);
+    stroke-width: 2.5px;
 }
 .projectBody {
     position: absolute;
@@ -258,6 +258,18 @@
 }
 
 .addToTasklineButton {
+    height: 22px;
+    width: 100%;
+    margin-top: 3px;
+    text-align: center;
+    background-color: white;
+    border: none;
+    color: black;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
+    vertical-align: top;
+    z-index: 220;
+}
+.removeFromTasklineButton {
     height: 22px;
     width: 100%;
     margin-top: 3px;
@@ -520,5 +532,10 @@
     fill: rgb(160, 230, 160);
     stroke: rgb(80,140,70);
     stroke-width: 0.5px;
-       /* transition: all .2s;*/
+    transition: all .2s;
+}
+
+.tasklineBarSelected {
+    stroke-width: 1.5px;
+    stroke: rgb(60,120,50);
 }

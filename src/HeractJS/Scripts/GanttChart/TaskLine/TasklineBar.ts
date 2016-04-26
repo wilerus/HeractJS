@@ -66,10 +66,10 @@ export class TasklineBar extends React.Component<any, any> {
             if (GCMediator.getState().selectedTasks[0]) {
                 GCMediator.dispatch({ type: 'deselectAllTasks' });
             }
-
+            const id = this.state.id
             GCMediator.dispatch({
                 type: 'selectTask',
-                data: this.state.id
+                data: id.substring(0, id.length-3)
             });
         }
     }
@@ -226,7 +226,7 @@ export class TasklineBar extends React.Component<any, any> {
                 id: this.props.data.id + 'clipPath'
             }, React.createElement('rect', {
                 id: this.props.data.id + 'clipRect',
-                x: this.state.startDate * this.state.columnWidth,
+                x: this.state.startDate * this.state.columnWidth+1,
                 height: 28,
                 width: this.state.duration * this.state.columnWidth
             }))),
@@ -234,6 +234,7 @@ export class TasklineBar extends React.Component<any, any> {
                 className: 'tasklineBarBody',
                 id: this.props.data.id,
                 x: this.state.startDate * this.state.columnWidth,
+                y: 1.5,
                 width: this.state.duration * this.state.columnWidth
             }),
             React.createElement('text', {

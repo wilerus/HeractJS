@@ -65,10 +65,10 @@ export class TasklineMilestone extends React.Component<any, any> {
             if (GCMediator.getState().selectedTasks[0]) {
                 GCMediator.dispatch({ type: 'deselectAllTasks' });
             }
-
+            const id = this.state.id;
             GCMediator.dispatch({
                 type: 'selectTask',
-                data: this.state.id
+                data: id.substring(0, id.length - 3)
             });
         }
     }
@@ -420,7 +420,7 @@ export class TasklineMilestone extends React.Component<any, any> {
             }),
             React.createElement('text', {
                 className: 'barTitle',
-                x: startDate * columnWidth + this.state.duration * columnWidth/2,
+                x: startDate * columnWidth - 40,
                 y: 40
             }, 'This will be date')
         );

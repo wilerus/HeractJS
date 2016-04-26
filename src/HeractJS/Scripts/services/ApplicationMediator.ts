@@ -271,6 +271,31 @@ export class AppMediator {
                 action.data = '123';
                 isHistoryNeed = true;
                 break;
+            case 'removeFromTaskline':
+                if (newState.items.length > 0) {
+                    element = newState.items.find((element: any) => {
+                        if (element.id === newState.selectedTasks[0]) {
+                            if (element.type === 'task') {
+                                newState.tasklineTasks.find((task: any, index: number) => {
+                                    if (task.id === element.id) {
+                                        newState.tasklineTasks.splice(index, 1);
+                                        return true;
+                                    }
+                                });
+                            } else if (element.type === 'milestone') {
+                                newState.tasklineMilestones.find((task: any, index: number) => {
+                                    if (task.id === element.id) {
+                                        newState.tasklineMilestones.splice(index, 1);
+                                        return true;
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+                action.data = '123';
+                isHistoryNeed = true;
+                break;
             default:
                 return state;
         }
@@ -354,7 +379,7 @@ export class AppMediator {
     }
 
     public subscribe(callback: Function) {
-        AppMediator.store.subscribe(callback); //.subscribers[subscriber] = callback;
+        AppMediator.store.subscribe(callback);
     }
 
     private static notifySubscribers(eventType: any, currentState: any, state: any) {

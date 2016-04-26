@@ -72,6 +72,7 @@
     height: 24px;
     border-top: 1px solid transparent;
     border-bottom: 1px solid rgb(235,235,235);
+    transition: all .2s;
 }
 
 .grid-row:hover {
