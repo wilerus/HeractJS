@@ -73,117 +73,41 @@ export class TasklineMilestone extends React.Component<any, any> {
         }
     }
 
-    private startBarRelocation(event: MouseEvent) {
+    private startBarRelocation(event: MouseEvent, eventTarget) {
         GCMediator.dispatch({
             type: 'setDraggingElement',
             data: this
         });
-        const eventTarget: any = event.target;
-        const startY = event.clientY;
-        const startX = event.clientX;
-        document.onmousemove = function (event: MouseEvent) {
-            if (Math.abs(event.clientX - startX) > 30) {
-                const currentState = GCMediator.getState();
-                const cellCapacity = currentState.cellCapacity;
-                const startDate = this.state.startDate;
-                const startPointStartDate = event.pageX - startDate * cellCapacity;
-                document.onmousemove = function (event: MouseEvent) {
-                    const newStartDate = (event.pageX - startPointStartDate) / cellCapacity;
-                    this.setState({
-                        startDate: newStartDate
-                    });
-                }.bind(this);
+        const currentState = GCMediator.getState();
+        const startDate = event.pageX;
+        const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
+        document.onmousemove = (event: MouseEvent) => {
+            const newStartDate = startPointStartDate + (event.pageX - startDate);
+            if (newStartDate > 0) {
+                eventTarget.setAttribute('x', newStartDate)
             }
-
-            if (Math.abs(event.clientY - startY) > 30) {
-                const templine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                templine.setAttribute('id', 'templine');
-                eventTarget.parentNode.setAttribute('transform', 'translate(0, 0)');
-                templine.setAttribute('x1', (parseInt(eventTarget.getAttribute('x')) + eventTarget.getAttribute('width') / 2).toString());
-                templine.setAttribute('strokeWidth', '2');
-                templine.setAttribute('y1', (eventTarget.getAttribute('y')).toString());
-                templine.setAttribute('stroke', 'rgb(80,80,220)');
-                if (eventTarget.getAttribute('class') === 'barChartBody') {
-                    eventTarget.setAttribute('class', 'barChartBody barOver');
-                }
-
-                const parentNode: any = DOM.findDOMNode(this).parentNode;
-                const leftMargin = parentNode.getBoundingClientRect().left;
-                document.onmousemove = (event: MouseEvent) => {
-                    templine.setAttribute('x2', (event.clientX - leftMargin).toString());
-                    templine.setAttribute('y2', (event.clientY - 100).toString());
-                };
-                GCMediator.dispatch({
-                    type: 'setTempline',
-                    data: templine
-                });
-                document.getElementById('ganttChartView').appendChild(templine);
-            }
-        }.bind(this);
+        };
     }
 
     private startBarUpdate(event: MouseEvent) {
-        document.onmousemove = null;
+        let eventTarget: any = event.target;
         if (event.button !== 2) {
-            let eventTarget: any = event.target;
-            let parentElement: any = null;
-            let parentCoords: any = null;
-            if (eventTarget.getAttribute('class') === 'barChartFillBody') {
-                parentElement = eventTarget;
-                eventTarget = eventTarget.parentNode;
-                parentCoords = parentElement.getBoundingClientRect();
-            }
-
             const elementRect = eventTarget.getBoundingClientRect();
             const clickCoordX = event.clientX;
             GCMediator.dispatch({ type: 'startDragging' });
-            if (parentElement && parentCoords && clickCoordX > parentCoords.right - 15) {
-                this.updateComplitionState(event);
-            } else if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
-                this.startBarRelocation(event);
-                document.onmouseup = function (event: MouseEvent) {
-                    //this.addNewConnection()
-                    GCMediator.dispatch({ type: 'stopDragging' });
-                    this.clearTempElements(event);
-                    GCMediator.dispatch({
-                        type: 'editTask',
-                        data: {
-                            duration: this.state.duration,
-                            startDate: this.state.startDate,
-                            completeDate: this.state.completeDate,
-                            position: this.state.position
-                        }
-                    });
-                }.bind(this);
-            } else if (clickCoordX > elementRect.right - 15) {
-                this.updateСompleteDate(event);
-                document.onmouseup = function (event: MouseEvent) {
-                    GCMediator.dispatch({ type: 'stopDragging' });
-                    this.clearTempElements(event);
-                    GCMediator.dispatch({
-                        type: 'editTask',
-                        data: {
-                            duration: this.state.duration,
-                            completeDate: this.state.completeDate,
-                            position: this.state.position
-                        }
-                    });
-                }.bind(this);
-            } else if (clickCoordX < elementRect.left + 15) {
-                this.updateStartDate(event);
-                document.onmouseup = function (event: MouseEvent) {
-                    GCMediator.dispatch({ type: 'stopDragging' });
-                    this.clearTempElements(event);
-                    GCMediator.dispatch({
-                        type: 'editTask',
-                        data: {
-                            duration: this.state.duration,
-                            startDate: this.state.startDate,
-                            position: this.state.position
-                        }
-                    });
-                }.bind(this);
-            }
+            this.startBarRelocation(event, eventTarget);
+            document.onmouseup = function (event: MouseEvent) {
+                GCMediator.dispatch({
+                    type: 'editTask',
+                    data: {
+                        duration: eventTarget.getAttribute('width') / GCMediator.getState().tasklineCellCapacity,
+                        startDate: parseInt(event.target.getAttribute('x')) / GCMediator.getState().tasklineCellCapacity,
+                        position: this.state.position / 24
+                    }
+                })
+                GCMediator.dispatch({ type: 'stopDragging' })
+                this.clearTempElements(event)
+            }.bind(this)
         }
     }
 
@@ -379,7 +303,7 @@ export class TasklineMilestone extends React.Component<any, any> {
         if (selectedElement.tagName === 'g') {
             selectedElement = selectedElement.childNodes[0] as any;
         }
-        selectedElement.setAttribute('class', 'barChartBody');
+        selectedElement.setAttribute('class', 'milestoneBody');
     }
 
     public static deselectAllTasks(tasks: any) {

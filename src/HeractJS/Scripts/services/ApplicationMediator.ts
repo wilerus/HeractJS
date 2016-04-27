@@ -59,17 +59,17 @@ export class AppMediator {
                 isHistoryNeed = true;
                 break;
             case 'removeTask':
-                items.find((element: any) => {
-                    if (element.id === newState.selectedTasks[0]) {
-                        const elementIndex = items.indexOf(element);
-                        const taskDuration = element.duration;
+                items.find((item: any) => {
+                    if (item.id === newState.selectedTasks[0]) {
+                        const elementIndex = items.indexOf(item);
+                        const taskDuration = item.duration;
                         action.data = elementIndex;
                         items.splice(elementIndex, 1);
-                        items[elementIndex - 1].link = null;
                         for (let i = elementIndex; i < items.length; i++) {
                             items[i].position = 24 * i
                             items[i].startDate -= taskDuration
                         }
+                        return true
                     }
                 });
                 isHistoryNeed = true;
@@ -214,6 +214,16 @@ export class AppMediator {
                         return true;
                     }
                 });
+                isHistoryNeed = true;
+                break;
+            case 'addLink':
+                const element = action.data.element;
+                const elementIndex = action.data.elementIndex
+                element.link = {
+                    id: `link${elementIndex}`,
+                    to: element.type === 'project' ? `bar${elementIndex + 10}` : `bar${elementIndex + 1}`,
+                    type: 'finishToStart'
+                };
                 isHistoryNeed = true;
                 break;
             case 'scrollGrid':

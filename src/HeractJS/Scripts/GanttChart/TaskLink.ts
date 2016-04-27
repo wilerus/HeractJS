@@ -1,4 +1,4 @@
-﻿import React = require('react')
+﻿import * as React from 'react';
 import {AppMediator} from '../../scripts/services/ApplicationMediator'
 
 let GCMediator: any = AppMediator.getInstance();
@@ -41,39 +41,36 @@ export class TaskLink extends React.Component<any, any> {
                     return true
                 }
             })
-            const xDelta = firstElementType.type === 'milestone' ? -3 : 0
-            const yDelta = firstElementType.type === 'project' ? 1 : 7
-            const firstPointCoordsX = parseInt(firstPoint.getAttribute('x'));
-            const firstPointCoordsY = parseInt(firstPoint.getAttribute('y'));
-            const firstPointCoordsWidth = firstPoint.getBoundingClientRect().width;
-            const secondPointCoordsX = parseInt(secondPoint.getAttribute('x'));
-            const secondPointCoordsY = parseInt(secondPoint.getAttribute('y'));
-            const secondPointCoordsWidth = secondPoint.getBoundingClientRect().width;
+            if (firstElementType) {
 
-            //if (firstPointCoordsX < secondPointCoordsX - 10) {
-            this.setState({
-                firstPoint: (firstPointCoordsX + firstPointCoordsWidth + xDelta) + ' , ' + (firstPointCoordsY + yDelta),
-                secondPoint: (secondPointCoordsX + 7) + ' , ' + (firstPointCoordsY + yDelta),
-                thirdPoint: (secondPointCoordsX + 7) + ' , ' + (secondPointCoordsY - 4)
-                // endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
-            });
-            //  }
+                const xDelta = firstElementType.type === 'milestone' ? -3 : 0
+                const yDelta = firstElementType.type === 'project' ? 1 : 7
+                let firstPointCoordsX: number;
+                let firstPointCoordsY: number;
+                let secondPointCoordsX: number;
+                let secondPointCoordsY: number;
 
-            //} else if (firstPointCoordsX - 10 > secondPointCoordsX) {
-            //    this.setState({
-            //        firstPoint: (firstPointCoordsX) + ' , ' + (firstPointCoordsY + 7),
-            //        secondPoint: (secondPointCoordsX - 30) + ' , ' + (firstPointCoordsY + 7),
-            //        thirdPoint: (secondPointCoordsX - 30) + ' , ' + (secondPointCoordsY - 4)
-            //        //endPoint: (secondPointCoordsX) + ' , ' + (secondPointCoordsY + 10)
-            //    })
-            //} else {
-            //    this.setState({
-            //        firstPoint: (firstPointCoordsX + firstPointCoordsWidth) + ' , ' + (firstPointCoordsY + 7),
-            //        secondPoint: (secondPointCoordsX + secondPointCoordsWidth / 2 ) + ' , ' + (firstPointCoordsY + 7),
-            //        thirdPoint: (secondPointCoordsX + secondPointCoordsWidth / 2 ) + ' , ' + (secondPointCoordsY - 4)
-            //       // endPoint: (secondPointCoordsX + secondPointCoordsWidth) + ' , ' + (secondPointCoordsY + 10)
-            //    })
-            //}
+                if (firstElementType.type === 'project') {
+                    firstPointCoordsX = parseInt(firstPoint.getAttribute('d').split(' ')[0].split('M')[1]);
+                    firstPointCoordsY = parseInt(firstPoint.getAttribute('d').split(' ')[1]);
+                    secondPointCoordsX = parseInt(secondPoint.getAttribute('d').split(' ')[0].split('M')[1]);
+                    secondPointCoordsY = parseInt(secondPoint.getAttribute('d').split(' ')[1]);
+                } else {
+                    firstPointCoordsX = parseInt(firstPoint.getAttribute('x'));
+                    firstPointCoordsY = parseInt(firstPoint.getAttribute('y'));
+                    secondPointCoordsX = parseInt(secondPoint.getAttribute('x'));
+                    secondPointCoordsY = parseInt(secondPoint.getAttribute('y'));
+                }
+                const firstPointCoordsWidth = firstPoint.getBoundingClientRect().width;
+
+                this.setState({
+                    firstPoint: (firstPointCoordsX + firstPointCoordsWidth + xDelta) +
+                        ' , ' +
+                        (firstPointCoordsY + yDelta),
+                    secondPoint: (secondPointCoordsX + 7) + ' , ' + (firstPointCoordsY + yDelta),
+                    thirdPoint: (secondPointCoordsX + 7) + ' , ' + (secondPointCoordsY - 4)
+                });
+            }
         }
     }
 
@@ -97,7 +94,7 @@ export class TaskLink extends React.Component<any, any> {
 
     public render() {
         return React.createElement('polyline', {
-            points: this.state.firstPoint + ' ' + this.state.secondPoint + ' ' + this.state.thirdPoint, //+ ' ' + this.state.endPoint,
+            points: this.state.firstPoint + ' ' + this.state.secondPoint + ' ' + this.state.thirdPoint,
             strokeWidth: 1,
             stroke: 'rgb(80,80,220)',
             strokeLinecap: 'round',

@@ -1,5 +1,5 @@
-﻿import React = require('react')
-import DOM = require('react-dom')
+﻿import * as React from 'react';
+import * as DOM from 'react-dom';
 
 export class InfoPopup extends React.Component<any, any> {
     private componentWillMount() {

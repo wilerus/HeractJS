@@ -1,11 +1,10 @@
-﻿import React = require('react')
-
+﻿import * as React from 'react';
 import {TasklineTimeItem}  from './TasklineTimeItem'
 import {TasklineBar}  from './TasklineBar'
 import {TasklineMilestone}  from './TasklineMilestone'
 import {TasklineCallouts} from './TasklineCallout'
-
 import {AppMediator} from '../../../scripts/services/ApplicationMediator'
+
 let GCMediator: any = AppMediator.getInstance();
 let objectConstuctor = Object as any //just to get rid of console lint junk
 export class TaskLineView extends React.Component<any, any> {

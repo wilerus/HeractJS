@@ -1,7 +1,7 @@
 ﻿/// <reference path='../../typings/main.d.ts' />
 
-import React = require('react')
-import DOM = require('react-dom')
+import * as React from 'react';
+import * as DOM from 'react-dom';
 
 import {TaskBar} from './TaskBar'
 import {TaskLink} from './TaskLink'
@@ -73,6 +73,7 @@ export class ChartView extends React.Component<any, any> {
                     case 'removeTask':
                     case 'createTask':
                     case 'editTask':
+                    case 'addLink':
                     case 'removeLink':
                     case 'completeTask':
                     case 'reopenTask':
@@ -236,11 +237,7 @@ export class ChartView extends React.Component<any, any> {
     }
 
     public rebuildElements() {
-        let elements = [];
-        const startPos = this.state.startPosition;
-        const endPos = this.state.endPosition;
-        const items = GCMediator.getState().items;
-        elements = items.slice(startPos, endPos);
+        let elements = GCMediator.getState().items.slice(this.state.startPosition, this.state.endPosition);
         const links = [];
         for (let i = 0; i < elements.length - 2; i++) {
             if (elements[i].link) {
@@ -324,15 +321,6 @@ export class ChartView extends React.Component<any, any> {
                         React.createElement('path', {
                             d: 'M 0 0 L 40 0 L 20 20 z'
                         })),
-                    //React.createElement('ReactCSSTransitionGroup', {
-                    //    width: '1000px',
-                    //    height: '1000px',
-                    //    transitionName: "example",
-                    //    transitionEnterTimeout: 500,
-                    //    transitionLeaveTimeout: 500
-                    //}, 
-
-                    // )
                     bars,
                     links
                 )

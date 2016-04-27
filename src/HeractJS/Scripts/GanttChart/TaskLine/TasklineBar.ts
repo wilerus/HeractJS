@@ -1,5 +1,5 @@
-﻿import React = require('react')
-import DOM = require('react-dom')
+﻿import * as React from 'react';
+import * as DOM from 'react-dom';
 
 import {AppMediator} from '../../../scripts/services/ApplicationMediator'
 
@@ -74,50 +74,20 @@ export class TasklineBar extends React.Component<any, any> {
         }
     }
 
-    private startBarRelocation(event: MouseEvent) {
+    private startBarRelocation(event: MouseEvent, eventTarget) {
         GCMediator.dispatch({
             type: 'setDraggingElement',
             data: this
         });
-        const eventTarget: any = event.target;
-        const startY = event.clientY;
-        const startX = event.clientX;
-        document.onmousemove = function (event: MouseEvent) {
-            if (Math.abs(event.clientX - startX) > 30) {
-                const currentState = GCMediator.getState();
-                const cellCapacity = currentState.cellCapacity;
-                const startDate = this.state.startDate;
-                const startPointStartDate = event.pageX - startDate * cellCapacity;
-                document.onmousemove = function (event: MouseEvent) {
-                    const newStartDate = (event.pageX - startPointStartDate) / cellCapacity;
-                    this.setState({
-                        startDate: newStartDate
-                    });
-                }.bind(this);
+        const currentState = GCMediator.getState();
+        const startDate = event.pageX;
+        const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
+        document.onmousemove = (event: MouseEvent) => {
+            const newStartDate = startPointStartDate + (event.pageX - startDate);
+            if (newStartDate > 0) {
+                eventTarget.setAttribute('x', newStartDate)
             }
-
-            if (Math.abs(event.clientY - startY) > 30) {
-                const templine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                templine.setAttribute('id', 'templine');
-                eventTarget.parentNode.setAttribute('transform', 'translate(0, 0)');
-                templine.setAttribute('x1', (parseInt(eventTarget.getAttribute('x')) + eventTarget.getAttribute('width') / 2).toString());
-                templine.setAttribute('strokeWidth', '2');
-                templine.setAttribute('y1', (eventTarget.getAttribute('y')).toString());
-                templine.setAttribute('stroke', 'rgb(80,80,220)');
-
-                const parentNode: any = DOM.findDOMNode(this).parentNode;
-                const leftMargin = parentNode.getBoundingClientRect().left;
-                document.onmousemove = (event: MouseEvent) => {
-                    templine.setAttribute('x2', (event.clientX - leftMargin).toString());
-                    templine.setAttribute('y2', (event.clientY - 100).toString());
-                };
-                GCMediator.dispatch({
-                    type: 'setTempline',
-                    data: templine
-                });
-                document.getElementById('ganttChartView').appendChild(templine);
-            }
-        }.bind(this);
+        };
     }
 
     private handleRectHover(event: Event) {
@@ -205,6 +175,65 @@ export class TasklineBar extends React.Component<any, any> {
         }
     }
 
+    private updateStartDate(event: MouseEvent, eventTarget: any) {
+        if (!document.onmousemove) {
+            const startDate = event.pageX;
+            const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
+            const startWidth = parseInt(eventTarget.getAttribute('width'));
+            const fillTarget = eventTarget.parentNode.getElementsByClassName('barChartFillBody')[0];
+            document.onmousemove = (event: MouseEvent) => {
+                const newStartDate = startPointStartDate + (event.pageX - startDate);
+                const newWidth = startWidth + (startDate - event.pageX);
+                if (newStartDate > 0) {
+                    eventTarget.setAttribute('x', newStartDate)
+                    fillTarget.setAttribute('x', newStartDate)
+                    eventTarget.setAttribute('width', newWidth)
+                }
+            };
+        }
+    }
+
+    private updateСompleteDate(event: any, eventTarget: any) {
+        const cellCapacity = GCMediator.getState().tasklineCellCapacity;
+        const duration = this.state.duration;
+        const startPoint = event.pageX - duration * cellCapacity;
+        let newDuration = startPoint;
+        document.onmousemove = function (event) {
+            newDuration = event.pageX - startPoint;
+            if (newDuration) {
+                eventTarget.setAttribute('width', newDuration)
+            }
+        }.bind(this);
+    }
+
+    private startBarUpdate(event: MouseEvent) {
+        let eventTarget: any = event.target;
+        if (event.button !== 2) {
+            const elementRect = eventTarget.getBoundingClientRect();
+            const clickCoordX = event.clientX;
+            GCMediator.dispatch({ type: 'startDragging' });
+            if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
+                this.startBarRelocation(event, eventTarget);
+            } else if (clickCoordX > elementRect.right - 15) {
+                this.updateСompleteDate(event, eventTarget);
+            } else if (clickCoordX < elementRect.left + 15) {
+                this.updateStartDate(event, eventTarget);
+            }
+            document.onmouseup = function (event: MouseEvent) {
+                GCMediator.dispatch({
+                    type: 'editTask',
+                    data: {
+                        duration: eventTarget.getAttribute('width') / GCMediator.getState().tasklineCellCapacity,
+                        startDate: parseInt(event.target.getAttribute('x')) / GCMediator.getState().tasklineCellCapacity,
+                        position: this.state.position / 24
+                    }
+                })
+                GCMediator.dispatch({ type: 'stopDragging' })
+                this.clearTempElements(event)
+            }.bind(this)
+        }
+    }
+
     public static deselectAllTasks(tasks: any) {
         for (let i = 0; i < tasks.length; i++) {
             const selectedElement = document.getElementById(tasks[i] + 'TLI');
@@ -219,6 +248,7 @@ export class TasklineBar extends React.Component<any, any> {
             onMouseEnter: this.handleRectHover.bind(this),
             onMouseOut: this.clearTempElements.bind(this),
             onContextMenu: this.contextMenu.bind(this),
+            onMouseDown: this.startBarUpdate.bind(this),
             onClick: this.startTaskSelection.bind(this)
         },
             React.createElement('defs', {

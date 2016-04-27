@@ -1,6 +1,6 @@
-﻿import React = require('react')
-
+﻿import * as React from 'react';
 import {AppMediator} from '../../scripts/services/ApplicationMediator'
+
 let GCMediator: any = AppMediator.getInstance();
 let br = React.createFactory('br');
 
@@ -170,10 +170,30 @@ export class GanttToolbar extends React.Component<any, any> {
     }
 
     private addLink() {
-        GCMediator.dispatch({
-            type: 'addLink',
-            data: ''
-        });
+        const currentState = GCMediator.getState()
+        const selectedTasks = currentState.selectedTasks;
+        if (selectedTasks && selectedTasks[0]) {
+            currentState.items.find((element: any) => {
+                if (element.id === selectedTasks[0]) {
+                    const elementIndex = currentState.items.indexOf(element);
+                    if (currentState.items[elementIndex].link === null) {
+                        GCMediator.dispatch({
+                            type: 'addLink',
+                            data: {
+                                element: element,
+                                elementIndex: elementIndex
+                            }
+                        });
+                    }
+                    return true;
+                }
+            });
+        } else {
+            GCMediator.dispatch({
+                type: 'addLink',
+                data: ''
+            });
+        }
     }
 
     private removeLink() {

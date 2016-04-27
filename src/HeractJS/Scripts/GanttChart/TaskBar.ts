@@ -1,5 +1,5 @@
-﻿import React = require('react')
-import DOM = require('react-dom')
+﻿import * as React from 'react';
+import * as DOM from 'react-dom';
 
 import {AppMediator} from '../../scripts/services/ApplicationMediator'
 
@@ -39,23 +39,24 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     private componentWillReceiveProps() {
+        const data = this.props.data as any
         this.setState({
-            id: this.props.data.id,
-            order: this.props.data.order,
-            collapsed: this.props.data.collapsed,
-            position: this.props.data.position,
+            id: data.id,
+            order: data.order,
+            collapsed: data.collapsed,
+            position: data.position,
 
-            name: this.props.data.name,
-            description: this.props.data.description,
-            assignee: this.props.data.assignee,
-            parent: this.props.data.parent,
-            predecessors: this.props.data.startDate,
+            name: data.name,
+            description: data.description,
+            assignee: data.assignee,
+            parent: data.parent,
+            predecessors: data.startDate,
 
-            progress: this.props.data.progress,
-            duration: this.props.data.duration,
-            startDate: this.props.data.startDate,
-            finish: this.props.data.finish,
-            priority: this.props.data.priority
+            progress: data.progress,
+            duration: data.duration,
+            startDate: data.startDate,
+            finish: data.finish,
+            priority: data.priority
         });
     }
 
@@ -356,12 +357,13 @@ export class TaskBar extends React.Component<any, any> {
 
     public render() {
         let element = null;
-        const startDate = this.state.startDate;
         const position = this.state.position;
         const id = this.props.data.id;
-        const duration = this.state.duration;
         const columnWidth = GCMediator.getState().cellCapacity;
-        const configProgress = this.state.progress * duration * columnWidth / 100 - 2;
+        const startDate = this.state.startDate * columnWidth;
+        const duration = this.state.duration * columnWidth;
+        const length = startDate + duration;
+        const configProgress = this.state.progress * duration / 100 - 2;
         const progress = configProgress > 0 ? configProgress : 0;
         const taskTitle = this.props.data.name;
         const taskType = this.state.type;
@@ -385,20 +387,20 @@ export class TaskBar extends React.Component<any, any> {
                         className: 'barChartBody',
                         id: id,
                         y: position + 4,
-                        x: startDate * columnWidth,
-                        width: duration * columnWidth,
+                        x: startDate ,
+                        width: duration,
                         rx: 3,
                         ry: 3
                     }),
                     React.createElement('rect', {
                         className: 'barChartFillBody',
                         y: position + 5,
-                        x: startDate * columnWidth + 1,
+                        x: startDate  + 1,
                         width: progress
                     }),
                     React.createElement('text', {
                         className: 'barTitle',
-                        x: startDate * columnWidth + duration * columnWidth,
+                        x: length,
                         y: position
                     }, taskTitle)
                 );
@@ -412,7 +414,7 @@ export class TaskBar extends React.Component<any, any> {
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this),
                     y: position + 4,
-                    x: startDate * columnWidth
+                    x: startDate 
                 },
                     React.createElement('rect', {
                         className: 'barSelectBody',
@@ -423,13 +425,13 @@ export class TaskBar extends React.Component<any, any> {
                         className: 'milestoneBody',
                         id: id,
                         y: position + 4,
-                        x: startDate * columnWidth,
+                        x: startDate,
                         rx: 3,
                         ry: 3
                     }),
                     React.createElement('text', {
                         className: 'barTitle',
-                        x: startDate * columnWidth + duration * columnWidth,
+                        x: length,
                         y: position
                     }, taskTitle)
                 );
@@ -443,23 +445,25 @@ export class TaskBar extends React.Component<any, any> {
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this),
                     y: position + 4,
-                    x: startDate * columnWidth
+                    x: startDate
                 },
                     React.createElement('rect', {
                         className: 'barSelectBody',
                         y: position,
                         x: 0
                     }),
-                    React.createElement('rect', {
+                    React.createElement('path', {
+                        d: `M${startDate } ${position + 15} C ${startDate  + 3} ${position +10}, ${startDate  + 3} ${position +10}, ${startDate  + 7} ${position +10},
+                            L${startDate + 7} ${position + 10}, ${length - 7} ${position + 10},
+                            M${length - 7} ${position + 10} C ${length - 3} ${position + 10}, ${length - 3} ${position + 10}, ${length} ${position + 15}`,
+                        stroke: 'black',
+                        fill: 'transparent',
                         className: 'projectBody',
-                        id: id,
-                        y: position + 10,
-                        x: startDate * columnWidth,
-                        width: duration * columnWidth
+                        id: id
                     }),
                     React.createElement('text', {
                         className: 'barTitle',
-                        x: startDate * columnWidth + duration * columnWidth,
+                        x: length,
                         y: position
                     }, taskTitle)
                 );

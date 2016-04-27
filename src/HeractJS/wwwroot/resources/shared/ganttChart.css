@@ -43,8 +43,8 @@
     width: 15px;
     transform-origin: 50% 50%;
     transform: rotateZ(45deg);
-    transition: all .2s;
 }
+
 .milestoneBody:hover {
    stroke:  rgb(130, 130, 255);
 }
@@ -77,7 +77,7 @@
     text-shadow: 0 0 4px rgba(255, 255, 255, 0.5) !important;
 }
 
-.taskLineTaskTitle {
+.taskLineTaskTitle,.taskLineTaskDate {
     fill: black;
     height: 14px;
     -webkit-user-select: none;
@@ -415,6 +415,7 @@
     border: none;
     color: white;
     vertical-align: top;
+    transition: all 0.2s;
 }
 
     .toolbarButton:hover {
@@ -528,9 +529,8 @@
     position: absolute;
     height: 28px;
     fill: rgb(160, 230, 160);
-    stroke: rgb(80,140,70);
+    stroke: rgba(0,0,0,0.6);
     stroke-width: 0.5px;
-    transition: all .2s;
 }
 
 .tasklineBarSelected {
