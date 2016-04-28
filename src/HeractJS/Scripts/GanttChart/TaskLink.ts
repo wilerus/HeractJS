@@ -64,9 +64,7 @@ export class TaskLink extends React.Component<any, any> {
                 const firstPointCoordsWidth = firstPoint.getBoundingClientRect().width;
 
                 this.setState({
-                    firstPoint: (firstPointCoordsX + firstPointCoordsWidth + xDelta) +
-                        ' , ' +
-                        (firstPointCoordsY + yDelta),
+                    firstPoint: (firstPointCoordsX + firstPointCoordsWidth + xDelta) + ' , ' + (firstPointCoordsY + yDelta),
                     secondPoint: (secondPointCoordsX + 7) + ' , ' + (firstPointCoordsY + yDelta),
                     thirdPoint: (secondPointCoordsX + 7) + ' , ' + (secondPointCoordsY - 4)
                 });

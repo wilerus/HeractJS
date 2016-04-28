@@ -17,9 +17,9 @@ export class ChartData {
     public static timelineDayMax: Object[] = [];
     public static timelineYearMin: Object[] = [];
     public static ganttBars: any[] = [];
-    public static tasklineTasks: Object[] = [];
-    public static tasklineMilestones: Object[] = [];
-    public static tasklineCallouts: Object[] = [];
+    public static timelineTasks: Object[] = [];
+    public static timelineMilestones: Object[] = [];
+    public static timelineCallouts: Object[] = [];
     public weekData: string[] = [
         'Monday',
         'Tuesday',
@@ -101,21 +101,18 @@ export class ChartData {
                 startDate: leftMargin,
                 finishDate: leftMargin,
                 position: topMargin,
-                callout: i % 8 === 0 && type !== 'milestone',
+                calloutDisplay: i % 8 === 0 && type !== 'milestone' && taskCount < 100,
+                timelineDisplay: false,
                 type: type,
                 link: link
             });
 
             if (taskCount % 3 === 0 && taskCount < 100) {
                 if (ChartData.ganttBars[i].type === 'task') {
-                    ChartData.tasklineTasks.push(ChartData.ganttBars[i]);
+                    ChartData.ganttBars[i].timelineDisplay = true;
                 } else if (ChartData.ganttBars[i].type === 'milestone') {
-                    ChartData.tasklineMilestones.push(ChartData.ganttBars[i]);
+                    ChartData.ganttBars[i].timelineDisplay = true;
                 }
-            }
-
-            if (ChartData.ganttBars[i].callout && taskCount < 100) {
-                ChartData.tasklineCallouts.push(ChartData.ganttBars[i]);
             }
         }//gantt bar config
 

@@ -74,32 +74,31 @@ export class TaskBar extends React.Component<any, any> {
         }
     }
 
-    private startBarRelocation(event: MouseEvent) {
+    private startBarRelocation(event: MouseEvent, eventTarget) {
         GCMediator.dispatch({
             type: 'setDraggingElement',
             data: this
         });
-        const eventTarget: any = event.target;
         const startY = event.clientY;
         const startX = event.clientX;
         document.onmousemove = function (event: MouseEvent) {
             if (Math.abs(event.clientX - startX) > 30) {
                 const currentState = GCMediator.getState();
-                const cellCapacity = currentState.cellCapacity;
-                const startDate = this.state.startDate;
-                const startPointStartDate = event.pageX - startDate * cellCapacity;
-                document.onmousemove = function (event: MouseEvent) {
-                    const newStartDate = (event.pageX - startPointStartDate) / cellCapacity;
-                    this.setState({
-                        startDate: Math.round(newStartDate)
-                    });
-                }.bind(this);
+                const startDate = event.pageX;
+                const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
+                const fillTarget = eventTarget.parentNode.getElementsByClassName('barChartFillBody')[0];
+                document.onmousemove = (event: MouseEvent) => {
+                    const newStartDate = Math.round(startPointStartDate + (event.pageX - startDate));
+                    if (newStartDate > 0) {
+                        eventTarget.setAttribute('x', newStartDate)
+                        fillTarget.setAttribute('x', newStartDate)
+                    }
+                }
             }
 
             if (Math.abs(event.clientY - startY) > 30) {
                 const templine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 templine.setAttribute('id', 'templine');
-                eventTarget.parentNode.setAttribute('transform', 'translate(0, 0)');
                 templine.setAttribute('x1', (parseInt(eventTarget.getAttribute('x')) + eventTarget.getAttribute('width') / 2).toString());
                 templine.setAttribute('strokeWidth', '2');
                 templine.setAttribute('y1', (eventTarget.getAttribute('y')).toString());
@@ -122,9 +121,15 @@ export class TaskBar extends React.Component<any, any> {
 
     private startBarUpdate(event: MouseEvent) {
         let eventTarget: any = event.target;
+        if (document.selection) {
+            document.selection.empty();
+        } else if (window.getSelection) {
+            window.getSelection().removeAllRanges();
+        }
         if (event.button !== 2 && eventTarget.classList[0] !== 'barSelectBody') {
             let parentElement: any = null;
             let parentCoords: any = null;
+            this.startTaskSelection();
             if (eventTarget.getAttribute('class') === 'barChartFillBody') {
                 parentElement = eventTarget;
                 eventTarget = eventTarget.parentNode.getElementsByClassName('barChartBody')[0];
@@ -137,7 +142,7 @@ export class TaskBar extends React.Component<any, any> {
             if (parentElement && parentCoords && clickCoordX > parentCoords.right - 15) {
                 this.updateComplitionState(event, eventTarget);
             } else if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
-                this.startBarRelocation(event);
+                this.startBarRelocation(event, eventTarget);
             } else if (clickCoordX > elementRect.right - 15) {
                 this.updateСompleteDate(event, eventTarget);
             } else if (clickCoordX < elementRect.left + 15) {
@@ -147,13 +152,12 @@ export class TaskBar extends React.Component<any, any> {
                 GCMediator.dispatch({
                     type: 'editTask',
                     data: {
-                        duration: eventTarget.getAttribute('width') / GCMediator.getState().cellCapacity,
-                        startDate: parseInt(event.target.getAttribute('x')) / GCMediator.getState().cellCapacity,
-                        position: this.state.position / 24
+                        duration: Math.round(eventTarget.getAttribute('width') / GCMediator.getState().cellCapacity),
+                        startDate: Math.round(parseInt(eventTarget.getAttribute('x')) / GCMediator.getState().cellCapacity)
                     }
                 })
                 GCMediator.dispatch({ type: 'stopDragging' })
-                this.clearTempElements(event)
+                this.clearTempElements()
             }.bind(this)
         }
     }
@@ -164,7 +168,7 @@ export class TaskBar extends React.Component<any, any> {
         const startPoint = event.pageX - duration * cellCapacity;
         let newDuration = startPoint;
         document.onmousemove = function (event) {
-            newDuration = event.pageX - startPoint;
+            newDuration = Math.round(event.pageX - startPoint);
             if (newDuration) {
                 eventTarget.setAttribute('width', newDuration)
             }
@@ -178,9 +182,9 @@ export class TaskBar extends React.Component<any, any> {
             const startWidth = parseInt(eventTarget.getAttribute('width'));
             const fillTarget = eventTarget.parentNode.getElementsByClassName('barChartFillBody')[0];
             document.onmousemove = (event: MouseEvent) => {
-                const newStartDate = startPointStartDate + (event.pageX - startDate);
-                const newWidth = startWidth + (startDate - event.pageX);
-                if (newStartDate > 0) {
+                const newStartDate = Math.round(startPointStartDate + (event.pageX - startDate));
+                const newWidth = Math.round(startWidth + (startDate - event.pageX));
+                if (newStartDate > 0 && newWidth > 1) {
                     eventTarget.setAttribute('x', newStartDate)
                     fillTarget.setAttribute('x', newStartDate)
                     eventTarget.setAttribute('width', newWidth)
@@ -192,10 +196,13 @@ export class TaskBar extends React.Component<any, any> {
     private updateComplitionState(event: MouseEvent, eventTarget) {
         const clickCoordX = event.pageX;
         const target = eventTarget.parentNode.getElementsByClassName('barChartFillBody')[0];
+        const maxWidth = eventTarget.parentNode.getElementsByClassName('barChartBody')[0].getAttribute('width');
         const width = parseInt(target.getAttribute('width'));
         document.onmousemove = function (event) {
-            const newComplition = width + (event.pageX - clickCoordX);
-            target.setAttribute('width', newComplition);
+            const newComplition = Math.round(width + (event.pageX - clickCoordX));
+            if (newComplition > 0 && newComplition < maxWidth) {
+                target.setAttribute('width', newComplition);
+            }
         }.bind(this);
     }
 
@@ -213,7 +220,7 @@ export class TaskBar extends React.Component<any, any> {
         })
     }
 
-    private handleRectHover(event: Event) {
+    private handleRectHover(event: MouseEvent) {
         const currentState = GCMediator.getState();
         if (!currentState.isPanning) {
             const eventTarget: any = event.target;
@@ -221,20 +228,19 @@ export class TaskBar extends React.Component<any, any> {
                 const el = DOM.findDOMNode(this) as any;
                 const elementRect = eventTarget.getBoundingClientRect();
                 let hoverElement = event.target as any;
-                if (hoverElement.classList[0] === 'barSelectBody') {
-                    hoverElement = hoverElement.parentNode.getElementsByClassName('barChartBody')[0] ||
-                        hoverElement.parentNode.getElementsByClassName('milestoneBody')[0] ||
-                        hoverElement.parentNode.getElementsByClassName('projectBody')[0];
+                if (hoverElement.classList[0] !== 'barSelectBody') {
+                    hoverElement = hoverElement.parentNode.getElementsByClassName('barSelectBody')[0]
                 }
                 if (hoverElement) {
-                    setTimeout(function (hoverElement) {
-                        const currentHoverElement = hoverElement.parentElement.querySelector(':hover');
-                        if (currentHoverElement && (currentHoverElement === hoverElement ||
-                            currentHoverElement.classList[0] === 'barSelectBody') &&
-                            !GCMediator.getState().isCurrentlyDragging) {
-                            this.showInfoPopup(hoverElement);
+                    setTimeout(function (hoverElement, clientX: number) {
+                        let currentHoverElement = hoverElement.parentElement.querySelector(':hover');
+                        if (currentHoverElement && currentHoverElement.classList[0] !== 'barSelectBody') {
+                            currentHoverElement = currentHoverElement.parentNode.getElementsByClassName('barSelectBody')[0]
                         }
-                    }.bind(this, hoverElement), 500);
+                        if (currentHoverElement && currentHoverElement === hoverElement && !GCMediator.getState().isDragging) {
+                            this.showInfoPopup(clientX, hoverElement);
+                        }
+                    }.bind(this, hoverElement, event.clientX), 500);
                     document.onmousemove = (event) => {
                         const clickCoordX = event.clientX;
                         if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
@@ -255,7 +261,7 @@ export class TaskBar extends React.Component<any, any> {
         }
     }
 
-    private clearTempElements(event: Event) {
+    private clearTempElements() {
         const currentState = GCMediator.getState();
         if (!currentState.isDragging && !currentState.isPanning) {
             currentState.ganttChartView.refs.infoPopup.hide();
@@ -275,8 +281,8 @@ export class TaskBar extends React.Component<any, any> {
         }
     }
 
-    private contextMenu(event: Event) {
-        this.showActionPopup(event.target);
+    private contextMenu(event: MouseEvent) {
+        this.showActionPopup(event, event.target);
         event.preventDefault();
         event.stopPropagation();
     }
@@ -296,13 +302,21 @@ export class TaskBar extends React.Component<any, any> {
         });
     }
 
-    private showInfoPopup(hoverElement) {
-        const coords = hoverElement.getBoundingClientRect();
+    private showInfoPopup(clientX, hoverElement) {
         const popup = GCMediator.getState().ganttChartView.refs.infoPopup;
+        const coords = hoverElement.getBoundingClientRect();
+        let leftMargin: number;
+        let topMargin: number = coords.top - 160;
+
+        if (hoverElement.getAttribute('class') === 'barSelectBody') {
+            leftMargin = clientX;
+        } else {
+            leftMargin = coords.left + coords.width / 2 - 100;
+        }
 
         popup.setState({
-            left: coords.left + coords.width / 2 - 100,
-            top: coords.top - 160,
+            left: leftMargin,
+            top: topMargin,
             title: this.state.name,
             startDate: this.state.startDate,
             endDate: this.state.startDate + this.state.duration,
@@ -312,13 +326,21 @@ export class TaskBar extends React.Component<any, any> {
         popup.show();
     }
 
-    private showActionPopup(hoverElement) {
-        const coords = hoverElement.getBoundingClientRect();
+    private showActionPopup(event: MouseEvent, hoverElement) {
         const popup = GCMediator.getState().ganttChartView.refs.actionChartPopup;
+        const coords = hoverElement.getBoundingClientRect();
+        let leftMargin: number;
+        let topMargin: number = coords.top + 22;
         this.startTaskSelection();
+        if (hoverElement.getAttribute('class') === 'barSelectBody barSelected') {
+            leftMargin = event.clientX;
+        } else {
+            leftMargin = coords.left + coords.width / 2 - 100;
+        }
+
         popup.setState({
-            left: coords.left + coords.width / 2 - 100,
-            top: coords.top + 22,
+            left: leftMargin,
+            top: topMargin,
             title: this.state.name
         });
         popup.show();
@@ -387,7 +409,7 @@ export class TaskBar extends React.Component<any, any> {
                         className: 'barChartBody',
                         id: id,
                         y: position + 4,
-                        x: startDate ,
+                        x: startDate,
                         width: duration,
                         rx: 3,
                         ry: 3
@@ -395,7 +417,7 @@ export class TaskBar extends React.Component<any, any> {
                     React.createElement('rect', {
                         className: 'barChartFillBody',
                         y: position + 5,
-                        x: startDate  + 1,
+                        x: startDate + 1,
                         width: progress
                     }),
                     React.createElement('text', {
@@ -414,7 +436,7 @@ export class TaskBar extends React.Component<any, any> {
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this),
                     y: position + 4,
-                    x: startDate 
+                    x: startDate
                 },
                     React.createElement('rect', {
                         className: 'barSelectBody',
@@ -453,7 +475,7 @@ export class TaskBar extends React.Component<any, any> {
                         x: 0
                     }),
                     React.createElement('path', {
-                        d: `M${startDate } ${position + 15} C ${startDate  + 3} ${position +10}, ${startDate  + 3} ${position +10}, ${startDate  + 7} ${position +10},
+                        d: `M${startDate} ${position + 15} C ${startDate + 3} ${position + 10}, ${startDate + 3} ${position + 10}, ${startDate + 7} ${position + 10},
                             L${startDate + 7} ${position + 10}, ${length - 7} ${position + 10},
                             M${length - 7} ${position + 10} C ${length - 3} ${position + 10}, ${length - 3} ${position + 10}, ${length} ${position + 15}`,
                         stroke: 'black',

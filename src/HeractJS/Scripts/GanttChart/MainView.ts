@@ -75,9 +75,7 @@ export class ChartView extends React.Component<any, any> {
                     case 'editTask':
                     case 'addLink':
                     case 'removeLink':
-                    case 'completeTask':
-                    case 'reopenTask':
-                        this.rebuildElements();
+                        this.updateElements(change.data);
                         break;
                     case 'selectTask':
                         TaskBar.selectTask(change.data);
@@ -136,6 +134,7 @@ export class ChartView extends React.Component<any, any> {
                     GCMediator.dispatch({ type: 'stopPanning' });
                     document.body.style.webkitUserSelect = 'inherit';
                     document.onmousemove = null;
+                    document.onmouseup = null;
                 };
             }
         };
@@ -170,7 +169,7 @@ export class ChartView extends React.Component<any, any> {
         view.scrollTop = 24 * position;
     }
 
-    public updateTimeline() {
+    private updateTimeline() {
         const currentState = GCMediator.getState();
         switch (GCMediator.getState().timelineStep) {
             case 0:
@@ -202,7 +201,7 @@ export class ChartView extends React.Component<any, any> {
         }
     }
 
-    public buildElements(scrollPosition: number) {
+    private buildElements(scrollPosition: number) {
         let elements: any[];
         let startPos = this.state.startPosition;
         let endPos = this.state.endPosition;
@@ -236,8 +235,11 @@ export class ChartView extends React.Component<any, any> {
         }
     }
 
-    public rebuildElements() {
+    private rebuildElements() {
+        let timelineTasks = GCMediator.getState().timelineTasks;
+        let timelineMilestones = GCMediator.getState().timelineMilestones;
         let elements = GCMediator.getState().items.slice(this.state.startPosition, this.state.endPosition);
+        let timelineCallouts = GCMediator.getState().timelineCallouts;
         const links = [];
         for (let i = 0; i < elements.length - 2; i++) {
             if (elements[i].link) {
@@ -245,13 +247,80 @@ export class ChartView extends React.Component<any, any> {
                 links.push(elements[i].link);
             }
         }
+
+        for (let i = 0; i < elements.length - 2; i++) {
+            if (elements[i].timelineDisplay) {
+                if (elements[i].type !== 'milestone') {
+                    timelineTasks.push(elements[i]);
+                } else {
+                    timelineMilestones.push(elements[i]);
+                }
+            } else if (elements[i].calloutDisplay) {
+                timelineCallouts.push(elements[i])
+            }
+        }
         this.setState({
             displayingElements: elements
-        }, function () {
-            this.setState({
-                displayingLinks: links
+        },
+            function () {
+                this.setState({
+                    displayingLinks: links
+                })
+            }.bind(this))
+
+    }
+
+    private updateElements(newData) {
+        const selectedElement = GCMediator.getState().selectedTasks[0]
+        let timelineTasks = GCMediator.getState().timelineTasks;
+        let timelineMilestones = GCMediator.getState().timelineMilestones;
+        let elements = GCMediator.getState().items.slice(this.state.startPosition, this.state.endPosition);
+        let timelineCallouts = GCMediator.getState().timelineCallouts;
+        const links = [];
+        for (let i = 0; i < elements.length - 2; i++) {
+            if (elements[i].link) {
+                elements[i].link.from = elements[i].id;
+                links.push(elements[i].link);
+            }
+        }
+        if (selectedElement) {
+            elements.find((element) => {
+                if (element.id === selectedElement && element.timelineDisplay) {
+                    if (element.type !== 'milestone') {
+                        timelineTasks.find((task) => {
+                            if (element.id === selectedElement) {
+                                for (let prop in newData) {
+                                    if (prop !== 'position') {
+                                        task[prop] = newData[prop]
+                                    }
+                                }
+                                return true
+                            }
+                        })
+                    } else {
+                        timelineMilestones.find((task) => {
+                            if (element.id === selectedElement) {
+                                for (let prop in newData) {
+                                    if (prop !== 'position') {
+                                        task[prop] = newData[prop]
+                                    }
+                                }
+                                return true
+                            }
+                        })
+                    }
+                }
             })
-        }.bind(this))
+            GCMediator.dispatch({ type: 'updateTimeline' })
+            this.setState({
+                displayingElements: elements
+            },
+                function () {
+                    this.setState({
+                        displayingLinks: links
+                    })
+                }.bind(this))
+        }
     }
 
     public render() {
@@ -333,18 +402,14 @@ export class Initializer {
     constructor() {
         const mainView = DOM.render(React.createElement(ChartView), document.getElementsByClassName('js-module-region-right')[0]) as any;
         const toolbar = DOM.render(React.createElement(GanttToolbar), document.getElementsByClassName('js-module-gantt-toolbar')[0]) as any;
-        const taskLine = DOM.render(React.createElement(TaskLineView), document.getElementsByClassName('js-module-gantt-taskline')[0]) as any;
+        const timeline = DOM.render(React.createElement(TaskLineView), document.getElementsByClassName('js-module-gantt-taskline')[0]) as any;
         GCMediator.dispatch({
-            type: 'setGanttChartView',
-            data: mainView
-        });
-        GCMediator.dispatch({
-            type: 'setGanttToolbar',
-            data: toolbar
-        });
-        GCMediator.dispatch({
-            type: 'setGantttTaskLine',
-            data: taskLine
+            type: 'initGanttView',
+            data: {
+                chart: mainView,
+                toolbar: toolbar,
+                timeline: timeline
+            }
         });
     }
 }

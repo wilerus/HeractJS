@@ -22,6 +22,10 @@ export class AppMediator {
             case 'reset':
                 items = action.data;
                 break;
+            case 'updateTimeline':
+                action.data = 'updateTimeline'
+                isHistoryNeed = true;
+                break;
             case 'createTask':
                 action.data = 'item';
                 let selectedTaskPosition = 0;
@@ -76,11 +80,14 @@ export class AppMediator {
                 break;
             case 'editTask':
                 const newData = action.data;
-                for (let prop in newData) {
-                    if (prop !== 'position') {
-                        items[action.data.position][prop] = newData[prop]
+                items.find((item: any) => {
+                    if (item.id === newState.selectedTasks[0]) {
+                        for (let prop in newData) {
+                            item[prop] = newData[prop]
+                        }
+                        return true
                     }
-                }
+                });
                 isHistoryNeed = true;
                 break;
             case 'indent':
@@ -109,11 +116,10 @@ export class AppMediator {
                 newState.timelineStep = action.data;
                 isHistoryNeed = true;
                 break;
-            case 'setGanttChartView':
-                newState.ganttChartView = action.data;
-                break;
-            case 'setGanttToolbar':
-                newState.toolbar = action.data;
+            case 'initGanttView':
+                newState.ganttChartView = action.data.chart;
+                newState.ganttToolbar = action.data.toolbar;
+                newState.ganttTimeline = action.data.timeline;
                 break;
             case 'setDropTarget':
                 newState.dropTarget = action.data;
@@ -184,26 +190,6 @@ export class AppMediator {
                         }
                     });
                 }
-                break;
-            case 'completeTask':
-                items.find((element: any) => {
-                    if (element.id === newState.selectedTasks[0]) {
-                        const elementIndex = items.indexOf(element);
-                        action.data = elementIndex;
-                        items[elementIndex].progress = 100;
-                    }
-                });
-                isHistoryNeed = true;
-                break;
-            case 'reopenTask':
-                items.find((element: any) => {
-                    if (element.id === newState.selectedTasks[0]) {
-                        const elementIndex = items.indexOf(element);
-                        action.data = elementIndex;
-                        items[elementIndex].progress = 0;
-                    }
-                });
-                isHistoryNeed = true;
                 break;
             case 'removeLink':
                 items.find((element: any) => {
@@ -294,16 +280,16 @@ export class AppMediator {
             items: ChartData.ganttBars,
             timeLine: ChartData.timelineWeek,
 
-            tasklineTimeItems: ChartData.timelineMonthMax,
-            tasklineTasks: ChartData.tasklineTasks,
-            tasklineMilestones: ChartData.tasklineMilestones,
-            tasklineCallouts: ChartData.tasklineCallouts,
+            timelineTimeItems: ChartData.timelineMonthMax,
+            timelineTasks: ChartData.timelineTasks,
+            timelineMilestones: ChartData.timelineMilestones,
+            timelineCallouts: ChartData.timelineCallouts,
             tasklineCellCapacity: 85 / 72,
 
             isDragging: false,
             isLinking: false,
             isCurrentlySizing: false,
-            toolbar: null as any,
+            ganttToolbar: null as any,
             isLineDrawStarted: false,
 
             timelineStep: 0,
@@ -315,8 +301,8 @@ export class AppMediator {
 
             dropTarget: null as any,
             draggingElement: null as any,
-            selectedTasks: [],
-            history: [],
+            selectedTasks: [] as any,
+            history: [] as any,
             tempLine: null as any,
 
             isCallbackNeed: false

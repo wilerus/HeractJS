@@ -81,10 +81,15 @@ export class TasklineMilestone extends React.Component<any, any> {
         const currentState = GCMediator.getState();
         const startDate = event.pageX;
         const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
+        const connection = eventTarget.parentNode.getElementsByClassName('bodyConnection')[0];
+        const title = eventTarget.parentNode.getElementsByClassName('barTitle')[0];
         document.onmousemove = (event: MouseEvent) => {
             const newStartDate = startPointStartDate + (event.pageX - startDate);
             if (newStartDate > 0) {
                 eventTarget.setAttribute('x', newStartDate)
+                connection.setAttribute('x1', newStartDate)
+                connection.setAttribute('x2', newStartDate)
+                title.setAttribute('x', newStartDate)
             }
         };
     }
@@ -100,9 +105,8 @@ export class TasklineMilestone extends React.Component<any, any> {
                 GCMediator.dispatch({
                     type: 'editTask',
                     data: {
-                        duration: eventTarget.getAttribute('width') / GCMediator.getState().tasklineCellCapacity,
-                        startDate: parseInt(event.target.getAttribute('x')) / GCMediator.getState().tasklineCellCapacity,
-                        position: this.state.position / 24
+                        duration: Math.round(eventTarget.getAttribute('width') / GCMediator.getState().tasklineCellCapacity),
+                        startDate: Math.round(parseInt(eventTarget.getAttribute('x')) / GCMediator.getState().tasklineCellCapacity)
                     }
                 })
                 GCMediator.dispatch({ type: 'stopDragging' })
@@ -316,8 +320,7 @@ export class TasklineMilestone extends React.Component<any, any> {
     }
 
     public render() {
-        const startDate = this.state.startDate;
-        const columnWidth = this.state.columnWidth;
+        const startDate = this.state.startDate * this.state.columnWidth;
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
             onMouseOut: this.clearTempElements.bind(this),
@@ -329,22 +332,23 @@ export class TasklineMilestone extends React.Component<any, any> {
             React.createElement('rect', {
                 className: 'milestoneBody',
                 id: this.props.data.id,
-                x: startDate * columnWidth,
+                x: startDate,
                 y: 3,
                 rx: 3,
                 ry: 3
             }),
             React.createElement('line', {
-                x1: startDate * columnWidth + 7.5,
+                className: 'bodyConnection',
+                x1: startDate + 7.5,
                 y1: 20,
-                x2: startDate * columnWidth + 7.5,
+                x2: startDate + 7.5,
                 y2: 30,
                 strokeWidth: 1,
                 stroke: 'rgb(120,120,120)'
             }),
             React.createElement('text', {
                 className: 'barTitle',
-                x: startDate * columnWidth - 40,
+                x: startDate - 40,
                 y: 40
             }, 'This will be date')
         );

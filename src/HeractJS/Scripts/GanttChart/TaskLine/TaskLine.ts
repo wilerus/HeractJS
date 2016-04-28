@@ -12,31 +12,26 @@ export class TaskLineView extends React.Component<any, any> {
     constructor() {
         super();
         this.state = {
-            TasklineTimeItems: GCMediator.getState().tasklineTimeItems,
-            tasklineTasks: GCMediator.getState().tasklineTasks,
-            tasklineMilestones: GCMediator.getState().tasklineMilestones,
-            tasklineCallouts: GCMediator.getState().tasklineCallouts
+            TasklineTimeItems: GCMediator.getState().timelineTimeItems,
+            tasklineTasks: GCMediator.getState().timelineTasks,
+            tasklineMilestones: GCMediator.getState().timelineMilestones,
+            tasklineCallouts: GCMediator.getState().timelineCallouts
         };
 
         GCMediator.subscribe(function () {
             const change = GCMediator.getLastChange();
             if (change) {
                 switch (change.type) {
+                    case 'removeTask':
+                    case 'editTask':
                     case 'addToTaskline':
                     case 'removeFromTaskline':
+                    case 'updateTimeline':
                         this.setState({
-                            tasklineTasks: GCMediator.getState().tasklineTasks,
-                            tasklineMilestones: GCMediator.getState().tasklineMilestones,
-                            tasklineCallouts: GCMediator.getState().tasklineCallouts
+                            tasklineTasks: GCMediator.getState().timelineTasks,
+                            tasklineMilestones: GCMediator.getState().timelineMilestones,
+                            tasklineCallouts: GCMediator.getState().timelineCallouts
                         });
-                        break;
-                    case 'removeTask':
-                    case 'createTask':
-                    case 'editTask':
-                    case 'removeLink':
-                    case 'completeTask':
-                    case 'reopenTask':
-                        // this.rebuildElements();
                         break;
                     case 'selectTask':
                         GCMediator.getState().ganttChartView.state.displayingElements.find((element) => {

@@ -205,15 +205,19 @@ export class GanttToolbar extends React.Component<any, any> {
 
     private completeTask() {
         GCMediator.dispatch({
-            type: 'completeTask',
-            data: ''
+            type: 'editTask',
+            data: {
+                progress: 100
+            }
         });
     }
 
     private reopenTask() {
         GCMediator.dispatch({
-            type: 'reopenTask',
-            data: ''
+            type: 'editTask',
+            data: {
+                progress: 0
+            }
         });
     }
 

@@ -69,7 +69,7 @@ export class TasklineBar extends React.Component<any, any> {
             const id = this.state.id
             GCMediator.dispatch({
                 type: 'selectTask',
-                data: id.substring(0, id.length-3)
+                data: id.substring(0, id.length - 3)
             });
         }
     }
@@ -82,12 +82,18 @@ export class TasklineBar extends React.Component<any, any> {
         const currentState = GCMediator.getState();
         const startDate = event.pageX;
         const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
+        const titleElement = eventTarget.parentNode.getElementsByClassName('taskLineTaskTitle')[0];
+        const dateElement = eventTarget.parentNode.getElementsByClassName('taskLineTaskDate')[0];
+        const clipPath = eventTarget.parentNode.getElementsByClassName('clipRect')[0];
         document.onmousemove = (event: MouseEvent) => {
-            const newStartDate = startPointStartDate + (event.pageX - startDate);
+            const newStartDate = Math.round(startPointStartDate + (event.pageX - startDate));
             if (newStartDate > 0) {
                 eventTarget.setAttribute('x', newStartDate)
+                titleElement.setAttribute('x', newStartDate)
+                dateElement.setAttribute('x', newStartDate)
+                clipPath.setAttribute('x', newStartDate)
             }
-        };
+        }
     }
 
     private handleRectHover(event: Event) {
@@ -182,14 +188,14 @@ export class TasklineBar extends React.Component<any, any> {
             const startWidth = parseInt(eventTarget.getAttribute('width'));
             const fillTarget = eventTarget.parentNode.getElementsByClassName('barChartFillBody')[0];
             document.onmousemove = (event: MouseEvent) => {
-                const newStartDate = startPointStartDate + (event.pageX - startDate);
-                const newWidth = startWidth + (startDate - event.pageX);
-                if (newStartDate > 0) {
-                    eventTarget.setAttribute('x', newStartDate)
-                    fillTarget.setAttribute('x', newStartDate)
-                    eventTarget.setAttribute('width', newWidth)
+                const newStartDate = Math.round(startPointStartDate + (event.pageX - startDate));
+                const newWidth = Math.round(startWidth + (startDate - event.pageX));
+                if (newStartDate > 0 && newWidth > 1) {
+                    eventTarget.setAttribute('x', newStartDate);
+                    fillTarget.setAttribute('x', newStartDate);
+                    eventTarget.setAttribute('width', newWidth);
                 }
-            };
+            }
         }
     }
 
@@ -198,10 +204,12 @@ export class TasklineBar extends React.Component<any, any> {
         const duration = this.state.duration;
         const startPoint = event.pageX - duration * cellCapacity;
         let newDuration = startPoint;
+        const clipRect = eventTarget.parentNode.getElementsByClassName('clipRect')[0];
         document.onmousemove = function (event) {
-            newDuration = event.pageX - startPoint;
-            if (newDuration) {
+            newDuration = Math.round(event.pageX - startPoint);
+            if (newDuration > 0) {
                 eventTarget.setAttribute('width', newDuration)
+                clipRect.setAttribute('width', newDuration)
             }
         }.bind(this);
     }
@@ -223,9 +231,8 @@ export class TasklineBar extends React.Component<any, any> {
                 GCMediator.dispatch({
                     type: 'editTask',
                     data: {
-                        duration: eventTarget.getAttribute('width') / GCMediator.getState().tasklineCellCapacity,
-                        startDate: parseInt(event.target.getAttribute('x')) / GCMediator.getState().tasklineCellCapacity,
-                        position: this.state.position / 24
+                        duration: Math.round(eventTarget.getAttribute('width') / GCMediator.getState().tasklineCellCapacity),
+                        startDate: Math.round(parseInt(eventTarget.getAttribute('x')) / GCMediator.getState().tasklineCellCapacity)
                     }
                 })
                 GCMediator.dispatch({ type: 'stopDragging' })
@@ -244,6 +251,11 @@ export class TasklineBar extends React.Component<any, any> {
     }
 
     public render() {
+        const position = this.state.position;
+        const id = this.props.data.id;
+        const startDate = this.state.startDate * this.state.columnWidth;
+        const duration = this.state.duration * this.state.columnWidth;
+
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
             onMouseOut: this.clearTempElements.bind(this),
@@ -253,32 +265,33 @@ export class TasklineBar extends React.Component<any, any> {
         },
             React.createElement('defs', {
             }, React.createElement('clipPath', {
-                id: this.props.data.id + 'clipPath'
+                id: id + 'clipPath'
             }, React.createElement('rect', {
-                id: this.props.data.id + 'clipRect',
-                x: this.state.startDate * this.state.columnWidth+1,
+                className: 'clipRect',
+                id: id + 'clipRect',
+                x: startDate + 1,
                 height: 28,
-                width: this.state.duration * this.state.columnWidth
+                width: duration
             }))),
             React.createElement('rect', {
                 className: 'tasklineBarBody',
-                id: this.props.data.id,
-                x: this.state.startDate * this.state.columnWidth,
+                id: id,
+                x: startDate,
                 y: 1.5,
-                width: this.state.duration * this.state.columnWidth
+                width: duration
             }),
             React.createElement('text', {
                 className: 'taskLineTaskTitle',
-                x: this.state.startDate * this.state.columnWidth,
-                width: this.state.duration * this.state.columnWidth,
-                clipPath: `url(#${this.props.data.id}clipPath)`,
+                x: startDate,
+                width: duration,
+                clipPath: `url(#${id}clipPath)`,
                 y: 12
             }, `${this.props.data.name} - ${this.props.data.description}`),
             React.createElement('text', {
                 className: 'taskLineTaskDate',
-                x: this.state.startDate * this.state.columnWidth,
-                width: this.state.duration * this.state.columnWidth,
-                clipPath: `url(#${this.props.data.id}clipPath)`,
+                x: startDate,
+                width: duration,
+                clipPath: `url(#${id}clipPath)`,
                 y: 24
             }, this.state.date)
         );
