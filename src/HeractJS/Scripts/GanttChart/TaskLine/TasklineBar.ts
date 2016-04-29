@@ -41,23 +41,24 @@ export class TasklineBar extends React.Component<any, any> {
     }
 
     private componentWillReceiveProps() {
+        const data = this.props.data
         this.setState({
-            id: this.props.data.id,
-            order: this.props.data.order,
-            collapsed: this.props.data.collapsed,
-            position: this.props.data.position,
+            id: data.id,
+            order: data.order,
+            collapsed: data.collapsed,
+            position: data.position,
 
-            name: this.props.data.name,
-            description: this.props.data.description,
-            assignee: this.props.data.assignee,
-            parent: this.props.data.parent,
-            predecessors: this.props.data.startDate,
+            name: data.name,
+            description: data.description,
+            assignee: data.assignee,
+            parent: data.parent,
+            predecessors: data.startDate,
 
-            progress: this.props.data.progress,
-            duration: this.props.data.duration,
-            startDate: this.props.data.startDate,
-            finish: this.props.data.finish,
-            priority: this.props.data.priority
+            progress: data.progress,
+            duration: data.duration,
+            startDate: data.startDate,
+            finish: data.finish,
+            priority: data.priority
         });
     }
 
@@ -219,6 +220,7 @@ export class TasklineBar extends React.Component<any, any> {
         if (event.button !== 2) {
             const elementRect = eventTarget.getBoundingClientRect();
             const clickCoordX = event.clientX;
+            this.startTaskSelection();
             GCMediator.dispatch({ type: 'startDragging' });
             if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
                 this.startBarRelocation(event, eventTarget);

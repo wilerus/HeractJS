@@ -288,27 +288,24 @@ export class ChartView extends React.Component<any, any> {
                 if (element.id === selectedElement && element.timelineDisplay) {
                     if (element.type !== 'milestone') {
                         timelineTasks.find((task) => {
-                            if (element.id === selectedElement) {
+                            if (task.id === selectedElement) {
                                 for (let prop in newData) {
-                                    if (prop !== 'position') {
-                                        task[prop] = newData[prop]
-                                    }
+                                    task[prop] = newData[prop]
                                 }
                                 return true
                             }
                         })
                     } else {
                         timelineMilestones.find((task) => {
-                            if (element.id === selectedElement) {
+                            if (task.id === selectedElement) {
                                 for (let prop in newData) {
-                                    if (prop !== 'position') {
-                                        task[prop] = newData[prop]
-                                    }
+                                    task[prop] = newData[prop]
                                 }
                                 return true
                             }
                         })
                     }
+                    return true
                 }
             })
             GCMediator.dispatch({ type: 'updateTimeline' })

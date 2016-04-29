@@ -79,20 +79,24 @@ export class TaskLineView extends React.Component<any, any> {
 
     private componentDidMount() {
         document.getElementById('tasklineContainer').onmousedown = (event: MouseEvent) => {
-            const view: any = document.getElementById('tasklineContainer').parentElement;
-            const startScroll = view.scrollLeft;
-            const startPoint = event.pageX;
-            GCMediator.dispatch({ type: 'startPanning' });
-            document.body.style.webkitUserSelect = 'none';
-            document.onmousemove = (event: MouseEvent) => {
-                view.scrollLeft = startPoint - event.pageX + startScroll;
-            };
-            document.onmouseup = () => {
-                GCMediator.dispatch({ type: 'stopPanning' });
-                document.body.style.webkitUserSelect = 'inherit';
-                document.onmousemove = null;
-            };
-        };
+            const eventTarget = event.target as any;
+            if (eventTarget.parentNode.classList[0] === 'tasklineContainer') {
+                const view: any = document.getElementById('tasklineContainer').parentElement;
+                const startScroll = view.scrollLeft;
+                const startPoint = event.pageX;
+                GCMediator.dispatch({ type: 'startPanning' });
+                document.body.style.webkitUserSelect = 'none';
+                document.onmousemove = (event: MouseEvent) => {
+                    view.scrollLeft = startPoint - event.pageX + startScroll;
+                }
+                document.onmouseup = () => {
+                    GCMediator.dispatch({ type: 'stopPanning' });
+                    document.body.style.webkitUserSelect = 'inherit';
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+                }
+            }
+        }
     }
 
     public render() {

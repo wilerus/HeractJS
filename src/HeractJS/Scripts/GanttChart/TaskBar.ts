@@ -63,14 +63,13 @@ export class TaskBar extends React.Component<any, any> {
     private startTaskSelection() {
         const currentState = GCMediator.getState();
         if (!currentState.isDragging && !currentState.isPanning) {
-            if (currentState.selectedTasks[0]) {
+            if (currentState.selectedTasks[0] !== this.state.id) {
                 GCMediator.dispatch({ type: 'deselectAllTasks' });
+                GCMediator.dispatch({
+                    type: 'selectTask',
+                    data: this.state.id
+                });
             }
-
-            GCMediator.dispatch({
-                type: 'selectTask',
-                data: this.state.id
-            });
         }
     }
 
@@ -169,7 +168,7 @@ export class TaskBar extends React.Component<any, any> {
         let newDuration = startPoint;
         document.onmousemove = function (event) {
             newDuration = Math.round(event.pageX - startPoint);
-            if (newDuration) {
+            if (newDuration > 0) {
                 eventTarget.setAttribute('width', newDuration)
             }
         }.bind(this);

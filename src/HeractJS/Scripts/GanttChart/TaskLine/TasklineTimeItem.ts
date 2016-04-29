@@ -13,12 +13,13 @@ export class TasklineTimeItem extends React.Component<any, any> {
     }
 
     private componentDidMount() {
+        const data = this.props.data;
         this.setState({
-            marginLeft: this.props.data.style.marginLeft,
-            width: this.props.data.style.width,
-            top: this.props.data.style.top,
-            height: this.props.data.style.height,
-            text: this.props.data.text
+            marginLeft: data.style.marginLeft,
+            width: data.style.width,
+            top: data.style.top,
+            height: data.style.height,
+            text: data.text
         });
     }
 

@@ -62,14 +62,14 @@ export class TasklineMilestone extends React.Component<any, any> {
 
     private startTaskSelection() {
         if (!GCMediator.getState().isDragging) {
-            if (GCMediator.getState().selectedTasks[0]) {
+            const id = this.state.id.substring(0, this.state.id.length - 3);
+            if (GCMediator.getState().selectedTasks[0] !== id) {
                 GCMediator.dispatch({ type: 'deselectAllTasks' });
+                GCMediator.dispatch({
+                    type: 'selectTask',
+                    data: id
+                });
             }
-            const id = this.state.id;
-            GCMediator.dispatch({
-                type: 'selectTask',
-                data: id.substring(0, id.length - 3)
-            });
         }
     }
 
@@ -87,9 +87,9 @@ export class TasklineMilestone extends React.Component<any, any> {
             const newStartDate = startPointStartDate + (event.pageX - startDate);
             if (newStartDate > 0) {
                 eventTarget.setAttribute('x', newStartDate)
-                connection.setAttribute('x1', newStartDate)
-                connection.setAttribute('x2', newStartDate)
-                title.setAttribute('x', newStartDate)
+                connection.setAttribute('x1', newStartDate + 7.5)
+                connection.setAttribute('x2', newStartDate + 7.5)
+                title.setAttribute('x', newStartDate - 40)
             }
         };
     }
@@ -99,6 +99,7 @@ export class TasklineMilestone extends React.Component<any, any> {
         if (event.button !== 2) {
             const elementRect = eventTarget.getBoundingClientRect();
             const clickCoordX = event.clientX;
+            this.startTaskSelection();
             GCMediator.dispatch({ type: 'startDragging' });
             this.startBarRelocation(event, eventTarget);
             document.onmouseup = function (event: MouseEvent) {
