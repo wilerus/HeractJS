@@ -1,4 +1,4 @@
-﻿import React = require('react')
+﻿import * as React from 'react';
 
 export class Timeline extends React.Component<any, any> {
     constructor() {
