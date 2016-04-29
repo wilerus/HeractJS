@@ -73,8 +73,6 @@ export class ChartView extends React.Component<any, any> {
                     case 'removeTask':
                     case 'createTask':
                     case 'editTask':
-                    case 'addLink':
-                    case 'removeLink':
                         this.updateElements(change.data);
                         break;
                     case 'selectTask':
@@ -285,25 +283,37 @@ export class ChartView extends React.Component<any, any> {
         }
         if (selectedElement) {
             elements.find((element) => {
-                if (element.id === selectedElement && element.timelineDisplay) {
+                if (element.id === selectedElement) {
                     if (element.type !== 'milestone') {
-                        timelineTasks.find((task) => {
-                            if (task.id === selectedElement) {
+                        const elem = timelineTasks.find((task, index) => {
+                            if (task.id === selectedElement && task.timelineDisplay) {
                                 for (let prop in newData) {
                                     task[prop] = newData[prop]
                                 }
                                 return true
+                            } else if (task.id === selectedElement) {
+                                timelineTasks.splice(index, 1);
+                                return true
                             }
                         })
+                        if (!elem) {
+                            timelineTasks.push(element)
+                        }
                     } else {
-                        timelineMilestones.find((task) => {
-                            if (task.id === selectedElement) {
+                        const elem = timelineMilestones.find((task, index) => {
+                            if (task.id === selectedElement && task.timelineDisplay) {
                                 for (let prop in newData) {
                                     task[prop] = newData[prop]
                                 }
                                 return true
+                            } else if (task.id === selectedElement) {
+                                timelineMilestones.splice(index, 1);
+                                return true
                             }
                         })
+                        if (!elem) {
+                            timelineTasks.push(element)
+                        }
                     }
                     return true
                 }

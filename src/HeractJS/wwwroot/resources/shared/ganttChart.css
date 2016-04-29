@@ -30,7 +30,6 @@
     position: absolute;
     height: 15px;
     fill: rgb(160, 230, 160);
-    stroke: rgb(100,170,100);
     /* transition: all .2s;*/
 }
 
@@ -38,7 +37,6 @@
     position: absolute;
     fill: rgba(80,80,220,0.5);
     stroke-width: 2px;
-    stroke: rgb(80, 80, 220);
     height: 15px;
     width: 15px;
     transform-origin: 50% 50%;
@@ -102,15 +100,15 @@
     transition: all 0.2s;
 }
 
-    .barSelectBody:hover {
-        stroke-width: 1px;
-        stroke: rgb(80,80,220);
-    }
+.barSelectBody:hover {
+    stroke-width: 1px;
+    stroke: rgb(210,210,210);
+}
 
 .barSelected {
     height: 23px;
     fill: rgb(240,240,240);
-    stroke: rgb(200,200,200);
+    stroke: rgb(190,190,190);
 }
 /* ------ ------------- -------*/
 .ganttChartView {
@@ -528,7 +526,7 @@
     position: absolute;
     height: 28px;
     fill: rgb(160, 230, 160);
-    stroke: rgba(0,0,0,0.6);
+    stroke: rgb(140,210,140);
     stroke-width: 0.5px;
 }
 

@@ -191,27 +191,6 @@ export class AppMediator {
                     });
                 }
                 break;
-            case 'removeLink':
-                items.find((element: any) => {
-                    if (element.id === newState.selectedTasks[0]) {
-                        const elementIndex = items.indexOf(element);
-                        action.data = elementIndex;
-                        items[elementIndex].link = null;
-                        return true;
-                    }
-                });
-                isHistoryNeed = true;
-                break;
-            case 'addLink':
-                const element = action.data.element;
-                const elementIndex = action.data.elementIndex
-                element.link = {
-                    id: `link${elementIndex}`,
-                    to: element.type === 'project' ? `bar${elementIndex + 10}` : `bar${elementIndex + 1}`,
-                    type: 'finishToStart'
-                };
-                isHistoryNeed = true;
-                break;
             case 'scrollGrid':
                 isHistoryNeed = true;
                 newState.scrollPosition = action.data;
@@ -223,42 +202,6 @@ export class AppMediator {
                 newState.dropTarget = null;
                 break;
             case 'taskUpdated':
-                isHistoryNeed = true;
-                break;
-            case 'addToTaskline':
-                items.find((element: any) => {
-                    if (element.id === newState.selectedTasks[0]) {
-                        if (element.type === 'task') {
-                            newState.tasklineTasks.push(element);
-                        } else if (element.type === 'milestone') {
-                            newState.tasklineMilestones.push(element);
-                        }
-                    }
-                });
-                action.data = '123';
-                isHistoryNeed = true;
-                break;
-            case 'removeFromTaskline':
-                items.find((element: any) => {
-                    if (element.id === newState.selectedTasks[0]) {
-                        if (element.type === 'task') {
-                            newState.tasklineTasks.find((task: any, index: number) => {
-                                if (task.id === element.id) {
-                                    newState.tasklineTasks.splice(index, 1);
-                                    return true;
-                                }
-                            });
-                        } else if (element.type === 'milestone') {
-                            newState.tasklineMilestones.find((task: any, index: number) => {
-                                if (task.id === element.id) {
-                                    newState.tasklineMilestones.splice(index, 1);
-                                    return true;
-                                }
-                            });
-                        }
-                    }
-                });
-                action.data = '123';
                 isHistoryNeed = true;
                 break;
             default:

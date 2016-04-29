@@ -30,12 +30,22 @@ export class ActionChartPopup extends React.Component<any, any> {
     }
 
     private addToTaskline() {
-        GCMediator.dispatch({ type: 'addToTaskline' });
+        GCMediator.dispatch({
+            type: 'editTask',
+            data: {
+                timelineDisplay: true
+            }
+        });
         this.hide();
     }
 
     private removeFromTaskline() {
-        GCMediator.dispatch({ type: 'removeFromTaskline' });
+        GCMediator.dispatch({
+            type: 'editTask',
+            data: {
+                timelineDisplay: false
+            }
+        });
         this.hide();
     }
 

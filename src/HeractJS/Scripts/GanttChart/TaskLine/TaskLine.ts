@@ -24,8 +24,6 @@ export class TaskLineView extends React.Component<any, any> {
                 switch (change.type) {
                     case 'removeTask':
                     case 'editTask':
-                    case 'addToTaskline':
-                    case 'removeFromTaskline':
                     case 'updateTimeline':
                         this.setState({
                             tasklineTasks: GCMediator.getState().timelineTasks,

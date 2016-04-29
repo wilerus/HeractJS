@@ -29,7 +29,12 @@ export class ActionTasklinePopup extends React.Component<any, any> {
     }
 
     private removeFromTaskline() {
-        GCMediator.dispatch({ type: 'removeFromTaskline' });
+        GCMediator.dispatch({
+            type: 'editTask',
+            data: {
+                timelineDisplay: true
+            }
+        });
         this.hide();
     }
 

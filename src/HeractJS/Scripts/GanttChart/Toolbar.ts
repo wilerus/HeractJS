@@ -178,10 +178,13 @@ export class GanttToolbar extends React.Component<any, any> {
                     const elementIndex = currentState.items.indexOf(element);
                     if (currentState.items[elementIndex].link === null) {
                         GCMediator.dispatch({
-                            type: 'addLink',
+                            type: 'editTask',
                             data: {
-                                element: element,
-                                elementIndex: elementIndex
+                                link: {
+                                    id: `link${elementIndex}`,
+                                    to: element.type === 'project' ? `bar${elementIndex + 10}` : `bar${elementIndex + 1}`,
+                                    type: 'finishToStart'
+                                }
                             }
                         });
                     }
@@ -190,7 +193,7 @@ export class GanttToolbar extends React.Component<any, any> {
             });
         } else {
             GCMediator.dispatch({
-                type: 'addLink',
+                type: 'editTask',
                 data: ''
             });
         }
@@ -198,8 +201,10 @@ export class GanttToolbar extends React.Component<any, any> {
 
     private removeLink() {
         GCMediator.dispatch({
-            type: 'removeLink',
-            data: ''
+            type: 'editTask',
+            data: {
+                link: null
+            }
         });
     }
 

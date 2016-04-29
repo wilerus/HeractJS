@@ -152,7 +152,7 @@ export class TasklineBar extends React.Component<any, any> {
 
         popup.setState({
             left: coords.left + coords.width / 2 - 100,
-            top: coords.top - 160,
+            top: coords.top - 160 < 0 ? coords.top + 30 : coords.top - 160,
             title: this.state.name,
             startDate: this.state.startDate,
             endDate: this.state.startDate + this.state.duration,
@@ -187,13 +187,11 @@ export class TasklineBar extends React.Component<any, any> {
             const startDate = event.pageX;
             const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
             const startWidth = parseInt(eventTarget.getAttribute('width'));
-            const fillTarget = eventTarget.parentNode.getElementsByClassName('barChartFillBody')[0];
             document.onmousemove = (event: MouseEvent) => {
                 const newStartDate = Math.round(startPointStartDate + (event.pageX - startDate));
                 const newWidth = Math.round(startWidth + (startDate - event.pageX));
                 if (newStartDate > 0 && newWidth > 1) {
                     eventTarget.setAttribute('x', newStartDate);
-                    fillTarget.setAttribute('x', newStartDate);
                     eventTarget.setAttribute('width', newWidth);
                 }
             }
