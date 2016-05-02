@@ -9,22 +9,6 @@
     padding-right: 15px;
 }
 
-/* Carousel */
-.carousel-caption {
-    z-index: 10 !important;
-}
-
-    .carousel-caption p {
-        font-size: 20px;
-        line-height: 1.4;
-    }
-
-@media (min-width: 768px) {
-    .carousel-caption {
-        z-index: 10 !important;
-    }
-}
-
 /* Bar chart */
 .barChartBody {
     position: absolute;
@@ -35,7 +19,7 @@
 
 .milestoneBody {
     position: absolute;
-    fill: rgba(80,80,220,0.5);
+    fill: rgb(80,80,220);
     stroke-width: 2px;
     height: 15px;
     width: 15px;
@@ -145,7 +129,7 @@
     height: 26px;
     position: relative;
     background-color: #299cb4;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 4px rgb(0, 0, 0);
     z-index: 110;
 }
 
@@ -154,7 +138,7 @@
     height: 150px;
     position: relative;
     background-color: white;
-    box-shadow: 0 0 8px rgba(0, 0, 0,0.8);
+    box-shadow: 0 0 4px rgb(0, 0, 0);
     z-index: 100;
 }
 
@@ -176,7 +160,7 @@
     height: 27px;
     flex: none;
     z-index: 90;
-    box-shadow: 0 0 8px rgba(0, 0, 0,0.8);
+    box-shadow: 0 0 4px rgb(0, 0, 0);
 }
 
     .timelineContainer::-webkit-scrollbar, .js-module-gantt-taskline::-webkit-scrollbar {
@@ -197,7 +181,7 @@
     width: 200px;
     height: 150px;
     background-color: white;
-    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    box-shadow: 0 0 4px rgb(0,0,0);
     z-index: 210;
     display: none;
     pointer-events: none;
@@ -237,7 +221,7 @@
     width: 200px;
     height: 150px;
     background-color: white;
-    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    box-shadow: 0 0 4px rgb(0,0,0);
     z-index: 210;
     display: none;
 }
@@ -287,7 +271,7 @@
 }
 
 .modalWindowBody {
-    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    box-shadow: 0 0 4px rgb(0,0,0);
     flex: 1;
     z-index: 2;
 }
@@ -319,7 +303,7 @@
     width: 400px;
     height: 400px;
     background-color: white;
-    box-shadow: 0 0 8px rgba(0,0,0,0.6);
+    box-shadow: 0 0 4px rgb(0,0,0);
     z-index: 20;
     display: block;
     position: relative;
@@ -360,38 +344,7 @@
     position: absolute;
     float: none;
 }
-/*-------- modalWindow -----------*/
 
-.GCInputLabel {
-    width: 90px;
-}
-/*infoPopup animation*/
-.example-enter {
-    opacity: 0.01;
-}
-
-    .example-enter.example-enter-active {
-        opacity: 1;
-        transition: opacity 500ms ease-in;
-    }
-
-.example-leave {
-    opacity: 1;
-}
-
-    .example-leave.example-leave-active {
-        opacity: 0.01;
-        transition: opacity 300ms ease-in;
-    }
-
-.example-appear {
-    opacity: 0.01;
-}
-
-    .example-appear.example-appear-active {
-        opacity: 1;
-        transition: opacity .5s ease-in;
-    }
 /*------ Timeline style ------*/
 .ganttTimeline {
     background-color: rgb(44,171,198);
@@ -429,8 +382,8 @@
     border: none;
     color: white;
     vertical-align: top;
-    float: right;
-    margin-right: 330px;
+    position: absolute;
+    right: 50px;
 }
 
 .viewModeSelector {
@@ -438,7 +391,7 @@
     width: 200px;
     height: 115px;
     background-color: white;
-    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    box-shadow: 0 0 4px rgb(0,0,0);
     z-index: -1;
     opacity: 0;
     transition: all .2s;
@@ -504,7 +457,7 @@
     z-index: 105;
     position: relative;
     background-color: white;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 4px rgb(0, 0, 0);
     height: 166px;
     transition: height 0.2s;
 }

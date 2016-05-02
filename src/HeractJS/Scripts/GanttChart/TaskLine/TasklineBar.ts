@@ -271,7 +271,7 @@ export class TasklineBar extends React.Component<any, any> {
                 id: id + 'clipRect',
                 x: startDate + 1,
                 height: 28,
-                width: duration
+                width: duration - 2
             }))),
             React.createElement('rect', {
                 className: 'tasklineBarBody',

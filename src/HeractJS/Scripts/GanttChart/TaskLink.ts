@@ -43,7 +43,7 @@ export class TaskLink extends React.Component<any, any> {
             })
             if (firstElementType) {
 
-                const xDelta = firstElementType.type === 'milestone' ? -3 : 0
+                const xDelta = firstElementType.type === 'milestone' ? -4 : 0
                 const yDelta = firstElementType.type === 'project' ? 1 : 7
                 let firstPointCoordsX: number;
                 let firstPointCoordsY: number;

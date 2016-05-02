@@ -141,7 +141,7 @@ export class ChartData {
             for (let n = 0; n < this.weekData.length; n++) {
                 ChartData.timelineWeekMax.push({
                     id: `timelineWeekM${n}${i}`,
-                    text: `${this.weekData[n]}'W${i}'16`,
+                    text: `${this.weekData[n]}'W${i+1}`,
                     style: {
                         width: 87,
                         marginLeft: 609 * i + 87 * n
@@ -210,10 +210,10 @@ export class ChartData {
             for (let n = 0; n < 8; n++) {
                 ChartData.timelineDayMax.push({
                     id: `timelineDay${n}${i}`,
-                    text: `H${n * 3}'${this.weekData[i]}'16`,
+                    text: `H${n * 3}'${this.weekData[i]}`,
                     style: {
                         width: 80,
-                        marginLeft: 64 * i + 80 * n
+                        marginLeft: 640 * i + 80 * n
                     }
                 });
             }
