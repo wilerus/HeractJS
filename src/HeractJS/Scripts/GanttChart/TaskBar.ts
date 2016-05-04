@@ -444,9 +444,7 @@ export class TaskBar extends React.Component<any, any> {
                     onMouseDown: this.startBarUpdate.bind(this),
                     onContextMenu: this.contextMenu.bind(this),
                     onDoubleClick: this.showModalWindow.bind(this),
-                    onClick: this.startTaskSelection.bind(this),
-                    y: position + 4,
-                    x: startDate
+                    onClick: this.startTaskSelection.bind(this)
                 },
                     React.createElement('rect', {
                         className: 'barSelectBody',
@@ -472,9 +470,7 @@ export class TaskBar extends React.Component<any, any> {
                 element = React.createElement('g', {
                     onContextMenu: this.contextMenu.bind(this),
                     onDoubleClick: this.showModalWindow.bind(this),
-                    onClick: this.startTaskSelection.bind(this),
-                    y: position + 4,
-                    x: startDate
+                    onClick: this.startTaskSelection.bind(this)
                 },
                     React.createElement('rect', {
                         className: 'barSelectBody',

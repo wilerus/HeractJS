@@ -32,9 +32,9 @@ export class TasklineTimeItem extends React.Component<any, any> {
                 y: -1,
                 x: this.state.marginLeft,
                 width: this.state.width,
-                height: 21,
-                stroke: 'black',
-                strokeWidth: 0.5,
+                height: 20,
+                stroke: 'rgb(200,200,200)',
+                strokeWidth: 1,
                 fill: 'none'
             }),
             React.createElement('text', {

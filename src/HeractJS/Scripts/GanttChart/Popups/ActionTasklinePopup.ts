@@ -32,7 +32,7 @@ export class ActionTasklinePopup extends React.Component<any, any> {
         GCMediator.dispatch({
             type: 'editTask',
             data: {
-                timelineDisplay: true
+                timelineDisplay: false
             }
         });
         this.hide();

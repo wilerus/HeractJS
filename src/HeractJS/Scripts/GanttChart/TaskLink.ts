@@ -92,13 +92,8 @@ export class TaskLink extends React.Component<any, any> {
 
     public render() {
         return React.createElement('polyline', {
-            points: this.state.firstPoint + ' ' + this.state.secondPoint + ' ' + this.state.thirdPoint,
-            strokeWidth: 1,
-            stroke: 'rgb(80,80,220)',
-            strokeLinecap: 'round',
-            strokeLinejoin: 'round',
-            markerEnd: 'url(#triangle)',
-            fill: 'none'
+            className: 'taskLink',
+            points: this.state.firstPoint + ' ' + this.state.secondPoint + ' ' + this.state.thirdPoint
         });
     }
 }

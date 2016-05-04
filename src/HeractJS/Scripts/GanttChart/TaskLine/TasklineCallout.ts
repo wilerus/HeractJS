@@ -210,7 +210,7 @@ export class TasklineCallouts extends React.Component<any, any> {
                 d: `M${startDate} 37 C ${startDate + 3} 32, ${startDate + 3} 32, ${startDate + 7} 32,
                     L${startDate + 7} 32, ${duration - 7 + startDate} 32,
                     M${duration + startDate - 7} 32 C ${duration - 3 + startDate} 32, ${duration + startDate - 3} 32, ${duration + startDate} 37`,
-                stroke: 'black',
+                stroke: 'rgb(200,200,200)',
                 fill: 'transparent'
             }),
             React.createElement('text', {

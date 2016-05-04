@@ -390,8 +390,8 @@ export class ChartView extends React.Component<any, any> {
                         refX: 20,
                         refY: 0,
                         markerUnits: 'strokeWidth',
-                        markerWidth: 12,
-                        markerHeight: 4,
+                        markerWidth: 6,
+                        markerHeight: 2,
                         orient: '0'
                     },
                         React.createElement('path', {

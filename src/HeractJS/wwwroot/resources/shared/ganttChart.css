@@ -41,6 +41,7 @@
     stroke-width: 2px;
     stroke: rgb(40, 40, 100);
     height: 2px;
+    shape-rendering: crispEdges;
 }
 
 .barChartFillBody {
@@ -82,12 +83,13 @@
     stroke-width: 1px;
     stroke: rgb(235,235,235);
     transition: all 0.2s;
+    shape-rendering: crispEdges;
 }
 
-.barSelectBody:hover {
-    stroke-width: 1px;
-    stroke: rgb(210,210,210);
-}
+    .barSelectBody:hover {
+        stroke-width: 1px;
+        stroke: rgb(210,210,210);
+    }
 
 .barSelected {
     height: 23px;
@@ -99,6 +101,7 @@
     user-select: none;
     width: 3000px;
     height: 1500px;
+    shape-rendering: optimizeSpeed;
     z-index: 10;
 }
 
@@ -434,11 +437,13 @@
 .taskLineCallouts {
     width: 3000px;
     height: 37px;
+    shape-rendering: crispEdges;
 }
 
 .tasklineTimeline {
     width: 3000px;
     height: 20px;
+    shape-rendering: crispEdges;
 }
 
 .tasklineBars {
@@ -486,4 +491,14 @@
 .tasklineBarSelected {
     stroke-width: 1.5px;
     stroke: rgb(60,120,50);
+}
+
+.taskLink {
+    shape-rendering: crispEdges;
+    stroke-width: 2;
+    stroke: rgb(80,80,220);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    marker-end: url(#triangle);
+    fill: none;
 }
