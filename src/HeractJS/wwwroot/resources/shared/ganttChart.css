@@ -77,17 +77,16 @@
 /* ------ barSelectBody -------*/
 .barSelectBody {
     position: absolute;
-    height: 23px;
+    height: 24px;
     width: 100%;
     fill: white;
     stroke-width: 1px;
     stroke: rgb(235,235,235);
-    transition: all 0.2s;
     shape-rendering: crispEdges;
 }
 
     .barSelectBody:hover {
-        stroke-width: 1px;
+        height: 23px;
         stroke: rgb(210,210,210);
     }
 

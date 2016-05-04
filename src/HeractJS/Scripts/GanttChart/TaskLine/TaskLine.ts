@@ -31,43 +31,6 @@ export class TaskLineView extends React.Component<any, any> {
                             tasklineCallouts: GCMediator.getState().timelineCallouts
                         });
                         break;
-                    case 'selectTask':
-                        GCMediator.getState().ganttChartView.state.displayingElements.find((element) => {
-                            if (element.id === change.data) {
-                                switch (element.type) {
-                                    case 'milestone':
-                                        TasklineMilestone.selectTask(change.data);
-                                        break;
-                                    case 'task':
-                                    case 'project':
-                                        TasklineBar.selectTask(change.data);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                return
-                            }
-                        })
-                        break;
-                    case 'deselectAllTasks':
-                        GCMediator.getState().ganttChartView.state.displayingElements.find((element) => {
-                            let index = 0
-                            if (element.id === change.data[index]) {
-                                switch (element.type) {
-                                    case 'milestone':
-                                        TasklineMilestone.deselectAllTasks(change.data);
-                                        break;
-                                    case 'task':
-                                    case 'project':
-                                        TasklineBar.deselectAllTasks(change.data);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                index++
-                            }
-                        })
-                        break;
                     default:
                         break;
                 }

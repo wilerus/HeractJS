@@ -30,6 +30,21 @@ export class TasklineBar extends React.Component<any, any> {
             priority: props.data.priority,
             columnWidth: GCMediator.getState().tasklineCellCapacity
         };
+        GCMediator.subscribe(function () {
+            const change = GCMediator.getLastChange();
+            if (change && change.data && change.data.type === 'task') {
+                switch (change.type) {
+                    case 'deselectAllTasks':
+                        this.deselectAllTasks(change.data.tasks);
+                        break;
+                    case 'selectTask':
+                        this.selectTask(change.data.id);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }.bind(this));
     }
 
     private shouldComponentUpdate(nextState: any) {
@@ -64,14 +79,29 @@ export class TasklineBar extends React.Component<any, any> {
 
     private startTaskSelection() {
         if (!GCMediator.getState().isDragging) {
-            if (GCMediator.getState().selectedTasks[0]) {
+            const selectedTask = GCMediator.getState().selectedTasks[0];
+            if (selectedTask) {
                 GCMediator.dispatch({ type: 'deselectAllTasks' });
+                const id = this.state.id
+                if (selectedTask !== id) {
+                    GCMediator.dispatch({
+                        type: 'selectTask',
+                        data: {
+                            id: id.substring(0, id.length - 3),
+                            type: 'task'
+                        }
+                    });
+                }
+            } else {
+                const id = this.state.id
+                GCMediator.dispatch({
+                    type: 'selectTask',
+                    data: {
+                        id: id.substring(0, id.length - 3),
+                        type: 'task'
+                    }
+                });
             }
-            const id = this.state.id
-            GCMediator.dispatch({
-                type: 'selectTask',
-                data: id.substring(0, id.length - 3)
-            });
         }
     }
 
@@ -106,6 +136,9 @@ export class TasklineBar extends React.Component<any, any> {
                 setTimeout(function (hoverElement) {
                     if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
                         !GCMediator.getState().isCurrentlyDragging) {
+                        hoverElement.onmouseout = function () {
+                            this.clearTempElements();
+                        }.bind(this)
                         this.showInfoPopup(hoverElement);
                     }
                 }.bind(this, hoverElement), 500);
@@ -122,7 +155,7 @@ export class TasklineBar extends React.Component<any, any> {
 
     private clearTempElements(event: Event) {
         const currentState = GCMediator.getState();
-        currentState.ganttChartView.refs.infoPopup.hide();
+        GCMediator.dispatch({ type: 'hideInfoPopup' });
         if (!currentState.isDragging) {
             document.onmousemove = null;
             document.onmouseup = null;
@@ -148,34 +181,34 @@ export class TasklineBar extends React.Component<any, any> {
 
     private showInfoPopup(hoverElement) {
         const coords = hoverElement.getBoundingClientRect();
-        const popup = GCMediator.getState().ganttChartView.refs.infoPopup;
-
-        popup.setState({
-            left: coords.left + coords.width / 2 - 100,
-            top: coords.top - 160 < 0 ? coords.top + 30 : coords.top - 160,
-            title: this.state.name,
-            startDate: this.state.startDate,
-            endDate: this.state.startDate + this.state.duration,
-            duration: this.state.duration,
-            description: this.state.description
-        });
-        popup.show();
+        GCMediator.dispatch({
+            type: 'showInfoPopup',
+            data: {
+                left: coords.left + coords.width / 2 - 100,
+                top: coords.top - 160 < 0 ? coords.top + 30 : coords.top - 160,
+                title: this.state.name,
+                startDate: this.state.startDate,
+                endDate: this.state.startDate + this.state.duration,
+                duration: this.state.duration,
+                description: this.state.description
+            }
+        })
     }
 
     private showActionPopup(hoverElement) {
         const coords = hoverElement.getBoundingClientRect();
-        const popup = GCMediator.getState().ganttChartView.refs.actionTasklinePopup;
-
         this.startTaskSelection();
-        popup.setState({
-            left: coords.left + coords.width / 2 - 100,
-            top: coords.top + 22,
-            title: this.state.name
-        });
-        popup.show();
+        GCMediator.dispatch({
+            type: 'showActionTimelinePopup',
+            data: {
+                left: coords.left + coords.width / 2 - 100,
+                top: coords.top + 22,
+                title: this.state.name
+            }
+        })
     }
 
-    public static selectTask(taskId: string) {
+    private selectTask(taskId: string) {
         const selectedElement = document.getElementById(taskId + 'TLI');
         if (selectedElement && selectedElement.tagName === 'rect') {
             selectedElement.setAttribute('class', 'tasklineBarBody tasklineBarSelected');
@@ -241,9 +274,9 @@ export class TasklineBar extends React.Component<any, any> {
         }
     }
 
-    public static deselectAllTasks(tasks: any) {
+    public deselectAllTasks(tasks: any) {
         for (let i = 0; i < tasks.length; i++) {
-            const selectedElement = document.getElementById(tasks[i] + 'TLI');
+            const selectedElement = document.getElementById(tasks[i].id + 'TLI');
             if (selectedElement && selectedElement.tagName === 'rect') {
                 selectedElement.setAttribute('class', 'tasklineBarBody');
             }
@@ -251,14 +284,12 @@ export class TasklineBar extends React.Component<any, any> {
     }
 
     public render() {
-        const position = this.state.position;
         const id = this.props.data.id;
         const startDate = this.state.startDate * this.state.columnWidth;
         const duration = this.state.duration * this.state.columnWidth;
 
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
-            onMouseOut: this.clearTempElements.bind(this),
             onContextMenu: this.contextMenu.bind(this),
             onMouseDown: this.startBarUpdate.bind(this),
             onClick: this.startTaskSelection.bind(this)

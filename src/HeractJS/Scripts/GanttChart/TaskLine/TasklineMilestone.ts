@@ -29,6 +29,21 @@ export class TasklineMilestone extends React.Component<any, any> {
             priority: props.data.priority,
             columnWidth: GCMediator.getState().tasklineCellCapacity
         };
+        GCMediator.subscribe(function () {
+            const change = GCMediator.getLastChange();
+            if (change && change.data && change.data.type === 'milestone') {
+                switch (change.type) {
+                    case 'deselectAllTasks':
+                        this.deselectAllTasks(change.data.tasks);
+                        break;
+                    case 'selectTask':
+                        this.selectTask(change.data.id);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }.bind(this));
     }
 
     private shouldComponentUpdate(nextState: any) {
@@ -62,12 +77,29 @@ export class TasklineMilestone extends React.Component<any, any> {
 
     private startTaskSelection() {
         if (!GCMediator.getState().isDragging) {
-            const id = this.state.id.substring(0, this.state.id.length - 3);
-            if (GCMediator.getState().selectedTasks[0] !== id) {
-                GCMediator.dispatch({ type: 'deselectAllTasks' });
+            const selectedTask = GCMediator.getState().selectedTasks[0];
+            if (selectedTask) {
+                GCMediator.dispatch({
+                    type: 'deselectAllTasks'
+                });
+                const id = this.state.id
+                if (selectedTask !== id) {
+                    GCMediator.dispatch({
+                        type: 'selectTask',
+                        data: {
+                            id: id.substring(0, id.length - 3),
+                            type: 'milestone'
+                        }
+                    });
+                }
+            } else {
+                const id = this.state.id
                 GCMediator.dispatch({
                     type: 'selectTask',
-                    data: id
+                    data: {
+                        id: id.substring(0, id.length - 3),
+                        type: 'milestone'
+                    }
                 });
             }
         }
@@ -97,8 +129,6 @@ export class TasklineMilestone extends React.Component<any, any> {
     private startBarUpdate(event: MouseEvent) {
         let eventTarget: any = event.target;
         if (event.button !== 2) {
-            const elementRect = eventTarget.getBoundingClientRect();
-            const clickCoordX = event.clientX;
             this.startTaskSelection();
             GCMediator.dispatch({ type: 'startDragging' });
             this.startBarRelocation(event, eventTarget);
@@ -214,6 +244,9 @@ export class TasklineMilestone extends React.Component<any, any> {
                 setTimeout(function (hoverElement) {
                     if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
                         !GCMediator.getState().isCurrentlyDragging) {
+                        hoverElement.onmouseout = function () {
+                            this.clearTempElements();
+                        }.bind(this)
                         this.showInfoPopup(hoverElement);
                     }
                 }.bind(this, hoverElement), 500);
@@ -229,7 +262,7 @@ export class TasklineMilestone extends React.Component<any, any> {
 
     private clearTempElements(event: Event) {
         const currentState = GCMediator.getState();
-        currentState.ganttChartView.refs.infoPopup.hide();
+        GCMediator.dispatch({ type: 'hideInfoPopup' });
         if (!currentState.isDragging) {
             document.onmousemove = null;
             document.onmouseup = null;
@@ -255,48 +288,48 @@ export class TasklineMilestone extends React.Component<any, any> {
 
     private showInfoPopup(hoverElement) {
         const coords = hoverElement.getBoundingClientRect();
-        const popup = GCMediator.getState().ganttChartView.refs.infoPopup;
-
-        popup.setState({
-            left: coords.left + coords.width / 2 - 100,
-            top: coords.top - 160,
-            title: this.state.name,
-            startDate: this.state.startDate,
-            endDate: this.state.startDate + this.state.duration,
-            duration: this.state.duration,
-            description: this.state.description
+        GCMediator.dispatch({
+            type: 'showInfoPopup',
+            data: {
+                left: coords.left + coords.width / 2 - 100,
+                top: coords.top - 160,
+                title: this.state.name,
+                startDate: this.state.startDate,
+                endDate: this.state.startDate + this.state.duration,
+                duration: this.state.duration,
+                description: this.state.description
+            }
         });
-        popup.show();
     }
 
     private showModalWindow() {
-        const currentState = GCMediator.getState();
-        const modalWindow = currentState.ganttChartView.refs.modalWindow;
-        currentState.ganttChartView.refs.infoPopup.hide();
-        modalWindow.show();
-        modalWindow.setState({
-            title: this.state.name,
-            description: this.state.description,
-            startDate: this.state.startDate,
-            endDate: this.state.startDate + this.state.duration,
-            duration: this.state.duration
+        GCMediator.dispatch({ type: 'hideAllPopups' });
+        GCMediator.dispatch({
+            type: 'showModalWindow',
+            data: {
+                title: this.state.name,
+                description: this.state.description,
+                startDate: this.state.startDate,
+                endDate: this.state.startDate + this.state.duration,
+                duration: this.state.duration
+            }
         });
     }
 
     private showActionPopup(hoverElement) {
         const coords = hoverElement.getBoundingClientRect();
-        const popup = GCMediator.getState().ganttChartView.refs.actionTasklinePopup;
-
         this.startTaskSelection();
-        popup.setState({
-            left: coords.left + coords.width / 2 - 100,
-            top: coords.top + 22,
-            title: this.state.name
+        GCMediator.dispatch({
+            type: 'showActionTimelinePopup',
+            data: {
+                left: coords.left + coords.width / 2 - 100,
+                top: coords.top + 22,
+                title: this.state.name
+            }
         });
-        popup.show();
     }
 
-    public static selectTask(taskId: string) {
+    private selectTask(taskId: string) {
         const selectedElement = document.getElementById(taskId + 'TLI');
         if (selectedElement && selectedElement.tagName === 'rect') {
             selectedElement.setAttribute('class', 'milestoneBody milestoneSelected');
@@ -311,9 +344,9 @@ export class TasklineMilestone extends React.Component<any, any> {
         selectedElement.setAttribute('class', 'milestoneBody');
     }
 
-    public static deselectAllTasks(tasks: any) {
+    private deselectAllTasks(tasks: any) {
         for (let i = 0; i < tasks.length; i++) {
-            const selectedElement = document.getElementById(tasks[i] + 'TLI');
+            const selectedElement = document.getElementById(tasks[i].id + 'TLI');
             if (selectedElement && selectedElement.tagName === 'rect') {
                 selectedElement.setAttribute('class', 'milestoneBody');
             }
@@ -324,7 +357,6 @@ export class TasklineMilestone extends React.Component<any, any> {
         const startDate = this.state.startDate * this.state.columnWidth;
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
-            onMouseOut: this.clearTempElements.bind(this),
             onMouseDown: this.startBarUpdate.bind(this),
             onContextMenu: this.contextMenu.bind(this),
             onDoubleClick: this.showModalWindow.bind(this),

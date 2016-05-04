@@ -15,9 +15,9 @@ define([
     'shared',
     './views/ContentView',
     './views/GridView',
-    'ganttChart'
+    'ganttView'
 ], function(
-    shared, ContentView, GridView, ganttChart
+    shared, ContentView, GridView, ganttView
 ) {
     'use strict';
 
@@ -27,7 +27,7 @@ define([
         navigate: function () {
             this.view.setNavigationVisibility(false);
             this.moduleRegion.show(new GridView({}));
-            new ganttChart.Initializer();
+            new ganttView.Initializer();
         }
     });
 });

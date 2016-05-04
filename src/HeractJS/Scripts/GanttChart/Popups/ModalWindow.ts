@@ -1,6 +1,8 @@
 ﻿import * as React from 'react';
 import * as DOM from 'react-dom';
+import {AppMediator} from '../../../scripts/services/ApplicationMediator';
 
+let GCMediator: any = AppMediator.getInstance();
 export class ModalWindow extends React.Component<any, any> {
     private componentWillMount() {
         this.state = {
@@ -10,6 +12,22 @@ export class ModalWindow extends React.Component<any, any> {
             duration: 'Placeholder',
             description: 'description'
         };
+        GCMediator.subscribe(function () {
+            const change = GCMediator.getLastChange();
+            if (change) {
+                switch (change.type) {
+                    case 'showModalWindow':
+                        this.show(change.data);
+                        break;
+                    case 'hideModalWindow':
+                    case 'hideAllPopups':
+                        this.hide();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }.bind(this));
     }
 
     public hide() {
@@ -17,7 +35,14 @@ export class ModalWindow extends React.Component<any, any> {
         item.style.display = 'none';
     }
 
-    public show() {
+    public show(data) {
+        this.setState({
+            title: data.title,
+            startDate: data.startDate,
+            endDate: data.endDate,
+            duration: data.duration,
+            description: data.description
+        });
         const item = DOM.findDOMNode(this) as any;
         item.style.display = 'flex';
     }

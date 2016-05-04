@@ -33,7 +33,7 @@ export class AppMediator {
                 if (newState.selectedTasks) {
                     let prevElIndex = 0;
                     const prevElement = items.find((element, index) => {
-                        if (element.id === newState.selectedTasks[0]) {
+                        if (element.id === newState.selectedTasks[0].id) {
                             prevElIndex = index;
                             return true;
                         }
@@ -64,7 +64,7 @@ export class AppMediator {
                 break;
             case 'removeTask':
                 items.find((item: any) => {
-                    if (item.id === newState.selectedTasks[0]) {
+                    if (item.id === newState.selectedTasks[0].id) {
                         const elementIndex = items.indexOf(item);
                         const taskDuration = item.duration;
                         action.data = elementIndex;
@@ -81,7 +81,8 @@ export class AppMediator {
             case 'editTask':
                 const newData = action.data;
                 items.find((item: any) => {
-                    if (item.id === newState.selectedTasks[0]) {
+                    debugger;
+                    if (item.id === newState.selectedTasks[0].id) {
                         for (let prop in newData) {
                             item[prop] = newData[prop]
                         }
@@ -91,11 +92,11 @@ export class AppMediator {
                 isHistoryNeed = true;
                 break;
             case 'indent':
-                newState.ganttChartView.indentTask(action.data);
+                //newState.ganttChartView.indentTask(action.data);
                 isHistoryNeed = true;
                 break;
             case 'outindent':
-                newState.ganttChartView.outindentTask(action.data);
+               // newState.ganttChartView.outindentTask(action.data);
                 isHistoryNeed = true;
                 break;
             case 'autoSchedule':
@@ -115,11 +116,6 @@ export class AppMediator {
             case 'updateTimelineStep':
                 newState.timelineStep = action.data;
                 isHistoryNeed = true;
-                break;
-            case 'initGanttView':
-                newState.ganttChartView = action.data.chart;
-                newState.ganttToolbar = action.data.toolbar;
-                newState.ganttTimeline = action.data.timeline;
                 break;
             case 'setDropTarget':
                 newState.dropTarget = action.data;
@@ -164,6 +160,7 @@ export class AppMediator {
                 isHistoryNeed = true;
                 break;
             case 'selectTask':
+                debugger;
                 newState.selectedTasks.push(action.data);
                 isHistoryNeed = true;
                 break;
@@ -176,7 +173,10 @@ export class AppMediator {
                 break;
             case 'deselectAllTasks':
                 if (newState.selectedTasks && newState.selectedTasks.length) {
-                    action.data = newState.selectedTasks;
+                    action.data = {
+                        tasks: newState.selectedTasks,
+                        type: newState.selectedTasks[0].type
+                    }
                     newState.selectedTasks = [];
                 }
                 isHistoryNeed = true;
@@ -203,6 +203,36 @@ export class AppMediator {
                 break;
             case 'taskUpdated':
                 isHistoryNeed = true;
+                break;
+            case 'showInfoPopup':
+                isHistoryNeed = true;
+                break;
+            case 'hideInfoPopup':
+                isHistoryNeed = true;
+                action.data = true;
+                break;
+            case 'showActionChartPopup':
+                isHistoryNeed = true;
+                break;
+            case 'hideActionChartPopup':
+                isHistoryNeed = true;
+                action.data = true;
+            case 'showActionTimelinePopup':
+                isHistoryNeed = true;
+                break;
+            case 'hideModalWindow':
+                isHistoryNeed = true;
+                action.data = true;
+            case 'showModalWindow':
+                isHistoryNeed = true;
+                break;
+            case 'hideActionTimelinePopup':
+                isHistoryNeed = true;
+                action.data = true;
+                break;
+            case 'hideAllPopups':
+                isHistoryNeed = true;
+                action.data = true;
                 break;
             default:
                 return state;
@@ -232,14 +262,12 @@ export class AppMediator {
             isDragging: false,
             isLinking: false,
             isCurrentlySizing: false,
-            ganttToolbar: null as any,
             isLineDrawStarted: false,
 
             timelineStep: 0,
             scrollPosition: 0,
 
             columnWidth: 72,
-            ganttChartView: null as any,
             cellCapacity: 72 / 24,
 
             dropTarget: null as any,

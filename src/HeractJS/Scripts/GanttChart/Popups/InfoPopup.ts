@@ -1,6 +1,8 @@
 ﻿import * as React from 'react';
 import * as DOM from 'react-dom';
+import {AppMediator} from '../../../scripts/services/ApplicationMediator';
 
+let GCMediator: any = AppMediator.getInstance();
 export class InfoPopup extends React.Component<any, any> {
     private componentWillMount() {
         this.state = {
@@ -12,18 +14,41 @@ export class InfoPopup extends React.Component<any, any> {
             duration: 'Placeholder',
             description: 'description'
         };
+        GCMediator.subscribe(function () {
+            const change = GCMediator.getLastChange();
+            if (change) {
+                switch (change.type) {
+                    case 'showInfoPopup':
+                        this.show(change.data);
+                        break;
+                    case 'hideInfoPopup':
+                    case 'hideAllPopups':
+                        this.hide();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }.bind(this));
     }
 
-    public hide() {
+    private hide() {
         const item = DOM.findDOMNode(this) as any;
         item.style.display = 'none';
-        // item.style.top = '100px'
     }
 
-    public show() {
+    private show(data) {
+        this.setState({
+            left: data.left,
+            top: data.top,
+            title: data.title,
+            startDate: data.startDate,
+            endDate: data.endDate,
+            duration: data.duration,
+            description: data.description
+        });
         const item = DOM.findDOMNode(this) as any;
         item.style.display = 'block';
-        //item.style.top = 0
     }
 
     public render() {

@@ -28,6 +28,23 @@ export class TaskBar extends React.Component<any, any> {
             finish: props.data.finish,
             priority: props.data.priority
         };
+        GCMediator.subscribe(function () {
+            const change = GCMediator.getLastChange();
+            if (change) {
+                switch (change.type) {
+                    case 'deselectAllTasks':
+                        if (change.data) {
+                            this.deselectAllTasks(change.data.tasks);
+                        }
+                        break;
+                    case 'selectTask':
+                        this.selectTask(change.data.id);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }.bind(this));
     }
 
     private shouldComponentUpdate(nextState: any) {
@@ -61,13 +78,28 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     private startTaskSelection() {
-        const currentState = GCMediator.getState();
-        if (!currentState.isDragging && !currentState.isPanning) {
-            if (currentState.selectedTasks[0] !== this.state.id) {
+        if (!GCMediator.getState().isDragging) {
+            const selectedTask = GCMediator.getState().selectedTasks[0];
+            if (selectedTask) {
                 GCMediator.dispatch({ type: 'deselectAllTasks' });
+                const id = this.state.id
+                if (selectedTask !== id) {
+                    GCMediator.dispatch({
+                        type: 'selectTask',
+                        data: {
+                            id: id,
+                            type: this.state.type
+                        }
+                    });
+                }
+            } else {
+                const id = this.state.id
                 GCMediator.dispatch({
                     type: 'selectTask',
-                    data: this.state.id
+                    data: {
+                        id: id,
+                        type: this.state.type
+                    }
                 });
             }
         }
@@ -82,7 +114,6 @@ export class TaskBar extends React.Component<any, any> {
         const startX = event.clientX;
         document.onmousemove = function (event: MouseEvent) {
             if (Math.abs(event.clientX - startX) > 30) {
-                const currentState = GCMediator.getState();
                 const startDate = event.pageX;
                 const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
                 const fillTarget = eventTarget.parentNode.getElementsByClassName('barChartFillBody')[0];
@@ -90,7 +121,7 @@ export class TaskBar extends React.Component<any, any> {
                     const newStartDate = Math.round(startPointStartDate + (event.pageX - startDate));
                     if (newStartDate > 0) {
                         eventTarget.setAttribute('x', newStartDate)
-                        if(fillTarget){
+                        if (fillTarget) {
                             fillTarget.setAttribute('x', newStartDate)
                         }
                     }
@@ -153,7 +184,7 @@ export class TaskBar extends React.Component<any, any> {
                     this.updateStartDate(event, eventTarget);
                 }
             }
-           
+
             document.onmouseup = function (event: MouseEvent) {
                 GCMediator.dispatch({
                     type: 'editTask',
@@ -245,6 +276,9 @@ export class TaskBar extends React.Component<any, any> {
                         }
                         if (currentHoverElement && currentHoverElement === hoverElement && !GCMediator.getState().isDragging) {
                             this.showInfoPopup(clientX, hoverElement);
+                            currentHoverElement.onmouseout = function () {
+                                this.clearTempElements();
+                            }.bind(this)
                         }
                     }.bind(this, hoverElement, event.clientX), 500);
                     document.onmousemove = (event) => {
@@ -274,7 +308,7 @@ export class TaskBar extends React.Component<any, any> {
             eventTarget.parentNode.style = ''
         }
         if (!currentState.isDragging && !currentState.isPanning) {
-            currentState.ganttChartView.refs.infoPopup.hide();
+            GCMediator.dispatch({ type: 'hideInfoPopup' })
             document.onmousemove = null;
             document.onmouseup = null;
 
@@ -298,22 +332,20 @@ export class TaskBar extends React.Component<any, any> {
     }
 
     private showModalWindow() {
-        const currentState = GCMediator.getState();
-        const modalWindow = currentState.ganttChartView.refs.modalWindow;
-        currentState.ganttChartView.refs.infoPopup.hide();
-        currentState.ganttChartView.refs.actionChartPopup.hide();
-        modalWindow.show();
-        modalWindow.setState({
-            title: this.state.name,
-            description: this.state.description,
-            startDate: this.state.startDate,
-            endDate: this.state.startDate + this.state.duration,
-            duration: this.state.duration
-        });
+        GCMediator.dispatch({ type: 'hideAllPopups' })
+        GCMediator.dispatch({
+            type: 'showModalWindow',
+            data: {
+                title: this.state.name,
+                description: this.state.description,
+                startDate: this.state.startDate,
+                endDate: this.state.startDate + this.state.duration,
+                duration: this.state.duration
+            }
+        })
     }
 
     private showInfoPopup(clientX, hoverElement) {
-        const popup = GCMediator.getState().ganttChartView.refs.infoPopup;
         const coords = hoverElement.getBoundingClientRect();
         let leftMargin: number;
         let topMargin: number = coords.top - 160 < 0 ? coords.top + 30 : coords.top - 160;
@@ -323,21 +355,21 @@ export class TaskBar extends React.Component<any, any> {
         } else {
             leftMargin = coords.left + coords.width / 2 - 100;
         }
-
-        popup.setState({
-            left: leftMargin,
-            top: topMargin,
-            title: this.state.name,
-            startDate: this.state.startDate,
-            endDate: this.state.startDate + this.state.duration,
-            duration: this.state.duration,
-            description: this.state.description
-        });
-        popup.show();
+        GCMediator.dispatch({
+            type: 'showInfoPopup',
+            data: {
+                left: leftMargin,
+                top: topMargin,
+                title: this.state.name,
+                startDate: this.state.startDate,
+                endDate: this.state.startDate + this.state.duration,
+                duration: this.state.duration,
+                description: this.state.description
+            }
+        })
     }
 
     private showActionPopup(event: MouseEvent, hoverElement) {
-        const popup = GCMediator.getState().ganttChartView.refs.actionChartPopup;
         const coords = hoverElement.getBoundingClientRect();
         let leftMargin: number;
         let topMargin: number = coords.top + 22;
@@ -347,16 +379,17 @@ export class TaskBar extends React.Component<any, any> {
         } else {
             leftMargin = coords.left + coords.width / 2 - 100;
         }
-
-        popup.setState({
-            left: leftMargin,
-            top: topMargin,
-            title: this.state.name
-        });
-        popup.show();
+        GCMediator.dispatch({
+            type: 'showActionChartPopup',
+            data: {
+                left: leftMargin,
+                top: topMargin,
+                title: this.state.name
+            }
+        })
     }
 
-    public static selectTask(taskId: string) {
+    private selectTask(taskId: string) {
         const selectedElement = document.getElementById(taskId);
         if (selectedElement && selectedElement.getAttribute('class') !== 'barSelectBody') {
             const parent = selectedElement.parentNode as any;
@@ -373,12 +406,9 @@ export class TaskBar extends React.Component<any, any> {
         selectedElement.setAttribute('class', 'barChartBody');
     }
 
-    public static deselectAllTasks(tasks: any) {
-        const currentState = GCMediator.getState();
-        currentState.ganttChartView.refs.infoPopup.hide();
-        currentState.ganttChartView.refs.actionChartPopup.hide();
+    private deselectAllTasks(tasks: any) {
         for (let i = 0; i < tasks.length; i++) {
-            const selectedElement = document.getElementById(tasks[i]);
+            const selectedElement = document.getElementById(tasks[i].id);
             if (selectedElement && selectedElement.getAttribute('class') !== 'barSelectBody') {
                 const parent = selectedElement.parentNode as any;
                 const selectingElement = parent.getElementsByClassName('barSelectBody')[0];
@@ -404,7 +434,6 @@ export class TaskBar extends React.Component<any, any> {
             case 'task':
                 element = React.createElement('g', {
                     onMouseEnter: this.handleRectHover.bind(this),
-                    onMouseOut: this.clearTempElements.bind(this),
                     onMouseDown: this.startBarUpdate.bind(this),
                     onContextMenu: this.contextMenu.bind(this),
                     onDoubleClick: this.showModalWindow.bind(this),
@@ -412,7 +441,7 @@ export class TaskBar extends React.Component<any, any> {
                 },
                     React.createElement('rect', {
                         className: 'barSelectBody',
-                        y: position,
+                        y: position - 1,
                         x: 0
                     }),
                     React.createElement('rect', {
@@ -440,7 +469,6 @@ export class TaskBar extends React.Component<any, any> {
             case 'milestone':
                 element = React.createElement('g', {
                     onMouseEnter: this.handleRectHover.bind(this),
-                    onMouseOut: this.clearTempElements.bind(this),
                     onMouseDown: this.startBarUpdate.bind(this),
                     onContextMenu: this.contextMenu.bind(this),
                     onDoubleClick: this.showModalWindow.bind(this),
@@ -448,7 +476,7 @@ export class TaskBar extends React.Component<any, any> {
                 },
                     React.createElement('rect', {
                         className: 'barSelectBody',
-                        y: position,
+                        y: position - 1,
                         x: 0
                     }),
                     React.createElement('rect', {
@@ -474,7 +502,7 @@ export class TaskBar extends React.Component<any, any> {
                 },
                     React.createElement('rect', {
                         className: 'barSelectBody',
-                        y: position,
+                        y: position - 1,
                         x: 0
                     }),
                     React.createElement('path', {

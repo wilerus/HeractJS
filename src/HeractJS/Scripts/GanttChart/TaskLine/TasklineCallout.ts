@@ -29,6 +29,21 @@ export class TasklineCallouts extends React.Component<any, any> {
             priority: props.data.priority,
             columnWidth: GCMediator.getState().tasklineCellCapacity
         };
+        GCMediator.subscribe(function () {
+            const change = GCMediator.getLastChange();
+            if (change && change.data && change.data.type === 'callout') {
+                switch (change.type) {
+                    case 'deselectAllTasks':
+                        this.deselectAllTasks(change.data.tasks);
+                        break;
+                    case 'selectTask':
+                        this.selectTask(change.data.id);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }.bind(this));
     }
 
     private shouldComponentUpdate(nextState: any) {
@@ -62,14 +77,31 @@ export class TasklineCallouts extends React.Component<any, any> {
 
     private startTaskSelection() {
         if (!GCMediator.getState().isDragging) {
-            if (GCMediator.getState().selectedTasks[0]) {
-                GCMediator.dispatch({ type: 'deselectAllTasks' });
+            const selectedTask = GCMediator.getState().selectedTasks[0];
+            if (selectedTask) {
+                GCMediator.dispatch({
+                    type: 'deselectAllTasks'
+                });
+                const id = this.state.id
+                if (selectedTask !== id) {
+                    GCMediator.dispatch({
+                        type: 'selectTask',
+                        data: {
+                            id: id.substring(0, id.length - 3),
+                            type: 'callout'
+                        }
+                    });
+                }
+            } else {
+                const id = this.state.id
+                GCMediator.dispatch({
+                    type: 'selectTask',
+                    data: {
+                        id: id.substring(0, id.length - 3),
+                        type: 'callout'
+                    }
+                });
             }
-
-            GCMediator.dispatch({
-                type: 'selectTask',
-                data: this.state.id
-            });
         }
     }
 
@@ -104,6 +136,9 @@ export class TasklineCallouts extends React.Component<any, any> {
                 setTimeout(function (hoverElement) {
                     if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
                         !GCMediator.getState().isCurrentlyDragging) {
+                        hoverElement.onmouseout = function () {
+                            this.clearTempElements();
+                        }.bind(this)
                         this.showInfoPopup(hoverElement);
                     }
                 }.bind(this, hoverElement), 500);
@@ -119,7 +154,7 @@ export class TasklineCallouts extends React.Component<any, any> {
 
     private clearTempElements(event: Event) {
         const currentState = GCMediator.getState();
-        currentState.ganttChartView.refs.infoPopup.hide();
+        GCMediator.dispatch({ type: 'hideInfoPopup' });
         if (!currentState.isDragging) {
             document.onmousemove = null;
             document.onmouseup = null;
@@ -145,43 +180,44 @@ export class TasklineCallouts extends React.Component<any, any> {
 
     private showInfoPopup(hoverElement) {
         const coords = hoverElement.getBoundingClientRect();
-        const popup = GCMediator.getState().ganttChartView.refs.infoPopup;
-
-        popup.setState({
-            left: coords.left + coords.width / 2 - 100,
-            top: coords.top - 160,
-            title: this.state.name,
-            startDate: this.state.startDate,
-            endDate: this.state.startDate + this.state.duration,
-            duration: this.state.duration,
-            description: this.state.description
+        GCMediator.dispatch({
+            type: 'showInfoPopup',
+            data: {
+                left: coords.left + coords.width / 2 - 100,
+                top: coords.top - 160,
+                title: this.state.name,
+                startDate: this.state.startDate,
+                endDate: this.state.startDate + this.state.duration,
+                duration: this.state.duration,
+                description: this.state.description
+            }
         });
-        popup.show();
     }
 
     private showActionPopup(hoverElement) {
         const coords = hoverElement.getBoundingClientRect();
-        const popup = GCMediator.getState().ganttChartView.refs.actionTasklinePopup;
-
         this.startTaskSelection();
-        popup.setState({
-            left: coords.left + coords.width / 2 - 100,
-            top: coords.top + 22,
-            title: this.state.name
+
+        GCMediator.dispatch({
+            type: 'showActionTimelinePopup',
+            data: {
+                left: coords.left + coords.width / 2 - 100,
+                top: coords.top + 22,
+                title: this.state.name
+            }
         });
-        popup.show();
     }
 
-    public static selectTask(taskId: string) {
+    private selectTask(taskId: string) {
         const selectedElement = document.getElementById(taskId);
         if (selectedElement && selectedElement.tagName === 'rect') {
             selectedElement.setAttribute('class', 'barChartBody barSelected');
         }
     }
 
-    public static deselectAllTasks(tasks: any) {
+    private deselectAllTasks(tasks: any) {
         for (let i = 0; i < tasks.length; i++) {
-            const selectedElement = document.getElementById(tasks[i]);
+            const selectedElement = document.getElementById(tasks[i].id);
             if (selectedElement && selectedElement.tagName === 'rect') {
                 selectedElement.setAttribute('class', 'barChartBody');
             }
@@ -193,7 +229,6 @@ export class TasklineCallouts extends React.Component<any, any> {
         const duration = this.state.duration * this.state.columnWidth;
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
-            onMouseOut: this.clearTempElements.bind(this),
             onContextMenu: this.contextMenu.bind(this),
             onClick: this.startTaskSelection.bind(this)
         },

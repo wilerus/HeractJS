@@ -43,7 +43,7 @@ module.exports = {
             'navigation': path.resolve(__dirname + '/scripts/project/navigation/module.js'),
             'LANGMAPEN': path.resolve(__dirname + '/wwwroot/js/compiled/localizationmap.en.js'),
             'appMediator': path.resolve(__dirname + '/scripts/services/ApplicationMediator'),
-            'ganttChart': path.resolve(__dirname + '/scripts/GanttChart/MainView'),
+            'ganttView': path.resolve(__dirname + '/scripts/GanttChart/GanttViewInitializer'),
             'form': path.resolve(__dirname + '/scripts/project/form')
         }
     },

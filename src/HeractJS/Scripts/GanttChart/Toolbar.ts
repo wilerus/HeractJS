@@ -62,8 +62,8 @@ export class GanttToolbar extends React.Component<any, any> {
         const currentState = GCMediator.getState();
         document.getElementById('removeTaskButton').style.display = 'initial';
         document.getElementById('moveToTaskButton').style.display = 'initial';
-        if (currentState.selectedTasks[0]) {
-            const element = currentState.items.find((element) => { if (element.id === currentState.selectedTasks[0]) return true });
+        if (currentState.selectedTasks[0] && currentState.selectedTasks[0].length > 0) {
+            const element = currentState.items.find((element) => { if (element.id === currentState.selectedTasks[0].id) return true });
             if (element.link) {
                 document.getElementById('removeLinkButton').style.display = 'initial';
             }

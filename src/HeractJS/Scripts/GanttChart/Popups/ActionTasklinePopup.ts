@@ -16,14 +16,39 @@ export class ActionTasklinePopup extends React.Component<any, any> {
             duration: 'Placeholder',
             description: 'description'
         };
+        GCMediator.subscribe(function () {
+            const change = GCMediator.getLastChange();
+            if (change) {
+                switch (change.type) {
+                    case 'showActionTimelinePopup':
+                        this.show(change.data);
+                        break;
+                    case 'hideActionTimelinePopup':
+                    case 'hideAllPopups':
+                        this.hide();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }.bind(this));
     }
 
-    public hide() {
+    private hide() {
         const item = DOM.findDOMNode(this) as any;
         item.style.display = 'none';
     }
 
-    public show() {
+    private show(data) {
+        this.setState({
+            left: data.left,
+            top: data.top,
+            title: data.title,
+            startDate: data.startDate,
+            endDate: data.endDate,
+            duration: data.duration,
+            description: data.description
+        })
         const item = DOM.findDOMNode(this) as any;
         item.style.display = 'block';
     }

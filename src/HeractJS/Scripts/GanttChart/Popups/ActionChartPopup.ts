@@ -17,6 +17,23 @@ export class ActionChartPopup extends React.Component<any, any> {
             duration: 'Placeholder',
             description: 'description'
         };
+
+        GCMediator.subscribe(function () {
+            const change = GCMediator.getLastChange();
+            if (change) {
+                switch (change.type) {
+                    case 'showActionChartPopup':
+                        this.show(change.data);
+                        break;
+                    case 'hideActionChartPopup':
+                    case 'hideAllPopups':
+                        this.hide();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }.bind(this));
     }
 
     public hide() {
@@ -24,7 +41,16 @@ export class ActionChartPopup extends React.Component<any, any> {
         item.style.display = 'none';
     }
 
-    public show() {
+    public show(data: any) {
+        this.setState({
+            left: data.left,
+            top: data.top,
+            title: data.title,
+            startDate: data.startDate,
+            endDate: data.endDate,
+            duration: data.duration,
+            description: data.description
+        });
         const item = DOM.findDOMNode(this) as any;
         item.style.display = 'block';
     }

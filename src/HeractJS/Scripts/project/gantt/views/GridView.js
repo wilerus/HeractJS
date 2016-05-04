@@ -48,11 +48,13 @@ define([
                 this.model.attributes.rowModel.on('selected', function () {
                     this.collection.models.find(function (element, index) {
                         if (element.cid === this.cid) {
-                            if (!window.application.appMediator.getState().selectedTasks[0] || 'bar' + index !== window.application.appMediator.getState().selectedTasks[0]) {
+                            if (!window.application.appMediator.getState().selectedTasks[0] || 'bar' + index !== window.application.appMediator.getState().selectedTasks[0].id) {
                                     window.application.appMediator.dispatch({ type: 'deselectAllTasks' })
                                     window.application.appMediator.dispatch({
                                         type: 'selectTask',
-                                        data: 'bar' + index
+                                        data: {
+                                            id: 'bar' + index
+                                        }
                                     })
                                 }
                             return true
@@ -125,7 +127,7 @@ define([
 
                 switch (change.type) {
                     case 'selectTask':
-                        eventAggregatorM.collection.select(dataArray[parseInt(data.substring(3, data.length))]);
+                        eventAggregatorM.collection.select(dataArray[parseInt(data.id.substring(3, data.length))]);
                         break;
 
                     case 'removeTask':
