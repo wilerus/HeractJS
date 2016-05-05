@@ -18,6 +18,7 @@ export class AppMediator {
             return state;
         }
         let isHistoryNeed = false;
+        let undoData: any;
         switch (action.type) {
             case 'reset':
                 items = action.data;
@@ -80,9 +81,13 @@ export class AppMediator {
                 break;
             case 'editTask':
                 const newData = action.data;
+                undoData = {}
+                const taskId = action.selectedTask || newState.selectedTasks[0].id
+                action.data.selectedTask = action.selectedTask
                 items.find((item: any) => {
-                    if (item.id === newState.selectedTasks[0].id) {
+                    if (item.id === taskId) {
                         for (let prop in newData) {
+                            undoData[prop] = item[prop];
                             item[prop] = newData[prop]
                         }
                         return true
@@ -236,10 +241,31 @@ export class AppMediator {
                 return state;
         }
         if (isHistoryNeed && action.data !== undefined) {
-            newState.history.push({
+            newState.eventsHistory.push({
                 type: action.type,
                 data: action.data
             });
+        }
+        if (undoData && action.isHistoryNeed !== false) {
+            if (newState.undoHistory.length > 0 && newState.undoHistory[newState.undoHistory.length - 1].selectedTask === newState.selectedTasks[0].id) {
+                newState.undoHistory.push({
+                    type: action.type,
+                    selectedTask: newState.selectedTasks[0].id,
+                    data: action.data
+                });
+            } else {
+                newState.undoHistory.push({
+                    type: action.type,
+                    selectedTask: newState.selectedTasks[0].id,
+                    data: undoData
+                });
+                newState.undoHistory.push({
+                    type: action.type,
+                    selectedTask: newState.selectedTasks[0].id,
+                    data: action.data
+                });
+            }
+            newState.redoHistory = []
         }
         newState.isCallbackNeed = isHistoryNeed;
         return newState;
@@ -271,7 +297,9 @@ export class AppMediator {
             dropTarget: null as any,
             draggingElement: null as any,
             selectedTasks: [] as any,
-            history: [] as any,
+            undoHistory: [] as any,
+            redoHistory: [] as any,
+            eventsHistory: [] as any,
             tempLine: null as any,
 
             isCallbackNeed: false
@@ -300,7 +328,7 @@ export class AppMediator {
     }
 
     public getLastChange() {
-        const history = AppMediator.store.getState().history;
+        const history = AppMediator.store.getState().eventsHistory;
         if (history && AppMediator.store.getState().isCallbackNeed) {
             const length = history.length;
             return history[length - 1];
@@ -323,10 +351,32 @@ export class AppMediator {
     }
 
     public undo() {
-        return AppMediator.store.subscribe();
+        const change = AppMediator.instance.getState().undoHistory;
+        const lastChange = change[change.length - 2];
+        if (lastChange) {
+            AppMediator.instance.getState().redoHistory.push(change[change.length - 1])
+            AppMediator.instance.getState().undoHistory.splice(change.length - 1, 1)
+            AppMediator.instance.dispatch({
+                type: lastChange.type,
+                isHistoryNeed: false,
+                selectedTask: lastChange.selectedTask,
+                data: lastChange.data
+            })
+        }
     }
 
     public redo() {
-        return AppMediator.store.subscribe();
+        const change = AppMediator.instance.getState().redoHistory;
+        const lastChange = change[change.length - 1];
+        if (lastChange) {
+            AppMediator.instance.getState().undoHistory.push(lastChange)
+            AppMediator.instance.getState().redoHistory.splice(change.length - 1, 1)
+            AppMediator.instance.dispatch({
+                type: lastChange.type,
+                isHistoryNeed: false,
+                selectedTask: lastChange.selectedTask,
+                data: lastChange.data
+            })
+        }
     }
 } 

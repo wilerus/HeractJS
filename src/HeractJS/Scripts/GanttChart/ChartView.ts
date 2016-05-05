@@ -58,10 +58,6 @@ export class ChartView extends React.Component<any, any> {
 
                 if (scrollPosition >= 0) {
                     this.buildElements(scrollPosition);
-                    GCMediator.dispatch({
-                        type: 'scrollGrid',
-                        data: scrollPosition
-                    });
                 }
             }
         }.bind(this);
@@ -186,24 +182,36 @@ export class ChartView extends React.Component<any, any> {
             startPos = newStartPos > 0 ? newStartPos : 0;
             endPos = scrollPosition + 31 + batchSize;
             elements = GCMediator.getState().items.slice(startPos, endPos);
-            document.getElementById('ganttChartView').style.height = (document.documentElement.clientHeight + state.elementHeight * endPos).toString();
+            document
+                .getElementById('ganttChartView')
+                .style.height = (document.documentElement.clientHeight + state.elementHeight * endPos).toString();
 
             this.setState({
-                displayingElements: elements,
-                startPosition: startPos,
-                endPosition: endPos
-            }, function (elements) {
-                let links = [];
-                for (let i = 0; i < elements.length - 2; i++) {
-                    if (elements[i].link) {
-                        elements[i].link.from = elements[i].id;
-                        links.push(elements[i].link);
+                    displayingElements: elements,
+                    startPosition: startPos,
+                    endPosition: endPos
+                },
+                function(elements) {
+                    let links = [];
+                    for (let i = 0;i < elements.length - 2;i++) {
+                        if (elements[i].link) {
+                            elements[i].link.from = elements[i].id;
+                            links.push(elements[i].link);
+                        }
                     }
-                }
-                this.setState({
-                    displayingLinks: links
-                });
-            }.bind(this, elements));
+                    this.setState({
+                        displayingLinks: links
+                    });
+                    GCMediator.dispatch({
+                        type: 'scrollGrid',
+                        data: scrollPosition
+                    });
+                }.bind(this, elements));
+        } else {
+            GCMediator.dispatch({
+                type: 'scrollGrid',
+                data: scrollPosition
+            });
         }
     }
 
@@ -239,12 +247,11 @@ export class ChartView extends React.Component<any, any> {
                     displayingLinks: links
                 })
             }.bind(this))
-
     }
 
     private updateElements(newData) {
         const currentState = GCMediator.getState();
-        const selectedElementId = currentState.selectedTasks[0].id;
+        const selectedElementId = newData.selectedTask || currentState.selectedTasks[0].id;
         const selectedElementType = currentState.selectedTasks[0].type;
         const selectedElement = currentState.items.find((item: any) => {
             if (item.id === selectedElementId) {
