@@ -81,7 +81,6 @@ export class AppMediator {
             case 'editTask':
                 const newData = action.data;
                 items.find((item: any) => {
-                    debugger;
                     if (item.id === newState.selectedTasks[0].id) {
                         for (let prop in newData) {
                             item[prop] = newData[prop]
@@ -160,7 +159,6 @@ export class AppMediator {
                 isHistoryNeed = true;
                 break;
             case 'selectTask':
-                debugger;
                 newState.selectedTasks.push(action.data);
                 isHistoryNeed = true;
                 break;
