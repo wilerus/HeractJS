@@ -3,13 +3,16 @@
   "version": 2,
   "targets": {
     "DNX,Version=v4.5.1": {
-      "bootstrap.TypeScript.DefinitelyTyped/0.3.0": {
+      "bootstrap.TypeScript.DefinitelyTyped/0.9.1": {
         "type": "package",
         "dependencies": {
           "jquery.TypeScript.DefinitelyTyped": null
         }
       },
-      "jquery.TypeScript.DefinitelyTyped/3.0.3": {
+      "dnx-clr-win-x86/1.0.0-rc1-update2": {
+        "type": "package"
+      },
+      "jquery.TypeScript.DefinitelyTyped/3.0.6": {
         "type": "package"
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -1672,13 +1675,16 @@
       }
     },
     "DNX,Version=v4.5.1/win7-x86": {
-      "bootstrap.TypeScript.DefinitelyTyped/0.3.0": {
+      "bootstrap.TypeScript.DefinitelyTyped/0.9.1": {
         "type": "package",
         "dependencies": {
           "jquery.TypeScript.DefinitelyTyped": null
         }
       },
-      "jquery.TypeScript.DefinitelyTyped/3.0.3": {
+      "dnx-clr-win-x86/1.0.0-rc1-update2": {
+        "type": "package"
+      },
+      "jquery.TypeScript.DefinitelyTyped/3.0.6": {
         "type": "package"
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -3344,13 +3350,16 @@
       }
     },
     "DNX,Version=v4.5.1/win7-x64": {
-      "bootstrap.TypeScript.DefinitelyTyped/0.3.0": {
+      "bootstrap.TypeScript.DefinitelyTyped/0.9.1": {
         "type": "package",
         "dependencies": {
           "jquery.TypeScript.DefinitelyTyped": null
         }
       },
-      "jquery.TypeScript.DefinitelyTyped/3.0.3": {
+      "dnx-clr-win-x86/1.0.0-rc1-update2": {
+        "type": "package"
+      },
+      "jquery.TypeScript.DefinitelyTyped/3.0.6": {
         "type": "package"
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -5017,23 +5026,66 @@
     }
   },
   "libraries": {
-    "bootstrap.TypeScript.DefinitelyTyped/0.3.0": {
+    "bootstrap.TypeScript.DefinitelyTyped/0.9.1": {
       "type": "package",
-      "sha512": "A2NNtbjRZgjOR0sZMRVSWu2t47GW1nM8t/sBZoXAwUbRjuPLWPep9SXmTbdA9h7UoqqrWkhssODXoMHPxXbGUw==",
+      "sha512": "glRq6BqIKkwg9fWxznWrTbgpYJ0FzWAAlco70kT5kB3cHTnh8b1wKWGOEYtvzTjV8f/BHJJIAlhpSe7dC+4+Mw==",
       "files": [
-        "bootstrap.TypeScript.DefinitelyTyped.0.3.0.nupkg",
-        "bootstrap.TypeScript.DefinitelyTyped.0.3.0.nupkg.sha512",
+        "bootstrap.TypeScript.DefinitelyTyped.0.9.1.nupkg",
+        "bootstrap.TypeScript.DefinitelyTyped.0.9.1.nupkg.sha512",
         "bootstrap.TypeScript.DefinitelyTyped.nuspec",
         "Content/Scripts/typings/bootstrap/bootstrap.d.ts"
       ]
     },
-    "jquery.TypeScript.DefinitelyTyped/3.0.3": {
+    "dnx-clr-win-x86/1.0.0-rc1-update2": {
       "type": "package",
-      "sha512": "W3Pt/RByH7gRyOYyeiL6Y+8e1420flacF0id6nAgmY5gnibGFq/xr3iEN19lFDwM7VnQVPkgNPWV3aI/pn6gQw==",
+      "serviceable": true,
+      "sha512": "L04cdvN3DJalsmMHrkkiLk0LNccebwjWMQtey7ts5B+6D5pZdjAeKOvs1rHOncKXi/0o8y7T43b8JDSh6Jv+EA==",
+      "files": [
+        "bin/dnu.cmd",
+        "bin/dnx.clr.dll",
+        "bin/dnx.exe",
+        "bin/dnx.onecore.dll",
+        "bin/dnx.win32.dll",
+        "bin/lib/Microsoft.Dnx.DesignTimeHost/Microsoft.Dnx.DesignTimeHost.Abstractions.dll",
+        "bin/lib/Microsoft.Dnx.DesignTimeHost/Microsoft.Dnx.DesignTimeHost.dll",
+        "bin/lib/Microsoft.Dnx.DesignTimeHost/Newtonsoft.Json.dll",
+        "bin/lib/Microsoft.Dnx.Project/Microsoft.Dnx.Project.dll",
+        "bin/lib/Microsoft.Dnx.Tooling/Microsoft.Dnx.Project.dll",
+        "bin/lib/Microsoft.Dnx.Tooling/Microsoft.Dnx.Tooling.dll",
+        "bin/lib/Microsoft.Dnx.Tooling/Newtonsoft.Json.dll",
+        "bin/Microsoft.CodeAnalysis.CSharp.dll",
+        "bin/Microsoft.CodeAnalysis.dll",
+        "bin/Microsoft.Dnx.ApplicationHost.dll",
+        "bin/Microsoft.Dnx.Compilation.Abstractions.dll",
+        "bin/Microsoft.Dnx.Compilation.CSharp.Abstractions.dll",
+        "bin/Microsoft.Dnx.Compilation.CSharp.Common.dll",
+        "bin/Microsoft.Dnx.Compilation.CSharp.dll",
+        "bin/Microsoft.Dnx.Compilation.DesignTime.dll",
+        "bin/Microsoft.Dnx.Compilation.dll",
+        "bin/Microsoft.Dnx.DesignTimeHost.Abstractions.dll",
+        "bin/Microsoft.Dnx.dll",
+        "bin/Microsoft.Dnx.Host.Clr.dll",
+        "bin/Microsoft.Dnx.Host.dll",
+        "bin/Microsoft.Dnx.Host.Mono.dll",
+        "bin/Microsoft.Dnx.Loader.dll",
+        "bin/Microsoft.Dnx.Runtime.dll",
+        "bin/Microsoft.Dnx.Runtime.Internals.dll",
+        "bin/Microsoft.Extensions.PlatformAbstractions.dll",
+        "bin/System.Collections.Immutable.dll",
+        "bin/System.Reflection.Metadata.dll",
+        "bin/vcruntime140.dll",
+        "dnx-clr-win-x86.1.0.0-rc1-update2.nupkg",
+        "dnx-clr-win-x86.1.0.0-rc1-update2.nupkg.sha512",
+        "dnx-clr-win-x86.nuspec"
+      ]
+    },
+    "jquery.TypeScript.DefinitelyTyped/3.0.6": {
+      "type": "package",
+      "sha512": "0p6DiXcM31mVOSp2R0DIW+cevhIDFaMKcWPtLMwpzc79Z1vY53JmmkMkLE/Yh8RGx4zx/sFLPE9j8dHtO+AZgA==",
       "files": [
         "Content/Scripts/typings/jquery/jquery.d.ts",
-        "jquery.TypeScript.DefinitelyTyped.3.0.3.nupkg",
-        "jquery.TypeScript.DefinitelyTyped.3.0.3.nupkg.sha512",
+        "jquery.TypeScript.DefinitelyTyped.3.0.6.nupkg",
+        "jquery.TypeScript.DefinitelyTyped.3.0.6.nupkg.sha512",
         "jquery.TypeScript.DefinitelyTyped.nuspec"
       ]
     },
@@ -5642,7 +5694,7 @@
     },
     "Microsoft.CodeAnalysis.Analyzers/1.0.0": {
       "type": "package",
-      "sha512": "E7VdmGw6xO3VHWapC+pNLZmo6yncS53UY3bmb5WZm9wliJBB1A6brgzKA4fcqiLrmJFx71r0M2zEbRDphRLUNg==",
+      "sha512": "2+V/VDgZu59Thrlp+FQH38H/SmPBegMKsG0ie1ZZyHtx7kJNEozIx/p9zs0UrolX0uyYX7Ouoj3Q3Be15lqXxA==",
       "files": [
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.Analyzers.dll",
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.Analyzers.dll",
@@ -5658,7 +5710,7 @@
     },
     "Microsoft.CodeAnalysis.Common/1.1.0-rc1-20151109-01": {
       "type": "package",
-      "sha512": "5eea4BzS8/ge6aVWbweZ3LxMZumN7lm1hPPjSn3iAS3yi1ozsg1aCZ+lHq2nbS/ZNT+Z3QmTcmKaQd3b4bTqeA==",
+      "sha512": "gC9zpQARTjIOht1dZM5Bp0fbOKA40yh0wHBMG2psLGquche0URbfdB9i1pnCusLospEsRIrNvYl75647BcBVug==",
       "files": [
         "lib/net45/Microsoft.CodeAnalysis.dll",
         "lib/net45/Microsoft.CodeAnalysis.xml",
@@ -5672,7 +5724,7 @@
     },
     "Microsoft.CodeAnalysis.CSharp/1.1.0-rc1-20151109-01": {
       "type": "package",
-      "sha512": "2u8FpEIzbjvW6kveLYDwVgrrw7rkqN123dQSMLL3aRBcNFpKL4+hJkrU5uutsVNmjrzxjQkrSKQjIw6L2yjU9w==",
+      "sha512": "BFhSWMMlp0xLN/ogn71ULN7N0yy/yqJf/wu63x3KjV497n+8OlyiX7ZnbaQiUeafjW5P2vLzvZH99+5s+dH3Dg==",
       "files": [
         "lib/net45/Microsoft.CodeAnalysis.CSharp.dll",
         "lib/net45/Microsoft.CodeAnalysis.CSharp.xml",
@@ -6290,7 +6342,7 @@
     "System.Diagnostics.DiagnosticSource/4.0.0-beta-23516": {
       "type": "package",
       "serviceable": true,
-      "sha512": "WHVhr5/p8UDjqNV7l9PCxZgOufE2tO4XOWva9pau9c7PzJJTdB1By6scO5dgHLpmlB/u4y27Y9AzT8AqtG8sxw==",
+      "sha512": "0uDR/UOmFCNPDCyHEPHhCrk6c1iRnDp00YqwSZ8Qf5aaaJjm4WXnf4Q9xZw4OoApsSiODSypDMdpQU24IxR16A==",
       "files": [
         "lib/dotnet5.2/System.Diagnostics.DiagnosticSource.dll",
         "lib/dotnet5.2/System.Diagnostics.DiagnosticSource.xml",
@@ -6479,7 +6531,7 @@
     "System.Numerics.Vectors/4.1.1-beta-23516": {
       "type": "package",
       "serviceable": true,
-      "sha512": "jphbCfQB30LZBC/8kNQtAaaCcKzCFIFnRyUvYapNOozvleUvwI6sYG9d3/WamMcalnNcHDgIlQ713QOv9aweVA==",
+      "sha512": "FCYCEjc3BXBTpVZTxMqf2m/sGYyDzLwICy5lNKgZzT8WfshJhsTGjJuETwsh1Cwi6bksw9YiTB6yeeWBBJDnTA==",
       "files": [
         "lib/dotnet5.4/System.Numerics.Vectors.dll",
         "lib/MonoAndroid10/_._",
@@ -6586,7 +6638,7 @@
     "System.Reflection.Metadata/1.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "a8VsRm/B0Ik1o5FumSMWmpwbG7cvIIajAYhzTTy9VB9XItByJDQHGZkQTIAdsvVJ6MI5O3uH/lb0izgQDlDIWA==",
+      "sha512": "RLIE4sSt2zngMLuqM6YmxBH99mTumtT4DNZE4+msfEaInUP5iCLQT+BHPl+2cjSAP1pdALyAjLB8RtCB+WGGWQ==",
       "files": [
         "lib/dotnet5.2/System.Reflection.Metadata.dll",
         "lib/dotnet5.2/System.Reflection.Metadata.xml",
@@ -6954,8 +7006,6 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "jquery.TypeScript.DefinitelyTyped >= 3.0.3",
-      "bootstrap.TypeScript.DefinitelyTyped >= 0.3.0",
       "Microsoft.AspNet.Diagnostics >= 1.0.0-rc1-final",
       "Microsoft.AspNet.IISPlatformHandler >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Mvc >= 6.0.0-rc1-final",
@@ -6968,7 +7018,10 @@
       "Microsoft.Extensions.Logging >= 1.0.0-rc1-final",
       "Microsoft.Extensions.Logging.Console >= 1.0.0-rc1-final",
       "Microsoft.Extensions.Logging.Debug >= 1.0.0-rc1-final",
-      "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-rc1-final"
+      "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-rc1-final",
+      "dnx-clr-win-x86 >= 1.0.0-rc1-update2",
+      "jquery.TypeScript.DefinitelyTyped >= 3.0.6",
+      "bootstrap.TypeScript.DefinitelyTyped >= 0.9.1"
     ],
     "DNX,Version=v4.5.1": []
   }

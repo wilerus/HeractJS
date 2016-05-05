@@ -153,8 +153,9 @@ export class TaskBar extends React.Component<any, any> {
 
     private startBarUpdate(event: MouseEvent) {
         let eventTarget: any = event.target;
-        if (document.selection) {
-            document.selection.empty();
+        let documentAny = document as any
+        if (documentAny.selection) {
+            documentAny.selection.empty();
         } else if (window.getSelection) {
             window.getSelection().removeAllRanges();
         }
