@@ -81,9 +81,9 @@ export class AppMediator {
                 break;
             case 'editTask':
                 const newData = action.data;
-                undoData = {}
-                const taskId = action.selectedTask || newState.selectedTasks[0].id
-                action.data.selectedTask = action.selectedTask
+                undoData = {};
+                const taskId = action.selectedTask || newState.selectedTasks[0].id;
+                action.data.selectedTask = action.selectedTask;
                 items.find((item: any) => {
                     if (item.id === taskId) {
                         for (let prop in newData) {
@@ -93,6 +93,11 @@ export class AppMediator {
                         return true
                     }
                 });
+                newState.lastTaskChange = {
+                    type: 'editTask',
+                    selectedTask: taskId,
+                    data: action.data
+                }
                 isHistoryNeed = true;
                 break;
             case 'indent':
@@ -100,7 +105,7 @@ export class AppMediator {
                 isHistoryNeed = true;
                 break;
             case 'outindent':
-               // newState.ganttChartView.outindentTask(action.data);
+                // newState.ganttChartView.outindentTask(action.data);
                 isHistoryNeed = true;
                 break;
             case 'autoSchedule':
@@ -240,6 +245,7 @@ export class AppMediator {
             default:
                 return state;
         }
+
         if (isHistoryNeed && action.data !== undefined) {
             newState.eventsHistory.push({
                 type: action.type,
@@ -247,25 +253,20 @@ export class AppMediator {
             });
         }
         if (undoData && action.isHistoryNeed !== false) {
-            if (newState.undoHistory.length > 0 && newState.undoHistory[newState.undoHistory.length - 1].selectedTask === newState.selectedTasks[0].id) {
-                newState.undoHistory.push({
-                    type: action.type,
-                    selectedTask: newState.selectedTasks[0].id,
-                    data: action.data
-                });
-            } else {
-                newState.undoHistory.push({
-                    type: action.type,
-                    selectedTask: newState.selectedTasks[0].id,
-                    data: undoData
-                });
-                newState.undoHistory.push({
-                    type: action.type,
-                    selectedTask: newState.selectedTasks[0].id,
-                    data: action.data
-                });
+            newState.undoHistory.push({
+                type: action.type,
+                selectedTask: action.selectedTask || newState.selectedTasks[0].id,
+                data: undoData
+            });
+            if (action.isRedoNeed !== false) {
+                newState.redoHistory = []
             }
-            newState.redoHistory = []
+        } else if (undoData && action.isRedoNeed !== false) {
+            newState.redoHistory.push({
+                type: action.type,
+                selectedTask: action.selectedTask,
+                data: undoData
+            });
         }
         newState.isCallbackNeed = isHistoryNeed;
         return newState;
@@ -297,6 +298,7 @@ export class AppMediator {
             dropTarget: null as any,
             draggingElement: null as any,
             selectedTasks: [] as any,
+            lastTaskChange: [] as any,
             undoHistory: [] as any,
             redoHistory: [] as any,
             eventsHistory: [] as any,
@@ -336,7 +338,7 @@ export class AppMediator {
         return null;
     }
 
-    public dispatch(config) {
+    public dispatch(config:Object) {
         return AppMediator.store.dispatch(config);
     }
 
@@ -344,18 +346,12 @@ export class AppMediator {
         AppMediator.store.subscribe(callback);
     }
 
-    private static notifySubscribers(eventType: any, currentState: any, state: any) {
-        for (let subscriber in this.subscribers) {
-            this.subscribers[subscriber].call(this, eventType, currentState, state);
-        }
-    }
-
     public undo() {
-        const change = AppMediator.instance.getState().undoHistory;
-        const lastChange = change[change.length - 2];
+        const mediatorState = AppMediator.instance.getState();
+        const change = mediatorState.undoHistory;
+        const lastChange = change[change.length - 1];
         if (lastChange) {
-            AppMediator.instance.getState().redoHistory.push(change[change.length - 1])
-            AppMediator.instance.getState().undoHistory.splice(change.length - 1, 1)
+            mediatorState.undoHistory.splice(change.length - 1, 1)
             AppMediator.instance.dispatch({
                 type: lastChange.type,
                 isHistoryNeed: false,
@@ -366,14 +362,14 @@ export class AppMediator {
     }
 
     public redo() {
-        const change = AppMediator.instance.getState().redoHistory;
+        const mediatorState = AppMediator.instance.getState();
+        const change = mediatorState.redoHistory;
         const lastChange = change[change.length - 1];
         if (lastChange) {
-            AppMediator.instance.getState().undoHistory.push(lastChange)
-            AppMediator.instance.getState().redoHistory.splice(change.length - 1, 1)
+            mediatorState.redoHistory.splice(change.length - 1, 1)
             AppMediator.instance.dispatch({
                 type: lastChange.type,
-                isHistoryNeed: false,
+                isRedoNeed: false,
                 selectedTask: lastChange.selectedTask,
                 data: lastChange.data
             })

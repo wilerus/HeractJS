@@ -8,7 +8,7 @@
   "dependencies": {
     "bootstrap": "3.3.6",
     "bootstrap-datetime-picker": "2.3.10",
-    "comindware.core.ui": "1.0.10",
+    "comindware.core.ui": "1.0.11",
     "jquery": "2.2.3",
     "lodash": "4.11.2",
     "react": "15.0.2",

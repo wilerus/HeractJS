@@ -161,7 +161,7 @@
     overflow-y: hidden;
     height: 27px;
     flex: none;
-    z-index: 90;
+    z-index: 120;
     box-shadow: 0 0 4px rgb(0, 0, 0);
 }
 
@@ -384,7 +384,7 @@
     color: white;
     vertical-align: top;
     position: absolute;
-    right: 50px;
+    right: 300px;
 }
 
 .viewModeSelector {
@@ -462,7 +462,8 @@
     background-color: white;
     box-shadow: 0 0 4px rgb(0, 0, 0);
     height: 166px;
-    transition: height 0.2s;
+    opacity: 0;
+    transition: height .2s,opacity .2s;
 }
 
 .tasklineTimeLineText {
@@ -471,7 +472,9 @@
 }
 
 .js-module-region-right {
-    transition: width 0.2s ease-out;
+    opacity: 0;
+    transition: width .2s,opacity .2s;
+    box-shadow: 0 0 4px rgb(0, 0, 0);
 }
 
 .js-module-region-left {
@@ -499,4 +502,9 @@
     stroke-linejoin: round;
     marker-end: url(#triangle);
     fill: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
 }

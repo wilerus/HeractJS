@@ -117,8 +117,8 @@ export class ChartView extends React.Component<any, any> {
 
         document.onclick = (event: MouseEvent) => {
             const eventTarget = event.target as any;
-            GCMediator.dispatch({ type: 'hideAllPopups' });
             if (eventTarget.tagName !== 'BUTTON') {
+                GCMediator.dispatch({ type: 'hideAllPopups' });
                 GanttToolbar.hideViewModeDropdown();
             }
         }
@@ -187,13 +187,13 @@ export class ChartView extends React.Component<any, any> {
                 .style.height = (document.documentElement.clientHeight + state.elementHeight * endPos).toString();
 
             this.setState({
-                    displayingElements: elements,
-                    startPosition: startPos,
-                    endPosition: endPos
-                },
-                function(elements) {
+                displayingElements: elements,
+                startPosition: startPos,
+                endPosition: endPos
+            },
+                function (elements) {
                     let links = [];
-                    for (let i = 0;i < elements.length - 2;i++) {
+                    for (let i = 0; i < elements.length - 2; i++) {
                         if (elements[i].link) {
                             elements[i].link.from = elements[i].id;
                             links.push(elements[i].link);
@@ -264,40 +264,6 @@ export class ChartView extends React.Component<any, any> {
         const elements = this.state.displayingElements;
 
         if (selectedElementId) {
-            if (selectedElementType !== 'milestone') {
-                let timelineTasks = currentState.timelineTasks;
-                let elem = timelineTasks.find((task, index) => {
-                    if (task.id === selectedElementId && task.timelineDisplay) {
-                        for (let prop in newData) {
-                            task[prop] = newData[prop]
-                        }
-                        return true
-                    } else if (task.id === selectedElementId) {
-                        timelineTasks.splice(index, 1);
-                        return true
-                    }
-                })
-                if (!elem && selectedElement.timelineDisplay) {
-                    timelineTasks.push(selectedElement)
-                }
-            } else {
-                let timelineMilestones = currentState.timelineMilestones;
-                let elem = timelineMilestones.find((task, index) => {
-                    if (task.id === selectedElementId && task.timelineDisplay) {
-                        for (let prop in newData) {
-                            task[prop] = newData[prop]
-                        }
-                        return true
-                    } else if (task.id === selectedElementId) {
-                        timelineMilestones.splice(index, 1);
-                        return true
-                    }
-                })
-                if (!elem && selectedElement.timelineDisplay) {
-                    timelineMilestones.push(selectedElement)
-                }
-            }
-            GCMediator.dispatch({ type: 'updateTimeline' })
             this.setState({
                 displayingElements: elements
             },

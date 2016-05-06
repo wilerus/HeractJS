@@ -54,7 +54,7 @@
     align-content: stretch;
     align-items: stretch;
     justify-content: flex-start;
-    box-shadow: 0 0 8px rgba(0,0,0,0.8);
+    box-shadow: 0 0 4px rgb(0,0,0);
 }
 .content-region-right {
     height: 100%;
@@ -63,6 +63,8 @@
 .content-wrapper {
     display: flex;
     height: 100%;
+    position: relative;
+    z-index: 105;
 }
 .layout {
     height: 100%;

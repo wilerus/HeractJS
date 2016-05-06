@@ -13,12 +13,13 @@ export class Timeline extends React.Component<any, any> {
     }
 
     private componentDidMount() {
+        const data = this.props.data;
         this.setState({
-            marginLeft: this.props.data.style.marginLeft,
-            width: this.props.data.style.width,
-            top: this.props.data.style.top,
-            height: this.props.data.style.height,
-            text: this.props.data.text
+            marginLeft: data.style.marginLeft,
+            width: data.style.width,
+            top: data.style.top,
+            height: data.style.height,
+            text: data.text
         });
     }
 
@@ -28,18 +29,18 @@ export class Timeline extends React.Component<any, any> {
             x: this.state.marginLeft
         },
             React.createElement('rect', {
-                y: this.state.top,
+                y: -1,
                 x: this.state.marginLeft,
                 width: this.state.width,
-                height: 20,
-                //strokeDasharray: '0, 90, 60, 90',
+                height: 29,
                 strokeWidth: 0.5,
+                stroke: 'rgb(190, 190, 190)',
                 fill: 'none'
             }),
             React.createElement('text', {
                 className: 'timeLineText',
                 x: this.state.marginLeft + this.state.width * 0.5,
-                y: 20
+                y: 18
             }, this.state.text)
         );
     }

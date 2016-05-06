@@ -154,6 +154,7 @@ export class TaskBar extends React.Component<any, any> {
     private startBarUpdate(event: MouseEvent) {
         let eventTarget: any = event.target;
         let documentAny = document as any
+        let clickCoordX = event.clientX;
         if (documentAny.selection) {
             documentAny.selection.empty();
         } else if (window.getSelection) {
@@ -163,36 +164,48 @@ export class TaskBar extends React.Component<any, any> {
             let parentElement: any = null;
             let parentCoords: any = null;
             this.startTaskSelection();
+            let focusTarget;
             if (eventTarget.getAttribute('class') === 'barChartFillBody') {
-                parentElement = eventTarget;
-                eventTarget = eventTarget.parentNode.getElementsByClassName('barChartBody')[0];
-                parentCoords = parentElement.getBoundingClientRect();
+                parentCoords = eventTarget.getBoundingClientRect();
+                if (parentCoords && clickCoordX > parentCoords.right - 15) {
+                    this.updateComplitionState(event, eventTarget);
+                }
+                focusTarget = eventTarget.parentNode.getElementsByClassName('barChartBody')[0];
+            } else {
+                focusTarget = eventTarget;
+                const elementRect = focusTarget.getBoundingClientRect();
+                if (focusTarget === eventTarget && clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
+                    this.startBarRelocation(event, focusTarget);
+                }
             }
 
-            const elementRect = eventTarget.getBoundingClientRect();
-            const clickCoordX = event.clientX;
+            const elementRect = focusTarget.getBoundingClientRect();
             GCMediator.dispatch({ type: 'startDragging' });
-            if (eventTarget.getAttribute('class') === 'milestoneBody') {
-                this.startBarRelocation(event, eventTarget);
+            if (focusTarget.getAttribute('class') === 'milestoneBody') {
+                this.startBarRelocation(event, focusTarget);
             } else {
-                if (parentElement && parentCoords && clickCoordX > parentCoords.right - 15) {
-                    this.updateComplitionState(event, eventTarget);
-                } else if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
-                    this.startBarRelocation(event, eventTarget);
-                } else if (clickCoordX > elementRect.right - 15) {
-                    this.updateСompleteDate(event, eventTarget);
+                if (clickCoordX > elementRect.right - 15) {
+                    this.updateСompleteDate(event, focusTarget);
                 } else if (clickCoordX < elementRect.left + 15) {
-                    this.updateStartDate(event, eventTarget);
+                    this.updateStartDate(event, focusTarget);
                 }
             }
 
             document.onmouseup = function (event: MouseEvent) {
-                GCMediator.dispatch({
-                    type: 'editTask',
-                    data: {
+                let data = {}
+                if (eventTarget.classList[0] === 'barChartFillBody') {
+                    data = {
+                        progress: Math.round((parseInt(eventTarget.getAttribute('width')) + 2) / parseInt(eventTarget.parentNode.getElementsByClassName('barChartBody')[0].getAttribute('width')) * 100)
+                    }
+                } else {
+                    data = {
                         duration: Math.round(eventTarget.getAttribute('width') / GCMediator.getState().cellCapacity),
                         startDate: Math.round(parseInt(eventTarget.getAttribute('x')) / GCMediator.getState().cellCapacity)
                     }
+                }
+                GCMediator.dispatch({
+                    type: 'editTask',
+                    data: data
                 })
                 GCMediator.dispatch({ type: 'stopDragging' })
                 this.clearTempElements()
@@ -233,13 +246,12 @@ export class TaskBar extends React.Component<any, any> {
 
     private updateComplitionState(event: MouseEvent, eventTarget) {
         const clickCoordX = event.pageX;
-        const target = eventTarget.parentNode.getElementsByClassName('barChartFillBody')[0];
         const maxWidth = eventTarget.parentNode.getElementsByClassName('barChartBody')[0].getAttribute('width');
-        const width = parseInt(target.getAttribute('width'));
+        const width = parseInt(eventTarget.getAttribute('width'));
         document.onmousemove = function (event) {
             const newComplition = Math.round(width + (event.pageX - clickCoordX));
             if (newComplition > 0 && newComplition < maxWidth) {
-                target.setAttribute('width', newComplition);
+                eventTarget.setAttribute('width', newComplition);
             }
         }.bind(this);
     }
