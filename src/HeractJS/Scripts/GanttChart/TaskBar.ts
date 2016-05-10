@@ -141,14 +141,29 @@ export class TaskBar extends React.Component<any, any> {
 
                 const parentNode: any = DOM.findDOMNode(this).parentNode;
                 const leftMargin = parentNode.getBoundingClientRect().left;
+                const topMargin = parentNode.getBoundingClientRect().top;
                 document.onmousemove = (event: MouseEvent) => {
                     templine.setAttribute('x2', (event.clientX - leftMargin).toString());
-                    templine.setAttribute('y2', (event.clientY - 100).toString());
+                    templine.setAttribute('y2', (event.clientY - topMargin).toString());
                 };
-                GCMediator.dispatch({
-                    type: 'setTempline',
-                    data: templine
-                });
+
+                document.onmouseup = (event: MouseEvent) => {
+                    const currentState = GCMediator.getState();
+                    const selectedTaskState = currentState.dropTarget.state;
+                    if (!currentState.draggingElement.state.link) {
+                        GCMediator.dispatch({
+                            type: 'editTask',
+                            data: {
+                                link: {
+                                    id: `link${currentState.draggingElement.state.position / 24}`,
+                                    to: selectedTaskState.type === 'project' ? `bar${selectedTaskState.position / 24 + 10}` : `bar${selectedTaskState.position / 24 + 1}`,
+                                    type: 'finishToStart'
+                                }
+                            }
+                        });
+                    }
+                    document.getElementById('ganttChartView').removeChild(templine);
+                }
                 document.getElementById('ganttChartView').appendChild(templine);
             }
         }.bind(this);

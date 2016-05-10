@@ -9,26 +9,26 @@ export class TasklineBar extends React.Component<any, any> {
 
     constructor(props, context) {
         super(props, context);
+        const data = props.data
         this.state = {
-            id: props.data.id,
-            order: props.data.order,
-            collapsed: props.data.collapsed,
-            position: props.data.position,
-
-            name: props.data.name,
-            type: props.data.type,
-            description: props.data.description,
-            assignee: props.data.assignee,
-            parent: props.data.parent,
-            predecessors: props.data.startDate,
-            date: 'This will be date',
-
-            progress: props.data.progress,
-            duration: props.data.duration,
-            startDate: props.data.startDate,
-            finish: props.data.finish,
-            priority: props.data.priority,
-            columnWidth: GCMediator.getState().tasklineCellCapacity
+            id: data.id,
+            order: data.order,
+            collapsed: data.collapsed,
+            position: data.position,
+            calloutDisplay: data.calloutDisplay,
+            timelineDisplay: data.timelineDisplay,
+            link: data.link,
+            name: data.name,
+            type: data.type,
+            description: data.description,
+            assignee: data.assignee,
+            parent: data.parent,
+            predecessors: data.predecessors,
+            progress: data.progress,
+            duration: data.duration,
+            startDate: data.startDate,
+            finish: data.finish,
+            priority: data.priority
         };
         GCMediator.subscribe(function () {
             const change = GCMediator.getLastChange();
@@ -62,13 +62,15 @@ export class TasklineBar extends React.Component<any, any> {
             order: data.order,
             collapsed: data.collapsed,
             position: data.position,
-
+            calloutDisplay: data.calloutDisplay,
+            timelineDisplay: data.timelineDisplay,
+            link: data.link,
             name: data.name,
+            type: data.type,
             description: data.description,
             assignee: data.assignee,
             parent: data.parent,
-            predecessors: data.startDate,
-
+            predecessors: data.predecessors,
             progress: data.progress,
             duration: data.duration,
             startDate: data.startDate,
@@ -265,8 +267,8 @@ export class TasklineBar extends React.Component<any, any> {
 
     public render() {
         const id = this.props.data.id;
-        const startDate = this.state.startDate * this.state.columnWidth;
-        const duration = this.state.duration * this.state.columnWidth;
+        const startDate = this.state.startDate * GCMediator.getState().tasklineCellCapacity;
+        const duration = this.state.duration * GCMediator.getState().tasklineCellCapacity;
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
             onContextMenu: this.contextMenu.bind(this),

@@ -129,9 +129,6 @@ export class AppMediator {
             case 'setDropTarget':
                 newState.dropTarget = action.data;
                 break;
-            case 'setTempline':
-                newState.templine = action.data;
-                break;
             case 'setDraggingElement':
                 newState.draggingElement = action.data;
                 break;
@@ -140,7 +137,6 @@ export class AppMediator {
                 if (!newState.isDragging) {
                     document.onmousemove = null;
                     document.onmouseup = null;
-                    newState.templine = null;
                     newState.draggingElement = null;
                     newState.dropTarget = null;
                 }
@@ -300,7 +296,6 @@ export class AppMediator {
             undoHistory: [] as any,
             redoHistory: [] as any,
             eventsHistory: [] as any,
-            tempLine: null as any,
 
             isCallbackNeed: false
         };

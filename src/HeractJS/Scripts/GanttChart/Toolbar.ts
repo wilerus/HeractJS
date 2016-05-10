@@ -29,9 +29,6 @@ export class GanttToolbar extends React.Component<any, any> {
                     case 'deselectAllTasks':
                         this.hideTaskActions();
                         break;
-                    case 'removeLink':
-                        document.getElementById('removeLinkButton').style.display = 'none';
-                        break;
                     default:
                         break;
                 }
@@ -54,15 +51,16 @@ export class GanttToolbar extends React.Component<any, any> {
         document.getElementById('completeTaskButton').style.display = 'none';
         document.getElementById('reopenTaskButton').style.display = 'none';
         document.getElementById('removeLinkButton').style.display = 'none';
-        document.getElementById('undoButton').style.display = 'none';
         document.getElementById('redoButton').style.display = 'none';
+        document.getElementById('undoButton').style.display = 'none';
+        document.getElementById('createTaskButton').style.display = 'none';
     }
 
     private showTaskActions() {
         const currentState = GCMediator.getState();
         document.getElementById('removeTaskButton').style.display = 'initial';
         document.getElementById('moveToTaskButton').style.display = 'initial';
-        if (currentState.selectedTasks[0] && currentState.selectedTasks[0].length > 0) {
+        if (currentState.selectedTasks[0] && currentState.selectedTasks.length > 0) {
             const element = currentState.items.find((element) => { if (element.id === currentState.selectedTasks[0].id) return true });
             if (element.link) {
                 document.getElementById('removeLinkButton').style.display = 'initial';
@@ -71,6 +69,7 @@ export class GanttToolbar extends React.Component<any, any> {
         document.getElementById('addLinkButton').style.display = 'initial';
         document.getElementById('completeTaskButton').style.display = 'initial';
         document.getElementById('reopenTaskButton').style.display = 'initial';
+        document.getElementById('createTaskButton').style.display = 'initial';
     }
 
     private showHistoryActions() {
@@ -206,6 +205,7 @@ export class GanttToolbar extends React.Component<any, any> {
                 link: null
             }
         });
+        document.getElementById('removeLinkButton').style.display = 'none';
     }
 
     private completeTask() {
@@ -248,6 +248,7 @@ export class GanttToolbar extends React.Component<any, any> {
             }, 'Remove task'),
             React.createElement('button', {
                 className: 'toolbarButton',
+                id: 'createTaskButton',
                 onClick: this.createTask.bind(this)
             }, 'Create task'),
             React.createElement('button', {

@@ -489,7 +489,7 @@
 }
 
 .tasklineBarSelected {
-    stroke-width: 1.5px;
+    stroke-width: 0.5px;
     stroke: rgb(60,120,50);
 }
 
