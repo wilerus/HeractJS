@@ -61,9 +61,6 @@ export class TaskLineView extends React.Component<any, any> {
         const selectedElementType = currentState.selectedTasks[0].type;
         const selectedElement = currentState.items.find((item: any) => {
             if (item.id === selectedElementId) {
-                for (let prop in newData) {
-                    item[prop] = newData[prop]
-                }
                 return true
             }
         });

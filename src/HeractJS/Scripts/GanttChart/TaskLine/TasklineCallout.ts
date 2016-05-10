@@ -54,24 +54,25 @@ export class TasklineCallouts extends React.Component<any, any> {
         }
     }
 
-    private componentWillReceiveProps() {
+    private componentWillReceiveProps(nextProps) {
+        const data = nextProps.data
         this.setState({
-            id: this.props.data.id,
-            order: this.props.data.order,
-            collapsed: this.props.data.collapsed,
-            position: this.props.data.position,
+            id: data.id,
+            order: data.order,
+            collapsed: data.collapsed,
+            position: data.position,
 
-            name: this.props.data.name,
-            description: this.props.data.description,
-            assignee: this.props.data.assignee,
-            parent: this.props.data.parent,
-            predecessors: this.props.data.startDate,
+            name: data.name,
+            description: data.description,
+            assignee: data.assignee,
+            parent: data.parent,
+            predecessors: data.startDate,
 
-            progress: this.props.data.progress,
-            duration: this.props.data.duration,
-            startDate: this.props.data.startDate,
-            finish: this.props.data.finish,
-            priority: this.props.data.priority
+            progress: data.progress,
+            duration: data.duration,
+            startDate: data.startDate,
+            finish: data.finish,
+            priority: data.priority
         });
     }
 
@@ -137,7 +138,7 @@ export class TasklineCallouts extends React.Component<any, any> {
                     if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
                         !GCMediator.getState().isCurrentlyDragging) {
                         hoverElement.onmouseout = function () {
-                            this.clearTempElements();
+                            GCMediator.dispatch({ type: 'completeEditing' });
                         }.bind(this)
                         this.showInfoPopup(hoverElement);
                     }
@@ -148,26 +149,6 @@ export class TasklineCallouts extends React.Component<any, any> {
                     type: 'setDropTarget',
                     data: this
                 });
-            }
-        }
-    }
-
-    private clearTempElements(event: Event) {
-        const currentState = GCMediator.getState();
-        GCMediator.dispatch({ type: 'hideInfoPopup' });
-        if (!currentState.isDragging) {
-            document.onmousemove = null;
-            document.onmouseup = null;
-
-            if (currentState.templine) {
-                document.getElementById('ganttChartView').removeChild(GCMediator.getState().templine);
-                GCMediator.dispatch({ type: 'removeTempline' });
-            }
-            if (currentState.draggingElement) {
-                GCMediator.dispatch({ type: 'removeDraggingElement' });
-            }
-            if (currentState.dropTarget) {
-                GCMediator.dispatch({ type: 'removeDropTarget' });
             }
         }
     }

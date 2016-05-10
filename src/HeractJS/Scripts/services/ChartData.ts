@@ -94,17 +94,23 @@ export class ChartData {
             topMargin = 24 * i;
             ChartData.ganttBars.push({
                 id: `bar${i}`,
-                progress: 25,
-                duration: duration,
-                name: text,
-                description: `Description for ${text}`,
-                startDate: leftMargin,
-                finishDate: leftMargin,
+                order: undefined,
+                collapsed: undefined,
                 position: topMargin,
                 calloutDisplay: i % 8 === 0 && type !== 'milestone' && taskCount < 100,
                 timelineDisplay: false,
+                link: link,
+                name: text,
                 type: type,
-                link: link
+                description: `Description for ${text}`,
+                assignee: undefined,
+                parent: undefined,
+                predecessors: undefined,
+                progress: 25,
+                duration: duration,
+                startDate: leftMargin,
+                finish: undefined,
+                priority: undefined
             });
 
             if (taskCount % 3 === 0 && taskCount < 100) {

@@ -70,7 +70,6 @@
     -ms-user-select: none;
     user-select: none;
     pointer-events: none;
-    text-shadow: 0 0 4px rgba(255, 255, 255, 0.5) !important;
     overflow: hidden;
 }
 

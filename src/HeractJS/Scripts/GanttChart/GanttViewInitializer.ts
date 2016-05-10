@@ -7,13 +7,17 @@ import {TaskLineView}  from './Taskline/TaskLine'
 
 export class Initializer {
     constructor() {
-        DOM.render(React.createElement(ChartView), document.getElementsByClassName('js-module-region-right')[0], () => {
-            document.getElementsByClassName('js-module-region-right')[0].style.opacity = 1;
-            DOM.render(React.createElement(TaskLineView), document.getElementsByClassName('js-module-gantt-taskline')[0], () => {
-                document.getElementsByClassName('js-module-gantt-taskline')[0].style.opacity = 1;
+        const chartRegion = document.getElementsByClassName('js-module-region-right')[0] as any;
+        const timelineRegion = document.getElementsByClassName('js-module-gantt-taskline')[0] as any;
+        const toolbarRegion = document.getElementsByClassName('js-module-gantt-toolbar')[0] as any;
+
+        DOM.render(React.createElement(ChartView), chartRegion, () => {
+            chartRegion.style.opacity = 1;
+            DOM.render(React.createElement(TaskLineView), timelineRegion, () => {
+                timelineRegion.style.opacity = 1;
             })
-            DOM.render(React.createElement(GanttToolbar), document.getElementsByClassName('js-module-gantt-toolbar')[0], () => {
-                document.getElementsByClassName('js-module-gantt-toolbar')[0].style.opacity = 1;
+            DOM.render(React.createElement(GanttToolbar), toolbarRegion, () => {
+                toolbarRegion.style.opacity = 1;
             })
         });
     }

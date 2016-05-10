@@ -54,24 +54,25 @@ export class TasklineMilestone extends React.Component<any, any> {
         }
     }
 
-    private componentWillReceiveProps() {
+    private componentWillReceiveProps(nextProps) {
+        const data = nextProps.data
         this.setState({
-            id: this.props.data.id,
-            order: this.props.data.order,
-            collapsed: this.props.data.collapsed,
-            position: this.props.data.position,
+            id: data.id,
+            order: data.order,
+            collapsed: data.collapsed,
+            position: data.position,
 
-            name: this.props.data.name,
-            description: this.props.data.description,
-            assignee: this.props.data.assignee,
-            parent: this.props.data.parent,
-            predecessors: this.props.data.startDate,
+            name: data.name,
+            description: data.description,
+            assignee: data.assignee,
+            parent: data.parent,
+            predecessors: data.startDate,
 
-            progress: this.props.data.progress,
-            duration: this.props.data.duration,
-            startDate: this.props.data.startDate,
-            finish: this.props.data.finish,
-            priority: this.props.data.priority
+            progress: data.progress,
+            duration: data.duration,
+            startDate: data.startDate,
+            finish: data.finish,
+            priority: data.priority
         });
     }
 
@@ -132,7 +133,7 @@ export class TasklineMilestone extends React.Component<any, any> {
             this.startTaskSelection();
             GCMediator.dispatch({ type: 'startDragging' });
             this.startBarRelocation(event, eventTarget);
-            document.onmouseup = function (event: MouseEvent) {
+            document.onmouseup = () => {
                 GCMediator.dispatch({
                     type: 'editTask',
                     data: {
@@ -141,8 +142,8 @@ export class TasklineMilestone extends React.Component<any, any> {
                     }
                 })
                 GCMediator.dispatch({ type: 'stopDragging' })
-                this.clearTempElements(event)
-            }.bind(this)
+                GCMediator.dispatch({ type: 'completeEditing' });
+            }
         }
     }
 
@@ -211,11 +212,9 @@ export class TasklineMilestone extends React.Component<any, any> {
                     progress: newComplition
                 });
             }.bind(this);
-            document.onmouseup = function (event) {
-                this.clearTempElements(event);
-                document.onmousemove = null;
-                document.onmouseup = null;
-            }.bind(this);
+            document.onmouseup = () => {
+                GCMediator.dispatch({ type: 'completeEditing' });
+            }
         }
     }
 
@@ -231,8 +230,7 @@ export class TasklineMilestone extends React.Component<any, any> {
                 type: 'connection'
             }
         });
-        document.onmousemove = null;
-        this.clearTempElements(event);
+        GCMediator.dispatch({ type: 'completeEditing' });
     }
 
     private handleRectHover(event: Event) {
@@ -244,9 +242,9 @@ export class TasklineMilestone extends React.Component<any, any> {
                 setTimeout(function (hoverElement) {
                     if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
                         !GCMediator.getState().isCurrentlyDragging) {
-                        hoverElement.onmouseout = function () {
-                            this.clearTempElements();
-                        }.bind(this)
+                        hoverElement.onmouseout = () => {
+                            GCMediator.dispatch({ type: 'completeEditing' });
+                        }
                         this.showInfoPopup(hoverElement);
                     }
                 }.bind(this, hoverElement), 500);
@@ -256,26 +254,6 @@ export class TasklineMilestone extends React.Component<any, any> {
                     type: 'setDropTarget',
                     data: this
                 });
-            }
-        }
-    }
-
-    private clearTempElements(event: Event) {
-        const currentState = GCMediator.getState();
-        GCMediator.dispatch({ type: 'hideInfoPopup' });
-        if (!currentState.isDragging) {
-            document.onmousemove = null;
-            document.onmouseup = null;
-
-            if (currentState.templine) {
-                document.getElementById('ganttChartView').removeChild(GCMediator.getState().templine);
-                GCMediator.dispatch({ type: 'removeTempline' });
-            }
-            if (currentState.draggingElement) {
-                GCMediator.dispatch({ type: 'removeDraggingElement' });
-            }
-            if (currentState.dropTarget) {
-                GCMediator.dispatch({ type: 'removeDropTarget' });
             }
         }
     }
@@ -368,7 +346,8 @@ export class TasklineMilestone extends React.Component<any, any> {
                 x: startDate,
                 y: 3,
                 rx: 3,
-                ry: 3
+                ry: 3,
+                filter: 'url(#shadowFilter)'
             }),
             React.createElement('line', {
                 className: 'bodyConnection',

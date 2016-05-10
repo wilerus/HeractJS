@@ -135,8 +135,16 @@ export class AppMediator {
             case 'setDraggingElement':
                 newState.draggingElement = action.data;
                 break;
-            case 'removeTempline':
-                newState.templine = null;
+            case 'completeEditing':
+                action.data = 'completeEditing'
+                if (!newState.isDragging) {
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+                    newState.templine = null;
+                    newState.draggingElement = null;
+                    newState.dropTarget = null;
+                }
+                isHistoryNeed = true;
                 break;
             case 'setTimelineStep':
                 switch (newState.timelineStep) {
@@ -203,21 +211,11 @@ export class AppMediator {
                 isHistoryNeed = true;
                 newState.scrollPosition = action.data;
                 break;
-            case 'removeDraggingElement':
-                newState.draggingElement = null;
-                break;
-            case 'removeDropTarget':
-                newState.dropTarget = null;
-                break;
             case 'taskUpdated':
                 isHistoryNeed = true;
                 break;
             case 'showInfoPopup':
                 isHistoryNeed = true;
-                break;
-            case 'hideInfoPopup':
-                isHistoryNeed = true;
-                action.data = true;
                 break;
             case 'showActionChartPopup':
                 isHistoryNeed = true;
@@ -338,7 +336,7 @@ export class AppMediator {
         return null;
     }
 
-    public dispatch(config:Object) {
+    public dispatch(config: Object) {
         return AppMediator.store.dispatch(config);
     }
 

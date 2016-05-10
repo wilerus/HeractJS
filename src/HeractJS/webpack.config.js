@@ -13,7 +13,7 @@ module.exports = {
         //  'navigation': './scripts/project/navigation/module.js',
         'project': './Scripts/project/Application.js',
         'services': './Scripts/services/ApplicationMediator.ts',
-        'gantt': './Scripts/GanttChart/MainView.ts'
+        'gantt': './Scripts/GanttChart/GanttViewInitializer.ts'
     },
     devtool: "#inline-source-map",
     output: {

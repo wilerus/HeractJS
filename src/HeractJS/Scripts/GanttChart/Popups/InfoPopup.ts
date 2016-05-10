@@ -21,7 +21,7 @@ export class InfoPopup extends React.Component<any, any> {
                     case 'showInfoPopup':
                         this.show(change.data);
                         break;
-                    case 'hideInfoPopup':
+                    case 'completeEditing':
                     case 'hideAllPopups':
                         this.hide();
                         break;

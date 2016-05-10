@@ -336,6 +336,35 @@ export class ChartView extends React.Component<any, any> {
                     className: 'ganttChartView',
                     id: 'ganttChartView'
                 },
+                    React.createElement('defs', {
+                    },
+                        React.createElement('filter', {
+                            id: 'shadowFilter',
+                            x: 0,
+                            y: 0,
+                            width: '200%',
+                            height: '200%'
+                        },
+                            React.createElement('feOffset', {
+                                dx: '1',
+                                dy: '1'
+                            }),
+                            React.createElement('feGaussianBlur', {
+                                in: 'SourceAlpha',
+                                stdDeviation: '2'
+                            }),
+                            React.createElement('feComponentTransfer', {
+                            }, React.createElement('feFuncA', {
+                                type: 'linear',
+                                slope: '0.6'
+                            })),
+                            React.createElement('feBlend', {
+                                in: 'SourceGraphic',
+                                in2: 'blurOut',
+                                mode: 'normal'
+                            })
+                        )
+                    ),
                     React.createElement('marker', {
                         id: 'triangle',
                         viewBox: '0 0 40 20',

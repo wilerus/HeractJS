@@ -48,15 +48,15 @@ export class TasklineBar extends React.Component<any, any> {
     }
 
     private shouldComponentUpdate(nextState: any) {
-        if (this.state !== nextState) {
+        if (JSON.stringify(this.state) !== JSON.stringify(nextState.data)) {
             return true;
         } else {
             return false;
         }
     }
 
-    private componentWillReceiveProps() {
-        const data = this.props.data
+    private componentWillReceiveProps(nextProps) {
+        const data = nextProps.data
         this.setState({
             id: data.id,
             order: data.order,
@@ -136,9 +136,9 @@ export class TasklineBar extends React.Component<any, any> {
                 setTimeout(function (hoverElement) {
                     if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
                         !GCMediator.getState().isCurrentlyDragging) {
-                        hoverElement.onmouseout = function () {
-                            this.clearTempElements();
-                        }.bind(this)
+                        hoverElement.onmouseout = () => {
+                            GCMediator.dispatch({ type: 'completeEditing' });
+                        }
                         this.showInfoPopup(hoverElement);
                     }
                 }.bind(this, hoverElement), 500);
@@ -149,26 +149,6 @@ export class TasklineBar extends React.Component<any, any> {
                     type: 'setDropTarget',
                     data: this
                 });
-            }
-        }
-    }
-
-    private clearTempElements(event: Event) {
-        const currentState = GCMediator.getState();
-        GCMediator.dispatch({ type: 'hideInfoPopup' });
-        if (!currentState.isDragging) {
-            document.onmousemove = null;
-            document.onmouseup = null;
-
-            if (currentState.templine) {
-                document.getElementById('ganttChartView').removeChild(GCMediator.getState().templine);
-                GCMediator.dispatch({ type: 'removeTempline' });
-            }
-            if (currentState.draggingElement) {
-                GCMediator.dispatch({ type: 'removeDraggingElement' });
-            }
-            if (currentState.dropTarget) {
-                GCMediator.dispatch({ type: 'removeDropTarget' });
             }
         }
     }
@@ -260,7 +240,7 @@ export class TasklineBar extends React.Component<any, any> {
             } else if (clickCoordX < elementRect.left + 15) {
                 this.updateStartDate(event, eventTarget);
             }
-            document.onmouseup = function (event: MouseEvent) {
+            document.onmouseup = (event: MouseEvent) => {
                 GCMediator.dispatch({
                     type: 'editTask',
                     data: {
@@ -269,8 +249,8 @@ export class TasklineBar extends React.Component<any, any> {
                     }
                 })
                 GCMediator.dispatch({ type: 'stopDragging' })
-                this.clearTempElements(event)
-            }.bind(this)
+                GCMediator.dispatch({ type: 'completeEditing' });
+            }
         }
     }
 
@@ -287,7 +267,6 @@ export class TasklineBar extends React.Component<any, any> {
         const id = this.props.data.id;
         const startDate = this.state.startDate * this.state.columnWidth;
         const duration = this.state.duration * this.state.columnWidth;
-
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
             onContextMenu: this.contextMenu.bind(this),
@@ -309,21 +288,22 @@ export class TasklineBar extends React.Component<any, any> {
                 id: id,
                 x: startDate,
                 y: 1.5,
-                width: duration
+                width: duration,
+                filter: 'url(#shadowFilter)'
             }),
             React.createElement('text', {
                 className: 'taskLineTaskTitle',
-                x: startDate,
-                width: duration,
+                x: startDate + 2,
+                width: duration - 2,
                 clipPath: `url(#${id}clipPath)`,
-                y: 12
+                y: 13
             }, `${this.props.data.name} - ${this.props.data.description}`),
             React.createElement('text', {
                 className: 'taskLineTaskDate',
-                x: startDate,
-                width: duration,
+                x: startDate + 2,
+                width: duration - 2,
                 clipPath: `url(#${id}clipPath)`,
-                y: 24
+                y: 25
             }, this.state.date)
         );
     }
