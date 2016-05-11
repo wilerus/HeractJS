@@ -29,22 +29,24 @@
 * Show tooltip on hover (0.5 sec timeout) - displaying title, description, start date, complete date and duration
 * Remove task from Timeline - task will be not visible on timeline
 * Relocation while left button pressed in the middle of bar
+* Add to callouts panel
+* Remove from callouts panel
 
 `Task`
 * Change start date while left button pressed in the beginning of the bar
 * Change duration while left button pressed in the end of the bar
-
 ----------
 
 ## Toolbar region
 `Task Milestone Project`
-* Undo current action
-* Redo undone action
-* Remove  from Gantt view
-* Add link - connection from selected task to its child
-* View mode - show or hide regions - Chart, Timeline or table grid regions
+* `Undo` - undo latest action
+* `Redo` redo previously undone action
+* `Remove task` - remove object from Gantt view
+* `Add link` - connection from selected task to its child
+* `View mode` - show or hide regions - Chart, Timeline or table grid regions
+* `Move to task` - scroll chart horizontally to bar start
 
 `Task`
-* Create new Gantt view task on Chart region
-* Complete task - set task progress to 100%
-* Reopen task - set task progress to 0%
+* `Create new task` - create new Gantt view task on Chart region
+* `Complete task` - set task progress to 100%
+* `Reopen task` - set task progress to 0%
