@@ -47,22 +47,49 @@ export class ActionTasklinePopup extends React.Component<any, any> {
             startDate: data.startDate,
             endDate: data.endDate,
             duration: data.duration,
-            description: data.description
+            description: data.description,
+            type: data.target
         })
         const item = DOM.findDOMNode(this) as any;
         item.style.display = 'block';
+        if (data.target === 'task') {
+            document.getElementById('addToCalloutsButton').style.display = 'inherit';
+        } else {
+            document.getElementById('addToCalloutsButton').style.display = 'none';
+        }
     }
 
     private removeFromTaskline() {
-        GCMediator.dispatch({
-            type: 'editTask',
-            data: {
+        let data;
+        const state = this.state;
+        if (state.type === 'callout') {
+            data = {
+                calloutDisplay: false
+            }
+        } else {
+            data = {
                 timelineDisplay: false
             }
+        }
+        GCMediator.dispatch({
+            type: 'editTask',
+            data: data
         });
         this.hide();
     }
 
+    private addToCallouts() {
+        let data;
+        const state = this.state;
+
+        GCMediator.dispatch({
+            type: 'editTask',
+            data: {
+                calloutDisplay: true
+            }
+        });
+        this.hide();
+    }
     public render() {
         return React.createElement('div', {
             id: 'actionTimelinePopup',
@@ -78,7 +105,12 @@ export class ActionTasklinePopup extends React.Component<any, any> {
             React.createElement('button', {
                 className: 'removeFromTasklineButton',
                 onClick: this.removeFromTaskline.bind(this)
-            }, 'Remove from taskline')
+            }, 'Remove from taskline'),
+            React.createElement('button', {
+                className: 'addToCalloutsButton',
+                id: 'addToCalloutsButton',
+                onClick: this.addToCallouts.bind(this)
+            }, 'Display as callout')
         );
     }
 };

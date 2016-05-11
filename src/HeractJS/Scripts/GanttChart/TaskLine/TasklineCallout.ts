@@ -178,7 +178,8 @@ export class TasklineCallouts extends React.Component<any, any> {
             data: {
                 left: coords.left + coords.width / 2 - 100,
                 top: coords.top + 22,
-                title: this.state.name
+                title: this.state.name,
+                target: 'callout'
             }
         });
         event.preventDefault();

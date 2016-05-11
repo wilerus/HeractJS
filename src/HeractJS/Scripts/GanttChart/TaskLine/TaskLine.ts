@@ -64,7 +64,6 @@ export class TaskLineView extends React.Component<any, any> {
                 return true
             }
         });
-
         if (selectedElementId) {
             if (selectedElementType !== 'milestone') {
                 let timelineTasks = currentState.timelineTasks;
@@ -79,8 +78,15 @@ export class TaskLineView extends React.Component<any, any> {
                         return true
                     }
                 })
-                if (!elem && selectedElement.timelineDisplay) {
-                    timelineTasks.push(selectedElement)
+                let timelineCallouts = currentState.timelineCallouts;
+                let callout = timelineCallouts.find((task, index) => {
+                    if (task.id === selectedElementId && !selectedElement.calloutDisplay) {
+                        timelineCallouts.splice(index, 1);
+                        return true
+                    }
+                })
+                if (!callout && selectedElement.calloutDisplay) {
+                    timelineCallouts.push(selectedElement)
                 }
             } else {
                 let timelineMilestones = currentState.timelineMilestones;
