@@ -258,12 +258,6 @@ export class TasklineMilestone extends React.Component<any, any> {
         }
     }
 
-    private contextMenu(event: Event) {
-        this.showActionPopup(event.target);
-        event.preventDefault();
-        event.stopPropagation();
-    }
-
     private showInfoPopup(hoverElement) {
         const coords = hoverElement.getBoundingClientRect();
         GCMediator.dispatch({
@@ -294,8 +288,8 @@ export class TasklineMilestone extends React.Component<any, any> {
         });
     }
 
-    private showActionPopup(hoverElement) {
-        const coords = hoverElement.getBoundingClientRect();
+    private showActionPopup(event) {
+        const coords = event.target.getBoundingClientRect();
         this.startTaskSelection();
         GCMediator.dispatch({
             type: 'showActionTimelinePopup',
@@ -305,6 +299,8 @@ export class TasklineMilestone extends React.Component<any, any> {
                 title: this.state.name
             }
         });
+        event.preventDefault();
+        event.stopPropagation();
     }
 
     private selectTask(taskId: string) {
@@ -336,7 +332,7 @@ export class TasklineMilestone extends React.Component<any, any> {
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
             onMouseDown: this.startBarUpdate.bind(this),
-            onContextMenu: this.contextMenu.bind(this),
+            onContextMenu: this.showActionPopup.bind(this),
             onDoubleClick: this.showModalWindow.bind(this),
             onClick: this.startTaskSelection.bind(this)
         },

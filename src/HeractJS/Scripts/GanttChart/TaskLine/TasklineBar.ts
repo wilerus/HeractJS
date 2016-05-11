@@ -155,12 +155,6 @@ export class TasklineBar extends React.Component<any, any> {
         }
     }
 
-    private contextMenu(event: Event) {
-        this.showActionPopup(event.target);
-        event.preventDefault();
-        event.stopPropagation();
-    }
-
     private showInfoPopup(hoverElement) {
         const coords = hoverElement.getBoundingClientRect();
         GCMediator.dispatch({
@@ -177,8 +171,8 @@ export class TasklineBar extends React.Component<any, any> {
         })
     }
 
-    private showActionPopup(hoverElement) {
-        const coords = hoverElement.getBoundingClientRect();
+    private showActionPopup(event) {
+        const coords = event.target.getBoundingClientRect();
         this.startTaskSelection();
         GCMediator.dispatch({
             type: 'showActionTimelinePopup',
@@ -188,6 +182,8 @@ export class TasklineBar extends React.Component<any, any> {
                 title: this.state.name
             }
         })
+        event.preventDefault();
+        event.stopPropagation();
     }
 
     private selectTask(taskId: string) {
@@ -271,7 +267,7 @@ export class TasklineBar extends React.Component<any, any> {
         const duration = this.state.duration * GCMediator.getState().tasklineCellCapacity;
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
-            onContextMenu: this.contextMenu.bind(this),
+            onContextMenu: this.showActionPopup.bind(this),
             onMouseDown: this.startBarUpdate.bind(this),
             onClick: this.startTaskSelection.bind(this)
         },

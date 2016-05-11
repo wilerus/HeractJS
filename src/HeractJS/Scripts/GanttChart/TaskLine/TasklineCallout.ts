@@ -137,9 +137,9 @@ export class TasklineCallouts extends React.Component<any, any> {
                 setTimeout(function (hoverElement) {
                     if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
                         !GCMediator.getState().isCurrentlyDragging) {
-                        hoverElement.onmouseout = function () {
+                        hoverElement.onmouseout = () => {
                             GCMediator.dispatch({ type: 'completeEditing' });
-                        }.bind(this)
+                        }
                         this.showInfoPopup(hoverElement);
                     }
                 }.bind(this, hoverElement), 500);
@@ -151,12 +151,6 @@ export class TasklineCallouts extends React.Component<any, any> {
                 });
             }
         }
-    }
-
-    private contextMenu(event: Event) {
-        this.showActionPopup(event.target);
-        event.preventDefault();
-        event.stopPropagation();
     }
 
     private showInfoPopup(hoverElement) {
@@ -175,8 +169,8 @@ export class TasklineCallouts extends React.Component<any, any> {
         });
     }
 
-    private showActionPopup(hoverElement) {
-        const coords = hoverElement.getBoundingClientRect();
+    private showActionPopup(event) {
+        const coords = event.target.getBoundingClientRect();
         this.startTaskSelection();
 
         GCMediator.dispatch({
@@ -187,6 +181,8 @@ export class TasklineCallouts extends React.Component<any, any> {
                 title: this.state.name
             }
         });
+        event.preventDefault();
+        event.stopPropagation();
     }
 
     private selectTask(taskId: string) {
@@ -210,7 +206,7 @@ export class TasklineCallouts extends React.Component<any, any> {
         const duration = this.state.duration * this.state.columnWidth;
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
-            onContextMenu: this.contextMenu.bind(this),
+            onContextMenu: this.showActionPopup.bind(this),
             onClick: this.startTaskSelection.bind(this)
         },
             React.createElement('defs', {

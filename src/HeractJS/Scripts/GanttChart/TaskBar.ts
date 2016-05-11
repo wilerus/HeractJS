@@ -332,12 +332,6 @@ export class TaskBar extends React.Component<any, any> {
         }
     }
 
-    private contextMenu(event: MouseEvent) {
-        this.showActionPopup(event, event.target);
-        event.preventDefault();
-        event.stopPropagation();
-    }
-
     private showModalWindow() {
         GCMediator.dispatch({ type: 'hideAllPopups' })
         GCMediator.dispatch({
@@ -376,12 +370,13 @@ export class TaskBar extends React.Component<any, any> {
         })
     }
 
-    private showActionPopup(event: MouseEvent, hoverElement) {
-        const coords = hoverElement.getBoundingClientRect();
+    private showActionPopup(event: MouseEvent) {
+        const eventTarget = event.target as any;
+        const coords = eventTarget.getBoundingClientRect();
         let leftMargin: number;
         let topMargin: number = coords.top + 22;
         this.startTaskSelection();
-        if (hoverElement.getAttribute('class') === 'barSelectBody barSelected') {
+        if (eventTarget.getAttribute('class') === 'barSelectBody barSelected') {
             leftMargin = event.clientX;
         } else {
             leftMargin = coords.left + coords.width / 2 - 100;
@@ -394,6 +389,8 @@ export class TaskBar extends React.Component<any, any> {
                 title: this.state.name
             }
         })
+        event.preventDefault();
+        event.stopPropagation();
     }
 
     private selectTask(taskId: string) {
@@ -442,7 +439,7 @@ export class TaskBar extends React.Component<any, any> {
                 element = React.createElement('g', {
                     onMouseEnter: this.handleRectHover.bind(this),
                     onMouseDown: this.startBarUpdate.bind(this),
-                    onContextMenu: this.contextMenu.bind(this),
+                    onContextMenu: this.showActionPopup.bind(this),
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this)
                 },
@@ -478,7 +475,7 @@ export class TaskBar extends React.Component<any, any> {
                 element = React.createElement('g', {
                     onMouseEnter: this.handleRectHover.bind(this),
                     onMouseDown: this.startBarUpdate.bind(this),
-                    onContextMenu: this.contextMenu.bind(this),
+                    onContextMenu: this.showActionPopup.bind(this),
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this)
                 },
@@ -505,7 +502,7 @@ export class TaskBar extends React.Component<any, any> {
                 break;
             case 'project':
                 element = React.createElement('g', {
-                    onContextMenu: this.contextMenu.bind(this),
+                    onContextMenu: this.showActionPopup.bind(this),
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this)
                 },
