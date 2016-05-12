@@ -72,7 +72,7 @@ export class ActionTasklinePopup extends React.Component<any, any> {
             }
         }
         GCMediator.dispatch({
-            type: 'editTask',
+            type: 'editItem',
             data: data
         });
         this.hide();
@@ -83,7 +83,7 @@ export class ActionTasklinePopup extends React.Component<any, any> {
         const state = this.state;
 
         GCMediator.dispatch({
-            type: 'editTask',
+            type: 'editItem',
             data: {
                 calloutDisplay: true
             }

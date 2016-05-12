@@ -27,7 +27,8 @@ export class TaskBar extends React.Component<any, any> {
             duration: props.data.duration,
             startDate: props.data.startDate,
             finish: props.data.finish,
-            priority: props.data.priority
+            priority: props.data.priority,
+            columnWidth: GCMediator.getState().cellCapacity
         };
         GCMediator.subscribe(function () {
             const change = GCMediator.getLastChange();
@@ -76,7 +77,8 @@ export class TaskBar extends React.Component<any, any> {
             duration: data.duration,
             startDate: data.startDate,
             finish: data.finish,
-            priority: data.priority
+            priority: data.priority,
+            columnWidth: GCMediator.getState().cellCapacity
         });
     }
 
@@ -152,7 +154,7 @@ export class TaskBar extends React.Component<any, any> {
                     const selectedTaskState = currentState.dropTarget.state;
                     if (!currentState.draggingElement.state.link) {
                         GCMediator.dispatch({
-                            type: 'editTask',
+                            type: 'editItem',
                             data: {
                                 link: {
                                     id: `link${currentState.draggingElement.state.position / 24}`,
@@ -222,7 +224,7 @@ export class TaskBar extends React.Component<any, any> {
                     }
                 }
                 GCMediator.dispatch({
-                    type: 'editTask',
+                    type: 'editItem',
                     data: data
                 })
                 GCMediator.dispatch({ type: 'stopDragging' })
@@ -425,9 +427,8 @@ export class TaskBar extends React.Component<any, any> {
         let element = null;
         const position = this.state.position;
         const id = this.props.data.id;
-        const columnWidth = GCMediator.getState().cellCapacity;
-        const startDate = this.state.startDate * columnWidth;
-        const duration = this.state.duration * columnWidth;
+        const startDate = this.state.startDate * this.state.columnWidth;
+        const duration = this.state.duration * this.state.columnWidth;
         const length = startDate + duration;
         const configProgress = this.state.progress * duration / 100 - 2;
         const progress = configProgress > 0 ? configProgress : 0;

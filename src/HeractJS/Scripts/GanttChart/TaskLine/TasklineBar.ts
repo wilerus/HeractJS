@@ -241,7 +241,7 @@ export class TasklineBar extends React.Component<any, any> {
             }
             document.onmouseup = (event: MouseEvent) => {
                 GCMediator.dispatch({
-                    type: 'editTask',
+                    type: 'editItem',
                     data: {
                         duration: Math.round(eventTarget.getAttribute('width') / GCMediator.getState().tasklineCellCapacity),
                         startDate: Math.round(parseInt(eventTarget.getAttribute('x')) / GCMediator.getState().tasklineCellCapacity)

@@ -153,12 +153,12 @@ export class GanttToolbar extends React.Component<any, any> {
 
     private removeTask() {
         GCMediator.dispatch({
-            type: 'removeTask'
+            type: 'removeItem'
         });
     }
 
     private createTask() {
-        GCMediator.dispatch({ type: 'createTask' });
+        GCMediator.dispatch({ type: 'createItem' });
     }
 
     private moveToTask() {
@@ -177,7 +177,7 @@ export class GanttToolbar extends React.Component<any, any> {
                     const elementIndex = currentState.items.indexOf(element);
                     if (currentState.items[elementIndex].link === null) {
                         GCMediator.dispatch({
-                            type: 'editTask',
+                            type: 'editItem',
                             data: {
                                 link: {
                                     id: `link${elementIndex}`,
@@ -192,7 +192,7 @@ export class GanttToolbar extends React.Component<any, any> {
             });
         } else {
             GCMediator.dispatch({
-                type: 'editTask',
+                type: 'editItem',
                 data: ''
             });
         }
@@ -200,7 +200,7 @@ export class GanttToolbar extends React.Component<any, any> {
 
     private removeLink() {
         GCMediator.dispatch({
-            type: 'editTask',
+            type: 'editItem',
             data: {
                 link: null
             }
@@ -210,7 +210,7 @@ export class GanttToolbar extends React.Component<any, any> {
 
     private completeTask() {
         GCMediator.dispatch({
-            type: 'editTask',
+            type: 'editItem',
             data: {
                 progress: 100
             }
@@ -219,7 +219,7 @@ export class GanttToolbar extends React.Component<any, any> {
 
     private reopenTask() {
         GCMediator.dispatch({
-            type: 'editTask',
+            type: 'editItem',
             data: {
                 progress: 0
             }

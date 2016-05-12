@@ -1,69 +1,180 @@
-﻿// simulating server data
-// initial set up
+﻿import {AppMediator} from './ApplicationMediator'
+const GCMediator: any = AppMediator.getInstance();
 
 export class ChartData {
     public amountOfElements: number = 100000;
-    public counter: number = 0;
 
-    public static timelineWeek: Object[] = [];
-    public static timelineMonth: Object[] = [];
-    public static timelineDay: Object[] = [];
-    public static timelineYear: Object[] = [];
-    public static timelineWeekMin: Object[] = [];
-    public static timelineWeekMax: Object[] = [];
-    public static timelineMonthMin: Object[] = [];
-    public static timelineMonthMax: Object[] = [];
-    public static timelineDayMin: Object[] = [];
-    public static timelineDayMax: Object[] = [];
-    public static timelineYearMin: Object[] = [];
-    public static ganttBars: any[] = [];
-    public static timelineTasks: Object[] = [];
-    public static timelineMilestones: Object[] = [];
-    public static timelineCallouts: Object[] = [];
-    public weekData: string[] = [
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-        'Sunday'
-    ];
-    public monthData: string[] = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-    ];
-    public yearData: string[] = [
-        '2016',
-        '2017',
-        '2018',
-        '2019',
-        '2025',
-        '2021',
-        '2022',
-        '2023'
-    ];
+    public timelineWeek: Object[] = [];
+    public timelineMonth: Object[] = [];
+    public timelineDay: Object[] = [];
+    public timelineYear: Object[] = [];
+
+    public timelineTasks: Object[] = [];
+    public timelineMilestones: Object[] = [];
+    public timelineCallouts: Object[] = [];
+    public timelineMonthMax: Object[] = [];
 
     constructor() {
-        let type: string = '';
-        let text: string = '';
+        const weekData: string[] = [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+            'Sunday'
+        ];
+        const monthData: string[] = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+        ];
+        const yearData: string[] = [
+            '2016',
+            '2017',
+            '2018',
+            '2019',
+            '2025',
+            '2021',
+            '2022',
+            '2023'
+        ];
+        let timelineWeekMin: Object[] = [];
+        let timelineWeekMax: Object[] = [];
+        let timelineMonthMin: Object[] = [];
+        let timelineDayMin: Object[] = [];
+        let timelineDayMax: Object[] = [];
+        let timelineYearMin: Object[] = [];
+
+        for (let i = 0; i <= 10; i++) {
+            for (let n = 0; n < weekData.length; n++) {
+                timelineWeekMin.push({
+                    id: `timelineWeekM${n}${i}`,
+                    text: weekData[n],
+                    style: {
+                        top: 20,
+                        width: 72,
+                        marginLeft: 508 * i + 72 * n
+                    }
+                });
+            }
+            for (let n = 0; n < weekData.length; n++) {
+                timelineWeekMax.push({
+                    id: `timelineWeekM${n}${i}`,
+                    text: `${weekData[n]}'W${i + 1}`,
+                    style: {
+                        width: 87,
+                        marginLeft: 609 * i + 87 * n
+                    }
+                });
+            }
+        }
+        this.timelineWeek = this.timelineWeek.concat(timelineWeekMax);
+
+        for (let i = 0; i <= 11; i++) {
+            for (let n = 0; n <= 10; n++) {
+                timelineMonthMin.push({
+                    id: `timelineMonthM${monthData[i] + n}`,
+                    text: `${n * 3}`,
+                    style: {
+                        top: 20,
+                        width: 54,
+                        marginLeft: 594 * i + 54 * n
+                    }
+                });
+            }
+            for (let n = 0; n <= 10; n++) {
+                this.timelineMonthMax.push({
+                    id: `timelineMonthM${monthData[i] + n}`,
+                    text: `${n * 3}'${monthData[i]}'16`,
+                    style: {
+                        width: 85,
+                        marginLeft: 935 * i + 85 * n
+                    }
+                });
+            }
+        }
+        this.timelineMonth = this.timelineMonth.concat(this.timelineMonthMax);
+        for (let i = 0; i < 6; i++) {
+            for (let n = 0; n < 8; n++) {
+                timelineDayMin.push({
+                    id: `timelineDay${n}${i}`,
+                    text: `H${n * 3}`,
+                    style: {
+                        top: 20,
+                        width: 60,
+                        marginLeft: 480 * i + 60 * n
+                    }
+                });
+            }
+
+            for (let n = 0; n < 8; n++) {
+                timelineDayMax.push({
+                    id: `timelineDay${n}${i}`,
+                    text: `H${n * 3}'${weekData[i]}`,
+                    style: {
+                        width: 80,
+                        marginLeft: 640 * i + 80 * n
+                    }
+                });
+            }
+        }
+        this.timelineDay = this.timelineDay.concat(timelineDayMax);
+        for (let i = 0; i <= 8; i++) {
+            for (let n = 0; n <= 11; n++) {
+                timelineYearMin.push({
+                    id: `timelineYearM${n}${i}`,
+                    text: monthData[n],
+                    style: {
+                        width: 54,
+                        marginLeft: 600 * i + 54 * n
+                    }
+                });
+            }
+        }
+        this.timelineYear = this.timelineYear.concat(timelineYearMin);
+
+        GCMediator.subscribe(function () {
+            const change = GCMediator.getLastChange();
+            if (change) {
+                switch (change.type) {
+                    case 'createItem':
+                        this.createItem(change.data);
+                        break;
+                    case 'removeItem':
+                    debugger 
+                        this.removeItem(change.data);
+                        break;
+                    case 'editItem':
+                        this.editItem(change);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }.bind(this));
+    }
+
+    public getChartData() {
+        let ganttBars = [];
+        let type: string;
+        let text: string;
         let projectCount: number = 1;
         let taskCount: number = 1;
         let milestoneCount: number = 1;
-        let duration = 40;
-        let topMargin: number = 0;
-        let leftMargin: number = 0;
-        let link: Object = null;
+        let duration: number;
+        let topMargin: number;
+        let leftMargin: number;
+        let link: Object;
         for (let i = 0; i < this.amountOfElements; i++) {
             leftMargin = 40 * (i - projectCount + 1);
             if (i % 10 === 0) {
@@ -71,7 +182,7 @@ export class ChartData {
                 text = `Project ${projectCount}`;
                 duration = 360;
                 if (i !== 0) {
-                    ChartData.ganttBars[i - 1].link = null;
+                    ganttBars[i - 1].link = null;
                 }
                 projectCount++;
             } else if (i % 4 === 0) {
@@ -92,7 +203,7 @@ export class ChartData {
                 type: 'finishToStart'
             };
             topMargin = 24 * i;
-            ChartData.ganttBars.push({
+            ganttBars.push({
                 id: `bar${i}`,
                 order: undefined,
                 collapsed: undefined,
@@ -114,141 +225,102 @@ export class ChartData {
             });
 
             if (taskCount % 3 === 0 && taskCount < 100) {
-                if (ChartData.ganttBars[i].type === 'task') {
-                    ChartData.ganttBars[i].timelineDisplay = true;
-                } else if (ChartData.ganttBars[i].type === 'milestone') {
-                    ChartData.ganttBars[i].timelineDisplay = true;
+                if (ganttBars[i].type === 'task') {
+                    ganttBars[i].timelineDisplay = true;
+                } else if (ganttBars[i].type === 'milestone') {
+                    ganttBars[i].timelineDisplay = true;
                 }
             }
-        }//gantt bar config
+        }
+        return ganttBars;
+    }
 
-        for (let i = 0; i <= 10; i++) {
-            //ChartData.timelineWeek.push({
-            //    id: `timelineWeek${i}`,
-            //    text: `Week${i}`,
-            //    style: {
-            //        top: 0,
-            //        width: 508,
-            //        marginLeft: 508 * i
-            //    }
-            //});
-
-            for (let n = 0; n < this.weekData.length; n++) {
-                ChartData.timelineWeekMin.push({
-                    id: `timelineWeekM${n}${i}`,
-                    text: this.weekData[n],
-                    style: {
-                        top: 20,
-                        width: 72,
-                        marginLeft: 508 * i + 72 * n
-                    }
-                });
+    public editItem(change) {
+        const newState = GCMediator.getState();
+        const data = change.data;
+        const newData = data;
+        let undoData = {};
+        const taskId = newState.selectedTasks[0].id;
+        newState.items.find((item: any) => {
+            if (item.id === taskId) {
+                for (let prop in newData) {
+                    undoData[prop] = item[prop];
+                    item[prop] = newData[prop];
+                }
+                return true;
             }
-            for (let n = 0; n < this.weekData.length; n++) {
-                ChartData.timelineWeekMax.push({
-                    id: `timelineWeekM${n}${i}`,
-                    text: `${this.weekData[n]}'W${i+1}`,
-                    style: {
-                        width: 87,
-                        marginLeft: 609 * i + 87 * n
-                    }
-                });
-            }
-        }//timelineWeek
-        ChartData.timelineWeek = ChartData.timelineWeek.concat(ChartData.timelineWeekMax);
-        for (let i = 0; i <= 11; i++) {
-            //ChartData.timelineMonth.push({
-            //    id: `timelineMonth${i}`,
-            //    text: this.monthData[i],
-            //    style: {
-            //        top: 0,
-            //        width: 594,
-            //        marginLeft: 594 * i
-            //    }
-            //});
+        });
+        GCMediator.dispatch({
+            type: 'completeItemEditing',
+            selectedTask: taskId,
+            data: data,
+            isHistoryNeed: change.isHistoryNeed,
+            undoType: 'editItem',
+            undoData: undoData
+        });
+    }
 
-            for (let n = 0; n <= 10; n++) {
-                ChartData.timelineMonthMin.push({
-                    id: `timelineMonthM${this.monthData[i] + n}`,
-                    text: `${n * 3}`,
-                    style: {
-                        top: 20,
-                        width: 54,
-                        marginLeft: 594 * i + 54 * n
-                    }
-                });
+    public removeItem() {
+        const newState = GCMediator.getState();
+        const items = newState.items;
+        let elementIndex: number;
+        items.find((item: any) => {
+            if (item.id === newState.selectedTasks[0].id) {
+                elementIndex = items.indexOf(item);
+                const taskDuration = item.duration;
+                items.splice(elementIndex, 1);
+                for (let i = elementIndex; i < items.length; i++) {
+                    items[i].position = 24 * i;
+                    items[i].startDate -= taskDuration;
+                }
+                return true;
             }
-            for (let n = 0; n <= 10; n++) {
-                ChartData.timelineMonthMax.push({
-                    id: `timelineMonthM${this.monthData[i] + n}`,
-                    text: `${n * 3}'${this.monthData[i]}'16`,
-                    style: {
-                        width: 85,
-                        marginLeft: 935 * i + 85 * n
-                    }
-                });
+        });
+        GCMediator.dispatch({
+            type: 'completeItemRemoving',
+            data: {
+                item: elementIndex
             }
-        }//timelineMonth
-        ChartData.timelineMonth = ChartData.timelineMonth.concat(ChartData.timelineMonthMax);
-        for (let i = 0; i < 6; i++) {
-            //ChartData.timelineDay.push({
-            //    id: `timelineDay${i}`,
-            //    text: this.weekData[i],
-            //    style: {
-            //        top: 0,
-            //        width: 480,
-            //        marginLeft: 480 * i
-            //    }
-            //});
+        });
+    }
 
-            for (let n = 0; n < 8; n++) {
-                ChartData.timelineDayMin.push({
-                    id: `timelineDay${n}${i}`,
-                    text: `H${n * 3}`,
-                    style: {
-                        top: 20,
-                        width: 60,
-                        marginLeft: 480 * i + 60 * n
-                    }
-                });
+    public createItem() {
+        const newState = GCMediator.getState();
+        const items = newState.items;
+        let selectedTaskPosition: number;
+        let selectedTaskStartDate: number;
+        let prevElIndex: number;
+
+        if (newState.selectedTasks) {
+            const prevElement = items.find((element, index) => {
+                if (element.id === newState.selectedTasks[0].id) {
+                    prevElIndex = index;
+                    return true;
+                }
+            });
+            selectedTaskPosition = prevElement.position + 24;
+            selectedTaskStartDate = prevElement.startDate + prevElement.duration;
+            items.splice(prevElIndex + 1, 0, {
+                id: `bar${items.length + 1}`,
+                barClass: '',
+                progress: 25,
+                duration: 40,
+                name: `Task ${items.length + 1}`,
+                description: `Description for ${items.length + 1}`,
+                startDate: selectedTaskStartDate,
+                type: 'task',
+                position: selectedTaskPosition,
+                link: null
+            });
+            for (let i = prevElIndex + 2; i < items.length; i++) {
+                items[i].position = 24 * i;
             }
-
-            for (let n = 0; n < 8; n++) {
-                ChartData.timelineDayMax.push({
-                    id: `timelineDay${n}${i}`,
-                    text: `H${n * 3}'${this.weekData[i]}`,
-                    style: {
-                        width: 80,
-                        marginLeft: 640 * i + 80 * n
-                    }
-                });
-            }
-        }//timelineDay
-
-        ChartData.timelineDay = ChartData.timelineDay.concat(ChartData.timelineDayMax);
-        for (let i = 0; i <= 8; i++) {
-            //ChartData.timelineYear.push({
-            //    id: `timelineYear${i}`,
-            //    text: this.yearData[i],
-            //    style: {
-            //        top: 0,
-            //        width: 648,
-            //        marginLeft: 648 * i
-            //    }
-            //});
-
-            for (let n = 0; n <= 11; n++) {
-                ChartData.timelineYearMin.push({
-                    id: `timelineYearM${n}${i}`,
-                    text: this.monthData[n],
-                    style: {
-                        width: 54,
-                        marginLeft: 600 * i + 54 * n
-                    }
-                });
-            }
-        }//timelineYear
-
-        ChartData.timelineYear = ChartData.timelineYear.concat(ChartData.timelineYearMin);
+        } else {
+            selectedTaskPosition = 24 * items.length;
+            selectedTaskStartDate = 50 * items.length;
+        }
+        GCMediator.dispatch({
+            type: 'completeItemCreating'
+        });
     }
 }

@@ -23,7 +23,7 @@ export class TaskLineView extends React.Component<any, any> {
             if (change) {
                 switch (change.type) {
                     case 'removeTask':
-                    case 'editTask':
+                    case 'completeItemEditing':
                         this.updateElements(change.data)
                         break;
                     default:

@@ -29,25 +29,12 @@ export class ChartView extends React.Component<any, any> {
             gridCapacity: gridCapacity,
             batchSize: 30,
             startPosition: 0,
-            endPosition: gridCapacity + 30,
-            isCtrlPressed: false
+            endPosition: gridCapacity + 30
         };
-        document.onkeydown = function (event: MouseEvent) {
-            if (event.ctrlKey) {
-                this.setState({
-                    isCtrlPressed: true
-                });
-            }
-        }.bind(this);
-        document.onkeyup = function () {
-            this.setState({
-                isCtrlPressed: false
-            });
-        }.bind(this);
         document.onwheel = function (event: any) {
             event.preventDefault();
             event.stopPropagation();
-            if (this.state.isCtrlPressed) {
+            if (event.ctrlKey) {
                 this.updateTimeline();
             } else {
                 const currentScroll = GCMediator.getState().scrollPosition;
@@ -65,9 +52,11 @@ export class ChartView extends React.Component<any, any> {
             const change = GCMediator.getLastChange();
             if (change) {
                 switch (change.type) {
-                    case 'removeTask':
-                    case 'createTask':
-                    case 'editTask':
+                    case 'completeItemCreating':
+                    case 'completeItemRemoving':
+                        this.rebuildElements();
+                        break;
+                    case 'completeItemEditing':
                         this.updateElements(change.data);
                         break;
                     case 'scrollGrid':
@@ -253,14 +242,6 @@ export class ChartView extends React.Component<any, any> {
         const currentState = GCMediator.getState();
         const selectedElementId = newData.selectedTask || currentState.selectedTasks[0].id;
         const selectedElementType = currentState.selectedTasks[0].type;
-        const selectedElement = currentState.items.find((item: any) => {
-            if (item.id === selectedElementId) {
-                for (let prop in newData) {
-                    item[prop] = newData[prop]
-                }
-                return true
-            }
-        });
         const elements = this.state.displayingElements;
 
         if (selectedElementId) {
@@ -335,7 +316,17 @@ export class ChartView extends React.Component<any, any> {
                 React.createElement('svg', {
                     className: 'ganttChartView',
                     id: 'ganttChartView'
-                },
+                }, React.createElement('filter', {
+                        id: 'blur-filter',
+                    x: -2,
+                    y: -2,
+                    width: '200%',
+                    height: '200%'
+                    },
+                        React.createElement('feGaussianBlur', {
+                            in: 'SourceGraphic',
+                        stdDeviation: '2'
+                    })),
                     React.createElement('defs', {
                     },
                         React.createElement('filter', {

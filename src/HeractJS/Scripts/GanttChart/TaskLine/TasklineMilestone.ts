@@ -135,7 +135,7 @@ export class TasklineMilestone extends React.Component<any, any> {
             this.startBarRelocation(event, eventTarget);
             document.onmouseup = () => {
                 GCMediator.dispatch({
-                    type: 'editTask',
+                    type: 'editItem',
                     data: {
                         duration: Math.round(eventTarget.getAttribute('width') / GCMediator.getState().tasklineCellCapacity),
                         startDate: Math.round(parseInt(eventTarget.getAttribute('x')) / GCMediator.getState().tasklineCellCapacity)

@@ -129,7 +129,7 @@
     height: 26px;
     position: relative;
     background-color: #299cb4;
-    box-shadow: 0 0 4px rgb(0, 0, 0);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     z-index: 110;
 }
 
@@ -138,7 +138,7 @@
     height: 150px;
     position: relative;
     background-color: white;
-    box-shadow: 0 0 4px rgb(0, 0, 0);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     z-index: 100;
 }
 
@@ -160,7 +160,7 @@
     height: 27px;
     flex: none;
     z-index: 120;
-    box-shadow: 0 0 4px rgb(0, 0, 0);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
 }
 
     .timelineContainer::-webkit-scrollbar, .js-module-gantt-taskline::-webkit-scrollbar {
@@ -180,7 +180,7 @@
     width: 200px;
     height: 150px;
     background-color: white;
-    box-shadow: 0 0 4px rgb(0,0,0);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     z-index: 210;
     display: none;
     pointer-events: none;
@@ -220,7 +220,7 @@
     width: 200px;
     height: 150px;
     background-color: white;
-    box-shadow: 0 0 4px rgb(0,0,0);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     z-index: 210;
     display: none;
 }
@@ -251,14 +251,14 @@
 /*modalWindow*/
 
 .modalWindowTitle {
-    box-shadow: 0 0 3px rgb(0,0,0);
+    box-shadow:  0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     flex: none;
     height: 22px;
     z-index: 3;
 }
 
 .modalWindowBody {
-    box-shadow: 0 0 4px rgb(0,0,0);
+    box-shadow:  0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     flex: 1;
     z-index: 2;
 }
@@ -290,7 +290,7 @@
     width: 400px;
     height: 400px;
     background-color: white;
-    box-shadow: 0 0 4px rgb(0,0,0);
+    box-shadow:  0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     z-index: 20;
     display: block;
     position: relative;
@@ -378,7 +378,7 @@
     width: 200px;
     height: 115px;
     background-color: white;
-    box-shadow: 0 0 4px rgb(0,0,0);
+    box-shadow:  0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     z-index: -1;
     opacity: 0;
     transition: all .2s;
@@ -446,7 +446,7 @@
     z-index: 105;
     position: relative;
     background-color: white;
-    box-shadow: 0 0 4px rgb(0, 0, 0);
+    box-shadow:  0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     height: 166px;
     opacity: 0;
     transition: height .2s,opacity .2s;
@@ -460,7 +460,7 @@
 .js-module-region-right {
     opacity: 0;
     transition: width .2s,opacity .2s;
-    box-shadow: 0 0 4px rgb(0, 0, 0);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
 }
 
 .js-module-region-left {

@@ -57,7 +57,7 @@ export class ActionChartPopup extends React.Component<any, any> {
 
     private addToTaskline() {
         GCMediator.dispatch({
-            type: 'editTask',
+            type: 'editItem',
             data: {
                 timelineDisplay: true
             }
@@ -67,7 +67,7 @@ export class ActionChartPopup extends React.Component<any, any> {
 
     private removeFromTaskline() {
         GCMediator.dispatch({
-            type: 'editTask',
+            type: 'editItem',
             data: {
                 timelineDisplay: false
             }

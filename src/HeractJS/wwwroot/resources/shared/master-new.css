@@ -48,13 +48,11 @@
     overflow: hidden;
     overflow-x: auto;
     position: relative;
-
     display: flex;
     flex-direction: column;
     align-content: stretch;
     align-items: stretch;
     justify-content: flex-start;
-    box-shadow: 0 0 4px rgb(0,0,0);
 }
 .content-region-right {
     height: 100%;

@@ -1,5 +1,4 @@
 ﻿import { createStore } from 'redux'
-import {ChartData} from './ChartData';
 
 export class AppMediator {
     private static subscribers: Object;
@@ -20,84 +19,78 @@ export class AppMediator {
         let isHistoryNeed = false;
         let undoData: any;
         switch (action.type) {
+            case 'initChartViewData':
+                const data = action.data;
+                const initialState = {
+                    items: data.items,
+                    timeLine: data.timelineWeek,
+
+                    timelineTimeItems: data.timelineTimeItems,
+                    timelineTasks: data.timelineTasks,
+                    timelineMilestones: data.timelineMilestones,
+                    timelineCallouts: data.timelineCallouts,
+                    tasklineCellCapacity: data.tasklineCellCapacity,
+
+                    isDragging: false,
+                    isLinking: false,
+                    isCurrentlySizing: false,
+                    isLineDrawStarted: false,
+
+                    timelineStep: 0,
+                    scrollPosition: 0,
+
+                    columnWidth: data.tasklineCellCapacity,
+                    cellCapacity: data.tasklineCellCapacity,
+
+                    dropTarget: null as any,
+                    draggingElement: null as any,
+                    selectedTasks: [] as any,
+                    lastTaskChange: [] as any,
+                    undoHistory: [] as any,
+                    redoHistory: [] as any,
+                    eventsHistory: [] as any,
+
+                    isCallbackNeed: false
+                };
+                AppMediator.timelineWeek = data.timelineWeek;
+                AppMediator.timelineMonth = data.timelineMonth;
+                AppMediator.timelineDay = data.timelineDay;
+                AppMediator.timelineYear = data.timelineYear;
+                newState = initialState;
+                break;
             case 'reset':
                 items = action.data;
+                break;
+            case 'createItem':
+                action.data = 'createItem';
+                isHistoryNeed = true;
+            case 'removeItem':
+                action.data = 'createItem';
+                isHistoryNeed = true;
                 break;
             case 'updateTimeline':
                 action.data = 'updateTimeline'
                 isHistoryNeed = true;
                 break;
-            case 'createTask':
-                action.data = 'item';
-                let selectedTaskPosition = 0;
-                let selectedTaskStartDate = 0;
-                if (newState.selectedTasks) {
-                    let prevElIndex = 0;
-                    const prevElement = items.find((element, index) => {
-                        if (element.id === newState.selectedTasks[0].id) {
-                            prevElIndex = index;
-                            return true;
-                        }
-                    })
-                    selectedTaskPosition = prevElement.position + 24
-                    selectedTaskStartDate = prevElement.startDate + prevElement.duration
-                    items.splice(prevElIndex + 1, 0, {
-                        id: `bar${items.length + 1}`,
-                        barClass: '',
-                        progress: 25,
-                        duration: 40,
-                        name: `Task ${items.length + 1}`,
-                        description: `Description for ${items.length + 1}`,
-                        startDate: selectedTaskStartDate,
-                        type: 'task',
-                        position: selectedTaskPosition,
-                        link: null
-                    });
-                    for (let i = prevElIndex + 2; i < items.length; i++) {
-                        items[i].position = 24 * i
-                    }
-
-                } else {
-                    selectedTaskPosition = 24 * items.length
-                    selectedTaskStartDate = 50 * items.length
-                }
+            case 'completeItemCreating':
+                action.data = 'completeItemCreating';
                 isHistoryNeed = true;
                 break;
-            case 'removeTask':
-                items.find((item: any) => {
-                    if (item.id === newState.selectedTasks[0].id) {
-                        const elementIndex = items.indexOf(item);
-                        const taskDuration = item.duration;
-                        action.data = elementIndex;
-                        items.splice(elementIndex, 1);
-                        for (let i = elementIndex; i < items.length; i++) {
-                            items[i].position = 24 * i
-                            items[i].startDate -= taskDuration
-                        }
-                        return true
-                    }
-                });
+            case 'completeItemRemoving':
+                action.data = 'completeItemRemoving';
                 isHistoryNeed = true;
                 break;
-            case 'editTask':
+            case 'completeItemEditing':
                 const newData = action.data;
-                undoData = {};
-                const taskId = action.selectedTask || newState.selectedTasks[0].id;
-                action.data.selectedTask = action.selectedTask;
-                items.find((item: any) => {
-                    if (item.id === taskId) {
-                        for (let prop in newData) {
-                            undoData[prop] = item[prop];
-                            item[prop] = newData[prop]
-                        }
-                        return true
-                    }
-                });
+                undoData = action.undoData;
                 newState.lastTaskChange = {
-                    type: 'editTask',
-                    selectedTask: taskId,
-                    data: action.data
+                    type: 'editItem',
+                    selectedTask: action.selectedTask,
+                    data: newData
                 }
+                action.isHistoryNeed === false ? isHistoryNeed = false : isHistoryNeed = true;
+                break;
+            case 'editItem':
                 isHistoryNeed = true;
                 break;
             case 'indent':
@@ -121,10 +114,6 @@ export class AppMediator {
                 break;
             case 'stopPanning':
                 newState.isPanning = false;
-                break;
-            case 'updateTimelineStep':
-                newState.timelineStep = action.data;
-                isHistoryNeed = true;
                 break;
             case 'setDropTarget':
                 newState.dropTarget = action.data;
@@ -246,9 +235,9 @@ export class AppMediator {
                 data: action.data
             });
         }
-        if (undoData && action.isHistoryNeed !== false) {
+        if (undoData && action.isHistoryNeed !== false && newState.eventsHistory[1]!=='undo') {
             newState.undoHistory.push({
-                type: action.type,
+                type: action.undoType,
                 selectedTask: action.selectedTask || newState.selectedTasks[0].id,
                 data: undoData
             });
@@ -257,7 +246,7 @@ export class AppMediator {
             }
         } else if (undoData && action.isRedoNeed !== false) {
             newState.redoHistory.push({
-                type: action.type,
+                type: action.undoType,
                 selectedTask: action.selectedTask,
                 data: undoData
             });
@@ -267,16 +256,15 @@ export class AppMediator {
     }
 
     constructor() {
-        new ChartData();
         const initialState = {
-            items: ChartData.ganttBars,
-            timeLine: ChartData.timelineWeek,
+            items: Array,
+            timeLine: Array,
 
-            timelineTimeItems: ChartData.timelineMonthMax,
-            timelineTasks: ChartData.timelineTasks,
-            timelineMilestones: ChartData.timelineMilestones,
-            timelineCallouts: ChartData.timelineCallouts,
-            tasklineCellCapacity: 85 / 72,
+            timelineTimeItems: Array,
+            timelineTasks: Array,
+            timelineMilestones: Array,
+            timelineCallouts: Array,
+            tasklineCellCapacity: Number,
 
             isDragging: false,
             isLinking: false,
@@ -286,8 +274,8 @@ export class AppMediator {
             timelineStep: 0,
             scrollPosition: 0,
 
-            columnWidth: 72,
-            cellCapacity: 72 / 24,
+            columnWidth: Number,
+            cellCapacity: Number,
 
             dropTarget: null as any,
             draggingElement: null as any,
@@ -299,11 +287,6 @@ export class AppMediator {
 
             isCallbackNeed: false
         };
-        AppMediator.timelineWeek = ChartData.timelineWeek;
-        AppMediator.timelineMonth = ChartData.timelineMonth;
-        AppMediator.timelineDay = ChartData.timelineDay;
-        AppMediator.timelineYear = ChartData.timelineYear;
-        AppMediator.subscribers = {};
         AppMediator.store = createStore(this.reduser, initialState);
     }
 
@@ -312,10 +295,6 @@ export class AppMediator {
             this.instance = new AppMediator();
         }
         return this.instance;
-    }
-
-    public unsubscribe(subscriber) {
-        delete AppMediator.subscribers[subscriber];
     }
 
     public getState() {
@@ -337,6 +316,10 @@ export class AppMediator {
 
     public subscribe(callback: Function) {
         AppMediator.store.subscribe(callback);
+    }
+
+    public unsubscribe(subscriber: any) {
+        delete AppMediator.subscribers[subscriber];
     }
 
     public undo() {
