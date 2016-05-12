@@ -61,25 +61,6 @@ export class AppMediator {
             case 'reset':
                 items = action.data;
                 break;
-            case 'createItem':
-                action.data = 'createItem';
-                isHistoryNeed = true;
-            case 'removeItem':
-                action.data = 'createItem';
-                isHistoryNeed = true;
-                break;
-            case 'updateTimeline':
-                action.data = 'updateTimeline'
-                isHistoryNeed = true;
-                break;
-            case 'completeItemCreating':
-                action.data = 'completeItemCreating';
-                isHistoryNeed = true;
-                break;
-            case 'completeItemRemoving':
-                action.data = 'completeItemRemoving';
-                isHistoryNeed = true;
-                break;
             case 'completeItemEditing':
                 const newData = action.data;
                 undoData = action.undoData;
@@ -89,17 +70,6 @@ export class AppMediator {
                     data: newData
                 }
                 action.isHistoryNeed === false ? isHistoryNeed = false : isHistoryNeed = true;
-                break;
-            case 'editItem':
-                isHistoryNeed = true;
-                break;
-            case 'indent':
-                //newState.ganttChartView.indentTask(action.data);
-                isHistoryNeed = true;
-                break;
-            case 'outindent':
-                // newState.ganttChartView.outindentTask(action.data);
-                isHistoryNeed = true;
                 break;
             case 'autoSchedule':
                 break;
@@ -196,40 +166,30 @@ export class AppMediator {
                 isHistoryNeed = true;
                 newState.scrollPosition = action.data;
                 break;
+            case 'editItem':
+            case 'indent':
+            case 'outindent':
+            case 'createItem':
+            case 'removeItem':
+            case 'updateTimeline':
+            case 'completeItemCreating':
+            case 'completeItemRemoving':
             case 'taskUpdated':
-                isHistoryNeed = true;
-                break;
             case 'showInfoPopup':
-                isHistoryNeed = true;
-                break;
             case 'showActionChartPopup':
-                isHistoryNeed = true;
-                break;
             case 'hideActionChartPopup':
-                isHistoryNeed = true;
-                action.data = true;
             case 'showActionTimelinePopup':
-                isHistoryNeed = true;
-                break;
             case 'hideModalWindow':
-                isHistoryNeed = true;
-                action.data = true;
             case 'showModalWindow':
-                isHistoryNeed = true;
-                break;
             case 'hideActionTimelinePopup':
-                isHistoryNeed = true;
-                action.data = true;
-                break;
             case 'hideAllPopups':
                 isHistoryNeed = true;
-                action.data = true;
                 break;
             default:
                 return state;
         }
 
-        if (isHistoryNeed && action.data !== undefined) {
+        if (isHistoryNeed) {
             newState.eventsHistory.push({
                 type: action.type,
                 data: action.data

@@ -13,32 +13,28 @@ import {Timeline}  from './Timeline'
 import {GanttToolbar}  from './Toolbar'
 import {AppMediator} from '../../scripts/services/ApplicationMediator'
 
-let GCMediator: any = AppMediator.getInstance();
+const GCMediator: any = AppMediator.getInstance();
 
 export class ChartView extends React.Component<any, any> {
 
     constructor() {
         super();
-        const gridCapacity = Math.round(document.documentElement.clientHeight / 24);
         this.state = {
             timeLine: GCMediator.getState().timeLine,
             columnWidth: GCMediator.getState().columnWidth,
             elementHeight: 24,
             displayingElements: [],
             displayingLinks: [],
-            gridCapacity: gridCapacity,
             batchSize: 30,
             startPosition: 0,
-            endPosition: gridCapacity + 30
+            endPosition: Math.round(document.documentElement.clientHeight / 24) + 30
         };
         document.onwheel = function (event: any) {
-            event.preventDefault();
-            event.stopPropagation();
             if (event.ctrlKey) {
                 this.updateTimeline();
             } else {
-                const currentScroll = GCMediator.getState().scrollPosition;
-                let scrollPosition = Math.round(event.deltaY / 22) + currentScroll;
+                const currentScroll: number = GCMediator.getState().scrollPosition;
+                let scrollPosition: number = Math.round(event.deltaY / 24) + currentScroll;
                 if (scrollPosition <= 0 && currentScroll !== 0) {
                     scrollPosition = 0;
                 }
@@ -47,9 +43,11 @@ export class ChartView extends React.Component<any, any> {
                     this.buildElements(scrollPosition);
                 }
             }
+            event.preventDefault();
+            event.stopPropagation();
         }.bind(this);
         GCMediator.subscribe(function () {
-            const change = GCMediator.getLastChange();
+            const change: any = GCMediator.getLastChange();
             if (change) {
                 switch (change.type) {
                     case 'completeItemCreating':
@@ -77,16 +75,15 @@ export class ChartView extends React.Component<any, any> {
 
     private componentDidMount() {
         this.rebuildElements();
-
         document.getElementById('ganttChart').onmousedown = (event: MouseEvent) => {
             const eventTarget = event.target as any;
 
             if (eventTarget.classList[0] === 'barSelectBody' && eventTarget.tagName !== 'BUTTON') {
                 const view: any = document.getElementById('ganttChart');
                 const timeline: any = document.getElementById('timelineContainer');
-                const startScroll = view.scrollLeft;
-                const startPoint = event.pageX;
-                const currentState = GCMediator.getState();
+                const startScroll: number = view.scrollLeft;
+                const startPoint: number = event.pageX;
+                const currentState: any = GCMediator.getState();
                 document.onmousemove = (event: MouseEvent) => {
                     if (!currentState.isPanning) {
                         GCMediator.dispatch({ type: 'startPanning' });
@@ -125,7 +122,24 @@ export class ChartView extends React.Component<any, any> {
 
     private scrollChart(position: number) {
         const view: any = document.getElementById('ganttChart');
-        view.scrollTop = 24 * position;
+
+        let difference = 24 * position - view.scrollTop;
+        let perTick = difference / 30;
+        if (this.state.interval) {
+            clearInterval(this.state.interval);
+            this.state.interval = null;
+        }
+        let interval = setInterval(() => {
+            view.scrollTop = view.scrollTop + perTick;
+            if ((view.scrollTop >= 24 * position && perTick > 0) || (view.scrollTop <= 24 * position && perTick < 0)) {
+                view.scrollTop = 24 * position;
+                clearInterval(this.state.interval);
+                this.state.interval = null;
+            }
+        }, 2)
+        this.setState({
+            interval: interval
+        })
     }
 
     private updateTimeline() {
@@ -162,12 +176,12 @@ export class ChartView extends React.Component<any, any> {
 
     private buildElements(scrollPosition: number) {
         const state = this.state;
-        let startPos = state.startPosition;
-        let endPos = state.endPosition;
-        const batchSize = state.batchSize;
+        let startPos: number = state.startPosition;
+        let endPos: number = state.endPosition;
+        const batchSize: number = state.batchSize;
         let elements;
         if (endPos - scrollPosition < 31 + batchSize || (startPos - scrollPosition < batchSize && startPos !== 0)) {
-            const newStartPos = scrollPosition - batchSize;
+            const newStartPos: number = scrollPosition - batchSize;
             startPos = newStartPos > 0 ? newStartPos : 0;
             endPos = scrollPosition + 31 + batchSize;
             elements = GCMediator.getState().items.slice(startPos, endPos);
@@ -241,7 +255,6 @@ export class ChartView extends React.Component<any, any> {
     private updateElements(newData) {
         const currentState = GCMediator.getState();
         const selectedElementId = newData.selectedTask || currentState.selectedTasks[0].id;
-        const selectedElementType = currentState.selectedTasks[0].type;
         const elements = this.state.displayingElements;
 
         if (selectedElementId) {
@@ -264,13 +277,13 @@ export class ChartView extends React.Component<any, any> {
     }
 
     public render() {
-        const bars = this.state.displayingElements.map((ganttBar: any) => {
+        const bars: Array<TaskBar> = this.state.displayingElements.map((ganttBar: any) => {
             return React.createElement(TaskBar, {
                 key: ganttBar.id,
                 data: ganttBar
             });
         });
-        const links = this.state.displayingLinks.map((link: any) => {
+        const links: Array<TaskLink> = this.state.displayingLinks.map((link: any) => {
             if (link) {
                 return React.createElement(TaskLink, {
                     ref: link.id,
@@ -279,7 +292,7 @@ export class ChartView extends React.Component<any, any> {
                 });
             }
         });
-        const timeline = this.state.timeLine.map((timeLineItem: any) => {
+        const timeline: Array<Timeline> = this.state.timeLine.map((timeLineItem: any) => {
             return React.createElement(Timeline, {
                 key: timeLineItem.id,
                 data: timeLineItem
@@ -317,14 +330,14 @@ export class ChartView extends React.Component<any, any> {
                     className: 'ganttChartView',
                     id: 'ganttChartView'
                 }, React.createElement('filter', {
-                        id: 'blur-filter',
+                    id: 'blur-filter',
                     x: -2,
                     y: -2,
                     width: '200%',
                     height: '200%'
-                    },
-                        React.createElement('feGaussianBlur', {
-                            in: 'SourceGraphic',
+                },
+                    React.createElement('feGaussianBlur', {
+                        in: 'SourceGraphic',
                         stdDeviation: '2'
                     })),
                     React.createElement('defs', {
