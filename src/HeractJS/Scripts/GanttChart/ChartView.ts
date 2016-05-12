@@ -75,45 +75,16 @@ export class ChartView extends React.Component<any, any> {
 
     private componentDidMount() {
         this.rebuildElements();
-        document.getElementById('ganttChart').onmousedown = (event: MouseEvent) => {
-            const eventTarget = event.target as any;
-
-            if (eventTarget.classList[0] === 'barSelectBody' && eventTarget.tagName !== 'BUTTON') {
-                const view: any = document.getElementById('ganttChart');
-                const timeline: any = document.getElementById('timelineContainer');
-                const startScroll: number = view.scrollLeft;
-                const startPoint: number = event.pageX;
-                const currentState: any = GCMediator.getState();
-                document.onmousemove = (event: MouseEvent) => {
-                    if (!currentState.isPanning) {
-                        GCMediator.dispatch({ type: 'startPanning' });
-                        document.body.style.webkitUserSelect = 'none';
-                    }
-                    view.scrollLeft = startPoint - event.pageX + startScroll;
-                    timeline.scrollLeft = startPoint - event.pageX + startScroll;
-                };
-                document.onmouseup = () => {
-                    GCMediator.dispatch({ type: 'stopPanning' });
-                    document.body.style.webkitUserSelect = 'inherit';
-                    document.onmousemove = null;
-                    document.onmouseup = null;
-                };
-            }
-        };
-
         document.onclick = (event: MouseEvent) => {
             const eventTarget = event.target as any;
             if (eventTarget.tagName !== 'BUTTON') {
                 GCMediator.dispatch({ type: 'hideAllPopups' });
-                GanttToolbar.hideViewModeDropdown();
             }
         }
     }
 
     private shouldComponentUpdate(nextProps: any, nextState: any) {
-        if (this.state.displayingElements !== nextState.displayingElements ||
-            this.state.timeLine !== nextState.timeLine ||
-            this.state.displayingLinks !== nextState.displayingLinks) {
+        if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
             return true;
         } else {
             return false;
@@ -252,6 +223,32 @@ export class ChartView extends React.Component<any, any> {
             }.bind(this))
     }
 
+    private startPanning(event: MouseEvent) {
+        const eventTarget = event.target as any;
+
+        if (eventTarget.classList[0] === 'barSelectBody' && eventTarget.tagName !== 'BUTTON') {
+            const view: any = document.getElementById('ganttChart');
+            const timeline: any = document.getElementById('timelineContainer');
+            const startScroll: number = view.scrollLeft;
+            const startPoint: number = event.pageX;
+            const currentState: any = GCMediator.getState();
+            document.onmousemove = (event: MouseEvent) => {
+                if (!currentState.isPanning) {
+                    GCMediator.dispatch({ type: 'startPanning' });
+                    document.body.style.webkitUserSelect = 'none';
+                }
+                view.scrollLeft = startPoint - event.pageX + startScroll;
+                timeline.scrollLeft = startPoint - event.pageX + startScroll;
+            };
+            document.onmouseup = () => {
+                GCMediator.dispatch({ type: 'stopPanning' });
+                document.body.style.webkitUserSelect = 'inherit';
+                document.onmousemove = null;
+                document.onmouseup = null;
+            };
+        }
+    }
+
     private updateElements(newData) {
         const currentState = GCMediator.getState();
         const selectedElementId = newData.selectedTask || currentState.selectedTasks[0].id;
@@ -312,7 +309,8 @@ export class ChartView extends React.Component<any, any> {
                 }, timeline)),
             React.createElement('div', {
                 id: 'ganttChart',
-                className: 'ganttChart'
+                className: 'ganttChart',
+                onMouseDown: this.startPanning.bind(this)
             },
                 React.createElement(InfoPopup, {
                     ref: 'infoPopup'

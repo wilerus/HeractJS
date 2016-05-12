@@ -3,7 +3,7 @@ import {AppMediator} from '../../scripts/services/ApplicationMediator'
 
 let GCMediator: any = AppMediator.getInstance();
 let br = React.createFactory('br');
-
+let button = React.createFactory('button');
 export class GanttToolbar extends React.Component<any, any> {
 
     constructor() {
@@ -13,7 +13,16 @@ export class GanttToolbar extends React.Component<any, any> {
             grid: document.getElementsByClassName('js-module-region-left')[0] as any,
             chart: document.getElementsByClassName('js-module-region-right')[0] as any,
             timeline: document.getElementsByClassName('js-module-gantt-taskline')[0] as any,
-            wrapper: document.getElementsByClassName('content-wrapper')[0] as any
+            wrapper: document.getElementsByClassName('content-wrapper')[0] as any,
+            removeTaskButton: null,
+            moveToTaskButton: null,
+            addLinkButton: null,
+            completeTaskButton: null,
+            reopenTaskButton: null,
+            removeLinkButton: null,
+            redoButton: null,
+            undoButton: null,
+            createTaskButton: null
         };
         GCMediator.subscribe(function () {
             const change = GCMediator.getLastChange();
@@ -29,6 +38,9 @@ export class GanttToolbar extends React.Component<any, any> {
                     case 'deselectAllTasks':
                         this.hideTaskActions();
                         break;
+                    case 'hideAllPopups':
+                        this.hideViewModeDropdown();
+                        break;
                     default:
                         break;
                 }
@@ -40,98 +52,124 @@ export class GanttToolbar extends React.Component<any, any> {
         this.hideTaskActions();
         this.setState({
             chartCheckbox: document.getElementById('chartCheckbox'),
-            gridCheckbox: document.getElementById('gridCheckbox')
+            gridCheckbox: document.getElementById('gridCheckbox'),
+            removeTaskButton: document.getElementById('removeTaskButton'),
+            moveToTaskButton: document.getElementById('moveToTaskButton'),
+            addLinkButton: document.getElementById('addLinkButton'),
+            completeTaskButton: document.getElementById('completeTaskButton'),
+            reopenTaskButton: document.getElementById('reopenTaskButton'),
+            removeLinkButton: document.getElementById('removeLinkButton'),
+            redoButton: document.getElementById('redoButton'),
+            undoButton: document.getElementById('undoButton'),
+            createTaskButton: document.getElementById('createTaskButton'),
+            viewModeSelector: document.getElementById('viewModeSelector')
         })
     }
 
     private hideTaskActions() {
-        document.getElementById('removeTaskButton').style.display = 'none';
-        document.getElementById('moveToTaskButton').style.display = 'none';
-        document.getElementById('addLinkButton').style.display = 'none';
-        document.getElementById('completeTaskButton').style.display = 'none';
-        document.getElementById('reopenTaskButton').style.display = 'none';
-        document.getElementById('removeLinkButton').style.display = 'none';
-        document.getElementById('redoButton').style.display = 'none';
-        document.getElementById('undoButton').style.display = 'none';
-        document.getElementById('createTaskButton').style.display = 'none';
+        this.state.removeTaskButton.style.display = 'none';
+        this.state.moveToTaskButton.style.display = 'none';
+        this.state.addLinkButton.style.display = 'none';
+        this.state.completeTaskButton.style.display = 'none';
+        this.state.reopenTaskButton.style.display = 'none';
+        this.state.removeLinkButton.style.display = 'none';
+        this.state.redoButton.style.display = 'none';
+        this.state.undoButton.style.display = 'none';
+        this.state.createTaskButton.style.display = 'none';
     }
 
     private showTaskActions() {
         const currentState = GCMediator.getState();
-        document.getElementById('removeTaskButton').style.display = 'initial';
-        document.getElementById('moveToTaskButton').style.display = 'initial';
+        this.state.removeTaskButton.style.display = 'initial';
+        this.state.moveToTaskButton.style.display = 'initial';
         if (currentState.selectedTasks[0] && currentState.selectedTasks.length > 0) {
-            const element = currentState.items.find((element) => { if (element.id === currentState.selectedTasks[0].id) return true });
-            if (element.link) {
-                document.getElementById('removeLinkButton').style.display = 'initial';
-            }
+            currentState.items.find((element) => {
+                if (element.id === currentState.selectedTasks[0].id) {
+                    if (element.link) {
+                        document.getElementById('removeLinkButton').style.display = 'initial';
+                    }
+                }
+                return true
+            });
+
         }
-        document.getElementById('addLinkButton').style.display = 'initial';
-        document.getElementById('completeTaskButton').style.display = 'initial';
-        document.getElementById('reopenTaskButton').style.display = 'initial';
-        document.getElementById('createTaskButton').style.display = 'initial';
+        this.state.addLinkButton.style.display = 'initial';
+        this.state.completeTaskButton.style.display = 'initial';
+        this.state.reopenTaskButton.style.display = 'initial';
+        this.state.createTaskButton.style.display = 'initial';
     }
 
     private showHistoryActions() {
-        document.getElementById('undoButton').style.display = 'initial';
-        document.getElementById('redoButton').style.display = 'initial';
+        this.state.undoButton.style.display = 'initial';
+        this.state.redoButton.style.display = 'initial';
     }
 
     private showViewModeDropdown() {
-        document.getElementById('viewModeSelector').style.opacity = '1';
-        document.getElementById('viewModeSelector').style.top = '62px';
+        this.state.viewModeSelector.style.opacity = '1';
+        this.state.viewModeSelector.style.top = '62px';
     }
 
-    public static hideViewModeDropdown() {
-        document.getElementById('viewModeSelector').style.opacity = '0';
-        document.getElementById('viewModeSelector').style.top = '30px';
+    private hideViewModeDropdown() {
+        this.state.viewModeSelector.style.opacity = '0';
+        this.state.viewModeSelector.style.top = '30px';
     }
 
     private setGridVisibility(event: Event) {
         const eventTarget = event.currentTarget as any
+        const chartCheckbox = this.state.chartCheckbox.checked;
+        const chart = this.state.chart.style;
+        const timeline = this.state.timeline.style;
+        const wrapper = this.state.wrapper.style;
+        const grid = this.state.wrapper.style;
+
         if (eventTarget.checked) {
-            if (!this.state.chartCheckbox.checked) {
-                this.state.grid.style.width = '100%';
-                this.state.wrapper.style.height = '100%';
-                this.state.timeline.style.height = '166px';
+            if (!chartCheckbox) {
+                grid.width = '100%';
+                wrapper.style.height = '100%';
+                timeline.style.height = '166px';
             } else {
-                this.state.grid.style.width = '40%';
-                this.state.chart.style.width = '60%';
+                grid.style.width = '40%';
+                chart.style.width = '60%';
             }
         } else {
-            if (!this.state.chartCheckbox.checked) {
-                this.state.wrapper.style.height = 0;
-                this.state.timeline.style.height = '100%';
+            if (!chartCheckbox) {
+                wrapper.style.height = 0;
+                timeline.style.height = '100%';
             } else {
-                this.state.grid.style.width = '0';
-                this.state.chart.style.width = '100%';
-                this.state.wrapper.style.height = '100%';
+                grid.width = '0';
+                chart.width = '100%';
+                wrapper.height = '100%';
             }
         }
     }
 
     private setChartVisibility(event: Event) {
         const eventTarget = event.currentTarget as any
+        const gridCheckbox = this.state.gridCheckbox.checked;
+        const chart = this.state.chart.style;
+        const timeline = this.state.timeline.style;
+        const wrapper = this.state.wrapper.style;
+        const grid = this.state.wrapper.style;
+
         if (eventTarget.checked) {
-            if (!this.state.gridCheckbox.checked) {
-                this.state.chart.style.width = '100%';
-                this.state.timeline.style.height = '166px';
-                this.state.wrapper.style.height = '100%';
+            if (!gridCheckbox) {
+                chart.width = '100%';
+                timeline.height = '166px';
+                wrapper.height = '100%';
             } else {
-                this.state.grid.style.width = '40%';
-                this.state.chart.style.width = '60%';
+                grid.width = '40%';
+                chart.width = '60%';
             }
         } else {
-            if (!this.state.gridCheckbox.checked) {
-                this.state.wrapper.style.height = 0;
-                this.state.timeline.style.height = '100%';
+            if (!gridCheckbox) {
+                wrapper.height = 0;
+                timeline.height = '100%';
             } else {
-                this.state.chart.style.width = '0';
-                this.state.grid.style.width = '100%';
-                this.state.wrapper.style.height = '100%';
+                chart.width = '0';
+                grid.width = '100%';
+                wrapper.height = '100%';
             }
         }
-
     }
 
     private setTimelineVisibility(event: Event) {
@@ -231,57 +269,57 @@ export class GanttToolbar extends React.Component<any, any> {
             id: 'toolbarContainer',
             className: 'toolbarContainer'
         },
-            React.createElement('button', {
+            button({
                 className: 'toolbarButton',
                 id: 'undoButton',
                 onClick: this.undo.bind(this)
             }, 'Undo'),
-            React.createElement('button', {
+            button({
                 className: 'toolbarButton',
                 id: 'redoButton',
                 onClick: this.redo.bind(this)
             }, 'Redo'),
-            React.createElement('button', {
+            button({
                 className: 'toolbarButton',
                 id: 'removeTaskButton',
                 onClick: this.removeTask.bind(this)
             }, 'Remove task'),
-            React.createElement('button', {
+            button({
                 className: 'toolbarButton',
                 id: 'createTaskButton',
                 onClick: this.createTask.bind(this)
             }, 'Create task'),
-            React.createElement('button', {
+            button({
                 className: 'toolbarButton',
                 id: 'moveToTaskButton',
                 onClick: this.moveToTask.bind(this)
             }, 'Move to task'),
-            React.createElement('button', {
+            button({
                 className: 'toolbarButton',
                 id: 'addLinkButton',
                 onClick: this.addLink.bind(this)
             }, 'Add link'),
-            React.createElement('button', {
+            button({
                 className: 'toolbarButton',
                 id: 'removeLinkButton',
                 onClick: this.removeLink.bind(this)
             }, 'Remove link'),
-            React.createElement('button', {
+            button({
                 className: 'toolbarButton',
                 id: 'completeTaskButton',
                 onClick: this.completeTask.bind(this)
             }, 'Complete task'),
-            React.createElement('button', {
+            button({
                 className: 'toolbarButton',
                 id: 'reopenTaskButton',
                 onClick: this.reopenTask.bind(this)
             }, 'Reopen task'),
-            React.createElement('button', {
+            button({
                 className: 'toolbarButtonFixed',
                 id: 'viewModeOpener',
                 onClick: this.showViewModeDropdown.bind(this)
             }, 'View mode'),
-            React.createElement('div', {
+            button({
                 className: 'viewModeSelector',
                 id: 'viewModeSelector'
             }, React.createElement('label', { id: 'gridLabel' }, 'Show grid:'),

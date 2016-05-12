@@ -195,7 +195,7 @@ export class AppMediator {
                 data: action.data
             });
         }
-        if (undoData && action.isHistoryNeed !== false && newState.eventsHistory[1]!=='undo') {
+        if (undoData && action.isHistoryNeed !== false && newState.eventsHistory[1] !== 'undo') {
             newState.undoHistory.push({
                 type: action.undoType,
                 selectedTask: action.selectedTask || newState.selectedTasks[0].id,
