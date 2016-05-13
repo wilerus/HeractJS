@@ -2,7 +2,8 @@
 import * as DOM from 'react-dom';
 import {AppMediator} from '../../../scripts/services/ApplicationMediator';
 
-let GCMediator: any = AppMediator.getInstance();
+const GCMediator: any = AppMediator.getInstance();
+
 export class ModalWindow extends React.Component<any, any> {
     private componentWillMount() {
         this.state = {

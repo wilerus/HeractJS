@@ -1,9 +1,10 @@
 ﻿import * as React from 'react';
-import {AppMediator} from '../../scripts/services/ApplicationMediator'
+import {AppMediator} from '../../../scripts/services/ApplicationMediator'
 
-let GCMediator: any = AppMediator.getInstance();
-let br = React.createFactory('br');
-let button = React.createFactory('button');
+const GCMediator: any = AppMediator.getInstance();
+const br = React.createFactory('br');
+const button = React.createFactory('button');
+
 export class GanttToolbar extends React.Component<any, any> {
 
     constructor() {

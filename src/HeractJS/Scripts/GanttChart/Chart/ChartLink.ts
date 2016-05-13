@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
-import {AppMediator} from '../../scripts/services/ApplicationMediator'
+import {AppMediator} from '../../../scripts/services/ApplicationMediator';
 
-let GCMediator: any = AppMediator.getInstance();
+const GCMediator: any = AppMediator.getInstance();
 
 export class TaskLink extends React.Component<any, any> {
 

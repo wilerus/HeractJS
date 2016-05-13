@@ -1,9 +1,8 @@
 ﻿import * as React from 'react';
 import * as DOM from 'react-dom';
+import {AppMediator} from '../../../scripts/services/ApplicationMediator';
 
-import {AppMediator} from '../../../scripts/services/ApplicationMediator'
-
-let GCMediator: any = AppMediator.getInstance();
+const GCMediator: any = AppMediator.getInstance();
 
 export class ActionChartPopup extends React.Component<any, any> {
     constructor(props, context) {

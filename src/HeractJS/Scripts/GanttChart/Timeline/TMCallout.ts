@@ -1,11 +1,11 @@
 ﻿import * as React from 'react';
 import * as DOM from 'react-dom';
-
 import {AppMediator} from '../../../scripts/services/ApplicationMediator'
+import {ChartBar} from '../GanttBar'
 
-let GCMediator: any = AppMediator.getInstance();
+const GCMediator: any = AppMediator.getInstance();
 
-export class TasklineCallouts extends React.Component<any, any> {
+export class TasklineCallouts extends ChartBar {
 
     constructor(props, context) {
         super(props, context);
@@ -44,113 +44,6 @@ export class TasklineCallouts extends React.Component<any, any> {
                 }
             }
         }.bind(this));
-    }
-
-    private shouldComponentUpdate(nextState: any) {
-        if (this.state !== nextState) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private componentWillReceiveProps(nextProps) {
-        const data = nextProps.data
-        this.setState({
-            id: data.id,
-            order: data.order,
-            collapsed: data.collapsed,
-            position: data.position,
-
-            name: data.name,
-            description: data.description,
-            assignee: data.assignee,
-            parent: data.parent,
-            predecessors: data.startDate,
-
-            progress: data.progress,
-            duration: data.duration,
-            startDate: data.startDate,
-            finish: data.finish,
-            priority: data.priority
-        });
-    }
-
-    private startTaskSelection() {
-        if (!GCMediator.getState().isDragging) {
-            const selectedTask = GCMediator.getState().selectedTasks[0];
-            if (selectedTask) {
-                GCMediator.dispatch({
-                    type: 'deselectAllTasks'
-                });
-                const id = this.state.id
-                if (selectedTask !== id) {
-                    GCMediator.dispatch({
-                        type: 'selectTask',
-                        data: {
-                            id: id.substring(0, id.length - 3),
-                            type: 'callout'
-                        }
-                    });
-                }
-            } else {
-                const id = this.state.id
-                GCMediator.dispatch({
-                    type: 'selectTask',
-                    data: {
-                        id: id.substring(0, id.length - 3),
-                        type: 'callout'
-                    }
-                });
-            }
-        }
-    }
-
-    private startBarRelocation(event: MouseEvent) {
-        GCMediator.dispatch({
-            type: 'setDraggingElement',
-            data: this
-        });
-        const startX = event.clientX;
-        document.onmousemove = function (event: MouseEvent) {
-            if (Math.abs(event.clientX - startX) > 30) {
-                const currentState = GCMediator.getState();
-                const cellCapacity = currentState.cellCapacity;
-                const startDate = this.state.startDate;
-                const startPointStartDate = event.pageX - startDate * cellCapacity;
-                document.onmousemove = function (event: MouseEvent) {
-                    const newStartDate = (event.pageX - startPointStartDate) / cellCapacity;
-                    this.setState({
-                        startDate: newStartDate
-                    });
-                }.bind(this);
-            }
-        }.bind(this);
-    }
-
-    private handleRectHover(event: Event) {
-        const currentState = GCMediator.getState();
-        if (!currentState.isPanning) {
-            if (!currentState.isDragging) {
-                const el = DOM.findDOMNode(this) as any;
-                const hoverElement = event.target as any;
-                setTimeout(function (hoverElement) {
-                    if (hoverElement.parentElement.querySelector(':hover') === hoverElement &&
-                        !GCMediator.getState().isCurrentlyDragging) {
-                        hoverElement.onmouseout = () => {
-                            GCMediator.dispatch({ type: 'completeEditing' });
-                        }
-                        this.showInfoPopup(hoverElement);
-                    }
-                }.bind(this, hoverElement), 500);
-                el.style.cursor = 'move';
-            } else if (this !== currentState.draggingElement && this !== currentState.dropTarget) {
-                GCMediator.dispatch({
-                    type: 'setDropTarget',
-                    data: this
-                });
-            }
-        }
     }
 
     private showInfoPopup(hoverElement) {

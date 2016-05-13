@@ -1,12 +1,12 @@
 ﻿import * as React from 'react';
-import {TasklineTimeItem}  from './TasklineTimeItem'
-import {TasklineBar}  from './TasklineBar'
-import {TasklineMilestone}  from './TasklineMilestone'
-import {TasklineCallouts} from './TasklineCallout'
+import {TasklineTimeItem}  from './TMDateline'
+import {TasklineBar}  from './TMTask'
+import {TasklineMilestone}  from './TMMilestone'
+import {TasklineCallouts} from './TMCallout'
 import {AppMediator} from '../../../scripts/services/ApplicationMediator'
 
-let GCMediator: any = AppMediator.getInstance();
-let objectConstuctor = Object as any //just to get rid of console lint junk
+const GCMediator: any = AppMediator.getInstance();
+const objectConstuctor = Object as any //just to get rid of console lint junk
 export class TaskLineView extends React.Component<any, any> {
 
     constructor() {

@@ -1,9 +1,8 @@
 ﻿import * as React from 'react';
 import * as DOM from 'react-dom';
-
-import {ChartView}  from './ChartView'
-import {GanttToolbar}  from './Toolbar'
-import {TaskLineView}  from './Taskline/TaskLine'
+import {ChartView}  from './GanttViewController'
+import {GanttToolbar}  from './Toolbar/Toolbar'
+import {TaskLineView}  from './Timeline/TimelineController'
 import {AppMediator} from '../../scripts/services/ApplicationMediator'
 import {ChartData} from '../../scripts/services/ChartData'
 

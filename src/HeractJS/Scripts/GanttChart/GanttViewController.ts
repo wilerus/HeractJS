@@ -1,16 +1,14 @@
 ﻿/// <reference path='../../typings/main.d.ts' />
-
 import * as React from 'react';
 import * as DOM from 'react-dom';
-
-import {TaskBar} from './TaskBar'
-import {TaskLink} from './TaskLink'
+import {TaskBar} from './Chart/ChartBar'
+import {TaskLink} from './Chart/ChartLink'
 import {InfoPopup} from './Popups/InfoPopup'
 import {ActionChartPopup} from './Popups/ActionChartPopup'
 import {ActionTasklinePopup} from './Popups/ActionTasklinePopup'
 import {ModalWindow} from './Popups/ModalWindow'
-import {Timeline}  from './Timeline'
-import {GanttToolbar}  from './Toolbar'
+import {Timeline}  from './Chart/ChartDateline'
+import {GanttToolbar}  from './Toolbar/Toolbar'
 import {AppMediator} from '../../scripts/services/ApplicationMediator'
 
 const GCMediator: any = AppMediator.getInstance();
