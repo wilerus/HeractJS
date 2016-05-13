@@ -49,7 +49,6 @@ export class GanttToolbar extends React.Component<any, any> {
     }
 
     private componentDidMount() {
-        this.hideTaskActions();
         this.setState({
             chartCheckbox: document.getElementById('chartCheckbox'),
             gridCheckbox: document.getElementById('gridCheckbox'),
@@ -63,7 +62,9 @@ export class GanttToolbar extends React.Component<any, any> {
             undoButton: document.getElementById('undoButton'),
             createTaskButton: document.getElementById('createTaskButton'),
             viewModeSelector: document.getElementById('viewModeSelector')
-        })
+        },function() {
+            this.hideTaskActions();
+        }.bind(this))
     }
 
     private hideTaskActions() {

@@ -523,8 +523,8 @@ export class TaskBar extends React.Component<any, any> {
                     }),
                     React.createElement('text', {
                         className: 'barTitle',
-                        x: length,
-                        y: position
+                        x: length + 10,
+                        y: position + 15
                     }, taskTitle)
                 );
                 break;

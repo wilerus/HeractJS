@@ -327,17 +327,7 @@ export class ChartView extends React.Component<any, any> {
                 React.createElement('svg', {
                     className: 'ganttChartView',
                     id: 'ganttChartView'
-                }, React.createElement('filter', {
-                    id: 'blur-filter',
-                    x: -2,
-                    y: -2,
-                    width: '200%',
-                    height: '200%'
                 },
-                    React.createElement('feGaussianBlur', {
-                        in: 'SourceGraphic',
-                        stdDeviation: '2'
-                    })),
                     React.createElement('defs', {
                     },
                         React.createElement('filter', {
@@ -367,6 +357,36 @@ export class ChartView extends React.Component<any, any> {
                             })
                         )
                     ),
+                    React.createElement('defs', {
+                    },
+                        React.createElement('filter', {
+                            id: 'shadowFilterHover',
+                            x: 0,
+                            y: 0,
+                            width: '200%',
+                            height: '200%'
+                        },
+                            React.createElement('feOffset', {
+                                dx: '2',
+                                dy: '2'
+                            }),
+                            React.createElement('feGaussianBlur', {
+                                in: 'SourceAlpha',
+                                stdDeviation: '3'
+                            }),
+                            React.createElement('feComponentTransfer', {
+                            }, React.createElement('feFuncA', {
+                                type: 'linear',
+                                slope: '0.6'
+                            })),
+                            React.createElement('feBlend', {
+                                in: 'SourceGraphic',
+                                in2: 'blurOut',
+                                mode: 'normal'
+                            })
+                        )
+                    ),
+
                     React.createElement('marker', {
                         id: 'triangle',
                         viewBox: '0 0 40 20',

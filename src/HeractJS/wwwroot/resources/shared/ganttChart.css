@@ -16,7 +16,9 @@
     fill: rgb(160, 230, 160);
     /* transition: all .2s;*/
 }
-
+.barChartBody:hover {
+    filter: 'url(#shadowFilterHover)';
+}
 .milestoneBody {
     position: absolute;
     fill: rgb(80,80,220);
@@ -99,6 +101,7 @@
     width: 3000px;
     height: 1500px;
     shape-rendering: optimizeSpeed;
+    margin-left: -1px;
     z-index: 10;
 }
 
