@@ -122,21 +122,21 @@ export class GanttToolbar extends React.Component<any, any> {
         const chart = this.state.chart.style;
         const timeline = this.state.timeline.style;
         const wrapper = this.state.wrapper.style;
-        const grid = this.state.wrapper.style;
+        const grid = this.state.grid.style;
 
         if (eventTarget.checked) {
             if (!chartCheckbox) {
                 grid.width = '100%';
-                wrapper.style.height = '100%';
-                timeline.style.height = '166px';
+                wrapper.height = '100%';
+                timeline.height = '166px';
             } else {
-                grid.style.width = '40%';
-                chart.style.width = '60%';
+                grid.width = '40%';
+                chart.width = '60%';
             }
         } else {
             if (!chartCheckbox) {
-                wrapper.style.height = 0;
-                timeline.style.height = '100%';
+                wrapper.height = 0;
+                timeline.height = '100%';
             } else {
                 grid.width = '0';
                 chart.width = '100%';
@@ -151,7 +151,7 @@ export class GanttToolbar extends React.Component<any, any> {
         const chart = this.state.chart.style;
         const timeline = this.state.timeline.style;
         const wrapper = this.state.wrapper.style;
-        const grid = this.state.wrapper.style;
+        const grid = this.state.grid.style;
 
         if (eventTarget.checked) {
             if (!gridCheckbox) {
@@ -321,7 +321,7 @@ export class GanttToolbar extends React.Component<any, any> {
                 id: 'viewModeOpener',
                 onClick: this.showViewModeDropdown.bind(this)
             }, 'View mode'),
-            button({
+            React.createElement('div', {
                 className: 'viewModeSelector',
                 id: 'viewModeSelector'
             }, React.createElement('label', { id: 'gridLabel' }, 'Show grid:'),

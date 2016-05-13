@@ -63,5 +63,12 @@ export class Initializer {
                 toolbarRegion.style.opacity = 1;
             })
         });
+
+        document.onclick = (event: MouseEvent) => {
+            const eventTarget = event.target as any;
+            if (eventTarget.tagName !== 'BUTTON') {
+                GCMediator.dispatch({ type: 'hideAllPopups' });
+            }
+        }
     }
 }

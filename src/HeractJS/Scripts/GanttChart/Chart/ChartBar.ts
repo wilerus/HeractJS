@@ -101,7 +101,9 @@ export class TaskBar extends ChartBar {
         if (selectedElement && selectedElement.getAttribute('class') !== 'barSelectBody') {
             const parent = selectedElement.parentNode as any;
             const selectingElement = parent.getElementsByClassName('barSelectBody')[0];
-            selectingElement.setAttribute('class', 'barSelectBody barSelected');
+            if (selectingElement) {
+                selectingElement.setAttribute('class', 'barSelectBody barSelected');
+            }
         }
     }
 
@@ -119,7 +121,9 @@ export class TaskBar extends ChartBar {
             if (selectedElement && selectedElement.getAttribute('class') !== 'barSelectBody') {
                 const parent = selectedElement.parentNode as any;
                 const selectingElement = parent.getElementsByClassName('barSelectBody')[0];
-                selectingElement.setAttribute('class', 'barSelectBody');
+                if (selectingElement) {
+                    selectingElement.setAttribute('class', 'barSelectBody');
+                }
             }
         }
     }

@@ -27,23 +27,6 @@ export class ChartView extends React.Component<any, any> {
             startPosition: 0,
             endPosition: Math.round(document.documentElement.clientHeight / 24) + 30
         };
-        document.onwheel = function (event: any) {
-            if (event.ctrlKey) {
-                this.updateTimeline();
-            } else {
-                const currentScroll: number = GCMediator.getState().scrollPosition;
-                let scrollPosition: number = Math.round(event.deltaY / 24) + currentScroll;
-                if (scrollPosition <= 0 && currentScroll !== 0) {
-                    scrollPosition = 0;
-                }
-
-                if (scrollPosition >= 0) {
-                    this.buildElements(scrollPosition);
-                }
-            }
-            event.preventDefault();
-            event.stopPropagation();
-        }.bind(this);
         GCMediator.subscribe(function () {
             const change: any = GCMediator.getLastChange();
             if (change) {
@@ -73,12 +56,6 @@ export class ChartView extends React.Component<any, any> {
 
     private componentDidMount() {
         this.rebuildElements();
-        document.onclick = (event: MouseEvent) => {
-            const eventTarget = event.target as any;
-            if (eventTarget.tagName !== 'BUTTON') {
-                GCMediator.dispatch({ type: 'hideAllPopups' });
-            }
-        }
     }
 
     private shouldComponentUpdate(nextProps: any, nextState: any) {
@@ -247,6 +224,24 @@ export class ChartView extends React.Component<any, any> {
         }
     }
 
+    private startScrolling(event: MouseEvent) {
+        if (event.ctrlKey) {
+            this.updateTimeline();
+        } else {
+            const currentScroll: number = GCMediator.getState().scrollPosition;
+            let scrollPosition: number = Math.round(event.deltaY / 24) + currentScroll;
+            if (scrollPosition <= 0 && currentScroll !== 0) {
+                scrollPosition = 0;
+            }
+
+            if (scrollPosition >= 0) {
+                this.buildElements(scrollPosition);
+            }
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
     private updateElements(newData) {
         const currentState = GCMediator.getState();
         const selectedElementId = newData.selectedTask || currentState.selectedTasks[0].id;
@@ -308,7 +303,8 @@ export class ChartView extends React.Component<any, any> {
             React.createElement('div', {
                 id: 'ganttChart',
                 className: 'ganttChart',
-                onMouseDown: this.startPanning.bind(this)
+                onMouseDown: this.startPanning.bind(this),
+                onMouseWeel: this.startScrolling.bind(this)
             },
                 React.createElement(InfoPopup, {
                     ref: 'infoPopup'
