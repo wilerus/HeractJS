@@ -7,7 +7,7 @@ import {InfoPopup} from './Popups/InfoPopup'
 import {ActionChartPopup} from './Popups/ActionChartPopup'
 import {ActionTasklinePopup} from './Popups/ActionTasklinePopup'
 import {ModalWindow} from './Popups/ModalWindow'
-import {Timeline}  from './Chart/ChartDateline'
+import {DateLine}  from './Chart/ChartDateline'
 import {GanttToolbar}  from './Toolbar/Toolbar'
 import {AppMediator} from '../../scripts/services/ApplicationMediator'
 
@@ -282,8 +282,8 @@ export class ChartView extends React.Component<any, any> {
                 });
             }
         });
-        const timeline: Array<Timeline> = this.state.timeLine.map((timeLineItem: any) => {
-            return React.createElement(Timeline, {
+        const timeline: Array<DateLine> = this.state.timeLine.map((timeLineItem: any) => {
+            return React.createElement(DateLine, {
                 key: timeLineItem.id,
                 data: timeLineItem
             });
@@ -304,7 +304,7 @@ export class ChartView extends React.Component<any, any> {
                 id: 'ganttChart',
                 className: 'ganttChart',
                 onMouseDown: this.startPanning.bind(this),
-                onMouseWeel: this.startScrolling.bind(this)
+                onWheel: this.startScrolling.bind(this)
             },
                 React.createElement(InfoPopup, {
                     ref: 'infoPopup'

@@ -1,6 +1,6 @@
 ﻿import * as React from 'react';
 
-export class Timeline extends React.Component<any, any> {
+export class DateLine extends React.Component<any, any> {
     constructor() {
         super();
         this.state = {
@@ -29,13 +29,10 @@ export class Timeline extends React.Component<any, any> {
             x: this.state.marginLeft
         },
             React.createElement('rect', {
-                y: -1,
+                className: 'dateLineItem',
                 x: this.state.marginLeft,
-                width: this.state.width,
-                height: 29,
-                strokeWidth: 0.5,
-                stroke: 'rgb(190, 190, 190)',
-                fill: 'none'
+                y: -1,
+                width: this.state.width
             }),
             React.createElement('text', {
                 className: 'timeLineText',

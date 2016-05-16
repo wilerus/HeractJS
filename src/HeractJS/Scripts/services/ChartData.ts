@@ -151,7 +151,6 @@ export class ChartData {
                         this.createItem(change.data);
                         break;
                     case 'removeItem':
-                    debugger 
                         this.removeItem(change.data);
                         break;
                     case 'editItem':

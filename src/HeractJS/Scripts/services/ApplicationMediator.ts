@@ -132,6 +132,7 @@ export class AppMediator {
                 isHistoryNeed = true;
                 break;
             case 'selectTask':
+                debugger
                 newState.selectedTasks.push(action.data);
                 isHistoryNeed = true;
                 break;
@@ -143,6 +144,7 @@ export class AppMediator {
                 newState.selectedTasks.push(action.data);
                 break;
             case 'deselectAllTasks':
+                debugger
                 if (newState.selectedTasks && newState.selectedTasks.length) {
                     action.data = {
                         tasks: newState.selectedTasks,
@@ -188,7 +190,6 @@ export class AppMediator {
             default:
                 return state;
         }
-
         if (isHistoryNeed) {
             newState.eventsHistory.push({
                 type: action.type,

@@ -29,6 +29,23 @@ export class ChartBar extends React.Component<any, any> {
             priority: props.data.priority,
             columnWidth: GCMediator.getState().cellCapacity
         };
+        GCMediator.subscribe(function () {
+            const change = GCMediator.getLastChange();
+            if (change) {
+                switch (change.type) {
+                    case 'deselectAllTasks':
+                        debugger;
+                        this.deselectAllTasks(change.data.tasks);
+                        break;
+                    case 'selectTask':
+                        debugger;
+                        this.selectTask(change.data.id);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }.bind(this));
     }
 
     public shouldComponentUpdate(nextState: any) {
@@ -280,16 +297,17 @@ export class ChartBar extends React.Component<any, any> {
                 const el = DOM.findDOMNode(this) as any;
                 const elementRect = eventTarget.getBoundingClientRect();
                 let hoverElement = event.target as any;
-                if (hoverElement.classList[0] !== 'barSelectBody') {
-                    hoverElement = hoverElement.parentNode.getElementsByClassName('barSelectBody')[0]
+                switch (hoverElement.parentNode.classList[0]) {
+                    case 'barSelectBody':
+                        hoverElement = hoverElement.parentNode.getElementsByClassName('barSelectBody')[0]
+                        break;
+                    default:
+                        break;
                 }
                 if (hoverElement) {
                     setTimeout(function (hoverElement, clientX: number) {
                         let currentHoverElement = hoverElement.parentElement.querySelector(':hover');
-                        if (currentHoverElement && currentHoverElement.classList[0] !== 'barSelectBody') {
-                            currentHoverElement = currentHoverElement.parentNode.getElementsByClassName('barSelectBody')[0]
-                        }
-                        if (currentHoverElement && currentHoverElement === hoverElement && !GCMediator.getState().isDragging) {
+                        if (currentHoverElement && currentHoverElement === hoverElement && !currentState.isDragging) {
                             this.showInfoPopup(clientX, hoverElement);
                             currentHoverElement.onmouseout = () => {
                                 GCMediator.dispatch({ type: 'completeEditing' });
@@ -312,6 +330,95 @@ export class ChartBar extends React.Component<any, any> {
                     type: 'setDropTarget',
                     data: this
                 });
+            }
+        }
+    }
+
+    public showInfoPopup(clientX, hoverElement) {
+        const coords = hoverElement.getBoundingClientRect();
+        let leftMargin: number;
+        let topMargin: number = coords.top - 160 < 0 ? coords.top + 30 : coords.top - 160;
+
+        if (hoverElement.getAttribute('class') === 'barSelectBody') {
+            leftMargin = clientX;
+        } else {
+            leftMargin = coords.left + coords.width / 2 - 100;
+        }
+        GCMediator.dispatch({
+            type: 'showInfoPopup',
+            data: {
+                left: leftMargin,
+                top: topMargin,
+                title: this.state.name,
+                startDate: this.state.startDate,
+                endDate: this.state.startDate + this.state.duration,
+                duration: this.state.duration,
+                description: this.state.description
+            }
+        })
+    }
+
+    public showActionPopup(event: MouseEvent) {
+        const eventTarget = event.target as any;
+        const coords = eventTarget.getBoundingClientRect();
+        let leftMargin: number;
+        let topMargin: number = coords.top + 22;
+        this.startTaskSelection();
+        if (eventTarget.getAttribute('class') === 'barSelectBody barSelected') {
+            leftMargin = event.clientX;
+        } else {
+            leftMargin = coords.left + coords.width / 2 - 100;
+        }
+        GCMediator.dispatch({
+            type: 'showActionChartPopup',
+            data: {
+                left: leftMargin,
+                top: topMargin,
+                title: this.state.name
+            }
+        })
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    public selectTask(taskId: string) {
+        const selectedElement = document.getElementById(taskId);
+        if (selectedElement) {
+            const parent = selectedElement.parentNode as any;
+            const selectingElement = parent.getElementsByClassName('barSelectBody')[0];
+            if (selectingElement) {
+                selectingElement.setAttribute('class', 'barSelectBody selected');
+            }
+        } 
+
+        const selectedTimelineElement = document.getElementById(taskId + 'TLI');
+        if (selectedTimelineElement) {
+            selectedTimelineElement.setAttribute('class', selectedTimelineElement.classList[0] + ' selected');
+        }
+    }
+
+    public deselectTask() {
+        let selectedElement = DOM.findDOMNode(this);
+        if (selectedElement.tagName === 'g') {
+            selectedElement = selectedElement.childNodes[0] as any;
+        }
+        selectedElement.setAttribute('class', 'barChartBody');
+    }
+
+    public deselectAllTasks(tasks: any) {
+        for (let i = 0; i < tasks.length; i++) {
+            const selectedChartElement = document.getElementById(tasks[i].id);
+            if (selectedChartElement) {
+                const parent = selectedChartElement.parentNode as any;
+                const selectingElement = parent.getElementsByClassName('barSelectBody')[0];
+                if (selectingElement) {
+                    selectingElement.setAttribute('class', 'barSelectBody');
+                }
+            }
+
+            const selectedTimelineElement = document.getElementById(tasks[i].id + 'TLI');
+            if (selectedTimelineElement) {
+                selectedTimelineElement.setAttribute('class', selectedTimelineElement.classList[0]);
             }
         }
     }

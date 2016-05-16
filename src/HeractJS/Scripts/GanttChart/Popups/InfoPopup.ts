@@ -7,8 +7,6 @@ const GCMediator: any = AppMediator.getInstance();
 export class InfoPopup extends React.Component<any, any> {
     private componentWillMount() {
         this.state = {
-            left: 0,
-            top: 0,
             title: 'title',
             startDate: 'Placeholder',
             endDate: 'Placeholder',
@@ -40,8 +38,6 @@ export class InfoPopup extends React.Component<any, any> {
 
     private show(data) {
         this.setState({
-            left: data.left,
-            top: data.top,
             title: data.title,
             startDate: data.startDate,
             endDate: data.endDate,
@@ -49,17 +45,18 @@ export class InfoPopup extends React.Component<any, any> {
             description: data.description
         });
         const item = DOM.findDOMNode(this) as any;
+        item.style.left = data.left + 'px';
+        item.style.top = data.top + 100 + 'px';
         item.style.display = 'block';
+        setTimeout(() => {
+            item.style.top = data.top + 'px';
+        }, 10)
     }
 
     public render() {
         return React.createElement('div', {
             id: 'infoPopup',
-            className: 'infoPopup',
-            style: {
-                left: this.state.left,
-                top: this.state.top
-            }
+            className: 'infoPopup'
         },
             React.createElement('div', {
                 className: 'infoPopupTitle'

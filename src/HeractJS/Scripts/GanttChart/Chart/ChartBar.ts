@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import * as DOM from 'react-dom';
 import {AppMediator} from '../../../scripts/services/ApplicationMediator';
 import {ChartBar} from '../GanttBar';
 
@@ -30,102 +29,6 @@ export class TaskBar extends ChartBar {
             priority: props.data.priority,
             columnWidth: GCMediator.getState().cellCapacity
         };
-        GCMediator.subscribe(function () {
-            const change = GCMediator.getLastChange();
-            if (change) {
-                switch (change.type) {
-                    case 'deselectAllTasks':
-                        if (change.data) {
-                            this.deselectAllTasks(change.data.tasks);
-                        }
-                        break;
-                    case 'selectTask':
-                        this.selectTask(change.data.id);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }.bind(this));
-    }
-
-    private showInfoPopup(clientX, hoverElement) {
-        const coords = hoverElement.getBoundingClientRect();
-        let leftMargin: number;
-        let topMargin: number = coords.top - 160 < 0 ? coords.top + 30 : coords.top - 160;
-
-        if (hoverElement.getAttribute('class') === 'barSelectBody') {
-            leftMargin = clientX;
-        } else {
-            leftMargin = coords.left + coords.width / 2 - 100;
-        }
-        GCMediator.dispatch({
-            type: 'showInfoPopup',
-            data: {
-                left: leftMargin,
-                top: topMargin,
-                title: this.state.name,
-                startDate: this.state.startDate,
-                endDate: this.state.startDate + this.state.duration,
-                duration: this.state.duration,
-                description: this.state.description
-            }
-        })
-    }
-
-    private showActionPopup(event: MouseEvent) {
-        const eventTarget = event.target as any;
-        const coords = eventTarget.getBoundingClientRect();
-        let leftMargin: number;
-        let topMargin: number = coords.top + 22;
-        this.startTaskSelection();
-        if (eventTarget.getAttribute('class') === 'barSelectBody barSelected') {
-            leftMargin = event.clientX;
-        } else {
-            leftMargin = coords.left + coords.width / 2 - 100;
-        }
-        GCMediator.dispatch({
-            type: 'showActionChartPopup',
-            data: {
-                left: leftMargin,
-                top: topMargin,
-                title: this.state.name
-            }
-        })
-        event.preventDefault();
-        event.stopPropagation();
-    }
-
-    private selectTask(taskId: string) {
-        const selectedElement = document.getElementById(taskId);
-        if (selectedElement && selectedElement.getAttribute('class') !== 'barSelectBody') {
-            const parent = selectedElement.parentNode as any;
-            const selectingElement = parent.getElementsByClassName('barSelectBody')[0];
-            if (selectingElement) {
-                selectingElement.setAttribute('class', 'barSelectBody barSelected');
-            }
-        }
-    }
-
-    public deselectTask() {
-        let selectedElement = DOM.findDOMNode(this);
-        if (selectedElement.tagName === 'g') {
-            selectedElement = selectedElement.childNodes[0] as any;
-        }
-        selectedElement.setAttribute('class', 'barChartBody');
-    }
-
-    private deselectAllTasks(tasks: any) {
-        for (let i = 0; i < tasks.length; i++) {
-            const selectedElement = document.getElementById(tasks[i].id);
-            if (selectedElement && selectedElement.getAttribute('class') !== 'barSelectBody') {
-                const parent = selectedElement.parentNode as any;
-                const selectingElement = parent.getElementsByClassName('barSelectBody')[0];
-                if (selectingElement) {
-                    selectingElement.setAttribute('class', 'barSelectBody');
-                }
-            }
-        }
     }
 
     public render() {

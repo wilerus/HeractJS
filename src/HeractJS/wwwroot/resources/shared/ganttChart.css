@@ -14,7 +14,7 @@
     position: absolute;
     height: 15px;
     fill: rgb(160, 230, 160);
-    /* transition: all .2s;*/
+    transition: all .2s;
 }
 
 .milestoneBody {
@@ -48,7 +48,7 @@
     position: absolute;
     height: 13px;
     fill: rgb(100,170,100);
-    /* transition: all .2s;*/
+    transition: all .2s;
 }
 
 .barTitle {
@@ -83,11 +83,19 @@
     shape-rendering: crispEdges;
 }
 
-    .barSelectBody:hover {
-        height: 23px;
-        stroke: rgb(210,210,210);
-    }
+.barSelectBody:hover {
+    height: 23px;
+    stroke: rgb(210,210,210);
+}
 
+.barSelectBody.selected {
+    height: 23px;
+    stroke: rgb(200,200,200);
+}
+.tasklineBarBody.selected {
+    height: 27px;
+    stroke: rgb(200,200,200);
+}
 /* ------ ------------- -------*/
 .ganttChartView {
     user-select: none;
@@ -169,6 +177,14 @@
     fill: white;
     text-anchor: middle;
 }
+/* chart date line*/
+.dateLineItem {
+    height: 29px;
+    stroke-width: 0.5;
+    stroke: rgb(190, 190, 190);
+    fill: none;
+    transition: all .2s;
+}
 /*infoPopup*/
 
 .infoPopup {
@@ -180,7 +196,7 @@
     z-index: 210;
     display: none;
     pointer-events: none;
-    transition: top 0.3s;
+    transition: all .2s;
 }
 
 .infoPopupTitle {
@@ -247,14 +263,14 @@
 /*modalWindow*/
 
 .modalWindowTitle {
-    box-shadow:  0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     flex: none;
     height: 22px;
     z-index: 3;
 }
 
 .modalWindowBody {
-    box-shadow:  0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     flex: 1;
     z-index: 2;
 }
@@ -286,7 +302,7 @@
     width: 400px;
     height: 400px;
     background-color: white;
-    box-shadow:  0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     z-index: 20;
     display: block;
     position: relative;
@@ -374,7 +390,7 @@
     width: 200px;
     height: 115px;
     background-color: white;
-    box-shadow:  0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     z-index: -1;
     opacity: 0;
     transition: all .2s;
@@ -442,7 +458,7 @@
     z-index: 105;
     position: relative;
     background-color: white;
-    box-shadow:  0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     height: 166px;
     opacity: 0;
     transition: height .2s,opacity .2s;
