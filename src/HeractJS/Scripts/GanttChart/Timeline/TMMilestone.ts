@@ -29,7 +29,30 @@ export class TasklineMilestone extends ChartBar {
             columnWidth: GCMediator.getState().tasklineCellCapacity
         };
     }
-
+    public componentWillReceiveProps(nextProps) {
+        const data = nextProps.data
+        this.setState({
+            id: data.id,
+            order: data.order,
+            collapsed: data.collapsed,
+            position: data.position,
+            calloutDisplay: data.calloutDisplay,
+            timelineDisplay: data.timelineDisplay,
+            link: data.link,
+            name: data.name,
+            type: data.type,
+            description: data.description,
+            assignee: data.assignee,
+            parent: data.parent,
+            predecessors: data.predecessors,
+            progress: data.progress,
+            duration: data.duration,
+            startDate: data.startDate,
+            finish: data.finish,
+            priority: data.priority,
+            columnWidth: GCMediator.getState().tasklineCellCapacity
+        });
+    }
     public render() {
         const startDate = this.state.startDate * this.state.columnWidth;
         return React.createElement('g', {

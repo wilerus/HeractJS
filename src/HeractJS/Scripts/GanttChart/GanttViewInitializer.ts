@@ -32,7 +32,7 @@ export class Initializer {
                 scrollPosition: 0,
 
                 columnWidth: 72,
-                cellCapacity: 72/24,
+                cellCapacity: 72 / 24,
 
                 dropTarget: null as any,
                 draggingElement: null as any,

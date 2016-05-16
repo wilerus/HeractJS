@@ -11,10 +11,7 @@ export class TaskLink extends React.Component<any, any> {
             const change = GCMediator.getLastChange();
             if (change) {
                 switch (change.type) {
-                    case 'setTimelineStep':
-                        this.buildConnection();
-                        break;
-                    case 'stopDragging':
+                    case 'completeItemEditing':
                         this.buildConnection();
                         break;
                     default:

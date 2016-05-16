@@ -29,7 +29,6 @@ export class AppMediator {
                     timelineTasks: data.timelineTasks,
                     timelineMilestones: data.timelineMilestones,
                     timelineCallouts: data.timelineCallouts,
-                    tasklineCellCapacity: data.tasklineCellCapacity,
 
                     isDragging: false,
                     isLinking: false,
@@ -38,9 +37,10 @@ export class AppMediator {
 
                     timelineStep: 0,
                     scrollPosition: 0,
+                    timelineDateStep: 0,
 
-                    columnWidth: data.tasklineCellCapacity,
-                    cellCapacity: data.tasklineCellCapacity,
+                    cellCapacity: data.cellCapacity,
+                    tasklineCellCapacity: data.tasklineCellCapacity,
 
                     dropTarget: null as any,
                     draggingElement: null as any,
@@ -105,34 +105,53 @@ export class AppMediator {
                 switch (newState.timelineStep) {
                     case 0:
                         newState.cellCapacity = Math.round(54 / 72);
-                        newState.columnWidth = 54;
                         newState.timeLine = AppMediator.timelineMonth;
                         break;
                     case 1:
                         newState.cellCapacity = Math.round(54 / 720);
-                        newState.columnWidth = 54;
                         newState.timeLine = AppMediator.timelineYear;
                         break;
                     case 2:
                         newState.cellCapacity = Math.round(60 / 3);
-                        newState.columnWidth = 60;
                         newState.timeLine = AppMediator.timelineDay;
                         break;
                     case 3:
                         newState.cellCapacity = Math.round(72 / 24);
-                        newState.columnWidth = 72;
                         newState.timeLine = AppMediator.timelineWeek;
                         break;
                     default:
                         newState.cellCapacity = Math.round(54 / 72);
-                        newState.columnWidth = 54;
                         newState.timeLine = AppMediator.timelineWeek;
                 }
                 newState.timelineStep = action.data;
                 isHistoryNeed = true;
                 break;
+            case 'setTimelineDateStep':
+                switch (newState.timelineDateStep) {
+                    case 0:
+                        newState.tasklineCellCapacity = Math.round(54 / 72);
+                        newState.timelineTimeItems = AppMediator.timelineMonth;
+                        break;
+                    case 1:
+                        newState.tasklineCellCapacity = Math.round(54 / 720);
+                        newState.timelineTimeItems = AppMediator.timelineYear;
+                        break;
+                    case 2:
+                        newState.tasklineCellCapacity = Math.round(60 / 3);
+                        newState.timelineTimeItems = AppMediator.timelineDay;
+                        break;
+                    case 3:
+                        newState.tasklineCellCapacity = Math.round(72 / 24);
+                        newState.timelineTimeItems = AppMediator.timelineWeek;
+                        break;
+                    default:
+                        newState.tasklineCellCapacity = Math.round(54 / 72);
+                        newState.timelineTimeItems = AppMediator.timelineWeek;
+                }
+                newState.timelineDateStep = action.data;
+                isHistoryNeed = true;
+                break;
             case 'selectTask':
-                debugger
                 newState.selectedTasks.push(action.data);
                 isHistoryNeed = true;
                 break;
@@ -144,7 +163,6 @@ export class AppMediator {
                 newState.selectedTasks.push(action.data);
                 break;
             case 'deselectAllTasks':
-                debugger
                 if (newState.selectedTasks && newState.selectedTasks.length) {
                     action.data = {
                         tasks: newState.selectedTasks,
@@ -233,6 +251,7 @@ export class AppMediator {
             isLineDrawStarted: false,
 
             timelineStep: 0,
+            timelineDateStep: 0,
             scrollPosition: 0,
 
             columnWidth: Number,

@@ -26,6 +26,10 @@ export class TaskLineView extends React.Component<any, any> {
                     case 'completeItemEditing':
                         this.updateElements(change.data)
                         break;
+                    case 'setTimelineDateStep':
+                        this.setState({
+                            TasklineTimeItems: GCMediator.getState().timelineTimeItems
+                        });
                     default:
                         break;
                 }
@@ -111,6 +115,46 @@ export class TaskLineView extends React.Component<any, any> {
         }
     }
 
+    private startScrolling(event: MouseEvent) {
+        if (event.ctrlKey) {
+            this.updateDateline();
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    }
+
+    private updateDateline() {
+        const currentState = GCMediator.getState();
+        switch (GCMediator.getState().timelineDateStep) {
+            case 0:
+                GCMediator.dispatch({
+                    type: 'setTimelineDateStep',
+                    data: 1
+                });
+                break;
+            case 1:
+                GCMediator.dispatch({
+                    type: 'setTimelineDateStep',
+                    data: 2
+                });
+                break;
+            case 2:
+                GCMediator.dispatch({
+                    type: 'setTimelineDateStep',
+                    data: 3
+                });
+                break;
+            case 3:
+                GCMediator.dispatch({
+                    type: 'setTimelineDateStep',
+                    data: 0
+                });
+                break;
+            default:
+                this.state.timelineData = currentState.timelineDay;
+        }
+    }
+
     public render() {
         const tasklineTimeline = this.state.TasklineTimeItems.map((timeLineItem: any) => {
             const itemData = objectConstuctor.assign({}, timeLineItem)
@@ -147,7 +191,8 @@ export class TaskLineView extends React.Component<any, any> {
         return React.createElement('div', {
             id: 'tasklineContainer',
             className: 'tasklineContainer',
-            onMouseDown: this.startPanning.bind(this)
+            onMouseDown: this.startPanning.bind(this),
+            onWheel: this.startScrolling.bind(this)
         },
             React.createElement('svg', {
                 className: 'taskLineCallouts',

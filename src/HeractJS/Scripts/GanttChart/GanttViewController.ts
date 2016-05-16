@@ -19,7 +19,6 @@ export class ChartView extends React.Component<any, any> {
         super();
         this.state = {
             timeLine: GCMediator.getState().timeLine,
-            columnWidth: GCMediator.getState().columnWidth,
             elementHeight: 24,
             displayingElements: [],
             displayingLinks: [],
@@ -43,8 +42,7 @@ export class ChartView extends React.Component<any, any> {
                         break;
                     case 'setTimelineStep':
                         this.setState({
-                            timeLine: GCMediator.getState().timeLine,
-                            columnWidth: GCMediator.getState().columnWidth
+                            timeLine: GCMediator.getState().timeLine
                         });
                         break;
                     default:
@@ -246,7 +244,6 @@ export class ChartView extends React.Component<any, any> {
         const currentState = GCMediator.getState();
         const selectedElementId = newData.selectedTask || currentState.selectedTasks[0].id;
         const elements = this.state.displayingElements;
-
         if (selectedElementId) {
             this.setState({
                 displayingElements: elements

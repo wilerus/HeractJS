@@ -27,14 +27,40 @@ export class TasklineBar extends ChartBar {
             duration: data.duration,
             startDate: data.startDate,
             finish: data.finish,
-            priority: data.priority
+            priority: data.priority,
+            cellCapacity: GCMediator.getState().tasklineCellCapacity
         };
+    }
+
+    public componentWillReceiveProps(nextProps) {
+        const data = nextProps.data
+        this.setState({
+            id: data.id,
+            order: data.order,
+            collapsed: data.collapsed,
+            position: data.position,
+            calloutDisplay: data.calloutDisplay,
+            timelineDisplay: data.timelineDisplay,
+            link: data.link,
+            name: data.name,
+            type: data.type,
+            description: data.description,
+            assignee: data.assignee,
+            parent: data.parent,
+            predecessors: data.predecessors,
+            progress: data.progress,
+            duration: data.duration,
+            startDate: data.startDate,
+            finish: data.finish,
+            priority: data.priority,
+            cellCapacity: GCMediator.getState().tasklineCellCapacity
+        });
     }
 
     public render() {
         const id = this.props.data.id;
-        const startDate = this.state.startDate * GCMediator.getState().tasklineCellCapacity;
-        const duration = this.state.duration * GCMediator.getState().tasklineCellCapacity;
+        const startDate = this.state.startDate * this.state.cellCapacity;
+        const duration = this.state.duration * this.state.cellCapacity;
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
             onContextMenu: this.showActionPopup.bind(this),

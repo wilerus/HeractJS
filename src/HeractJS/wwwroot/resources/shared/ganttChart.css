@@ -83,15 +83,16 @@
     shape-rendering: crispEdges;
 }
 
-.barSelectBody:hover {
-    height: 23px;
-    stroke: rgb(210,210,210);
-}
+    .barSelectBody:hover {
+        height: 23px;
+        stroke: rgb(210,210,210);
+    }
 
-.barSelectBody.selected {
-    height: 23px;
-    stroke: rgb(200,200,200);
-}
+    .barSelectBody.selected {
+        height: 23px;
+        stroke: rgb(200,200,200);
+    }
+
 .tasklineBarBody.selected {
     height: 27px;
     stroke: rgb(200,200,200);

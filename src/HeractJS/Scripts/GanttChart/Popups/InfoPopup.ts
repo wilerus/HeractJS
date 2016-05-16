@@ -46,7 +46,7 @@ export class InfoPopup extends React.Component<any, any> {
         });
         const item = DOM.findDOMNode(this) as any;
         item.style.left = data.left + 'px';
-        item.style.top = data.top + 100 + 'px';
+        item.style.top = data.top + 50 + 'px';
         item.style.display = 'block';
         setTimeout(() => {
             item.style.top = data.top + 'px';
