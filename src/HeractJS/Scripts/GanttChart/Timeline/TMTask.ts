@@ -1,11 +1,7 @@
 ﻿import * as React from 'react';
-import {AppMediator} from '../../../scripts/services/ApplicationMediator';
 import {ChartBar} from '../GanttBar';
 
-const GCMediator: any = AppMediator.getInstance();
-
 export class TasklineBar extends ChartBar {
-
     constructor(props, context) {
         super(props, context);
         const data = props.data
@@ -28,7 +24,7 @@ export class TasklineBar extends ChartBar {
             startDate: data.startDate,
             finish: data.finish,
             priority: data.priority,
-            cellCapacity: GCMediator.getState().tasklineCellCapacity
+            cellCapacity: this.appMediator.getState().tasklineCellCapacity
         };
     }
 
@@ -53,7 +49,7 @@ export class TasklineBar extends ChartBar {
             startDate: data.startDate,
             finish: data.finish,
             priority: data.priority,
-            cellCapacity: GCMediator.getState().tasklineCellCapacity
+            cellCapacity: this.appMediator.getState().tasklineCellCapacity
         });
     }
 

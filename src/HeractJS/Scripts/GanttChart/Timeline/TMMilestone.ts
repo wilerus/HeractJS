@@ -1,11 +1,7 @@
 ﻿import * as React from 'react';
-import {AppMediator} from '../../../scripts/services/ApplicationMediator';
 import {ChartBar} from '../GanttBar';
 
-const GCMediator: any = AppMediator.getInstance();
-
 export class TasklineMilestone extends ChartBar {
-
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -26,7 +22,7 @@ export class TasklineMilestone extends ChartBar {
             startDate: props.data.startDate,
             finish: props.data.finish,
             priority: props.data.priority,
-            columnWidth: GCMediator.getState().tasklineCellCapacity
+            columnWidth: this.appMediator.getState().tasklineCellCapacity
         };
     }
     public componentWillReceiveProps(nextProps) {
@@ -50,7 +46,7 @@ export class TasklineMilestone extends ChartBar {
             startDate: data.startDate,
             finish: data.finish,
             priority: data.priority,
-            columnWidth: GCMediator.getState().tasklineCellCapacity
+            columnWidth: this.appMediator.getState().tasklineCellCapacity
         });
     }
     public render() {

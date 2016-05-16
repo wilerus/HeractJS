@@ -2,14 +2,13 @@
 import * as DOM from 'react-dom';
 import {AppMediator} from '../../scripts/services/ApplicationMediator'
 
-const GCMediator: any = AppMediator.getInstance();
-
 export class ChartBar extends React.Component<any, any> {
-
-    constructor() {
-        super();
-        GCMediator.subscribe(function () {
-            const change = GCMediator.getLastChange();
+    appMediator: any;
+    constructor(props: any, context: any) {
+        super(props, context);
+        this.appMediator = AppMediator.getInstance();
+        this.appMediator.subscribe(function () {
+            const change = this.appMediator.getLastChange();
             if (change) {
                 switch (change.type) {
                     case 'deselectAllTasks':
@@ -34,14 +33,14 @@ export class ChartBar extends React.Component<any, any> {
     }
 
     public startTaskSelection() {
-        if (!GCMediator.getState().isDragging) {
-            const selectedTaskId = GCMediator.getState().selectedTasks[0] && GCMediator.getState().selectedTasks[0].id;
+        if (!this.appMediator.getState().isDragging) {
+            const selectedTaskId = this.appMediator.getState().selectedTasks[0] && this.appMediator.getState().selectedTasks[0].id;
             const id = this.state.id.replace('TLI', '');
             if (selectedTaskId !== id) {
                 if (selectedTaskId) {
-                    GCMediator.dispatch({ type: 'deselectAllTasks' });
+                    this.appMediator.dispatch({ type: 'deselectAllTasks' });
                 }
-                GCMediator.dispatch({
+                this.appMediator.dispatch({
                     type: 'selectTask',
                     data: {
                         id: id,
@@ -53,7 +52,7 @@ export class ChartBar extends React.Component<any, any> {
     }
 
     public startBarRelocation(event: MouseEvent, eventTarget) {
-        GCMediator.dispatch({
+        this.appMediator.dispatch({
             type: 'setDraggingElement',
             data: this
         });
@@ -129,10 +128,10 @@ export class ChartBar extends React.Component<any, any> {
         };
 
         document.onmouseup = () => {
-            const currentState = GCMediator.getState();
+            const currentState = this.appMediator.getState();
             const selectedTaskState = currentState.dropTarget.state;
             if (!currentState.draggingElement.state.link) {
-                GCMediator.dispatch({
+                this.appMediator.dispatch({
                     type: 'editItem',
                     data: {
                         link: {
@@ -160,7 +159,7 @@ export class ChartBar extends React.Component<any, any> {
         const elementRect = eventTarget.getBoundingClientRect() as any;
         if (event.button !== 2 && eventTarget.classList[0] !== 'barSelectBody') {
             this.startTaskSelection();
-            GCMediator.dispatch({ type: 'startDragging' });
+            this.appMediator.dispatch({ type: 'startDragging' });
             switch (eventTarget.classList[0]) {
                 case 'milestoneBody':
                     this.startBarRelocation(event, eventTarget);
@@ -199,7 +198,7 @@ export class ChartBar extends React.Component<any, any> {
     }
 
     public updateСompleteDate(event: any, eventTarget: any) {
-        const cellCapacity = GCMediator.getState().cellCapacity;
+        const cellCapacity = this.appMediator.getState().cellCapacity;
         const duration = this.state.duration;
         const startPoint = event.pageX - duration * cellCapacity;
         let newDuration = startPoint;
@@ -242,9 +241,9 @@ export class ChartBar extends React.Component<any, any> {
     }
 
     public addNewConnection(event: MouseEvent) {
-        const currentState = GCMediator.getState();
+        const currentState = this.appMediator.getState();
         const currentItems = currentState.items;
-        GCMediator.dispatch({
+        this.appMediator.dispatch({
             type: 'create',
             item: {
                 id: `connection ${currentItems.length + 1}`,
@@ -256,7 +255,7 @@ export class ChartBar extends React.Component<any, any> {
     }
 
     public handleRectHover(event: MouseEvent) {
-        const currentState = GCMediator.getState();
+        const currentState = this.appMediator.getState();
         if (!currentState.isPanning) {
             const eventTarget: any = event.target;
             if (!currentState.isDragging) {
@@ -276,7 +275,7 @@ export class ChartBar extends React.Component<any, any> {
                         if (currentHoverElement && currentHoverElement === hoverElement && !currentState.isDragging) {
                             this.showInfoPopup(clientX, hoverElement);
                             currentHoverElement.onmouseout = () => {
-                                GCMediator.dispatch({ type: 'completeEditing' });
+                                this.appMediator.dispatch({ type: 'completeEditing' });
                             }
                         }
                     }.bind(this, hoverElement, event.clientX), 500);
@@ -292,7 +291,7 @@ export class ChartBar extends React.Component<any, any> {
                     };
                 }
             } else if (this !== currentState.draggingElement && this !== currentState.dropTarget) {
-                GCMediator.dispatch({
+                this.appMediator.dispatch({
                     type: 'setDropTarget',
                     data: this
                 });
@@ -310,7 +309,7 @@ export class ChartBar extends React.Component<any, any> {
         } else {
             leftMargin = coords.left + coords.width / 2 - 100;
         }
-        GCMediator.dispatch({
+        this.appMediator.dispatch({
             type: 'showInfoPopup',
             data: {
                 left: leftMargin,
@@ -335,7 +334,7 @@ export class ChartBar extends React.Component<any, any> {
         } else {
             leftMargin = coords.left + coords.width / 2 - 100;
         }
-        GCMediator.dispatch({
+        this.appMediator.dispatch({
             type: 'showActionChartPopup',
             data: {
                 left: leftMargin,
@@ -390,8 +389,8 @@ export class ChartBar extends React.Component<any, any> {
     }
 
     public showModalWindow() {
-        GCMediator.dispatch({ type: 'hideAllPopups' })
-        GCMediator.dispatch({
+        this.appMediator.dispatch({ type: 'hideAllPopups' })
+        this.appMediator.dispatch({
             type: 'showModalWindow',
             data: {
                 title: this.state.name,
@@ -403,25 +402,40 @@ export class ChartBar extends React.Component<any, any> {
         })
     }
 
-    public completeBarUpdating(focusTarget) {
+    public completeBarUpdating(eventTarget) {
         document.onmouseup = () => {
             let data: Object
-            if (focusTarget.classList[0] === 'barChartFillBody') {
-                data = {
-                    progress: Math.round((parseInt(focusTarget.getAttribute('width')) + 2) / parseInt(focusTarget.parentNode.getElementsByClassName('barChartBody')[0].getAttribute('width')) * 100)
-                }
-            } else {
-                data = {
-                    duration: Math.round(focusTarget.getAttribute('width') / GCMediator.getState().cellCapacity),
-                    startDate: Math.round(parseInt(focusTarget.getAttribute('x')) / GCMediator.getState().cellCapacity)
-                }
+            switch (eventTarget.classList[0]) {
+                case 'milestoneBody':
+                    data = {
+                        duration: Math.round(eventTarget.getAttribute('width') / this.appMediator.getState().tasklineCellCapacity),
+                    }
+                    break;
+                case 'tasklineBarBody':
+                    data = {
+                        duration: Math.round(eventTarget.getAttribute('width') / this.appMediator.getState().tasklineCellCapacity),
+                        startDate: Math.round(parseInt(eventTarget.getAttribute('x')) / this.appMediator.getState().tasklineCellCapacity)
+                    }
+                    break;
+                case 'barChartBody':
+                    data = {
+                        duration: Math.round(eventTarget.getAttribute('width') / this.appMediator.getState().cellCapacity),
+                        startDate: Math.round(parseInt(eventTarget.getAttribute('x')) / this.appMediator.getState().cellCapacity)
+                    }
+                case 'barChartFillBody':
+                    data = {
+                        progress: Math.round((parseInt(eventTarget.getAttribute('width')) + 2) / parseInt(eventTarget.parentNode.getElementsByClassName('barChartBody')[0].getAttribute('width')) * 100)
+                    }
+                    break;
+                default:
+                    break;
             }
-            GCMediator.dispatch({
+            this.appMediator.dispatch({
                 type: 'editItem',
                 data: data
             })
-            GCMediator.dispatch({ type: 'stopDragging' })
-            GCMediator.dispatch({ type: 'completeEditing' });
+            this.appMediator.dispatch({ type: 'stopDragging' })
+            this.appMediator.dispatch({ type: 'completeEditing' });
         }
     }
 }

@@ -14,7 +14,6 @@ import {AppMediator} from '../../scripts/services/ApplicationMediator'
 const GCMediator: any = AppMediator.getInstance();
 
 export class ChartView extends React.Component<any, any> {
-
     constructor() {
         super();
         this.state = {
@@ -222,7 +221,7 @@ export class ChartView extends React.Component<any, any> {
         }
     }
 
-    private startScrolling(event: MouseEvent) {
+    private startScrolling(event: any) {
         if (event.ctrlKey) {
             this.updateTimeline();
         } else {
