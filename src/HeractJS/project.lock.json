@@ -3,16 +3,7 @@
   "version": 2,
   "targets": {
     "DNX,Version=v4.5.1": {
-      "bootstrap.TypeScript.DefinitelyTyped/0.9.1": {
-        "type": "package",
-        "dependencies": {
-          "jquery.TypeScript.DefinitelyTyped": null
-        }
-      },
       "dnx-clr-win-x86/1.0.0-rc1-update2": {
-        "type": "package"
-      },
-      "jquery.TypeScript.DefinitelyTyped/3.0.6": {
         "type": "package"
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -1675,16 +1666,7 @@
       }
     },
     "DNX,Version=v4.5.1/win7-x86": {
-      "bootstrap.TypeScript.DefinitelyTyped/0.9.1": {
-        "type": "package",
-        "dependencies": {
-          "jquery.TypeScript.DefinitelyTyped": null
-        }
-      },
       "dnx-clr-win-x86/1.0.0-rc1-update2": {
-        "type": "package"
-      },
-      "jquery.TypeScript.DefinitelyTyped/3.0.6": {
         "type": "package"
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -3350,16 +3332,7 @@
       }
     },
     "DNX,Version=v4.5.1/win7-x64": {
-      "bootstrap.TypeScript.DefinitelyTyped/0.9.1": {
-        "type": "package",
-        "dependencies": {
-          "jquery.TypeScript.DefinitelyTyped": null
-        }
-      },
       "dnx-clr-win-x86/1.0.0-rc1-update2": {
-        "type": "package"
-      },
-      "jquery.TypeScript.DefinitelyTyped/3.0.6": {
         "type": "package"
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -5026,16 +4999,6 @@
     }
   },
   "libraries": {
-    "bootstrap.TypeScript.DefinitelyTyped/0.9.1": {
-      "type": "package",
-      "sha512": "glRq6BqIKkwg9fWxznWrTbgpYJ0FzWAAlco70kT5kB3cHTnh8b1wKWGOEYtvzTjV8f/BHJJIAlhpSe7dC+4+Mw==",
-      "files": [
-        "bootstrap.TypeScript.DefinitelyTyped.0.9.1.nupkg",
-        "bootstrap.TypeScript.DefinitelyTyped.0.9.1.nupkg.sha512",
-        "bootstrap.TypeScript.DefinitelyTyped.nuspec",
-        "Content/Scripts/typings/bootstrap/bootstrap.d.ts"
-      ]
-    },
     "dnx-clr-win-x86/1.0.0-rc1-update2": {
       "type": "package",
       "serviceable": true,
@@ -5077,16 +5040,6 @@
         "dnx-clr-win-x86.1.0.0-rc1-update2.nupkg",
         "dnx-clr-win-x86.1.0.0-rc1-update2.nupkg.sha512",
         "dnx-clr-win-x86.nuspec"
-      ]
-    },
-    "jquery.TypeScript.DefinitelyTyped/3.0.6": {
-      "type": "package",
-      "sha512": "0p6DiXcM31mVOSp2R0DIW+cevhIDFaMKcWPtLMwpzc79Z1vY53JmmkMkLE/Yh8RGx4zx/sFLPE9j8dHtO+AZgA==",
-      "files": [
-        "Content/Scripts/typings/jquery/jquery.d.ts",
-        "jquery.TypeScript.DefinitelyTyped.3.0.6.nupkg",
-        "jquery.TypeScript.DefinitelyTyped.3.0.6.nupkg.sha512",
-        "jquery.TypeScript.DefinitelyTyped.nuspec"
       ]
     },
     "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -7019,9 +6972,7 @@
       "Microsoft.Extensions.Logging.Console >= 1.0.0-rc1-final",
       "Microsoft.Extensions.Logging.Debug >= 1.0.0-rc1-final",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-rc1-final",
-      "dnx-clr-win-x86 >= 1.0.0-rc1-update2",
-      "jquery.TypeScript.DefinitelyTyped >= 3.0.6",
-      "bootstrap.TypeScript.DefinitelyTyped >= 0.9.1"
+      "dnx-clr-win-x86 >= 1.0.0-rc1-update2"
     ],
     "DNX,Version=v4.5.1": []
   }
