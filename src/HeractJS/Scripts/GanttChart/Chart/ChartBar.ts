@@ -23,11 +23,11 @@ export class TaskBar extends ChartBar {
             startDate: props.data.startDate,
             finish: props.data.finish,
             priority: props.data.priority,
-            columnWidth: this.appMediator.getState().cellCapacity
+            cellCapacity: this.appMediator.getState().cellCapacity
         };
     }
 
-    public componentWillReceiveProps(nextProps) {
+    public componentWillReceiveProps(nextProps: any) {
         const data = nextProps.data
         this.setState({
             id: data.id,
@@ -48,16 +48,16 @@ export class TaskBar extends ChartBar {
             startDate: data.startDate,
             finish: data.finish,
             priority: data.priority,
-            columnWidth: this.appMediator.getState().cellCapacity
+            cellCapacity: this.appMediator.getState().cellCapacity
         });
     }
 
     public render() {
-        let element = null;
+        let element: any;
         const position = this.state.position;
         const id = this.props.data.id;
-        const startDate = this.state.startDate * this.state.columnWidth;
-        const duration = this.state.duration * this.state.columnWidth;
+        const startDate = this.state.startDate * this.state.cellCapacity;
+        const duration = this.state.duration * this.state.cellCapacity;
         const length = startDate + duration;
         const configProgress = this.state.progress * duration / 100 - 2;
         const progress = configProgress > 0 ? configProgress : 0;
@@ -73,12 +73,12 @@ export class TaskBar extends ChartBar {
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this)
                 },
-                    React.createElement('rect', {
+                    this.rect({
                         className: 'barSelectBody',
                         y: position - 1,
                         x: 0
                     }),
-                    React.createElement('rect', {
+                    this.rect({
                         className: 'barChartBody',
                         id: id,
                         y: position + 4,
@@ -88,13 +88,13 @@ export class TaskBar extends ChartBar {
                         ry: 3,
                         filter: 'url(#shadowFilter)'
                     }),
-                    React.createElement('rect', {
+                    this.rect({
                         className: 'barChartFillBody',
                         y: position + 5,
                         x: startDate + 1,
                         width: progress
                     }),
-                    React.createElement('text', {
+                    this.text({
                         className: 'barTitle',
                         x: length,
                         y: position
@@ -109,12 +109,12 @@ export class TaskBar extends ChartBar {
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this)
                 },
-                    React.createElement('rect', {
+                    this.rect({
                         className: 'barSelectBody',
                         y: position - 1,
                         x: 0
                     }),
-                    React.createElement('rect', {
+                    this.rect({
                         className: 'milestoneBody',
                         id: id,
                         y: position + 4,
@@ -123,7 +123,7 @@ export class TaskBar extends ChartBar {
                         ry: 3,
                         filter: 'url(#shadowFilter)'
                     }),
-                    React.createElement('text', {
+                    this.text({
                         className: 'barTitle',
                         x: length,
                         y: position
@@ -136,7 +136,7 @@ export class TaskBar extends ChartBar {
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this)
                 },
-                    React.createElement('rect', {
+                    this.rect({
                         className: 'barSelectBody',
                         y: position - 1,
                         x: 0
@@ -150,7 +150,7 @@ export class TaskBar extends ChartBar {
                         className: 'projectBody',
                         id: id
                     }),
-                    React.createElement('text', {
+                    this.text({
                         className: 'barTitle',
                         x: length + 10,
                         y: position + 15

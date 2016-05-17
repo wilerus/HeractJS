@@ -22,10 +22,10 @@ export class TasklineMilestone extends ChartBar {
             startDate: props.data.startDate,
             finish: props.data.finish,
             priority: props.data.priority,
-            columnWidth: this.appMediator.getState().tasklineCellCapacity
+            cellCapacity: this.appMediator.getState().tasklineCellCapacity
         };
     }
-    public componentWillReceiveProps(nextProps) {
+    public componentWillReceiveProps(nextProps: any) {
         const data = nextProps.data
         this.setState({
             id: data.id,
@@ -46,11 +46,11 @@ export class TasklineMilestone extends ChartBar {
             startDate: data.startDate,
             finish: data.finish,
             priority: data.priority,
-            columnWidth: this.appMediator.getState().tasklineCellCapacity
+            cellCapacity: this.appMediator.getState().tasklineCellCapacity
         });
     }
     public render() {
-        const startDate = this.state.startDate * this.state.columnWidth;
+        const startDate = this.state.startDate * this.state.cellCapacity;
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
             onMouseDown: this.startBarUpdate.bind(this),
@@ -58,7 +58,7 @@ export class TasklineMilestone extends ChartBar {
             onDoubleClick: this.showModalWindow.bind(this),
             onClick: this.startTaskSelection.bind(this)
         },
-            React.createElement('rect', {
+            this.rect({
                 className: 'milestoneBody',
                 id: this.props.data.id,
                 x: startDate,
@@ -76,7 +76,7 @@ export class TasklineMilestone extends ChartBar {
                 strokeWidth: 1,
                 stroke: 'rgb(120,120,120)'
             }),
-            React.createElement('text', {
+            this.text({
                 className: 'barTitle',
                 x: startDate - 40,
                 y: 40

@@ -39,7 +39,7 @@ export class TaskLineView extends React.Component<any, any> {
 
     private updateElements(newData) {
         const currentState = GCMediator.getState();
-        const selectedElementId = newData.selectedTask || currentState.selectedTasks[0].id;
+        const selectedElementId = (newData && newData.selectedTask) || currentState.selectedTasks[0].id;
         const selectedElementType = currentState.selectedTasks[0].type;
         const selectedElement = currentState.items.find((item: any) => {
             if (item.id === selectedElementId) {
@@ -48,8 +48,8 @@ export class TaskLineView extends React.Component<any, any> {
         });
         if (selectedElementId) {
             if (selectedElementType !== 'milestone') {
-                let timelineTasks = currentState.timelineTasks;
-                let elem = timelineTasks.find((task, index) => {
+                const timelineTasks = currentState.timelineTasks;
+                timelineTasks.find((task:any, index:number) => {
                     if (task.id === selectedElementId && task.timelineDisplay) {
                         for (let prop in newData) {
                             task[prop] = newData[prop]
@@ -60,8 +60,8 @@ export class TaskLineView extends React.Component<any, any> {
                         return true
                     }
                 })
-                let timelineCallouts = currentState.timelineCallouts;
-                let callout = timelineCallouts.find((task, index) => {
+                const timelineCallouts = currentState.timelineCallouts;
+                const callout = timelineCallouts.find((task: any, index: number) => {
                     if (task.id === selectedElementId && !selectedElement.calloutDisplay) {
                         timelineCallouts.splice(index, 1);
                         return true
@@ -71,8 +71,8 @@ export class TaskLineView extends React.Component<any, any> {
                     timelineCallouts.push(selectedElement)
                 }
             } else {
-                let timelineMilestones = currentState.timelineMilestones;
-                let elem = timelineMilestones.find((task, index) => {
+                const timelineMilestones = currentState.timelineMilestones;
+                const elem = timelineMilestones.find((task: any, index: number) => {
                     if (task.id === selectedElementId && task.timelineDisplay) {
                         for (let prop in newData) {
                             task[prop] = newData[prop]
@@ -103,8 +103,8 @@ export class TaskLineView extends React.Component<any, any> {
             const startPoint = event.pageX;
             GCMediator.dispatch({ type: 'startPanning' });
             document.body.style.webkitUserSelect = 'none';
-            document.onmousemove = (event: MouseEvent) => {
-                view.scrollLeft = startPoint - event.pageX + startScroll;
+            document.onmousemove = (moveEvent: MouseEvent) => {
+                view.scrollLeft = startPoint - moveEvent.pageX + startScroll;
             }
             document.onmouseup = () => {
                 GCMediator.dispatch({ type: 'stopPanning' });

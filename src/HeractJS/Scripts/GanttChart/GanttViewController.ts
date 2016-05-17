@@ -66,13 +66,13 @@ export class ChartView extends React.Component<any, any> {
     private scrollChart(position: number) {
         const view: any = document.getElementById('ganttChart');
 
-        let difference = 24 * position - view.scrollTop;
-        let perTick = difference / 30;
+        const difference = 24 * position - view.scrollTop;
+        const perTick = difference / 30;
         if (this.state.interval) {
             clearInterval(this.state.interval);
             this.state.interval = null;
         }
-        let interval = setInterval(() => {
+        const interval = setInterval(() => {
             view.scrollTop = view.scrollTop + perTick;
             if ((view.scrollTop >= 24 * position && perTick > 0) || (view.scrollTop <= 24 * position && perTick < 0)) {
                 view.scrollTop = 24 * position;
@@ -122,7 +122,7 @@ export class ChartView extends React.Component<any, any> {
         let startPos: number = state.startPosition;
         let endPos: number = state.endPosition;
         const batchSize: number = state.batchSize;
-        let elements;
+        let elements: any;
         if (endPos - scrollPosition < 31 + batchSize || (startPos - scrollPosition < batchSize && startPos !== 0)) {
             const newStartPos: number = scrollPosition - batchSize;
             startPos = newStartPos > 0 ? newStartPos : 0;
@@ -137,8 +137,8 @@ export class ChartView extends React.Component<any, any> {
                 startPosition: startPos,
                 endPosition: endPos
             },
-                function (elements) {
-                    let links = [];
+                function () {
+                    const links: any[] = [];
                     for (let i = 0; i < elements.length - 2; i++) {
                         if (elements[i].link) {
                             elements[i].link.from = elements[i].id;
@@ -152,7 +152,7 @@ export class ChartView extends React.Component<any, any> {
                         type: 'scrollGrid',
                         data: scrollPosition
                     });
-                }.bind(this, elements));
+                }.bind(this));
         } else {
             GCMediator.dispatch({
                 type: 'scrollGrid',
@@ -162,11 +162,11 @@ export class ChartView extends React.Component<any, any> {
     }
 
     private rebuildElements() {
-        let timelineTasks = GCMediator.getState().timelineTasks;
-        let timelineMilestones = GCMediator.getState().timelineMilestones;
-        let elements = GCMediator.getState().items.slice(this.state.startPosition, this.state.endPosition);
-        let timelineCallouts = GCMediator.getState().timelineCallouts;
-        const links = [];
+        const timelineTasks = GCMediator.getState().timelineTasks;
+        const timelineMilestones = GCMediator.getState().timelineMilestones;
+        const elements = GCMediator.getState().items.slice(this.state.startPosition, this.state.endPosition);
+        const timelineCallouts = GCMediator.getState().timelineCallouts;
+        const links: any[] = [];
         for (let i = 0; i < elements.length - 2; i++) {
             if (elements[i].link) {
                 elements[i].link.from = elements[i].id;
@@ -204,13 +204,13 @@ export class ChartView extends React.Component<any, any> {
             const startScroll: number = view.scrollLeft;
             const startPoint: number = event.pageX;
             const currentState: any = GCMediator.getState();
-            document.onmousemove = (event: MouseEvent) => {
+            document.onmousemove = (moveEvent: MouseEvent) => {
                 if (!currentState.isPanning) {
                     GCMediator.dispatch({ type: 'startPanning' });
                     document.body.style.webkitUserSelect = 'none';
                 }
-                view.scrollLeft = startPoint - event.pageX + startScroll;
-                timeline.scrollLeft = startPoint - event.pageX + startScroll;
+                view.scrollLeft = startPoint - moveEvent.pageX + startScroll;
+                timeline.scrollLeft = startPoint - moveEvent.pageX + startScroll;
             };
             document.onmouseup = () => {
                 GCMediator.dispatch({ type: 'stopPanning' });
@@ -239,16 +239,16 @@ export class ChartView extends React.Component<any, any> {
         event.stopPropagation();
     }
 
-    private updateElements(newData) {
+    private updateElements(newData: any) {
         const currentState = GCMediator.getState();
-        const selectedElementId = newData.selectedTask || currentState.selectedTasks[0].id;
+        const selectedElementId = (newData && newData.selectedTask) || currentState.selectedTasks[0].id;
         const elements = this.state.displayingElements;
         if (selectedElementId) {
             this.setState({
                 displayingElements: elements
             },
                 function () {
-                    const links = [];
+                    const links: any[] = [];
                     for (let i = 0; i < elements.length - 2; i++) {
                         if (elements[i].link) {
                             elements[i].link.from = elements[i].id;

@@ -2,7 +2,7 @@
 import {ChartBar} from '../GanttBar'
 
 export class TasklineCallouts extends ChartBar {
-    constructor(props, context) {
+    constructor(props: any, context: Object) {
         super(props, context);
         this.state = {
             id: props.data.id,
@@ -22,10 +22,10 @@ export class TasklineCallouts extends ChartBar {
             startDate: props.data.startDate,
             finish: props.data.finish,
             priority: props.data.priority,
-            columnWidth: this.appMediator.getState().tasklineCellCapacity
+            cellCapacity: this.appMediator.getState().tasklineCellCapacity
         };
     }
-    public componentWillReceiveProps(nextProps) {
+    public componentWillReceiveProps(nextProps: any) {
         const data = nextProps.data
         this.setState({
             id: data.id,
@@ -46,26 +46,29 @@ export class TasklineCallouts extends ChartBar {
             startDate: data.startDate,
             finish: data.finish,
             priority: data.priority,
-            columnWidth: this.appMediator.getState().tasklineCellCapacity
+            cellCapacity: this.appMediator.getState().tasklineCellCapacity
         });
     }
     public render() {
-        const startDate = this.state.startDate * this.state.columnWidth;
-        const duration = this.state.duration * this.state.columnWidth;
+        const startDate = this.state.startDate * this.state.cellCapacity;
+        const duration = this.state.duration * this.state.cellCapacity;
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
             onContextMenu: this.showActionPopup.bind(this),
             onClick: this.startTaskSelection.bind(this)
         },
-            React.createElement('defs', {
-            }, React.createElement('clipPath', {
-                id: this.props.data.id + 'clipPath'
-            }, React.createElement('rect', {
-                id: this.props.data.id + 'clipRect',
-                x: this.state.startDate * this.state.columnWidth,
-                height: 29,
-                width: duration
-            }))),
+            React.createElement('defs', {},
+                React.createElement('clipPath', {
+                    id: this.props.data.id + 'clipPath'
+                },
+                    this.rect({
+                        id: this.props.data.id + 'clipRect',
+                        x: this.state.startDate * this.state.cellCapacity,
+                        height: 29,
+                        width: duration
+                    })
+                )
+            ),
             React.createElement('path', {
                 d: `M${startDate} 37 C ${startDate + 3} 32, ${startDate + 3} 32, ${startDate + 7} 32,
                     L${startDate + 7} 32, ${duration - 7 + startDate} 32,
@@ -73,7 +76,7 @@ export class TasklineCallouts extends ChartBar {
                 stroke: 'rgb(200,200,200)',
                 fill: 'transparent'
             }),
-            React.createElement('text', {
+            this.text({
                 className: 'taskLineTaskTitle',
                 x: startDate + duration / 2,
                 textAnchor: 'middle',
@@ -81,7 +84,7 @@ export class TasklineCallouts extends ChartBar {
                 width: duration,
                 y: 14
             }, `${this.props.data.name} - ${this.props.data.description}`),
-            React.createElement('text', {
+            this.text({
                 className: 'taskLineTaskDate',
                 x: startDate + duration / 2,
                 clipPath: `url(#${this.props.data.id}clipPath)`,

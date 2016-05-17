@@ -2,7 +2,7 @@
 import {ChartBar} from '../GanttBar';
 
 export class TasklineBar extends ChartBar {
-    constructor(props, context) {
+    constructor(props: any, context: Object) {
         super(props, context);
         const data = props.data
         this.state = {
@@ -28,7 +28,7 @@ export class TasklineBar extends ChartBar {
         };
     }
 
-    public componentWillReceiveProps(nextProps) {
+    public componentWillReceiveProps(nextProps: any) {
         const data = nextProps.data
         this.setState({
             id: data.id,
@@ -64,16 +64,20 @@ export class TasklineBar extends ChartBar {
             onClick: this.startTaskSelection.bind(this)
         },
             React.createElement('defs', {
-            }, React.createElement('clipPath', {
-                id: id + 'clipPath'
-            }, React.createElement('rect', {
-                className: 'clipRect',
-                id: id + 'clipRect',
-                x: startDate + 1,
-                height: 28,
-                width: duration - 2
-            }))),
-            React.createElement('rect', {
+            },
+                React.createElement('clipPath', {
+                    id: id + 'clipPath'
+                },
+                    this.rect({
+                        className: 'clipRect',
+                        id: id + 'clipRect',
+                        x: startDate + 1,
+                        height: 28,
+                        width: duration - 2
+                    })
+                )
+            ),
+            this.rect({
                 className: 'tasklineBarBody',
                 id: id,
                 x: startDate,
@@ -81,14 +85,14 @@ export class TasklineBar extends ChartBar {
                 width: duration,
                 filter: 'url(#shadowFilter)'
             }),
-            React.createElement('text', {
+            this.text({
                 className: 'taskLineTaskTitle',
                 x: startDate + 2,
                 width: duration - 2,
                 clipPath: `url(#${id}clipPath)`,
                 y: 13
             }, `${this.props.data.name} - ${this.props.data.description}`),
-            React.createElement('text', {
+            this.text({
                 className: 'taskLineTaskDate',
                 x: startDate + 2,
                 width: duration - 2,

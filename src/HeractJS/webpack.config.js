@@ -8,6 +8,9 @@ var AggressiveMergingPlugin = require('webpack/lib/optimize/AggressiveMergingPlu
 
 module.exports = {
     console: true,
+    stats: {
+        children: false
+    },
     entry: {
         //  'shared': './scripts/project/shared/bootstrap.js',
         //  'navigation': './scripts/project/navigation/module.js',

@@ -164,7 +164,7 @@ export class ChartData {
     }
 
     public getChartData() {
-        let ganttBars = [];
+        const ganttBars: any[] = [];
         let type: string;
         let text: string;
         let projectCount: number = 1;
@@ -234,11 +234,11 @@ export class ChartData {
         return ganttBars;
     }
 
-    public editItem(change) {
+    public editItem(change: any) {
         const newState = GCMediator.getState();
         const data = change.data;
         const newData = data;
-        let undoData = {};
+        const undoData = {};
         const taskId = newState.selectedTasks[0].id;
         newState.items.find((item: any) => {
             if (item.id === taskId) {
@@ -290,8 +290,8 @@ export class ChartData {
         let selectedTaskStartDate: number;
         let prevElIndex: number;
 
-        if (newState.selectedTasks) {
-            const prevElement = items.find((element, index) => {
+        if (newState.selectedTasks && newState.selectedTasks.length > 1) {
+            const prevElement = items.find((element: any, index: number) => {
                 if (element.id === newState.selectedTasks[0].id) {
                     prevElIndex = index;
                     return true;

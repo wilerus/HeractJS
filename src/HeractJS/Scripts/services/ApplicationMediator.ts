@@ -298,8 +298,8 @@ export class AppMediator {
         AppMediator.store.subscribe(callback);
     }
 
-    public unsubscribe(subscriber: any) {
-        delete AppMediator.subscribers[subscriber];
+    public unsubscribe(subscribeFunction: Function) {
+        subscribeFunction();
     }
 
     public undo() {

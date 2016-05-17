@@ -3,7 +3,9 @@ import * as DOM from 'react-dom';
 import {AppMediator} from '../../scripts/services/ApplicationMediator'
 
 export class ChartBar extends React.Component<any, any> {
-    appMediator: any;
+    public appMediator: any;
+    public rect = React.createFactory('rect');
+    public text = React.createFactory('text');
     constructor(props: any, context: any) {
         super(props, context);
         this.appMediator = AppMediator.getInstance();
@@ -51,7 +53,7 @@ export class ChartBar extends React.Component<any, any> {
         }
     }
 
-    public startBarRelocation(event: MouseEvent, eventTarget) {
+    public startBarRelocation(event: MouseEvent, eventTarget: HTMLElement) {
         this.appMediator.dispatch({
             type: 'setDraggingElement',
             data: this
@@ -60,61 +62,60 @@ export class ChartBar extends React.Component<any, any> {
         const startX = event.clientX;
         const isTimelineBar = eventTarget.id.indexOf('TLI') !== -1;
 
-        document.onmousemove = function (event: MouseEvent) {
-            if (Math.abs(event.clientX - startX) > 30 || isTimelineBar) {
-                const startDate = event.pageX;
-                const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
-                switch (eventTarget.classList[0]) {
-                    case 'milestoneBody':
-                        const connection = eventTarget.parentNode.getElementsByClassName('bodyConnection')[0];
-                        const title = eventTarget.parentNode.getElementsByClassName('barTitle')[0];
-                        document.onmousemove = (event: MouseEvent) => {
-                            const newStartDate = startPointStartDate + (event.pageX - startDate);
-                            if (newStartDate > 0) {
-                                eventTarget.setAttribute('x', newStartDate)
-                                connection.setAttribute('x1', newStartDate + 7.5)
-                                connection.setAttribute('x2', newStartDate + 7.5)
-                                title.setAttribute('x', newStartDate - 40)
-                            }
-                        };
-                        break;
-                    case 'tasklineBarBody':
-                        const titleElement = eventTarget.parentNode.getElementsByClassName('taskLineTaskTitle')[0];
-                        const dateElement = eventTarget.parentNode.getElementsByClassName('taskLineTaskDate')[0];
-                        const clipPath = eventTarget.parentNode.getElementsByClassName('clipRect')[0];
-                        document.onmousemove = (event: MouseEvent) => {
-                            const newStartDate = Math.round(startPointStartDate + (event.pageX - startDate));
-                            if (newStartDate > 0) {
-                                eventTarget.setAttribute('x', newStartDate)
-                                titleElement.setAttribute('x', newStartDate)
-                                dateElement.setAttribute('x', newStartDate)
-                                clipPath.setAttribute('x', newStartDate)
-                            }
+        if (Math.abs(event.clientX - startX) > 30 || isTimelineBar) {
+            const startDate = event.pageX;
+            const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
+            const parentElement: HTMLElement = eventTarget.parentNode as HTMLElement
+            switch (eventTarget.classList[0]) {
+                case 'milestoneBody':
+                    const connection = parentElement.getElementsByClassName('bodyConnection')[0];
+                    const title = parentElement.getElementsByClassName('barTitle')[0];
+                    document.onmousemove = (moveEvent: MouseEvent) => {
+                        const newStartDate = startPointStartDate + (moveEvent.pageX - startDate) as any;
+                        if (newStartDate > 0) {
+                            eventTarget.setAttribute('x', newStartDate)
+                            connection.setAttribute('x1', newStartDate + 7.5)
+                            connection.setAttribute('x2', newStartDate + 7.5)
+                            title.setAttribute('x', newStartDate - 40)
                         }
-                        break;
-                    case 'barChartBody':
-                        const fillTarget = eventTarget.parentNode.getElementsByClassName('barChartFillBody')[0];
-                        document.onmousemove = (event: MouseEvent) => {
-                            const newStartDate = Math.round(startPointStartDate + (event.pageX - startDate));
-                            if (newStartDate > 0) {
-                                eventTarget.setAttribute('x', newStartDate)
-                                fillTarget.setAttribute('x', newStartDate)
-                            }
+                    };
+                    break;
+                case 'tasklineBarBody':
+                    const titleElement = parentElement.getElementsByClassName('taskLineTaskTitle')[0];
+                    const dateElement = parentElement.getElementsByClassName('taskLineTaskDate')[0];
+                    const clipPath = parentElement.getElementsByClassName('clipRect')[0];
+                    document.onmousemove = (moveEvent: MouseEvent) => {
+                        const newStartDate = Math.round(startPointStartDate + (moveEvent.pageX - startDate)) as any;
+                        if (newStartDate > 0) {
+                            eventTarget.setAttribute('x', newStartDate)
+                            titleElement.setAttribute('x', newStartDate)
+                            dateElement.setAttribute('x', newStartDate)
+                            clipPath.setAttribute('x', newStartDate)
                         }
-                        break;
-                    default:
-                        break;
-                }
-            } else if (Math.abs(event.clientY - startY) > 30) {
-                this.drawHelpLink(eventTarget)
+                    }
+                    break;
+                case 'barChartBody':
+                    const fillTarget = parentElement.getElementsByClassName('barChartFillBody')[0];
+                    document.onmousemove = (moveEvent: MouseEvent) => {
+                        const newStartDate = Math.round(startPointStartDate + (moveEvent.pageX - startDate)) as any;
+                        if (newStartDate > 0) {
+                            eventTarget.setAttribute('x', newStartDate)
+                            fillTarget.setAttribute('x', newStartDate)
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
-        }.bind(this);
+        } else if (Math.abs(event.clientY - startY) > 30) {
+            this.drawHelpLink(eventTarget)
+        }
     }
 
-    public drawHelpLink(eventTarget) {
+    public drawHelpLink(eventTarget: HTMLElement) {
         const templine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
         templine.setAttribute('id', 'templine');
-        templine.setAttribute('x1', (parseInt(eventTarget.getAttribute('x')) + eventTarget.getAttribute('width') / 2).toString());
+        templine.setAttribute('x1', (parseInt(eventTarget.getAttribute('x')) +parseInt(eventTarget.getAttribute('width')) / 2).toString());
         templine.setAttribute('strokeWidth', '2');
         templine.setAttribute('y1', (eventTarget.getAttribute('y')).toString());
         templine.setAttribute('stroke', 'rgb(80,80,220)');
@@ -148,9 +149,9 @@ export class ChartBar extends React.Component<any, any> {
     }
 
     public startBarUpdate(event: MouseEvent) {
-        let eventTarget: any = event.target;
-        let documentAny = document as any
-        let clickCoordX = event.clientX;
+        const eventTarget: any = event.target;
+        const documentAny = document as any
+        const clickCoordX = event.clientX;
         if (documentAny.selection) {
             documentAny.selection.empty();
         } else if (window.getSelection) {
@@ -178,7 +179,7 @@ export class ChartBar extends React.Component<any, any> {
                     if (eventTarget.getAttribute('class') === 'barChartFillBody') {
                         focusTarget = eventTarget.parentNode.getElementsByClassName('barChartBody')[0];
                     }
-                    let parentCoords = eventTarget.getBoundingClientRect();
+                    const parentCoords = eventTarget.getBoundingClientRect();
 
                     if (parentCoords && clickCoordX > parentCoords.right - 15) {
                         this.updateComplitionState(event, eventTarget);
@@ -198,12 +199,12 @@ export class ChartBar extends React.Component<any, any> {
     }
 
     public updateСompleteDate(event: any, eventTarget: any) {
-        const cellCapacity = this.appMediator.getState().cellCapacity;
+        const cellCapacity = this.state.cellCapacity;
         const duration = this.state.duration;
         const startPoint = event.pageX - duration * cellCapacity;
         let newDuration = startPoint;
-        document.onmousemove = (event) => {
-            newDuration = Math.round(event.pageX - startPoint);
+        document.onmousemove = (moveEvent: MouseEvent) => {
+            newDuration = Math.round(moveEvent.pageX - startPoint);
             if (newDuration > 0) {
                 eventTarget.setAttribute('width', newDuration)
             }
@@ -216,24 +217,27 @@ export class ChartBar extends React.Component<any, any> {
             const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
             const startWidth = parseInt(eventTarget.getAttribute('width'));
             const fillTarget = eventTarget.parentNode.getElementsByClassName('barChartFillBody')[0];
-            document.onmousemove = (event: MouseEvent) => {
-                const newStartDate = Math.round(startPointStartDate + (event.pageX - startDate));
-                const newWidth = Math.round(startWidth + (startDate - event.pageX));
+            document.onmousemove = (moveEvent: MouseEvent) => {
+                const newStartDate = Math.round(startPointStartDate + (moveEvent.pageX - startDate));
+                const newWidth = Math.round(startWidth + (startDate - moveEvent.pageX));
                 if (newStartDate > 0 && newWidth > 1) {
-                    eventTarget.setAttribute('x', newStartDate)
-                    fillTarget.setAttribute('x', newStartDate)
-                    eventTarget.setAttribute('width', newWidth)
+                    eventTarget.setAttribute('x', newStartDate);
+                    if (fillTarget) {
+                        fillTarget.setAttribute('x', newStartDate);
+                    }
+                    eventTarget.setAttribute('width', newWidth);
                 }
             };
         }
     }
 
-    public updateComplitionState(event: MouseEvent, eventTarget) {
+    public updateComplitionState(event: MouseEvent, eventTarget: HTMLElement) {
         const clickCoordX = event.pageX;
-        const maxWidth = eventTarget.parentNode.getElementsByClassName('barChartBody')[0].getAttribute('width');
+        const parentElement: HTMLElement = eventTarget.parentNode as HTMLElement
+        const maxWidth: number = parseInt(parentElement.getElementsByClassName('barChartBody')[0].getAttribute('width'));
         const width = parseInt(eventTarget.getAttribute('width'));
-        document.onmousemove = (event) => {
-            const newComplition = Math.round(width + (event.pageX - clickCoordX));
+        document.onmousemove = (moveEvent: MouseEvent) => {
+            const newComplition = Math.round(width + (moveEvent.pageX - clickCoordX)) as any;
             if (newComplition > 0 && newComplition < maxWidth) {
                 eventTarget.setAttribute('width', newComplition);
             }
@@ -270,17 +274,17 @@ export class ChartBar extends React.Component<any, any> {
                         break;
                 }
                 if (hoverElement) {
-                    setTimeout(function (hoverElement, clientX: number) {
-                        let currentHoverElement = hoverElement.parentElement.querySelector(':hover');
-                        if (currentHoverElement && currentHoverElement === hoverElement && !currentState.isDragging) {
-                            this.showInfoPopup(clientX, hoverElement);
+                    setTimeout(function (actionElement: HTMLElement, clientX: number) {
+                        const currentHoverElement: HTMLElement = actionElement.parentElement.querySelector(':hover') as HTMLElement;
+                        if (currentHoverElement && currentHoverElement === actionElement && !currentState.isDragging) {
+                            this.showInfoPopup(clientX, actionElement);
                             currentHoverElement.onmouseout = () => {
                                 this.appMediator.dispatch({ type: 'completeEditing' });
                             }
                         }
                     }.bind(this, hoverElement, event.clientX), 500);
-                    document.onmousemove = (event) => {
-                        const clickCoordX = event.clientX;
+                    document.onmousemove = (moveEvent) => {
+                        const clickCoordX = moveEvent.clientX;
                         if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
                             el.style.cursor = 'move';
                         } else if (clickCoordX > elementRect.right - 15) {
@@ -299,10 +303,10 @@ export class ChartBar extends React.Component<any, any> {
         }
     }
 
-    public showInfoPopup(clientX, hoverElement) {
+    public showInfoPopup(clientX: number, hoverElement: HTMLElement) {
         const coords = hoverElement.getBoundingClientRect();
         let leftMargin: number;
-        let topMargin: number = coords.top - 160 < 0 ? coords.top + 30 : coords.top - 160;
+        const topMargin: number = coords.top - 160 < 0 ? coords.top + 30 : coords.top - 160;
 
         if (hoverElement.getAttribute('class') === 'barSelectBody') {
             leftMargin = clientX;
@@ -327,7 +331,7 @@ export class ChartBar extends React.Component<any, any> {
         const eventTarget = event.target as any;
         const coords = eventTarget.getBoundingClientRect();
         let leftMargin: number;
-        let topMargin: number = coords.top + 22;
+        const topMargin: number = coords.top + 22;
         this.startTaskSelection();
         if (eventTarget.getAttribute('class') === 'barSelectBody barSelected') {
             leftMargin = event.clientX;
@@ -402,29 +406,28 @@ export class ChartBar extends React.Component<any, any> {
         })
     }
 
-    public completeBarUpdating(eventTarget) {
+    public completeBarUpdating(eventTarget: HTMLElement) {
         document.onmouseup = () => {
-            let data: Object
+            let data: Object;
+            const elementWidth: number = parseInt(eventTarget.getAttribute('width'));
+            const cellCapacity = this.state.cellCapacity;
+            const parentElement: HTMLElement = eventTarget.parentNode as HTMLElement;
             switch (eventTarget.classList[0]) {
                 case 'milestoneBody':
                     data = {
-                        duration: Math.round(eventTarget.getAttribute('width') / this.appMediator.getState().tasklineCellCapacity),
+                        startDate: Math.round(parseInt(eventTarget.getAttribute('x')) / cellCapacity)
                     }
                     break;
                 case 'tasklineBarBody':
-                    data = {
-                        duration: Math.round(eventTarget.getAttribute('width') / this.appMediator.getState().tasklineCellCapacity),
-                        startDate: Math.round(parseInt(eventTarget.getAttribute('x')) / this.appMediator.getState().tasklineCellCapacity)
-                    }
-                    break;
                 case 'barChartBody':
                     data = {
-                        duration: Math.round(eventTarget.getAttribute('width') / this.appMediator.getState().cellCapacity),
-                        startDate: Math.round(parseInt(eventTarget.getAttribute('x')) / this.appMediator.getState().cellCapacity)
+                        duration: Math.round(elementWidth / cellCapacity),
+                        startDate: Math.round(parseInt(eventTarget.getAttribute('x')) / cellCapacity)
                     }
+                    break;
                 case 'barChartFillBody':
                     data = {
-                        progress: Math.round((parseInt(eventTarget.getAttribute('width')) + 2) / parseInt(eventTarget.parentNode.getElementsByClassName('barChartBody')[0].getAttribute('width')) * 100)
+                        progress: Math.round((elementWidth + 2) / parseInt(parentElement.getElementsByClassName('barChartBody')[0].getAttribute('width')) * 100)
                     }
                     break;
                 default:
