@@ -13,7 +13,7 @@
 
 define([
         'coreui',
-        '../application/views/contentloadingview',
+        '../application/views/ContentLoadingView',
         './ModuleProxy'
     ],
     function (core, ContentLoadingView, ModuleProxy) {

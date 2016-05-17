@@ -62,8 +62,19 @@ export class AppMediator {
                 items = action.data;
                 break;
             case 'completeItemEditing':
+                undoData = {};
                 const newData = action.data;
-                undoData = action.undoData;
+
+                const taskId = newState.selectedTasks[0].id;
+                newState.items.find((item: any) => {
+                    if (item.id === taskId) {
+                        for (let prop in newData) {
+                            undoData[prop] = item[prop];
+                            item[prop] = newData[prop];
+                        }
+                        return true;
+                    }
+                });
                 newState.lastTaskChange = {
                     type: 'editItem',
                     selectedTask: action.selectedTask,

@@ -5,6 +5,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 var LimitChunkCountPlugin = require('webpack/lib/optimize/LimitChunkCountPlugin');
 var AggressiveMergingPlugin = require('webpack/lib/optimize/AggressiveMergingPlugin');
+var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 module.exports = {
     console: true,
@@ -14,9 +15,7 @@ module.exports = {
     entry: {
         //  'shared': './scripts/project/shared/bootstrap.js',
         //  'navigation': './scripts/project/navigation/module.js',
-        'project': './Scripts/project/Application.js',
-        'services': './Scripts/services/ApplicationMediator.ts',
-        'gantt': './Scripts/GanttChart/GanttViewInitializer.ts'
+        'project': './scripts/project/Application.js'
     },
     devtool: "#inline-source-map",
     output: {
@@ -44,7 +43,7 @@ module.exports = {
             'profileNotificationInitializer': path.resolve(__dirname + '/scripts/project/profile/notificationSettings/Initializer'),
             'profileProfileInitializer': path.resolve(__dirname + '/scripts/project/profile/profile/Initializer'),
             'navigation': path.resolve(__dirname + '/scripts/project/navigation/module.js'),
-            'LANGMAPEN': path.resolve(__dirname + '/wwwroot/js/compiled/localizationmap.en.js'),
+            'LANGMAPEN': path.resolve(__dirname + '/wwwroot/js/compiled/localizationMap.en.js'),
             'appMediator': path.resolve(__dirname + '/scripts/services/ApplicationMediator'),
             'ganttView': path.resolve(__dirname + '/scripts/GanttChart/GanttViewInitializer'),
             'form': path.resolve(__dirname + '/scripts/project/form')
@@ -81,7 +80,8 @@ module.exports = {
             minSizeReduce: 1.5,
             moveToParents: true
         }),
-        new ExtractTextPlugin('bundle.css')
+        new ExtractTextPlugin('bundle.css'),
+        new CaseSensitivePathsPlugin()
         //new webpack.optimize.DedupePlugin(),
         //new webpack.optimize.OccurenceOrderPlugin(),
         //new webpack.optimize.UglifyJsPlugin()

@@ -11,7 +11,7 @@
 
 /* global define, $, _, CKEDITOR */
 
-define(['form/App', 'form/templates/editors/textAreaEditor.html', './BaseEditorView'],
+define(['form/App', 'form/templates/editors/textareaEditor.html', './BaseEditorView'],
     function (App, template, EditorBaseView) {
         'use strict';
 

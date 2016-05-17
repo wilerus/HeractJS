@@ -9,6 +9,7 @@
 * Add task to Timeline - task will be visible on timeline
 * Remove task from Timeline - task will be not visible on timeline
 * Relocation while left button pressed in the middle of bar
+* Zoom-in and Zoom-out using `CTRL + Mouse wheel` to scale chart
 
 `Task `
 * Change start date while left button pressed in the beginning of the bar
@@ -31,6 +32,7 @@
 * Relocation while left button pressed in the middle of bar
 * Add to callouts panel
 * Remove from callouts panel
+* Zoom-in and Zoom-out using `CTRL + Mouse wheel` to scale chart
 
 `Task`
 * Change start date while left button pressed in the beginning of the bar

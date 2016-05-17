@@ -71,6 +71,7 @@ export class TaskLink extends React.Component<any, any> {
     public componentDidMount() {
         this.buildConnection();
     }
+
     private shouldComponentUpdate(nextProps: any, nextState: any) {
         if (this.state.firstPoint !== nextState.firstPoint ||
             this.state.secondPoint !== nextState.secondPoint ||

@@ -30,6 +30,7 @@ export class TaskLineView extends React.Component<any, any> {
                         this.setState({
                             TasklineTimeItems: GCMediator.getState().timelineTimeItems
                         });
+                        break;
                     default:
                         break;
                 }
@@ -37,62 +38,60 @@ export class TaskLineView extends React.Component<any, any> {
         }.bind(this));
     }
 
-    private updateElements(newData) {
+    private updateElements(newData: any = {}) {
         const currentState = GCMediator.getState();
-        const selectedElementId = (newData && newData.selectedTask) || currentState.selectedTasks[0].id;
+        const selectedElementId = newData.selectedTask || currentState.selectedTasks[0].id;
         const selectedElementType = currentState.selectedTasks[0].type;
         const selectedElement = currentState.items.find((item: any) => {
             if (item.id === selectedElementId) {
                 return true
             }
         });
-        if (selectedElementId) {
-            if (selectedElementType !== 'milestone') {
-                const timelineTasks = currentState.timelineTasks;
-                timelineTasks.find((task:any, index:number) => {
-                    if (task.id === selectedElementId && task.timelineDisplay) {
-                        for (let prop in newData) {
-                            task[prop] = newData[prop]
-                        }
-                        return true
-                    } else if (task.id === selectedElementId) {
-                        timelineTasks.splice(index, 1);
-                        return true
+        if (selectedElementType !== 'milestone') {
+            const timelineTasks = currentState.timelineTasks;
+            timelineTasks.find((task: any, index: number) => {
+                if (task.id === selectedElementId && task.timelineDisplay) {
+                    for (let prop in newData) {
+                        task[prop] = newData[prop];
                     }
-                })
-                const timelineCallouts = currentState.timelineCallouts;
-                const callout = timelineCallouts.find((task: any, index: number) => {
-                    if (task.id === selectedElementId && !selectedElement.calloutDisplay) {
-                        timelineCallouts.splice(index, 1);
-                        return true
-                    }
-                })
-                if (!callout && selectedElement.calloutDisplay) {
-                    timelineCallouts.push(selectedElement)
+                    return true;
+                } else if (task.id === selectedElementId) {
+                    timelineTasks.splice(index, 1);
+                    return true;
                 }
-            } else {
-                const timelineMilestones = currentState.timelineMilestones;
-                const elem = timelineMilestones.find((task: any, index: number) => {
-                    if (task.id === selectedElementId && task.timelineDisplay) {
-                        for (let prop in newData) {
-                            task[prop] = newData[prop]
-                        }
-                        return true
-                    } else if (task.id === selectedElementId) {
-                        timelineMilestones.splice(index, 1);
-                        return true
-                    }
-                })
-                if (!elem && selectedElement.timelineDisplay) {
-                    timelineMilestones.push(selectedElement)
+            })
+            const timelineCallouts = currentState.timelineCallouts;
+            const callout = timelineCallouts.find((task: any, index: number) => {
+                if (task.id === selectedElementId && !selectedElement.calloutDisplay) {
+                    timelineCallouts.splice(index, 1);
+                    return true;
                 }
+            })
+            if (!callout && selectedElement.calloutDisplay) {
+                timelineCallouts.push(selectedElement);
             }
-            this.setState({
-                tasklineTasks: GCMediator.getState().timelineTasks,
-                tasklineMilestones: GCMediator.getState().timelineMilestones,
-                tasklineCallouts: GCMediator.getState().timelineCallouts
-            });
+        } else {
+            const timelineMilestones = currentState.timelineMilestones;
+            const elem = timelineMilestones.find((task: any, index: number) => {
+                if (task.id === selectedElementId && task.timelineDisplay) {
+                    for (let prop in newData) {
+                        task[prop] = newData[prop];
+                    }
+                    return true;
+                } else if (task.id === selectedElementId) {
+                    timelineMilestones.splice(index, 1);
+                    return true;
+                }
+            })
+            if (!elem && selectedElement.timelineDisplay) {
+                timelineMilestones.push(selectedElement);
+            }
         }
+        this.setState({
+            tasklineTasks: GCMediator.getState().timelineTasks,
+            tasklineMilestones: GCMediator.getState().timelineMilestones,
+            tasklineCallouts: GCMediator.getState().timelineCallouts
+        });
     }
 
     private startPanning(event: MouseEvent) {

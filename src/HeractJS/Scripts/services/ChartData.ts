@@ -237,18 +237,8 @@ export class ChartData {
     public editItem(change: any) {
         const newState = GCMediator.getState();
         const data = change.data;
-        const newData = data;
         const undoData = {};
         const taskId = newState.selectedTasks[0].id;
-        newState.items.find((item: any) => {
-            if (item.id === taskId) {
-                for (let prop in newData) {
-                    undoData[prop] = item[prop];
-                    item[prop] = newData[prop];
-                }
-                return true;
-            }
-        });
         GCMediator.dispatch({
             type: 'completeItemEditing',
             selectedTask: taskId,

@@ -90,8 +90,8 @@ export class GanttToolbar extends React.Component<any, any> {
                     if (element.link) {
                         document.getElementById('removeLinkButton').style.display = 'initial';
                     }
+                    return true;
                 }
-                return true
             });
 
         }

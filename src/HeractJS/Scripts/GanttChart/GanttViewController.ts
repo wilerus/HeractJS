@@ -56,11 +56,11 @@ export class ChartView extends React.Component<any, any> {
     }
 
     private shouldComponentUpdate(nextProps: any, nextState: any) {
-        if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
-            return true;
-        } else {
-            return false;
-        }
+        //if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
+        //    return true;
+        //} else {
+        return true;
+        //}
     }
 
     private scrollChart(position: number) {
@@ -127,7 +127,7 @@ export class ChartView extends React.Component<any, any> {
             const newStartPos: number = scrollPosition - batchSize;
             startPos = newStartPos > 0 ? newStartPos : 0;
             endPos = scrollPosition + 31 + batchSize;
-            elements = GCMediator.getState().items.slice(startPos, endPos);
+            elements = new GCMediator.getState().items.slice(startPos, endPos);
             document
                 .getElementById('ganttChartView')
                 .style.height = (document.documentElement.clientHeight + state.elementHeight * endPos).toString();
@@ -240,9 +240,12 @@ export class ChartView extends React.Component<any, any> {
     }
 
     private updateElements(newData: any) {
+        const state = this.state;
         const currentState = GCMediator.getState();
         const selectedElementId = (newData && newData.selectedTask) || currentState.selectedTasks[0].id;
-        const elements = this.state.displayingElements;
+        let startPos: number = state.startPosition;
+        let endPos: number = state.endPosition;
+        const elements = GCMediator.getState().items.slice(startPos, endPos);
         if (selectedElementId) {
             this.setState({
                 displayingElements: elements

@@ -12,7 +12,7 @@
 /* global define */
 
 define(['form/App', 'form/templates/widgets/timespentItem.html',
-        'form/templates/widgets/timespentCollection.html', 'form/templates/widgets/timeSpentItemNew.html'],
+        'form/templates/widgets/timespentCollection.html', 'form/templates/widgets/timespentItemNew.html'],
     function (App, TimespentItemTmpl, TimespentCollectionTmpl) {
         'use strict';
 

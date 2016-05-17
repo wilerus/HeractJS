@@ -11,9 +11,9 @@
 
 /* global define, _, $ */
 
-define(['form/App', './ActionsDropDownView', 'form/templates/actions.html',
+define(['form/App', './ActionsDropdownView', 'form/templates/actions.html',
         'form/views/ConfirmView', 'form/views/widgets/SearchModalView', 'form/views/NextStepView', 'form/models/editors/account/ReassignModel'],
-    function (App, ActionsDropDownView, actionsTmpl, ConfirmView,
+    function (App, ActionsDropdownView, actionsTmpl, ConfirmView,
               SearchModalView, NextStepView, ReassignModel) {
         'use strict';
         return Marionette.LayoutView.extend({
@@ -131,7 +131,7 @@ define(['form/App', './ActionsDropDownView', 'form/templates/actions.html',
                 }
 
                 this.actions = actions;
-                this.actionsDropDownView = new ActionsDropDownView({
+                this.actionsDropDownView = new ActionsDropdownView({
                     actions: this.actions
                 });
                 this.initializeEventsHandling();
