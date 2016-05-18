@@ -80,7 +80,7 @@ export class AppMediator {
                     selectedTask: action.selectedTask,
                     data: newData
                 }
-                action.isHistoryNeed === false ? isHistoryNeed = false : isHistoryNeed = true;
+                isHistoryNeed = true;
                 break;
             case 'autoSchedule':
                 break;
@@ -199,6 +199,10 @@ export class AppMediator {
                 newState.scrollPosition = action.data;
                 break;
             case 'editItem':
+                isHistoryNeed = true;
+                action.data.isHistoryNeed = action.isHistoryNeed;
+                action.data.isRedoNeed = action.isRedoNeed;
+                break;
             case 'indent':
             case 'outindent':
             case 'createItem':
@@ -226,7 +230,7 @@ export class AppMediator {
                 data: action.data
             });
         }
-        if (undoData && action.isHistoryNeed !== false && newState.eventsHistory[1] !== 'undo') {
+        if (undoData && action.isHistoryNeed !== false) {
             newState.undoHistory.push({
                 type: action.undoType,
                 selectedTask: action.selectedTask || newState.selectedTasks[0].id,
