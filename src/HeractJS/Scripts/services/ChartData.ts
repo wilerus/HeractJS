@@ -280,7 +280,7 @@ export class ChartData {
         let selectedTaskPosition: number;
         let selectedTaskStartDate: number;
         let prevElIndex: number;
-        if (newState.selectedTasks && newState.selectedTasks.length > 1) {
+        if (newState.selectedTasks && newState.selectedTasks.length > 0) {
             const prevElement = items.find((element: any, index: number) => {
                 if (element.id === newState.selectedTasks[0].id) {
                     prevElIndex = index;
