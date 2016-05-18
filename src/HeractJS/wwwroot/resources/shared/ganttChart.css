@@ -9,12 +9,16 @@
     padding-right: 15px;
 }
 
+g {
+    transition: inherit;
+}
+
 /* Bar chart */
 .barChartBody {
     position: absolute;
     height: 15px;
     fill: rgb(160, 230, 160);
-    transition: all .2s;
+    transition: inherit;
 }
 
 .milestoneBody {
@@ -48,7 +52,7 @@
     position: absolute;
     height: 13px;
     fill: rgb(100,170,100);
-    transition: all .2s;
+    transition: inherit;
 }
 
 .barTitle {
@@ -105,12 +109,13 @@
     shape-rendering: optimizeSpeed;
     margin-left: -1px;
     z-index: 10;
+    transition: all 0.2s;
 }
 
 .ganttChart {
     width: 100%;
     overflow: auto;
-    transition: all .2s;
+    transition: inherit;
 }
 
 .ganttChartContainer {

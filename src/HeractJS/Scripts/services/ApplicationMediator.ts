@@ -86,6 +86,7 @@ export class AppMediator {
                 break;
             case 'startDragging':
                 newState.isDragging = true;
+                isHistoryNeed = true;
                 break;
             case 'stopDragging':
                 newState.isDragging = false;

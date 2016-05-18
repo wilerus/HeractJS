@@ -178,20 +178,17 @@ export class ChartBar extends React.Component<any, any> {
                     }
                     break;
                 case 'barChartBody':
-                    let focusTarget = eventTarget;
-                    if (eventTarget.getAttribute('class') === 'barChartFillBody') {
-                        focusTarget = eventTarget.parentNode.getElementsByClassName('barChartBody')[0];
-                    }
-                    const parentCoords = eventTarget.getBoundingClientRect();
-
-                    if (parentCoords && clickCoordX > parentCoords.right - 15) {
-                        this.updateComplitionState(event, eventTarget);
-                    } else if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
-                        this.startBarRelocation(event, focusTarget);
+                    if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
+                        this.startBarRelocation(event, eventTarget);
                     } else if (clickCoordX > elementRect.right - 15) {
-                        this.updateСompleteDate(event, focusTarget);
+                        this.updateСompleteDate(event, eventTarget);
                     } else if (clickCoordX < elementRect.left + 15) {
-                        this.updateStartDate(event, focusTarget);
+                        this.updateStartDate(event, eventTarget);
+                    }
+                    break;
+                case 'barChartFillBody':
+                    if (clickCoordX > elementRect.right - 15) {
+                        this.updateComplitionState(event, eventTarget);
                     }
                     break;
                 default:
@@ -209,7 +206,7 @@ export class ChartBar extends React.Component<any, any> {
         document.onmousemove = (moveEvent: MouseEvent) => {
             newDuration = Math.round(moveEvent.pageX - startPoint);
             if (newDuration > 0) {
-                eventTarget.setAttribute('width', newDuration + 'px')
+                eventTarget.setAttribute('width', newDuration)
             }
         };
     }
@@ -242,7 +239,7 @@ export class ChartBar extends React.Component<any, any> {
         document.onmousemove = (moveEvent: MouseEvent) => {
             const newComplition = Math.round(width + (moveEvent.pageX - clickCoordX)) as any;
             if (newComplition > 0 && newComplition < maxWidth) {
-                eventTarget.setAttribute('width', newComplition + 'px');
+                eventTarget.setAttribute('width', newComplition);
             }
         }
     }
@@ -407,6 +404,7 @@ export class ChartBar extends React.Component<any, any> {
             const elementWidth: number = parseInt(eventTarget.getAttribute('width'));
             const cellCapacity = this.state.cellCapacity;
             const parentElement: HTMLElement = eventTarget.parentNode as HTMLElement;
+            document.getElementsByClassName('ganttChartView')[0].style.transition = 'all .2s';
             switch (eventTarget.classList[0]) {
                 case 'milestoneBody':
                     data = {

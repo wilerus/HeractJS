@@ -44,6 +44,9 @@ export class ChartView extends React.Component<any, any> {
                             timeLine: GCMediator.getState().timeLine
                         });
                         break;
+                    case 'startDragging':
+                        document.getElementsByClassName('ganttChartView')[0].style.transition = 'initial';
+                        break;
                     default:
                         break;
                 }
