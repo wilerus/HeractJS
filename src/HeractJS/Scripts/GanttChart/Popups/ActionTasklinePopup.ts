@@ -79,9 +79,6 @@ export class ActionTasklinePopup extends React.Component<any, any> {
     }
 
     private addToCallouts() {
-        let data;
-        const state = this.state;
-
         GCMediator.dispatch({
             type: 'editItem',
             data: {
@@ -98,19 +95,19 @@ export class ActionTasklinePopup extends React.Component<any, any> {
                 left: this.state.left,
                 top: this.state.top
             }
-        },
+        } as React.DOMAttributes,
             React.createElement('div', {
                 className: 'actionPopupTitle'
-            }, this.state.title),
+            } as React.DOMAttributes, this.state.title),
             React.createElement('button', {
                 className: 'removeFromTasklineButton',
                 onClick: this.removeFromTaskline.bind(this)
-            }, 'Remove from taskline'),
+            } as React.DOMAttributes, 'Remove from taskline'),
             React.createElement('button', {
                 className: 'addToCalloutsButton',
                 id: 'addToCalloutsButton',
                 onClick: this.addToCallouts.bind(this)
-            }, 'Display as callout')
+            } as React.DOMAttributes, 'Display as callout')
         );
     }
 };

@@ -54,7 +54,8 @@ export class TasklineBar extends ChartBar {
     }
 
     public render() {
-        const id = this.props.data.id;
+        const props = this.props as any;
+        const id = props.data.id;
         const startDate = this.state.startDate * this.state.cellCapacity;
         const duration = this.state.duration * this.state.cellCapacity;
         return React.createElement('g', {
@@ -62,19 +63,19 @@ export class TasklineBar extends ChartBar {
             onContextMenu: this.showActionPopup.bind(this),
             onMouseDown: this.startBarUpdate.bind(this),
             onClick: this.startTaskSelection.bind(this)
-        },
+        } as React.DOMAttributes,
             React.createElement('defs', {
-            },
+            } as React.DOMAttributes,
                 React.createElement('clipPath', {
                     id: id + 'clipPath'
-                },
+                } as React.DOMAttributes,
                     this.rect({
                         className: 'clipRect',
                         id: id + 'clipRect',
                         x: startDate + 1,
                         height: 28,
                         width: duration - 2
-                    })
+                    } as React.DOMAttributes)
                 )
             ),
             this.rect({
@@ -84,21 +85,21 @@ export class TasklineBar extends ChartBar {
                 y: 1.5,
                 width: duration,
                 filter: 'url(#shadowFilter)'
-            }),
+            } as React.DOMAttributes),
             this.text({
                 className: 'taskLineTaskTitle',
                 x: startDate + 2,
                 width: duration - 2,
                 clipPath: `url(#${id}clipPath)`,
                 y: 13
-            }, `${this.props.data.name} - ${this.props.data.description}`),
+            } as React.DOMAttributes, `${props.data.name} - ${props.data.description}`),
             this.text({
                 className: 'taskLineTaskDate',
                 x: startDate + 2,
                 width: duration - 2,
                 clipPath: `url(#${id}clipPath)`,
                 y: 25
-            }, this.state.date)
+            } as React.DOMAttributes, this.state.date)
         );
     }
 }

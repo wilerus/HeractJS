@@ -52,21 +52,22 @@ export class TasklineCallouts extends ChartBar {
     public render() {
         const startDate = this.state.startDate * this.state.cellCapacity;
         const duration = this.state.duration * this.state.cellCapacity;
+        const props = this.props as any;
         return React.createElement('g', {
             onMouseEnter: this.handleRectHover.bind(this),
             onContextMenu: this.showActionPopup.bind(this),
             onClick: this.startTaskSelection.bind(this)
-        },
+        } as React.DOMAttributes,
             React.createElement('defs', {},
                 React.createElement('clipPath', {
-                    id: this.props.data.id + 'clipPath'
-                },
+                    id: props.data.id + 'clipPath'
+                } as React.DOMAttributes,
                     this.rect({
-                        id: this.props.data.id + 'clipRect',
+                        id: props.data.id + 'clipRect',
                         x: this.state.startDate * this.state.cellCapacity,
                         height: 29,
                         width: duration
-                    })
+                    } as React.DOMAttributes)
                 )
             ),
             React.createElement('path', {
@@ -75,23 +76,23 @@ export class TasklineCallouts extends ChartBar {
                     M${duration + startDate - 7} 32 C ${duration - 3 + startDate} 32, ${duration + startDate - 3} 32, ${duration + startDate} 37`,
                 stroke: 'rgb(200,200,200)',
                 fill: 'transparent'
-            }),
+            } as React.DOMAttributes),
             this.text({
                 className: 'taskLineTaskTitle',
                 x: startDate + duration / 2,
                 textAnchor: 'middle',
-                clipPath: `url(#${this.props.data.id}clipPath)`,
+                clipPath: `url(#${props.data.id}clipPath)`,
                 width: duration,
                 y: 14
-            }, `${this.props.data.name} - ${this.props.data.description}`),
+            } as React.DOMAttributes, `${props.data.name} - ${props.data.description}`),
             this.text({
                 className: 'taskLineTaskDate',
                 x: startDate + duration / 2,
-                clipPath: `url(#${this.props.data.id}clipPath)`,
+                clipPath: `url(#${props.data.id}clipPath)`,
                 textAnchor: 'middle',
                 width: duration,
                 y: 29
-            }, 'This will be date')
+            } as React.DOMAttributes, 'This will be date')
         );
     }
 }

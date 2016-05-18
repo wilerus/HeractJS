@@ -246,8 +246,8 @@ export class ChartView extends React.Component<any, any> {
         const state = this.state;
         const currentState = GCMediator.getState();
         const selectedElementId = (newData && newData.selectedTask) || currentState.selectedTasks[0].id;
-        let startPos: number = state.startPosition;
-        let endPos: number = state.endPosition;
+        const startPos: number = state.startPosition;
+        const endPos: number = state.endPosition;
         const elements = GCMediator.getState().items.slice(startPos, endPos);
         if (selectedElementId) {
             this.setState({
@@ -273,7 +273,7 @@ export class ChartView extends React.Component<any, any> {
             return React.createElement(TaskBar, {
                 key: ganttBar.id,
                 data: ganttBar
-            });
+            } as React.DOMAttributes);
         });
         const links: Array<TaskLink> = this.state.displayingLinks.map((link: any) => {
             if (link) {
@@ -281,14 +281,14 @@ export class ChartView extends React.Component<any, any> {
                     ref: link.id,
                     key: link.id,
                     data: link
-                });
+                } as React.DOMAttributes);
             }
         });
         const timeline: Array<DateLine> = this.state.timeLine.map((timeLineItem: any) => {
             return React.createElement(DateLine, {
                 key: timeLineItem.id,
                 data: timeLineItem
-            });
+            } as React.DOMAttributes);
         });
         return React.createElement('div', {
             id: 'ganttChartContainer',
@@ -297,11 +297,11 @@ export class ChartView extends React.Component<any, any> {
             React.createElement('div', {
                 id: 'timelineContainer',
                 className: 'timelineContainer'
-            },
+            } as React.DOMAttributes,
                 React.createElement('svg', {
                     className: 'ganttTimeline',
                     id: 'ganttTimeline'
-                }, timeline)),
+                } as React.DOMAttributes, timeline)),
             React.createElement('div', {
                 id: 'ganttChart',
                 className: 'ganttChart',
@@ -310,47 +310,47 @@ export class ChartView extends React.Component<any, any> {
             },
                 React.createElement(InfoPopup, {
                     ref: 'infoPopup'
-                }),
+                } as React.DOMAttributes),
                 React.createElement(ActionChartPopup, {
                     ref: 'actionChartPopup'
-                }),
+                } as React.DOMAttributes),
                 React.createElement(ActionTasklinePopup, {
                     ref: 'actionTasklinePopup'
-                }),
+                } as React.DOMAttributes),
                 React.createElement(ModalWindow, {
                     ref: 'modalWindow'
-                }),
+                } as React.DOMAttributes),
                 React.createElement('svg', {
                     className: 'ganttChartView',
                     id: 'ganttChartView'
-                },
+                } as React.DOMAttributes,
                     React.createElement('defs', {
-                    },
+                    } as React.DOMAttributes,
                         React.createElement('filter', {
                             id: 'shadowFilter',
                             x: 0,
                             y: 0,
                             width: '200%',
                             height: '200%'
-                        },
+                        } as React.DOMAttributes,
                             React.createElement('feOffset', {
                                 dx: '1',
                                 dy: '1'
-                            }),
+                            } as React.DOMAttributes),
                             React.createElement('feGaussianBlur', {
                                 in: 'SourceAlpha',
                                 stdDeviation: '2'
-                            }),
+                            } as React.DOMAttributes),
                             React.createElement('feComponentTransfer', {
                             }, React.createElement('feFuncA', {
                                 type: 'linear',
                                 slope: '0.6'
-                            })),
+                                } as React.DOMAttributes)),
                             React.createElement('feBlend', {
                                 in: 'SourceGraphic',
                                 in2: 'blurOut',
                                 mode: 'normal'
-                            })
+                            } as React.DOMAttributes)
                         )
                     ),
                     React.createElement('defs', {
@@ -361,25 +361,25 @@ export class ChartView extends React.Component<any, any> {
                             y: 0,
                             width: '200%',
                             height: '200%'
-                        },
+                        } as React.DOMAttributes,
                             React.createElement('feOffset', {
                                 dx: '2',
                                 dy: '2'
-                            }),
+                            } as React.DOMAttributes),
                             React.createElement('feGaussianBlur', {
                                 in: 'SourceAlpha',
                                 stdDeviation: '3'
-                            }),
+                            } as React.DOMAttributes),
                             React.createElement('feComponentTransfer', {
                             }, React.createElement('feFuncA', {
                                 type: 'linear',
                                 slope: '0.6'
-                            })),
+                                } as React.DOMAttributes)),
                             React.createElement('feBlend', {
                                 in: 'SourceGraphic',
                                 in2: 'blurOut',
                                 mode: 'normal'
-                            })
+                            } as React.DOMAttributes)
                         )
                     ),
 
@@ -392,10 +392,10 @@ export class ChartView extends React.Component<any, any> {
                         markerWidth: 6,
                         markerHeight: 2,
                         orient: '0'
-                    },
+                    } as React.DOMAttributes,
                         React.createElement('path', {
                             d: 'M 0 0 L 40 0 L 20 20 z'
-                        })),
+                        } as React.DOMAttributes)),
                     bars,
                     links
                 )

@@ -54,14 +54,15 @@ export class TaskBar extends ChartBar {
 
     public render() {
         let element: any;
+        const props = this.props as any;
         const position = this.state.position;
-        const id = this.props.data.id;
+        const id = props.data.id;
         const startDate = this.state.startDate * this.state.cellCapacity;
         const duration = this.state.duration * this.state.cellCapacity;
         const length = startDate + duration;
         const configProgress = this.state.progress * duration / 100 - 2;
         const progress = configProgress > 0 ? configProgress : 0;
-        const taskTitle = this.props.data.name;
+        const taskTitle = props.data.name as React.ReactElement<String> ;
         const taskType = this.state.type;
 
         switch (taskType) {
@@ -72,12 +73,12 @@ export class TaskBar extends ChartBar {
                     onContextMenu: this.showActionPopup.bind(this),
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this)
-                },
+                } as React.DOMAttributes,
                     this.rect({
                         className: 'barSelectBody',
                         y: position - 1,
                         x: 0
-                    }),
+                    } as React.DOMAttributes ),
                     this.rect({
                         className: 'barChartBody',
                         id: id,
@@ -87,18 +88,18 @@ export class TaskBar extends ChartBar {
                         rx: 3,
                         ry: 3,
                         filter: 'url(#shadowFilter)'
-                    }),
+                    } as React.DOMAttributes),
                     this.rect({
                         className: 'barChartFillBody',
                         y: position + 5,
                         x: startDate + 1,
                         width: progress
-                    }),
+                    } as React.DOMAttributes),
                     this.text({
                         className: 'barTitle',
                         x: length,
                         y: position
-                    }, taskTitle)
+                    } as React.DOMAttributes, taskTitle)
                 );
                 break;
             case 'milestone':
@@ -108,12 +109,12 @@ export class TaskBar extends ChartBar {
                     onContextMenu: this.showActionPopup.bind(this),
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this)
-                },
+                } as React.DOMAttributes,
                     this.rect({
                         className: 'barSelectBody',
                         y: position - 1,
                         x: 0
-                    }),
+                    } as React.DOMAttributes),
                     this.rect({
                         className: 'milestoneBody',
                         id: id,
@@ -122,12 +123,12 @@ export class TaskBar extends ChartBar {
                         rx: 3,
                         ry: 3,
                         filter: 'url(#shadowFilter)'
-                    }),
+                    } as React.DOMAttributes),
                     this.text({
                         className: 'barTitle',
                         x: length,
                         y: position
-                    }, taskTitle)
+                    } as React.DOMAttributes, taskTitle)
                 );
                 break;
             case 'project':
@@ -135,12 +136,12 @@ export class TaskBar extends ChartBar {
                     onContextMenu: this.showActionPopup.bind(this),
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this)
-                },
+                } as React.DOMAttributes,
                     this.rect({
                         className: 'barSelectBody',
                         y: position - 1,
                         x: 0
-                    }),
+                    } as React.DOMAttributes),
                     React.createElement('path', {
                         d: `M${startDate} ${position + 15} C ${startDate + 3} ${position + 10}, ${startDate + 3} ${position + 10}, ${startDate + 7} ${position + 10},
                             L${startDate + 7} ${position + 10}, ${length - 7} ${position + 10},
@@ -149,12 +150,12 @@ export class TaskBar extends ChartBar {
                         fill: 'transparent',
                         className: 'projectBody',
                         id: id
-                    }),
+                    } as React.DOMAttributes),
                     this.text({
                         className: 'barTitle',
                         x: length + 10,
                         y: position + 15
-                    }, taskTitle)
+                    } as React.DOMAttributes, taskTitle)
                 );
                 break;
             default:

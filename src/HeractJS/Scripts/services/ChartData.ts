@@ -279,7 +279,7 @@ export class ChartData {
         let selectedTaskPosition: number;
         let selectedTaskStartDate: number;
         let prevElIndex: number;
-
+        debugger 
         if (newState.selectedTasks && newState.selectedTasks.length > 1) {
             const prevElement = items.find((element: any, index: number) => {
                 if (element.id === newState.selectedTasks[0].id) {
@@ -289,6 +289,7 @@ export class ChartData {
             });
             selectedTaskPosition = prevElement.position + 24;
             selectedTaskStartDate = prevElement.startDate + prevElement.duration;
+            debugger 
             items.splice(prevElIndex + 1, 0, {
                 id: `bar${items.length + 1}`,
                 barClass: '',

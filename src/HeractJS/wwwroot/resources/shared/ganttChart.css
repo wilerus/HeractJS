@@ -29,6 +29,7 @@ g {
     width: 15px;
     transform-origin: 50% 50%;
     transform: rotateZ(45deg);
+    transition: inherit;
 }
 
     .milestoneBody:hover {
@@ -452,11 +453,13 @@ g {
     width: 3000px;
     height: 63px;
     border-bottom: 1px solid rgb(200,200,200);
+    transition: all .2s;
 }
 
 .tasklineMilestones {
     width: 3000px;
     height: 40px;
+    transition: all .2s;
 }
 
 .js-module-gantt-taskline {
@@ -491,6 +494,7 @@ g {
     fill: rgb(160, 230, 160);
     stroke: rgb(140,210,140);
     stroke-width: 0.5px;
+    transition: inherit;
 }
 
 .tasklineBarSelected {

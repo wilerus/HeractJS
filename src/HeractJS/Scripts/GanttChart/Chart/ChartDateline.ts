@@ -27,18 +27,18 @@ export class DateLine extends React.Component<any, any> {
         return React.createElement('g', {
             y: this.state.top,
             x: this.state.marginLeft
-        },
+        } as React.DOMAttributes,
             React.createElement('rect', {
                 className: 'dateLineItem',
                 x: this.state.marginLeft,
                 y: -1,
                 width: this.state.width
-            }),
+            } as React.DOMAttributes),
             React.createElement('text', {
                 className: 'timeLineText',
                 x: this.state.marginLeft + this.state.width * 0.5,
                 y: 18
-            }, this.state.text)
+            } as React.DOMAttributes, this.state.text)
         );
     }
 };

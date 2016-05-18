@@ -405,6 +405,8 @@ export class ChartBar extends React.Component<any, any> {
             const cellCapacity = this.state.cellCapacity;
             const parentElement: HTMLElement = eventTarget.parentNode as HTMLElement;
             document.getElementsByClassName('ganttChartView')[0].style.transition = 'all .2s';
+            document.getElementsByClassName('tasklineBars')[0].style.transition = 'all .2s';
+            document.getElementsByClassName('tasklineMilestones')[0].style.transition = 'all .2s';
             switch (eventTarget.classList[0]) {
                 case 'milestoneBody':
                     data = {

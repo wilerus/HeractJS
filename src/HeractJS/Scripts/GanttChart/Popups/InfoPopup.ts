@@ -36,7 +36,7 @@ export class InfoPopup extends React.Component<any, any> {
         item.style.display = 'none';
     }
 
-    private show(data) {
+    private show(data: any) {
         this.setState({
             title: data.title,
             startDate: data.startDate,
@@ -57,22 +57,22 @@ export class InfoPopup extends React.Component<any, any> {
         return React.createElement('div', {
             id: 'infoPopup',
             className: 'infoPopup'
-        },
+        } as React.DOMAttributes,
             React.createElement('div', {
                 className: 'infoPopupTitle'
-            }, this.state.title),
+            } as React.DOMAttributes, this.state.title),
             React.createElement('div', {
                 className: 'infoPopupText'
-            }, this.state.description),
+            } as React.DOMAttributes, this.state.description),
             React.createElement('div', {
                 className: 'infoPopupText'
-            }, `Start date ${this.state.startDate} hours`),
+            } as React.DOMAttributes, `Start date ${this.state.startDate} hours`),
             React.createElement('div', {
                 className: 'infoPopupText'
-            }, `Complete date ${this.state.endDate} hours`),
+            } as React.DOMAttributes, `Complete date ${this.state.endDate} hours`),
             React.createElement('div', {
                 className: 'infoPopupText'
-            }, `Duration ${this.state.duration} hours`)
+            } as React.DOMAttributes, `Duration ${this.state.duration} hours`)
         );
     }
 };

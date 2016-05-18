@@ -91,6 +91,6 @@ export class TaskLink extends React.Component<any, any> {
         return React.createElement('polyline', {
             className: 'taskLink',
             points: this.state.firstPoint + ' ' + this.state.secondPoint + ' ' + this.state.thirdPoint
-        });
+        } as React.DOMAttributes);
     }
 }
