@@ -186,7 +186,7 @@ export class ChartData {
                 projectCount++;
             } else if (i % 4 === 0) {
                 type = 'milestone';
-                duration = 20;
+                duration = 1;
                 text = `Milestone ${milestoneCount}`;
                 milestoneCount++;
             } else {

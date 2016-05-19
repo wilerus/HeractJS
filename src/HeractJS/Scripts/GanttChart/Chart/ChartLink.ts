@@ -5,7 +5,7 @@ const GCMediator: any = AppMediator.getInstance();
 
 export class TaskLink extends React.Component<any, any> {
 
-    constructor(props, context) {
+    constructor(props: Object, context: Object) {
         super(props, context);
         GCMediator.subscribe(function () {
             const change = GCMediator.getLastChange();
@@ -33,20 +33,20 @@ export class TaskLink extends React.Component<any, any> {
 
         if (firstPoint && secondPoint) {
             const currentState = GCMediator.getState().items
-            const firstElementType = currentState.find((element) => {
+            const firstElement = currentState.find((element: any) => {
                 if (element.id === firstPoint.id) {
                     return true
                 }
             })
-            if (firstElementType) {
-                const xDelta = firstElementType.type === 'milestone' ? -4 : 0
-                const yDelta = firstElementType.type === 'project' ? 1 : 7
+            if (firstElement) {
+                const xDelta = firstElement.type === 'milestone' ? -4 : 0
+                const yDelta = firstElement.type === 'project' ? 1 : 7
                 let firstPointCoordsX: number;
                 let firstPointCoordsY: number;
                 let secondPointCoordsX: number;
                 let secondPointCoordsY: number;
 
-                if (firstElementType.type === 'project') {
+                if (firstElement.type === 'project') {
                     firstPointCoordsX = parseInt(firstPoint.getAttribute('d').split(' ')[0].split('M')[1]);
                     firstPointCoordsY = parseInt(firstPoint.getAttribute('d').split(' ')[1]);
                     secondPointCoordsX = parseInt(secondPoint.getAttribute('d').split(' ')[0].split('M')[1]);
@@ -57,10 +57,10 @@ export class TaskLink extends React.Component<any, any> {
                     secondPointCoordsX = parseInt(secondPoint.getAttribute('x'));
                     secondPointCoordsY = parseInt(secondPoint.getAttribute('y'));
                 }
-                const firstPointCoordsWidth = firstPoint.getBoundingClientRect().width;
+                const firstPointCoordsWidth = firstElement.duration * GCMediator.getState().cellCapacity;
 
                 this.setState({
-                    firstPoint: (firstPointCoordsX + firstPointCoordsWidth + xDelta) + ' , ' + (firstPointCoordsY + yDelta),
+                    firstPoint: (firstPointCoordsX + firstPointCoordsWidth) + ' , ' + (firstPointCoordsY + yDelta),
                     secondPoint: (secondPointCoordsX + 7) + ' , ' + (firstPointCoordsY + yDelta),
                     thirdPoint: (secondPointCoordsX + 7) + ' , ' + (secondPointCoordsY - 4)
                 });
