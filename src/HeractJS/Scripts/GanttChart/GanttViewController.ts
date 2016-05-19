@@ -357,7 +357,7 @@ export class ChartView extends React.Component<any, any> {
                     } as React.DOMAttributes,
                         React.createElement('filter', {
                             id: 'shadowFilterPath',
-                            x: -1,
+                            x: 0,
                             y: -1,
                             width: '200%',
                             height: '200%'

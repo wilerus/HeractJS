@@ -75,10 +75,12 @@ export class ChartBar extends React.Component<any, any> {
                         document.onmousemove = (moveEvent: MouseEvent) => {
                             const newStartDate = startPointStartDate + (moveEvent.pageX - startDate) as any;
                             if (newStartDate > 0) {
-                                eventTarget.setAttribute('x', newStartDate)
-                                connection.setAttribute('x1', newStartDate + 7.5)
-                                connection.setAttribute('x2', newStartDate + 7.5)
-                                title.setAttribute('x', (newStartDate - 40) + 'px')
+                                eventTarget.setAttribute('x', newStartDate);
+                                title.setAttribute('x', (newStartDate - 40) + 'px');
+                                if (connection) {
+                                    connection.setAttribute('x1', newStartDate + 7.5);
+                                    connection.setAttribute('x2', newStartDate + 7.5);
+                                }
                             }
                         };
                         break;
@@ -89,10 +91,10 @@ export class ChartBar extends React.Component<any, any> {
                         document.onmousemove = (moveEvent: MouseEvent) => {
                             const newStartDate = Math.round(startPointStartDate + (moveEvent.pageX - startDate)) as any;
                             if (newStartDate > 0) {
-                                eventTarget.setAttribute('x', newStartDate)
-                                titleElement.setAttribute('x', newStartDate)
-                                dateElement.setAttribute('x', newStartDate)
-                                clipPath.setAttribute('x', newStartDate)
+                                eventTarget.setAttribute('x', newStartDate);
+                                titleElement.setAttribute('x', newStartDate);
+                                dateElement.setAttribute('x', newStartDate);
+                                clipPath.setAttribute('x', newStartDate);
                             }
                         }
                         break;
@@ -101,8 +103,8 @@ export class ChartBar extends React.Component<any, any> {
                         document.onmousemove = (moveEvent: MouseEvent) => {
                             const newStartDate = Math.round(startPointStartDate + (moveEvent.pageX - startDate)) as any;
                             if (newStartDate > 0) {
-                                eventTarget.setAttribute('x', newStartDate)
-                                fillTarget.setAttribute('x', newStartDate)
+                                eventTarget.setAttribute('x', newStartDate);
+                                fillTarget.setAttribute('x', newStartDate);
                             }
                         }
                         break;
@@ -110,7 +112,7 @@ export class ChartBar extends React.Component<any, any> {
                         break;
                 }
             } else if (Math.abs(event.clientY - startY) > 30) {
-                this.drawHelpLink(eventTarget)
+                this.drawHelpLink(eventTarget);
             }
         }
     }

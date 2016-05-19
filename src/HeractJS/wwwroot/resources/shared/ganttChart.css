@@ -22,19 +22,13 @@ g {
 }
 
 .milestoneBody {
-    position: absolute;
     fill: rgb(80,80,220);
-    stroke-width: 2px;
     height: 15px;
     width: 15px;
     transform-origin: 50% 50%;
     transform: rotateZ(45deg);
     transition: inherit;
 }
-
-    .milestoneBody:hover {
-        stroke: rgb(130, 130, 255);
-    }
 
 .milestoneSelected {
     stroke: rgb(50, 50, 180);
@@ -64,7 +58,6 @@ g {
     -ms-user-select: none;
     user-select: none;
     pointer-events: none;
-    text-shadow: 0 0 4px rgba(255, 255, 255, 0.5) !important;
     transition: inherit;
 }
 
@@ -75,16 +68,15 @@ g {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    pointer-events: none;
     overflow: hidden;
 }
 
 /* ------ barSelectBody -------*/
 .barSelectBody {
-    position: absolute;
     height: 24px;
     width: 100%;
     fill: white;
-    stroke-width: 1px;
     stroke: rgb(235,235,235);
     shape-rendering: crispEdges;
 }
@@ -213,7 +205,6 @@ g {
     text-align: center;
     padding: 0;
     font-size: 18px;
-    font-weight: bold;
     border: none;
     color: white;
     background-color: #299cb4;
@@ -391,6 +382,7 @@ g {
     color: white;
     vertical-align: top;
     position: absolute;
+    font-size: 1.2em;
     right: 300px;
 }
 
@@ -406,6 +398,7 @@ g {
     top: 30px;
     right: 25px;
     padding: 5px;
+    display: none;
 }
 
 .toolbarCheckbox {
@@ -472,7 +465,7 @@ g {
     box-shadow: 0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
     height: 166px;
     opacity: 0;
-    transition: height .2s,opacity .2s;
+    transition: all .3s ease-out;
 }
 
 .tasklineTimeLineText {
@@ -482,12 +475,12 @@ g {
 
 .js-module-region-right {
     opacity: 0;
-    transition: width .2s,opacity .2s;
+    transition: all .3s ease-out;
     box-shadow: 0 4px 7px rgba(0, 0, 0, 0.19), 0 2px 3px rgba(0, 0, 0, 0.33);
 }
 
 .js-module-region-left {
-    transition: width 0.2s ease-out;
+    transition: width 0.3s ease-out;
 }
 
 .tasklineBarBody {

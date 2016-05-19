@@ -86,7 +86,8 @@ export class TaskLink extends React.Component<any, any> {
     public render() {
         return React.createElement('polyline', {
             className: 'taskLink',
-            points: this.state.firstPoint + ' ' + this.state.secondPoint + ' ' + this.state.thirdPoint
+            points: this.state.firstPoint + ' ' + this.state.secondPoint + ' ' + this.state.thirdPoint,
+            filter: 'url(#shadowFilterPath)'
         } as React.DOMAttributes);
     }
 }

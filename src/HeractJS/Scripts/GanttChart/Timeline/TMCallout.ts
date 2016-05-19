@@ -7,16 +7,12 @@ export class TasklineCallouts extends ChartBar {
         this.state = {
             id: props.data.id,
             order: props.data.order,
-            collapsed: props.data.collapsed,
             position: props.data.position,
-
             name: props.data.name,
             type: props.data.type,
             description: props.data.description,
             assignee: props.data.assignee,
             parent: props.data.parent,
-            predecessors: props.data.startDate,
-
             progress: props.data.progress,
             duration: props.data.duration,
             startDate: props.data.startDate,
@@ -32,9 +28,6 @@ export class TasklineCallouts extends ChartBar {
             order: data.order,
             collapsed: data.collapsed,
             position: data.position,
-            calloutDisplay: data.calloutDisplay,
-            timelineDisplay: data.timelineDisplay,
-            link: data.link,
             name: data.name,
             type: data.type,
             description: data.description,

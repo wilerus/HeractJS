@@ -6,7 +6,6 @@ const br = React.createFactory('br');
 const button = React.createFactory('button');
 
 export class GanttToolbar extends React.Component<any, any> {
-
     constructor() {
         super();
 
@@ -107,13 +106,19 @@ export class GanttToolbar extends React.Component<any, any> {
     }
 
     private showViewModeDropdown() {
-        this.state.viewModeSelector.style.opacity = '1';
-        this.state.viewModeSelector.style.top = '62px';
+        this.state.viewModeSelector.style.display = 'initial';
+        setTimeout(function() {
+            this.state.viewModeSelector.style.opacity = '1';
+            this.state.viewModeSelector.style.top = '62px';
+        }.bind(this),10)
     }
 
     private hideViewModeDropdown() {
         this.state.viewModeSelector.style.opacity = '0';
         this.state.viewModeSelector.style.top = '30px';
+        setTimeout(function () {
+            this.state.viewModeSelector.style.display = 'none';
+        }.bind(this),200)
     }
 
     private setGridVisibility(event: Event) {
