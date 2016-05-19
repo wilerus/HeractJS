@@ -4,11 +4,11 @@
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
+@import url(https://fonts.googleapis.com/css?family=Roboto&subset=latin,cyrillic-ext);
 
+.content-view {
+    font-family: 'Roboto', sans-serif;
+}
 g {
     transition: inherit;
 }
@@ -181,7 +181,7 @@ g {
     }
 
 .timeLineText {
-    font-size: 11px;
+    font-size: 12px;
     fill: white;
     text-anchor: middle;
 }
@@ -364,7 +364,7 @@ g {
 
 .toolbarButton {
     height: 20px;
-    width: 100px;
+    width: auto;
     margin: 10px;
     margin-top: 3px;
     text-align: center;
@@ -373,6 +373,7 @@ g {
     color: white;
     vertical-align: top;
     transition: all 0.2s;
+    font-size: 1.2em;
 }
 
     .toolbarButton:hover {
@@ -505,7 +506,7 @@ g {
 
 .taskLink {
     shape-rendering: crispEdges;
-    stroke-width: 2;
+    stroke-width: 1;
     stroke: rgb(80,80,220);
     stroke-linecap: round;
     stroke-linejoin: round;

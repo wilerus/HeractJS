@@ -33,7 +33,7 @@ export class TasklineTimeItem extends React.Component<any, any> {
                 x: this.state.marginLeft,
                 width: this.state.width,
                 height: 20,
-                stroke: 'rgb(200,200,200)',
+                stroke: 'rgb(150,150,150)',
                 strokeWidth: 1,
                 fill: 'none'
             } as React.DOMAttributes),

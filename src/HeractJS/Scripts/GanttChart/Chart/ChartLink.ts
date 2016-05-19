@@ -39,7 +39,6 @@ export class TaskLink extends React.Component<any, any> {
                 }
             })
             if (firstElement) {
-                const xDelta = firstElement.type === 'milestone' ? -4 : 0
                 const yDelta = firstElement.type === 'project' ? 1 : 7
                 let firstPointCoordsX: number;
                 let firstPointCoordsY: number;
@@ -73,10 +72,7 @@ export class TaskLink extends React.Component<any, any> {
     }
 
     private shouldComponentUpdate(nextProps: any, nextState: any) {
-        if (this.state.firstPoint !== nextState.firstPoint ||
-            this.state.secondPoint !== nextState.secondPoint ||
-            this.state.thirdPoint !== nextState.thirdPoint ||
-            this.state.endPoint !== nextState.endPoint) {
+        if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
             return true
         } else {
             return false

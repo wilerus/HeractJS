@@ -293,7 +293,7 @@ export class ChartView extends React.Component<any, any> {
         return React.createElement('div', {
             id: 'ganttChartContainer',
             className: 'ganttChartContainer'
-        },
+        } as React.DOMAttributes,
             React.createElement('div', {
                 id: 'timelineContainer',
                 className: 'timelineContainer'
@@ -307,7 +307,7 @@ export class ChartView extends React.Component<any, any> {
                 className: 'ganttChart',
                 onMouseDown: this.startPanning.bind(this),
                 onWheel: this.startScrolling.bind(this)
-            },
+            } as React.DOMAttributes,
                 React.createElement(InfoPopup, {
                     ref: 'infoPopup'
                 } as React.DOMAttributes),
@@ -382,15 +382,14 @@ export class ChartView extends React.Component<any, any> {
                             } as React.DOMAttributes)
                         )
                     ),
-
                     React.createElement('marker', {
                         id: 'triangle',
                         viewBox: '0 0 40 20',
                         refX: 20,
                         refY: 0,
                         markerUnits: 'strokeWidth',
-                        markerWidth: 6,
-                        markerHeight: 2,
+                        markerWidth: 12,
+                        markerHeight: 4,
                         orient: '0'
                     } as React.DOMAttributes,
                         React.createElement('path', {

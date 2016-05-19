@@ -211,9 +211,9 @@ export class GanttToolbar extends React.Component<any, any> {
     private addLink() {
         const currentState = GCMediator.getState()
         const selectedTasks = currentState.selectedTasks;
-        if (selectedTasks && selectedTasks[0]) {
+        if (selectedTasks && selectedTasks.length) {
             currentState.items.find((element: any) => {
-                if (element.id === selectedTasks[0]) {
+                if (element.id === selectedTasks[0].id) {
                     const elementIndex = currentState.items.indexOf(element);
                     if (currentState.items[elementIndex].link === null) {
                         GCMediator.dispatch({
@@ -270,82 +270,88 @@ export class GanttToolbar extends React.Component<any, any> {
         return React.createElement('div', {
             id: 'toolbarContainer',
             className: 'toolbarContainer'
-        },
+        } as React.DOMAttributes,
             button({
                 className: 'toolbarButton',
                 id: 'undoButton',
                 onClick: this.undo.bind(this)
-            }, 'Undo'),
+            } as React.DOMAttributes, 'Undo'),
             button({
                 className: 'toolbarButton',
                 id: 'redoButton',
                 onClick: this.redo.bind(this)
-            }, 'Redo'),
+            } as React.DOMAttributes, 'Redo'),
             button({
                 className: 'toolbarButton',
                 id: 'removeTaskButton',
                 onClick: this.removeTask.bind(this)
-            }, 'Remove task'),
+            } as React.DOMAttributes, 'Remove task'),
             button({
                 className: 'toolbarButton',
                 id: 'createTaskButton',
                 onClick: this.createTask.bind(this)
-            }, 'Create task'),
+            } as React.DOMAttributes, 'Create task'),
             button({
                 className: 'toolbarButton',
                 id: 'moveToTaskButton',
                 onClick: this.moveToTask.bind(this)
-            }, 'Move to task'),
+            } as React.DOMAttributes, 'Move to task'),
             button({
                 className: 'toolbarButton',
                 id: 'addLinkButton',
                 onClick: this.addLink.bind(this)
-            }, 'Add link'),
+            } as React.DOMAttributes, 'Add link'),
             button({
                 className: 'toolbarButton',
                 id: 'removeLinkButton',
                 onClick: this.removeLink.bind(this)
-            }, 'Remove link'),
+            } as React.DOMAttributes, 'Remove link'),
             button({
                 className: 'toolbarButton',
                 id: 'completeTaskButton',
                 onClick: this.completeTask.bind(this)
-            }, 'Complete task'),
+            } as React.DOMAttributes, 'Complete task'),
             button({
                 className: 'toolbarButton',
                 id: 'reopenTaskButton',
                 onClick: this.reopenTask.bind(this)
-            }, 'Reopen task'),
+            } as React.DOMAttributes, 'Reopen task'),
             button({
                 className: 'toolbarButtonFixed',
                 id: 'viewModeOpener',
                 onClick: this.showViewModeDropdown.bind(this)
-            }, 'View mode'),
+            } as React.DOMAttributes, 'View mode'),
             React.createElement('div', {
                 className: 'viewModeSelector',
                 id: 'viewModeSelector'
-            }, React.createElement('label', { id: 'gridLabel' }, 'Show grid:'),
+            } as React.DOMAttributes, React.createElement('label',{
+                     id: 'gridLabel'
+                } as React.DOMAttributes, 'Show grid:'),
                 React.createElement('input', {
                     className: 'toolbarCheckbox',
                     id: 'gridCheckbox',
                     type: 'checkbox',
                     defaultChecked: true,
                     onChange: this.setGridVisibility.bind(this)
-                }), br(), React.createElement('label', { id: 'chartLabel' }, 'Show chart:'),
+                } as React.DOMAttributes), br(), React.createElement('label',{
+                     id: 'chartLabel'
+                } as React.DOMAttributes, 'Show chart:'),
                 React.createElement('input', {
                     className: 'toolbarCheckbox',
                     id: 'chartCheckbox',
                     type: 'checkbox',
                     defaultChecked: true,
                     onChange: this.setChartVisibility.bind(this)
-                }), br(), React.createElement('label', { id: 'timelineLabel' }, 'Show timeline:'),
+                } as React.DOMAttributes), br(), React.createElement('label',{
+                     id: 'timelineLabel'
+                } as React.DOMAttributes, 'Show timeline:'),
                 React.createElement('input', {
                     className: 'toolbarCheckbox',
                     id: 'timelineCheckbox',
                     type: 'checkbox',
                     defaultChecked: true,
                     onChange: this.setTimelineVisibility.bind(this)
-                })
+                } as React.DOMAttributes)
             )
         );
     }

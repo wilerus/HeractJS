@@ -74,7 +74,7 @@ export class TasklineCallouts extends ChartBar {
                 d: `M${startDate} 37 C ${startDate + 3} 32, ${startDate + 3} 32, ${startDate + 7} 32,
                     L${startDate + 7} 32, ${duration - 7 + startDate} 32,
                     M${duration + startDate - 7} 32 C ${duration - 3 + startDate} 32, ${duration + startDate - 3} 32, ${duration + startDate} 37`,
-                stroke: 'rgb(200,200,200)',
+                stroke: 'rgb(150,150,150)',
                 fill: 'transparent'
             } as React.DOMAttributes),
             this.text({

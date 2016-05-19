@@ -59,7 +59,7 @@ export class TaskBar extends ChartBar {
         const id = props.data.id;
         const startDate = this.state.startDate * this.state.cellCapacity;
         const duration = this.state.duration * this.state.cellCapacity;
-        const length = startDate + duration;
+        const length = startDate + duration + 10;
         const configProgress = this.state.progress * duration / 100 - 2;
         const progress = configProgress > 0 ? configProgress : 0;
         const taskTitle = props.data.name as React.ReactElement<String> ;
@@ -98,7 +98,7 @@ export class TaskBar extends ChartBar {
                     this.text({
                         className: 'barTitle',
                         x: length,
-                        y: position
+                        y: position + 10
                     } as React.DOMAttributes, taskTitle)
                 );
                 break;
@@ -126,8 +126,8 @@ export class TaskBar extends ChartBar {
                     } as React.DOMAttributes),
                     this.text({
                         className: 'barTitle',
-                        x: length,
-                        y: position
+                        x: length + 5,
+                        y: position + 10
                     } as React.DOMAttributes, taskTitle)
                 );
                 break;
@@ -153,7 +153,7 @@ export class TaskBar extends ChartBar {
                     } as React.DOMAttributes),
                     this.text({
                         className: 'barTitle',
-                        x: length + 10,
+                        x: length,
                         y: position + 15
                     } as React.DOMAttributes, taskTitle)
                 );
