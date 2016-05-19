@@ -354,27 +354,27 @@ export class ChartView extends React.Component<any, any> {
                         )
                     ),
                     React.createElement('defs', {
-                    },
+                    } as React.DOMAttributes,
                         React.createElement('filter', {
-                            id: 'shadowFilterHover',
-                            x: 0,
-                            y: 0,
+                            id: 'shadowFilterPath',
+                            x: -1,
+                            y: -1,
                             width: '200%',
                             height: '200%'
                         } as React.DOMAttributes,
                             React.createElement('feOffset', {
-                                dx: '2',
-                                dy: '2'
+                                dx: '1',
+                                dy: '1'
                             } as React.DOMAttributes),
                             React.createElement('feGaussianBlur', {
                                 in: 'SourceAlpha',
-                                stdDeviation: '3'
+                                stdDeviation: '1'
                             } as React.DOMAttributes),
                             React.createElement('feComponentTransfer', {
                             }, React.createElement('feFuncA', {
                                 type: 'linear',
                                 slope: '0.6'
-                                } as React.DOMAttributes)),
+                            } as React.DOMAttributes)),
                             React.createElement('feBlend', {
                                 in: 'SourceGraphic',
                                 in2: 'blurOut',

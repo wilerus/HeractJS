@@ -149,7 +149,8 @@ export class TaskBar extends ChartBar {
                         stroke: 'black',
                         fill: 'transparent',
                         className: 'projectBody',
-                        id: id
+                        id: id,
+                        filter: 'url(#shadowFilterPath)'
                     } as React.DOMAttributes),
                     this.text({
                         className: 'barTitle',

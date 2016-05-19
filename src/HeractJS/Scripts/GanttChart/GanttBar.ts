@@ -152,7 +152,7 @@ export class ChartBar extends React.Component<any, any> {
     }
 
     public startBarUpdate(event: MouseEvent) {
-        const eventTarget: any = event.target;
+        let eventTarget: any = event.target;
         const documentAny = document as any
         const clickCoordX = event.clientX;
         if (documentAny.selection) {
@@ -189,6 +189,13 @@ export class ChartBar extends React.Component<any, any> {
                 case 'barChartFillBody':
                     if (clickCoordX > elementRect.right - 15) {
                         this.updateComplitionState(event, eventTarget);
+                    } else {
+                        eventTarget = eventTarget.parentNode.getElementsByClassName('barChartBody')[0];
+                        if (clickCoordX > elementRect.left + 15 && clickCoordX < elementRect.right - 15) {
+                            this.startBarRelocation(event, eventTarget);
+                        } else if (clickCoordX < elementRect.left + 15) {
+                            this.updateStartDate(event, eventTarget);
+                        }
                     }
                     break;
                 default:
@@ -212,23 +219,21 @@ export class ChartBar extends React.Component<any, any> {
     }
 
     public updateStartDate(event: MouseEvent, eventTarget: any) {
-        if (!document.onmousemove) {
-            const startDate = event.pageX;
-            const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
-            const startWidth = parseInt(eventTarget.getAttribute('width'));
-            const fillTarget = eventTarget.parentNode.getElementsByClassName('barChartFillBody')[0];
-            document.onmousemove = (moveEvent: MouseEvent) => {
-                const newStartDate = Math.round(startPointStartDate + (moveEvent.pageX - startDate));
-                const newWidth = Math.round(startWidth + (startDate - moveEvent.pageX));
-                if (newStartDate > 0 && newWidth > 1) {
-                    eventTarget.setAttribute('x', newStartDate);
-                    if (fillTarget) {
-                        fillTarget.setAttribute('x', newStartDate);
-                    }
-                    eventTarget.setAttribute('width', newWidth);
+        const startDate = event.pageX;
+        const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
+        const startWidth = parseInt(eventTarget.getAttribute('width'));
+        const fillTarget = eventTarget.parentNode.getElementsByClassName('barChartFillBody')[0];
+        document.onmousemove = (moveEvent: MouseEvent) => {
+            const newStartDate = Math.round(startPointStartDate + (moveEvent.pageX - startDate));
+            const newWidth = Math.round(startWidth + (startDate - moveEvent.pageX));
+            if (newStartDate > 0 && newWidth > 1) {
+                eventTarget.setAttribute('x', newStartDate);
+                if (fillTarget) {
+                    fillTarget.setAttribute('x', newStartDate);
                 }
-            };
-        }
+                eventTarget.setAttribute('width', newWidth);
+            }
+        };
     }
 
     public updateComplitionState(event: MouseEvent, eventTarget: HTMLElement) {
