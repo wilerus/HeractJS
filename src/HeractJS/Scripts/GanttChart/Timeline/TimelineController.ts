@@ -32,8 +32,10 @@ export class TaskLineView extends React.Component<any, any> {
                         });
                         break;
                     case 'startDragging':
-                        document.getElementsByClassName('tasklineBars')[0].style.transition = 'initial';
-                        document.getElementsByClassName('tasklineMilestones')[0].style.transition = 'initial';
+                        const tasklineBars = document.getElementsByClassName('tasklineBars')[0] as HTMLElement;
+                        const tasklineMilestones = document.getElementsByClassName('tasklineMilestones')[0] as HTMLElement;
+                        tasklineBars.style.transition = 'initial';
+                        tasklineMilestones.style.transition = 'initial';
                         break;
                     default:
                         break;
@@ -69,8 +71,10 @@ export class TaskLineView extends React.Component<any, any> {
             }
             const timelineCallouts = currentState.timelineCallouts;
             const callout = timelineCallouts.find((task: any, index: number) => {
-                if (task.id === selectedElementId && !selectedElement.calloutDisplay) {
-                    timelineCallouts.splice(index, 1);
+                if (task.id === selectedElementId) {
+                    if (!selectedElement.calloutDisplay) {
+                        timelineCallouts.splice(index, 1);
+                    }
                     return true;
                 }
             })
@@ -172,7 +176,7 @@ export class TaskLineView extends React.Component<any, any> {
         });
         const tasklineBars = this.state.tasklineTasks.map((timeLineItem: any) => {
             const itemData = objectConstuctor.assign({}, timeLineItem)
-            itemData.id += 'TLI'
+            itemData.id += 'TLITask'
             return React.createElement(TasklineBar, {
                 key: itemData.id,
                 data: itemData
@@ -180,7 +184,7 @@ export class TaskLineView extends React.Component<any, any> {
         });
         const tasklineMilestones = this.state.tasklineMilestones.map((timeLineItem: any) => {
             const itemData = objectConstuctor.assign({}, timeLineItem)
-            itemData.id += 'TLI'
+            itemData.id += 'TLIMilestone'
             return React.createElement(TasklineMilestone, {
                 key: itemData.id,
                 data: itemData
@@ -188,7 +192,7 @@ export class TaskLineView extends React.Component<any, any> {
         });
         const tasklineCallouts = this.state.tasklineCallouts.map((timeLineItem: any) => {
             const itemData = objectConstuctor.assign({}, timeLineItem)
-            itemData.id += 'TLI'
+            itemData.id += 'TLICallout'
             return React.createElement(TasklineCallouts, {
                 key: itemData.id,
                 data: itemData

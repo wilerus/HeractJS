@@ -116,7 +116,7 @@ export class TaskBar extends ChartBar {
                         x: 0
                     } as React.DOMAttributes),
                     this.rect({
-                        className: 'milestoneBody',
+                        className: 'milestoneChart',
                         id: id,
                         y: position + 4,
                         x: startDate,

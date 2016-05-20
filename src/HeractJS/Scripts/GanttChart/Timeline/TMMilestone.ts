@@ -61,7 +61,7 @@ export class TasklineMilestone extends ChartBar {
             onClick: this.startTaskSelection.bind(this)
         } as React.DOMAttributes,
             this.rect({
-                className: 'milestoneBody',
+                className: 'milestoneTimeline',
                 id: this.props.data.id,
                 x: startDate,
                 y: 3,

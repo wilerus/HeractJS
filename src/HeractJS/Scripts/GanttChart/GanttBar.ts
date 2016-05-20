@@ -39,7 +39,19 @@ export class ChartBar extends React.Component<any, any> {
         const currentState = this.appMediator.getState();
         if (!currentState.isDragging) {
             const selectedTaskId = currentState.selectedTasks[0] && currentState.selectedTasks[0].id;
-            const id = this.state.id.replace('TLI', '');
+            let id: string;
+            switch (this.state.type) {
+            case 'task':
+                    id = this.state.id.replace('TLITask', '');
+                    break;
+            case 'milestone':
+                    id = this.state.id.replace('TLIMilestone', '');
+                break;
+            case 'callout':
+                    id = this.state.id.replace('TLICallout', '');
+                break;
+            default:
+            }
             if (selectedTaskId !== id) {
                 if (selectedTaskId) {
                     this.appMediator.dispatch({ type: 'deselectAllTasks' });
@@ -69,7 +81,8 @@ export class ChartBar extends React.Component<any, any> {
                 const startPointStartDate = parseInt(eventTarget.getAttribute('x'));
                 const parentElement: HTMLElement = eventTarget.parentNode as HTMLElement
                 switch (eventTarget.classList[0]) {
-                    case 'milestoneBody':
+                    case 'milestoneChart':
+                    case 'milestoneTimeline':
                         const connection = parentElement.getElementsByClassName('bodyConnection')[0];
                         const title = parentElement.getElementsByClassName('barTitle')[0];
                         document.onmousemove = (moveEvent: MouseEvent) => {
@@ -167,7 +180,8 @@ export class ChartBar extends React.Component<any, any> {
             this.startTaskSelection();
             this.appMediator.dispatch({ type: 'startDragging' });
             switch (eventTarget.classList[0]) {
-                case 'milestoneBody':
+                case 'milestoneChart':
+                case 'milestoneTimeline':
                     this.startBarRelocation(event, eventTarget);
                     break;
                 case 'tasklineBarBody':
@@ -355,9 +369,13 @@ export class ChartBar extends React.Component<any, any> {
                     target = 'task';
                     type = 'showActionTimelinePopup';
                     break;
-                case 'milestoneBody':
+                case 'milestoneTimeline':
                     target = 'milestone';
                     type = 'showActionTimelinePopup';
+                    break;
+                case 'milestoneChart':
+                    target = 'milestone';
+                    type = 'showActionChartPopup';
                     break;
                 case 'barChartBody':
                     target = 'task';
@@ -366,7 +384,6 @@ export class ChartBar extends React.Component<any, any> {
                 default:
                     target = 'callouts';
                     type = 'showActionTimelinePopup';
-
                     break;
             }
         }
@@ -437,11 +454,15 @@ export class ChartBar extends React.Component<any, any> {
             const elementWidth: number = parseInt(eventTarget.getAttribute('width'));
             const cellCapacity = this.state.cellCapacity;
             const parentElement: HTMLElement = eventTarget.parentNode as HTMLElement;
-            document.getElementsByClassName('ganttChartView')[0].style.transition = 'all .2s';
-            document.getElementsByClassName('tasklineBars')[0].style.transition = 'all .2s';
-            document.getElementsByClassName('tasklineMilestones')[0].style.transition = 'all .2s';
+            const ganttChartView = document.getElementsByClassName('ganttChartView')[0] as HTMLElement;
+            const tasklineBars = document.getElementsByClassName('tasklineBars')[0] as HTMLElement;
+            const tasklineMilestones = document.getElementsByClassName('tasklineMilestones')[0] as HTMLElement;
+            ganttChartView.style.transition = 'all .2s';
+            tasklineBars.style.transition = 'all .2s';
+            tasklineMilestones.style.transition = 'all .2s';
             switch (eventTarget.classList[0]) {
-                case 'milestoneBody':
+                case 'milestoneChart':
+                case 'milestoneTimeline':
                     data = {
                         startDate: Math.round(parseInt(eventTarget.getAttribute('x')) / cellCapacity)
                     }

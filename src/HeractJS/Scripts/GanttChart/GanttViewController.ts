@@ -45,7 +45,8 @@ export class ChartView extends React.Component<any, any> {
                         });
                         break;
                     case 'startDragging':
-                        document.getElementsByClassName('ganttChartView')[0].style.transition = 'initial';
+                        const ganttChartView = document.getElementsByClassName('ganttChartView')[0] as HTMLElement;
+                        ganttChartView.style.transition = 'initial';
                         break;
                     default:
                         break;
