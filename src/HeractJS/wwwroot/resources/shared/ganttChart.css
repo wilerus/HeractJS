@@ -9,6 +9,7 @@
 .content-view {
     font-family: 'Roboto', sans-serif;
 }
+
 g {
     transition: inherit;
 }
@@ -129,7 +130,6 @@ g {
 }
 
 .js-module-gantt-toolbar {
-    width: 100vw;
     height: 26px;
     position: relative;
     background-color: #299cb4;
@@ -353,11 +353,10 @@ g {
     height: 100%;
 }
 
-.toolbarButton {
-    height: 20px;
+.toolbarButton, .toolbarButtonFixed {
+    height: 100%;
     width: auto;
-    margin: 10px;
-    margin-top: 3px;
+    margin-left: 10px;
     text-align: center;
     background-color: transparent;
     border: none;
@@ -373,17 +372,7 @@ g {
     }
 
 .toolbarButtonFixed {
-    height: 20px;
-    width: 100px;
-    margin-top: 3px;
-    text-align: center;
-    background-color: transparent;
-    border: none;
-    color: white;
-    vertical-align: top;
-    position: absolute;
-    font-size: 1.2em;
-    right: 300px;
+    float: right;
 }
 
 .viewModeSelector {

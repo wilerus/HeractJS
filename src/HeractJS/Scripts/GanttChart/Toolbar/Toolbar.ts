@@ -135,8 +135,8 @@ export class GanttToolbar extends React.Component<any, any> {
                 wrapper.height = '100%';
                 timeline.height = '166px';
             } else {
-                grid.width = '40%';
-                chart.width = '60%';
+                grid.width = '30%';
+                chart.width = '70%';
             }
         } else {
             if (!chartCheckbox) {
@@ -164,8 +164,8 @@ export class GanttToolbar extends React.Component<any, any> {
                 timeline.height = '166px';
                 wrapper.height = '100%';
             } else {
-                grid.width = '40%';
-                chart.width = '60%';
+                grid.width = '30%';
+                chart.width = '70%';
             }
         } else {
             if (!gridCheckbox) {

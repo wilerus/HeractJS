@@ -7,18 +7,6 @@ export class TaskLink extends React.Component<any, any> {
 
     constructor(props: Object, context: Object) {
         super(props, context);
-        GCMediator.subscribe(function () {
-            const change = GCMediator.getLastChange();
-            if (change) {
-                switch (change.type) {
-                    case 'completeItemEditing':
-                        this.buildConnection();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }.bind(this));
         this.state = {
             firstPoint: '',
             secondPoint: '',

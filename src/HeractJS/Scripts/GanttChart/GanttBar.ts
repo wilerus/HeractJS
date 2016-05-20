@@ -283,7 +283,11 @@ export class ChartBar extends React.Component<any, any> {
                 if (hoverElement) {
                     setTimeout(function (actionElement: HTMLElement, clientX: number) {
                         const currentHoverElement: HTMLElement = actionElement.parentElement.querySelector(':hover') as HTMLElement;
-                        if (currentHoverElement && currentHoverElement === actionElement && !currentState.isDragging) {
+                        const parentHoverElement: HTMLElement = actionElement.parentElement.getElementsByClassName('barSelectBody')[0] as HTMLElement;
+                        if (currentHoverElement &&
+                            (currentHoverElement === actionElement ||
+                            parentHoverElement === actionElement)
+                            && !currentState.isDragging) {
                             this.showInfoPopup(clientX, actionElement);
                             currentHoverElement.onmouseout = () => {
                                 this.appMediator.dispatch({ type: 'completeEditing' });
@@ -316,7 +320,7 @@ export class ChartBar extends React.Component<any, any> {
         const topMargin: number = coords.top - 160 < 0 ? coords.top + 30 : coords.top - 160;
 
         if (hoverElement.getAttribute('class') === 'barSelectBody') {
-            leftMargin = clientX;
+            leftMargin = clientX - 100;
         } else {
             leftMargin = coords.left + coords.width / 2 - 100;
         }
@@ -343,19 +347,26 @@ export class ChartBar extends React.Component<any, any> {
         const topMargin: number = coords.top + 22;
         this.startTaskSelection();
         if (eventTarget.classList[0] === 'barSelectBody') {
-            leftMargin = event.clientX;
+            leftMargin = event.clientX - 100;
         } else {
             leftMargin = coords.left + coords.width / 2 - 100;
-            type = 'showActionTimelinePopup';
             switch (eventTarget.classList[0]) {
                 case 'tasklineBarBody':
                     target = 'task';
+                    type = 'showActionTimelinePopup';
                     break;
                 case 'milestoneBody':
                     target = 'milestone';
+                    type = 'showActionTimelinePopup';
+                    break;
+                case 'barChartBody':
+                    target = 'task';
+                    type = 'showActionChartPopup';
                     break;
                 default:
                     target = 'callouts';
+                    type = 'showActionTimelinePopup';
+
                     break;
             }
         }

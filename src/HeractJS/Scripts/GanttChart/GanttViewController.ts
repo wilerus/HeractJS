@@ -278,7 +278,6 @@ export class ChartView extends React.Component<any, any> {
         const links: Array<TaskLink> = this.state.displayingLinks.map((link: any) => {
             if (link) {
                 return React.createElement(TaskLink, {
-                    ref: link.id,
                     key: link.id,
                     data: link
                 } as React.DOMAttributes);
