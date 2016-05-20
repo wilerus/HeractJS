@@ -338,19 +338,34 @@ export class ChartBar extends React.Component<any, any> {
         const eventTarget = event.target as any;
         const coords = eventTarget.getBoundingClientRect();
         let leftMargin: number;
+        let type: string = 'showActionChartPopup';
+        let target: string = 'task';
         const topMargin: number = coords.top + 22;
         this.startTaskSelection();
-        if (eventTarget.getAttribute('class') === 'barSelectBody barSelected') {
+        if (eventTarget.classList[0] === 'barSelectBody') {
             leftMargin = event.clientX;
         } else {
             leftMargin = coords.left + coords.width / 2 - 100;
+            type = 'showActionTimelinePopup';
+            switch (eventTarget.classList[0]) {
+                case 'tasklineBarBody':
+                    target = 'task';
+                    break;
+                case 'milestoneBody':
+                    target = 'milestone';
+                    break;
+                default:
+                    target = 'callouts';
+                    break;
+            }
         }
         this.appMediator.dispatch({
-            type: 'showActionChartPopup',
+            type: type,
             data: {
                 left: leftMargin,
                 top: topMargin,
-                title: this.state.name
+                title: this.state.name,
+                target: target
             }
         })
         event.preventDefault();

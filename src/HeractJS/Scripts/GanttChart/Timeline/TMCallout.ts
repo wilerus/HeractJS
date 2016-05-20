@@ -1,5 +1,5 @@
 ﻿import * as React from 'react';
-import {ChartBar} from '../GanttBar'
+import {ChartBar} from '../GanttBar';
 
 export class TasklineCallouts extends ChartBar {
     constructor(props: any, context: Object) {
@@ -21,7 +21,8 @@ export class TasklineCallouts extends ChartBar {
             cellCapacity: this.appMediator.getState().tasklineCellCapacity
         };
     }
-    public componentWillReceiveProps(nextProps: any) {
+
+    private componentWillReceiveProps(nextProps: any) {
         const data = nextProps.data
         this.setState({
             id: data.id,
@@ -42,6 +43,7 @@ export class TasklineCallouts extends ChartBar {
             cellCapacity: this.appMediator.getState().tasklineCellCapacity
         });
     }
+
     public render() {
         const startDate = this.state.startDate * this.state.cellCapacity;
         const duration = this.state.duration * this.state.cellCapacity;

@@ -25,7 +25,8 @@ export class TasklineMilestone extends ChartBar {
             cellCapacity: this.appMediator.getState().tasklineCellCapacity
         };
     }
-    public componentWillReceiveProps(nextProps: any) {
+
+    private componentWillReceiveProps(nextProps: any) {
         const data = nextProps.data
         this.setState({
             id: data.id,
@@ -49,6 +50,7 @@ export class TasklineMilestone extends ChartBar {
             cellCapacity: this.appMediator.getState().tasklineCellCapacity
         });
     }
+
     public render() {
         const startDate = this.state.startDate * this.state.cellCapacity;
         return React.createElement('g', {
