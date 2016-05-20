@@ -130,7 +130,7 @@ export class ChartView extends React.Component<any, any> {
             const newStartPos: number = scrollPosition - batchSize;
             startPos = newStartPos > 0 ? newStartPos : 0;
             endPos = scrollPosition + 31 + batchSize;
-            elements = new GCMediator.getState().items.slice(startPos, endPos);
+            elements = GCMediator.getState().items.slice(startPos, endPos);
             document
                 .getElementById('ganttChartView')
                 .style.height = (document.documentElement.clientHeight + state.elementHeight * endPos).toString();

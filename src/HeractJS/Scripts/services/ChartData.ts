@@ -254,8 +254,12 @@ export class ChartData {
         const newState = GCMediator.getState();
         const items = newState.items;
         let elementIndex: number;
+        const itemId = newState.selectedTasks[0].id;
+        GCMediator.dispatch({
+            type: 'deselectAllTasks'
+        });
         items.find((item: any) => {
-            if (item.id === newState.selectedTasks[0].id) {
+            if (item.id === itemId) {
                 elementIndex = items.indexOf(item);
                 const taskDuration = item.duration;
                 items.splice(elementIndex, 1);
