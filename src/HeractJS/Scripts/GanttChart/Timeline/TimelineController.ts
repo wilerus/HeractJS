@@ -53,7 +53,7 @@ export class TaskLineView extends React.Component<any, any> {
         });
         if (selectedElementType !== 'milestone') {
             const timelineTasks = currentState.timelineTasks;
-            timelineTasks.find((task: any, index: number) => {
+            let task = timelineTasks.find((task: any, index: number) => {
                 if (task.id === selectedElementId && task.timelineDisplay) {
                     for (let prop in newData) {
                         task[prop] = newData[prop];
@@ -64,6 +64,9 @@ export class TaskLineView extends React.Component<any, any> {
                     return true;
                 }
             })
+            if (!task && selectedElement.timelineDisplay) {
+                timelineTasks.push(selectedElement);
+            }
             const timelineCallouts = currentState.timelineCallouts;
             const callout = timelineCallouts.find((task: any, index: number) => {
                 if (task.id === selectedElementId && !selectedElement.calloutDisplay) {
