@@ -31,11 +31,6 @@ g {
     transition: inherit;
 }
 
-.milestoneSelected {
-    stroke: rgb(50, 50, 180);
-    stroke-width: 2.5px;
-}
-
 .projectBody {
     position: absolute;
     stroke-width: 2px;

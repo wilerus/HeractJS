@@ -44,7 +44,7 @@
 
 .grid-content-view {
     position: absolute;
-    top: 27px;
+    top: 28px;
     left: 0;
     bottom: 0;
     right: 0;
@@ -83,7 +83,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-top: 1px solid transparent;
     border-bottom: 1px solid #dfe4e8;
     padding-right: 15px;
     height: 24px;

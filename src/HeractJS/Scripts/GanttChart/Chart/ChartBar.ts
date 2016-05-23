@@ -57,7 +57,7 @@ export class TaskBar extends ChartBar {
         const props = this.props as any;
         const position = this.state.position;
         const id = props.data.id;
-        const startDate = this.state.startDate * this.state.cellCapacity;
+        const startDate = this.state.startDate * this.state.cellCapacity + 5;
         const duration = this.state.duration * this.state.cellCapacity;
         const length = startDate + duration + 10;
         const configProgress = this.state.progress * duration / 100 - 2;
@@ -76,7 +76,7 @@ export class TaskBar extends ChartBar {
                 } as React.DOMAttributes,
                     this.rect({
                         className: 'barSelectBody',
-                        y: position - 1,
+                        y: position,
                         x: 0
                     } as React.DOMAttributes ),
                     this.rect({
@@ -112,7 +112,7 @@ export class TaskBar extends ChartBar {
                 } as React.DOMAttributes,
                     this.rect({
                         className: 'barSelectBody',
-                        y: position - 1,
+                        y: position,
                         x: 0
                     } as React.DOMAttributes),
                     this.rect({
@@ -139,7 +139,7 @@ export class TaskBar extends ChartBar {
                 } as React.DOMAttributes,
                     this.rect({
                         className: 'barSelectBody',
-                        y: position - 1,
+                        y: position,
                         x: 0
                     } as React.DOMAttributes),
                     React.createElement('path', {

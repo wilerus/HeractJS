@@ -74,7 +74,7 @@ export class TasklineBar extends ChartBar {
                         id: id + 'clipRect',
                         x: startDate + 1,
                         height: 28,
-                        width: duration - 2
+                        width: duration
                     } as React.DOMAttributes)
                 )
             ),
@@ -89,14 +89,14 @@ export class TasklineBar extends ChartBar {
             this.text({
                 className: 'taskLineTaskTitle',
                 x: startDate + 2,
-                width: duration - 2,
+                width: duration,
                 clipPath: `url(#${id}clipPath)`,
                 y: 13
             } as React.DOMAttributes, `${props.data.name} - ${props.data.description}`),
             this.text({
                 className: 'taskLineTaskDate',
                 x: startDate + 2,
-                width: duration - 2,
+                width: duration,
                 clipPath: `url(#${id}clipPath)`,
                 y: 25
             } as React.DOMAttributes, this.state.date)

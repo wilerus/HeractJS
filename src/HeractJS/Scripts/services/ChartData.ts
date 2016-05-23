@@ -136,7 +136,7 @@ export class ChartData {
                     text: monthData[n],
                     style: {
                         width: 54,
-                        marginLeft: 600 * i + 54 * n
+                        marginLeft: 648 * i + 54 * n
                     }
                 });
             }
