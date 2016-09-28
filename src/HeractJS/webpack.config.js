@@ -5,7 +5,6 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 var LimitChunkCountPlugin = require('webpack/lib/optimize/LimitChunkCountPlugin');
 var AggressiveMergingPlugin = require('webpack/lib/optimize/AggressiveMergingPlugin');
-var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 module.exports = {
     console: true,
@@ -13,8 +12,6 @@ module.exports = {
         children: false
     },
     entry: {
-        //  'shared': './scripts/project/shared/bootstrap.js',
-        //  'navigation': './scripts/project/navigation/module.js',
         'project': './scripts/project/Application.js'
     },
     devtool: "#inline-source-map",
@@ -81,7 +78,6 @@ module.exports = {
             moveToParents: true
         }),
         new ExtractTextPlugin('bundle.css'),
-        new CaseSensitivePathsPlugin()
         //new webpack.optimize.DedupePlugin(),
         //new webpack.optimize.OccurenceOrderPlugin(),
         //new webpack.optimize.UglifyJsPlugin()

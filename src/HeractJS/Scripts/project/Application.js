@@ -29,7 +29,7 @@ define([
     window.langCode = 'en';
 
     Localizer.initialize({
-        langCode: 'EN',
+        langCode: 'en',
         localizationMap: window['LANGMAPEN'],
         warningAsError: !!window.Context.compiled
     });
@@ -109,7 +109,7 @@ define([
                 ajaxMap: window.ajaxMap
             },
             localizationService: {
-                langCode: 'EN',
+                langCode: 'en',
                 localizationMap: window.LANGMAPEN,
                 warningAsError: false //window.compiled
             },
@@ -117,6 +117,22 @@ define([
                 fadingRegion: App.fadingRegion,
                 popupRegion: App.popupRegion,
                 ui: App.ui
+            },
+            userService: {
+                dataProvider: {
+                    listUsers: function () {
+                        return shared.services.CacheService.GetUsers().map(function (user) {
+                            return {
+                                id: user.Id,
+                                name: user.FullName || user.Text || '',
+                                userName: user.Username || '',
+                                abbreviation: user.Abbreviation || '',
+                                avatarUrl: user.UserpicUri,
+                                url: user.link
+                            };
+                        });
+                    }
+                }
             }
         });
 
