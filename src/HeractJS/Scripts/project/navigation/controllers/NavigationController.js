@@ -142,6 +142,15 @@ define([
                         return NavigationItemFactory.createModel(wsItem);
                     }).value();
 
+                itemsArray.push(new Backbone.Model({
+                    compactMode: false,
+                    id: "dashboard",
+                    name: "Dashboard",
+                    tooltip: "Dashboard",
+                    type: "system",
+                    url: shared.services.ModuleService.getDefaultModuleUrl(shared.services.ModuleService.modules.DASHBOARD)
+                }));
+
                 if (window.flag_debug) {
                     itemsArray.push(new Backbone.Model({
                         compactMode: false,

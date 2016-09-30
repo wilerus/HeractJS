@@ -36,7 +36,8 @@ define([
     'rootpath/demo/Config',
     'rootpath/list/Config',
     'rootpath/gantt/Config',
-    'rootpath/form/Config'
+    'rootpath/form/Config',
+    'rootpath/dashboard/Config'
 ], function () {
     "use strict";
 
