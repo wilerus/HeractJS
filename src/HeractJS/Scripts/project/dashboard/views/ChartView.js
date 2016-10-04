@@ -1,10 +1,11 @@
 ﻿define([
-    'comindware/core'
+    'comindware/core',
+    './template/Dashboard.html'
 ], function () {
     return Marionette.ItemView.extend({
         initialize: function () {
         },
-        template: Handlebars.compile("<div class = chart-test-region>some text</div>")
+        template: './template/Dashboard.html'
     })
 })
             

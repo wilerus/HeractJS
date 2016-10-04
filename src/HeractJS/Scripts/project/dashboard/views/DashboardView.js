@@ -16,7 +16,14 @@
         },
         className: "dashboard-test",
         onShow: function () {
-            this.chartRegion.show(new ChartView({}));
+            this.chartRegion.show(new ChartView({
+                model: new Backbone.Model({
+                    items: [
+                      { assignee: 'Scott', text: 'Write a book about Marionette' },
+                      { assignee: 'Andrew', text: 'Do some coding' }
+                    ]
+                })
+            }));
         }
     })
 });
