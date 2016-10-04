@@ -2,17 +2,17 @@
     'comindware/core',
     './ChartView',
     './template/Dashboard.html'
-], function (core, ChartView) {
+], function (core, ChartView, template) {
     'use strict';
 
     return Marionette.LayoutView.extend({
         initialize: function () {
         },
 
-        template: Handlebars.compile("<div class='chart-test-region'></div>"),
+        template: Handlebars.compile(template),
 
         regions: {
-            chartRegion: ".chart-test-region",
+            chartRegion: ".chart-test-region"
         },
         className: "dashboard-test",
         onShow: function () {
