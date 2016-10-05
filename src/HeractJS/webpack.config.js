@@ -44,8 +44,7 @@ module.exports = {
             'LANGMAPEN': path.resolve(__dirname + '/wwwroot/js/compiled/localizationMap.en.js'),
             'appMediator': path.resolve(__dirname + '/scripts/services/ApplicationMediator'),
             'ganttView': path.resolve(__dirname + '/scripts/GanttChart/GanttViewInitializer'),
-            'form': path.resolve(__dirname + '/scripts/project/form'),
-            'nvd3': path.resolve(__dirname + '/scripts/project/shared/nvd3/nv.d3.js')
+            'form': path.resolve(__dirname + '/scripts/project/form')
         }
     },
     module: {

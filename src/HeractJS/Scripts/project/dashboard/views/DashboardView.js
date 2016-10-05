@@ -1,10 +1,10 @@
 ﻿define([
     'comindware/core',
-    './ChartView',
+    './PieChartView',
+    './FunnelChartView',
     './template/Dashboard.html'
-], function (core, ChartView, template) {
+], function (core, PieChartView, FunnelChartView, template) {
     'use strict';
-
     return Marionette.LayoutView.extend({
         initialize: function () {
         },
@@ -16,14 +16,7 @@
         },
         className: "dashboard-test",
         onShow: function () {
-            this.chartRegion.show(new ChartView({
-                model: new Backbone.Model({
-                    items: [
-                      { assignee: 'Scott', text: 'Write a book about Marionette' },
-                      { assignee: 'Andrew', text: 'Do some coding' }
-                    ]
-                })
-            }));
+            this.chartRegion.show(new PieChartView({}));
         }
     })
 });
