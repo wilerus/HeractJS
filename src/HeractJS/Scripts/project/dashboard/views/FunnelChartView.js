@@ -67,7 +67,7 @@
                 .duration(500)
                 .margin({ left: 150, right: 150 })
                 .showValues(true)
-                .showLegend(true)
+                .showLegend(false)
                 .stacked(true);
         chart.barColor(function (d, i) {
             var colors = d3.scale.category10().range().slice(0);
