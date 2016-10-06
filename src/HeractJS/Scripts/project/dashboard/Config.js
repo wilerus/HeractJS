@@ -4,10 +4,10 @@
         id: 'module:dashboard',
         module: dashboardInitializer,
         navigationUrl: {
-            default: 'dashboard'
+            default: 'dashboard',
         },
         routes: {
-            'dashboard': 'navigate'
+            'dashboard': 'navigate',
         }
     }
 });

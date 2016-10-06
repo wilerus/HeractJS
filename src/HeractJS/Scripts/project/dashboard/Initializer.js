@@ -13,6 +13,7 @@
         navigate: function () {
             this.view.setNavigationVisibility(false);
             this.moduleRegion.show(new DashboardView({}));
-        }
+        },
+
     });
 });

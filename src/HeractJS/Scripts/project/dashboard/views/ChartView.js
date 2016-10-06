@@ -1,11 +1,11 @@
 ﻿define([
     'comindware/core',
     './template/Chart.html'
-], function (object, template) {
+], function (core, template) {
+    'use strict';
     return Marionette.ItemView.extend({
         initialize: function () {
         },
-        className: "marionetteTutorialRegion",
         template: Handlebars.compile(template),
     })
 })

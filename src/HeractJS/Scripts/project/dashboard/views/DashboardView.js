@@ -1,8 +1,9 @@
 ﻿define([
     'comindware/core',
     './ChartView',
+    './DashboardNavigationView',
     './template/Dashboard.html'
-], function (core, ChartView, template) {
+], function (core, ChartView,DashboardNavigationView, template) {
     'use strict';
 
     return Marionette.LayoutView.extend({
@@ -12,18 +13,21 @@
         template: Handlebars.compile(template),
 
         regions: {
+            navigationRegion: ".dashboard-navigation-region",
             chartRegion: ".chart-test-region"
         },
         className: "dashboard-test",
+
         onShow: function () {
-            this.chartRegion.show(new ChartView({
-                model: new Backbone.Model({
-                    items: [
-                      { assignee: 'Scott', text: 'Write a book about Marionette' },
-                      { assignee: 'Andrew', text: 'Do some coding' }
-                    ]
-                })
+            this.navigationRegion.show(new DashboardNavigationView({
             }));
-        }
+            this.chartRegion.show(new ChartView({
+            }));
+            this.listenTo(this.navigationRegion.currentView, 'chartChanged', this.changeChart);
+        },
+
+        changeChart: function (e) {
+            var id = e.model.attributes.id;
+            console.log(id);       }
     })
 });
