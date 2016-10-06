@@ -34,3 +34,7 @@
 .dasboard-navigation-item-selected {
     background-color: #0575bd;
 }
+.chart-svg {
+    width:100% !important;
+    height:1000px !important;
+}

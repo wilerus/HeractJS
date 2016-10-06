@@ -57,18 +57,24 @@
                 ]
             },
     ];
+    console.log(values);
+    for (var i = 0; i < values[1].values.length;i++){
+        values[0].values[i].label += " (" + values[1].values[i].value + ")";
+        values[1].values[i].label += " (" + values[1].values[i].value + ")";
+    }
     //Creating Funnel Chart
+    console.log(values);
     var buildChart = function () {
         chart = nv.models.multiBarHorizontalChart()
                 .x(function (d) { return d.label })
                 .y(function (d) { return d.value })
                 .showYAxis(false)
                 .showControls(false)
-                .duration(500)
+                .duration(750)
                 .margin({ left: 150, right: 150 })
                 .showValues(true)
                 .showLegend(false)
-                .width(700)
+                .width(1000)
                 .height(700)
                 .stacked(true);
         chart.barColor(function (d, i) {
@@ -89,7 +95,7 @@
         nv.utils.windowResize(chart.update);
         return chart;
     };
-
+    //Creating View that contains model of Funnel Chart
     return Marionette.LayoutView.extend({
         initialize: function () {
         },

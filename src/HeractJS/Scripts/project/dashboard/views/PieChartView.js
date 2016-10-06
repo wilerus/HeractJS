@@ -46,7 +46,7 @@
         nv.utils.windowResize(chart.update);
         return chart;
     };
-    
+    //Creating View that contains model of Funnel Chart
     return Marionette.LayoutView.extend({
         initialize: function () {
         },
