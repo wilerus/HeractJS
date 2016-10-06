@@ -10,6 +10,7 @@
         
         var ListItemView = Marionette.ItemView.extend({
             template: Handlebars.compile(template),
+            className: 'navigationButton',
             events: {
                 click: function (e) {
                     this.trigger('chartChanged', e)
@@ -20,6 +21,7 @@
         var ListView = Marionette.CollectionView.extend({
             childView: ListItemView,
             collection: collection,
+            className: 'navigationContainer',
             childEvents: {
                 'chartChanged': function (e) {
                     this.triggerMethod('chartChanged', e);

@@ -4,7 +4,7 @@
     './FunnelChartView',
     './DashboardNavigationView',
     './template/Dashboard.html'
-], function (core, PieChartView, FunnelChartView,DashboardNavigationView, template) {
+], function (core, PieChartView, FunnelChartView, DashboardNavigationView, template) {
     'use strict';
     return Marionette.LayoutView.extend({
         initialize: function () {
@@ -19,11 +19,19 @@
         className: "dashboard-test",
 
         onShow: function () {
-            this.navigationRegion.show(new DashboardNavigationView({}));            this.chartRegion.show(new PieChartView({}));            this.listenTo(this.navigationRegion.currentView, 'chartChanged', this.changeChart);
+            this.navigationRegion.show(new DashboardNavigationView({}));
+            this.chartRegion.show(new PieChartView({}));
+            this.listenTo(this.navigationRegion.currentView, 'chartChanged', this.changeChart);
         },
 
         changeChart: function (e) {
             var id = e.model.attributes.id;
-            console.log(id);       }
+            switch (id) {
+                case 'chart1': this.chartRegion.show(new PieChartView({}));
+                    break
+                case 'chart2': this.chartRegion.show(new FunnelChartView({}));
+                    break
+            }
+        }
     })
 });
