@@ -1,18 +1,21 @@
 ﻿define([
     'shared',
+    './controllers/DashboardController',
     './views/ContentView',
     './views/DashboardView'
 ], function (
-    shared, ContentView, DashboardView
+    shared, DashboardController, ContentView, DashboardView
 ) {
     'use strict';
 
     return shared.application.Module.extend({
+        
         contentView: ContentView,
 
         navigate: function () {
             this.view.setNavigationVisibility(false);
-            this.moduleRegion.show(new DashboardView({}));
+            this.Controller = new DashboardController({});
+            this.moduleRegion.show(this.Controller.dashboardView);
         }
     });
 });

@@ -17,21 +17,5 @@
             chartRegion: ".chart-test-region"
         },
         className: "dashboard-test",
-
-        onShow: function () {
-            this.navigationRegion.show(new DashboardNavigationView({}));
-            this.chartRegion.show(new PieChartView({}));
-            this.listenTo(this.navigationRegion.currentView, 'chartChanged', this.changeChart);
-        },
-
-        changeChart: function (e) {
-            var id = e.model.attributes.id;
-            switch (id) {
-                case 'chart1': this.chartRegion.show(new PieChartView({}));
-                    break
-                case 'chart2': this.chartRegion.show(new FunnelChartView({}));
-                    break
-            }
-        }
     })
 });

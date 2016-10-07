@@ -29,6 +29,7 @@
     .dashboard-navigation-button:hover {
         cursor: pointer;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6) !important;
+        box-shadow: 0 0 2px rgba(0, 0, 0, .8);;
     }
 
 .dasboard-navigation-item-selected {

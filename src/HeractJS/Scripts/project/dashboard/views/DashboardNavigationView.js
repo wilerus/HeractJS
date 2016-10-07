@@ -6,7 +6,7 @@
     'use strict';
 
     return function () {
-        var collection = new Backbone.Collection([{ id: 'chart1', title: 'Chart1', selected: true }, { id: 'chart2', title: 'Chart2', selected: false }]);
+        var collection = new Backbone.Collection([{ id: 'chart1', title: 'Pie', selected: true }, { id: 'chart2', title: 'Funnel', selected: false }]);
         
         var ListItemView = Marionette.ItemView.extend({
             initialize: function () {
