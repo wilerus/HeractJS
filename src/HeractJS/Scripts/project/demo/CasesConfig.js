@@ -13,118 +13,118 @@
 
 define([
     './cases/editors/TextEditor/default',
-    'text!./cases/editors/TextEditor/default.js',
+    'text-loader!./cases/editors/TextEditor/default.js',
 
     './cases/editors/TextAreaEditor/default',
-    'text!./cases/editors/TextAreaEditor/default.js',
+    'text-loader!./cases/editors/TextAreaEditor/default.js',
 
     './cases/editors/BooleanEditor/default',
-    'text!./cases/editors/BooleanEditor/default.js',
+    'text-loader!./cases/editors/BooleanEditor/default.js',
 
     './cases/editors/NumberEditor/default',
-    'text!./cases/editors/NumberEditor/default.js',
+    'text-loader!./cases/editors/NumberEditor/default.js',
 
     './cases/editors/DateEditor',
-    'text!./cases/editors/DateEditor.js',
+    'text-loader!./cases/editors/DateEditor.js',
 
     './cases/editors/TimeEditor',
-    'text!./cases/editors/TimeEditor.js',
+    'text-loader!./cases/editors/TimeEditor.js',
 
     './cases/editors/DateTimeEditor',
-    'text!./cases/editors/DateTimeEditor.js',
+    'text-loader!./cases/editors/DateTimeEditor.js',
 
     './cases/editors/DurationEditor/default',
-    'text!./cases/editors/DurationEditor/default.js',
+    'text-loader!./cases/editors/DurationEditor/default.js',
 
     './cases/editors/DropdownEditor/default',
-    'text!./cases/editors/DropdownEditor/default.js',
+    'text-loader!./cases/editors/DropdownEditor/default.js',
 
     './cases/editors/ReferenceEditor/default',
-    'text!./cases/editors/ReferenceEditor/default.js',
+    'text-loader!./cases/editors/ReferenceEditor/default.js',
 
     './cases/editors/ReferenceEditorWithAddNewButton',
-    'text!./cases/editors/ReferenceEditorWithAddNewButton.js',
+    'text-loader!./cases/editors/ReferenceEditorWithAddNewButton.js',
 
     './cases/editors/RadioGroupEditor/default',
-    'text!./cases/editors/RadioGroupEditor/default.js',
+    'text-loader!./cases/editors/RadioGroupEditor/default.js',
 
     './cases/editors/MemberSelectEditor/default',
-    'text!./cases/editors/MemberSelectEditor/default.js',
+    'text-loader!./cases/editors/MemberSelectEditor/default.js',
 
     './cases/editors/MembersBubbleEditor/default',
-    'text!./cases/editors/MembersBubbleEditor/default.js',
+    'text-loader!./cases/editors/MembersBubbleEditor/default.js',
 
     './cases/editors/MentionEditor',
-    'text!./cases/editors/MentionEditor.js',
+    'text-loader!./cases/editors/MentionEditor.js',
 
     './cases/editors/MultiSelectEditor',
-    'text!./cases/editors/MultiSelectEditor.js',
+    'text-loader!./cases/editors/MultiSelectEditor.js',
 
     './cases/editors/MaskedTextEditor',
-    'text!./cases/editors/MaskedTextEditor.js',
+    'text-loader!./cases/editors/MaskedTextEditor.js',
     
     './cases/editors/AvatarEditor',
-    'text!./cases/editors/AvatarEditor.js',
+    'text-loader!./cases/editors/AvatarEditor.js',
 
     './cases/editors/PasswordEditor',
-    'text!./cases/editors/PasswordEditor.js',
+    'text-loader!./cases/editors/PasswordEditor.js',
 
     './cases/editors/Form',
-    'text!./cases/editors/Form.js',
+    'text-loader!./cases/editors/Form.js',
 
     './cases/dropdown/actionMenu',
-    'text!./cases/dropdown/actionMenu.js',
+    'text-loader!./cases/dropdown/actionMenu.js',
 
     './cases/dropdown/popoutCustomization',
-    'text!./cases/dropdown/popoutCustomization.js',
+    'text-loader!./cases/dropdown/popoutCustomization.js',
 
     './cases/dropdown/popoutCustomAnchor',
-    'text!./cases/dropdown/popoutCustomAnchor.js',
+    'text-loader!./cases/dropdown/popoutCustomAnchor.js',
 
     './cases/dropdown/popoutDialog',
-    'text!./cases/dropdown/popoutDialog.js',
+    'text-loader!./cases/dropdown/popoutDialog.js',
 
     './cases/dropdown/dropdownCustomization',
-    'text!./cases/dropdown/dropdownCustomization.js',
+    'text-loader!./cases/dropdown/dropdownCustomization.js',
 
     './cases/dropdown/dropdownPanelPosition',
-    'text!./cases/dropdown/dropdownPanelPosition.js',
+    'text-loader!./cases/dropdown/dropdownPanelPosition.js',
 
     './cases/list/listBasicUsage',
-    'text!./cases/list/listBasicUsage.js',
+    'text-loader!./cases/list/listBasicUsage.js',
 
     './cases/list/listSearchHighlight',
-    'text!./cases/list/listSearchHighlight.js',
+    'text-loader!./cases/list/listSearchHighlight.js',
 
     './cases/list/listGroupBy',
-    'text!./cases/list/listGroupBy.js',
+    'text-loader!./cases/list/listGroupBy.js',
 
     './cases/list/grid',
-    'text!./cases/list/grid.js',
+    'text-loader!./cases/list/grid.js',
 
     './cases/list/gridHeightAuto',
-    'text!./cases/list/gridHeightAuto.js',
+    'text-loader!./cases/list/gridHeightAuto.js',
 
     './cases/list/gridSearchHighlight',
-    'text!./cases/list/gridSearchHighlight.js',
+    'text-loader!./cases/list/gridSearchHighlight.js',
 
     './cases/list/nativeGrid',
-    'text!./cases/list/nativeGrid.js',
+    'text-loader!./cases/list/nativeGrid.js',
 
     './cases/other/splitPanel',
-    'text!./cases/other/splitPanel.js',
+    'text-loader!./cases/other/splitPanel.js',
 
     './cases/other/messageService',
-    'text!./cases/other/messageService.js',
+    'text-loader!./cases/other/messageService.js',
 
     './cases/other/windowsService',
-    'text!./cases/other/windowsService.js',
+    'text-loader!./cases/other/windowsService.js',
 
     './cases/other/localizationService',
-    'text!./cases/other/localizationService.js',
+    'text-loader!./cases/other/localizationService.js',
 
     './cases/other/loadingBehavior',
-    'text!./cases/other/loadingBehavior.js'
+    'text-loader!./cases/other/loadingBehavior.js'
 ], function () {
     "use strict";
 

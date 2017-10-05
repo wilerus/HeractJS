@@ -44,10 +44,11 @@ define([
             COMMUNICATION_ROUTES: "cmw.workspace.CommunicationRoutesItem",
             GRID: "cmw.workspace.GridItem",
             GANTT: "cmw.workspace.GanttItem",
-	        FORM: "cmw.workspace.FormItem"
+	        FORM: "cmw.workspace.FormItem",
+            CHATIK: "cmw.workspace.Chatik"
         };
 
-        var configItems = [systemItems.ARCHITECTURE, systemItems.PROCESS_MONITOR, systemItems.DATA_MODEL, 
+        var configItems = [systemItems.ARCHITECTURE, systemItems.PROCESS_MONITOR, systemItems.DATA_MODEL,
             systemItems.PROCESSES, systemItems.SETTINGS, systemItems.GLOBAL_FUNCTIONS];
 
         var systemItemMap = {};
@@ -65,6 +66,7 @@ define([
         systemItemMap[systemItems.GRID] = 'grid';
         systemItemMap[systemItems.GANTT] = 'gantt';
         systemItemMap[systemItems.FORM] = 'form';
+        systemItemMap[systemItems.FORM] = 'chatik';
 
         return {
             createModel: function (attributes) {
@@ -181,6 +183,11 @@ define([
                     result.tooltip = 'Gantt view';
                     break;
 
+                    case systemItems.CHATIK:
+                        result.url = shared.services.ModuleService.getDefaultModuleUrl(shared.services.ModuleService.modules.CHATIK);
+                        result.name = 'Chatik view';
+                        result.tooltip = 'Chatik view';
+                        break;
                 }
                 return new Backbone.Model(result);
             },

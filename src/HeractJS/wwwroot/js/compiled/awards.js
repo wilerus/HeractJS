@@ -192,47 +192,47 @@ define('app/settings/awards/AwardsController',['module/userModules'], function (
     });
 });
 
-define('text!app/settings/awards/view/tpl/AwardIconSelectorViewTemplate.html',[],function () { return '<img class="NewAward__icon" src="/resources/icons/awards/{{name}}_94.png" />';});
+define('text-loader!app/settings/awards/view/tpl/AwardIconSelectorViewTemplate.html',[],function () { return '<img class="NewAward__icon" src="/resources/icons/awards/{{name}}_94.png" />';});
 
 
 
-define('text!app/settings/awards/view/tpl/AwardIconSelectorEditTemplate.html',[],function () { return '<div class="user-avatar"><img src="/resources/icons/awards/{{display.value}}_94.png" class="NewAward__icon" /></div>';});
+define('text-loader!app/settings/awards/view/tpl/AwardIconSelectorEditTemplate.html',[],function () { return '<div class="user-avatar"><img src="/resources/icons/awards/{{display.value}}_94.png" class="NewAward__icon" /></div>';});
 
 
 
-define('text!app/settings/awards/view/tpl/AwardIconSelectorTemplateView.html',[],function () { return '<div>\r\n    {{if collection.length && value}}\r\n    <div class="user-avatar award-big">\r\n        <img src="{{value}}" />\r\n    </div>\r\n    {{/if}}\r\n</div>';});
+define('text-loader!app/settings/awards/view/tpl/AwardIconSelectorTemplateView.html',[],function () { return '<div>\r\n    {{if collection.length && value}}\r\n    <div class="user-avatar award-big">\r\n        <img src="{{value}}" />\r\n    </div>\r\n    {{/if}}\r\n</div>';});
 
 
 
-define('text!app/settings/awards/view/tpl/AwardIconSelectorTemplateEdit.html',[],function () { return '<div class="awards-edit-except">\r\n    {{if collection.length}}\r\n        {{if value}}\r\n        <div class="user-avatar">\r\n            <img src="{{value}}" />\r\n        </div>\r\n        {{/if}}\r\n\r\n        <div class="select-award" [%menuContainer%]></div>\r\n    {{/if}}\r\n</div>';});
+define('text-loader!app/settings/awards/view/tpl/AwardIconSelectorTemplateEdit.html',[],function () { return '<div class="awards-edit-except">\r\n    {{if collection.length}}\r\n        {{if value}}\r\n        <div class="user-avatar">\r\n            <img src="{{value}}" />\r\n        </div>\r\n        {{/if}}\r\n\r\n        <div class="select-award" [%menuContainer%]></div>\r\n    {{/if}}\r\n</div>';});
 
 
 
-define('text!app/settings/awards/view/tpl/AwardIconSelectorItemTemplate.html',[],function () { return '<img src="{{String.prototype.replace.call(id + "", 94, 38)}}" width="38" height="38" alt="" class="select-award__icon" />\r\n';});
+define('text-loader!app/settings/awards/view/tpl/AwardIconSelectorItemTemplate.html',[],function () { return '<img src="{{String.prototype.replace.call(id + "", 94, 38)}}" width="38" height="38" alt="" class="select-award__icon" />\r\n';});
 
 
 
-define('text!app/settings/awards/view/tpl/AchievementTooltip.html',[],function () { return '<div class="achievement-tip">\r\n    <div class="rewards__title">{{awardName}}</div>\r\n    <div>{{comment}}</div>\r\n    <div class="rewards__footer">{{{this.Localizer(\'PROJECT.SETTINGS.AWARDSTAB.ACHIEVEMENTTOOLTIP.AWARDEDBY\')}}} <a href="{{awardedByLink}}">{{awardedByName}}</a> {{awardDateText}}</div>\r\n</div>';});
+define('text-loader!app/settings/awards/view/tpl/AchievementTooltip.html',[],function () { return '<div class="achievement-tip">\r\n    <div class="rewards__title">{{awardName}}</div>\r\n    <div>{{comment}}</div>\r\n    <div class="rewards__footer">{{{this.Localizer(\'PROJECT.SETTINGS.AWARDSTAB.ACHIEVEMENTTOOLTIP.AWARDEDBY\')}}} <a href="{{awardedByLink}}">{{awardedByName}}</a> {{awardDateText}}</div>\r\n</div>';});
 
 
 
-define('text!app/settings/awards/view/tpl/AwardItemForAwardView.html',[],function () { return '<a class="awards-list__laureate" data-count="{{awardCount}}" href="{{{this.getUrl(\'Person\', awardedUser)}}}">\r\n    {{if awardedUserPic}} \r\n        <img src="{{awardedUserPic}}" alt="" width="24" height="24" class="avatar-icon avatar-icon_members-list"/>\r\n    {{else}}\r\n        <span class="avatar-icon avatar-icon_members-list">{{awardedUserAbbreviation}}</span>\r\n    {{/if}}\r\n    {{awardedUserName}}\r\n</a>';});
+define('text-loader!app/settings/awards/view/tpl/AwardItemForAwardView.html',[],function () { return '<a class="awards-list__laureate" data-count="{{awardCount}}" href="{{{this.getUrl(\'Person\', awardedUser)}}}">\r\n    {{if awardedUserPic}} \r\n        <img src="{{awardedUserPic}}" alt="" width="24" height="24" class="avatar-icon avatar-icon_members-list"/>\r\n    {{else}}\r\n        <span class="avatar-icon avatar-icon_members-list">{{awardedUserAbbreviation}}</span>\r\n    {{/if}}\r\n    {{awardedUserName}}\r\n</a>';});
 
 
 
-define('text!app/settings/awards/view/tpl/AwardItemForAwardViewGranter.html',[],function () { return '<div class="button-icon button-icon_add-member AwardGranter" title="{{{this.Localizer(\'PROJECT.SETTINGS.AWARDSTAB.GRANTAWARDBUTTON.TOOLTIP\')}}}">{{{this.Localizer(\'PROJECT.SETTINGS.AWARDSTAB.GRANTAWARDBUTTON.TOOLTIP\')}}}</div>\r\n';});
+define('text-loader!app/settings/awards/view/tpl/AwardItemForAwardViewGranter.html',[],function () { return '<div class="button-icon button-icon_add-member AwardGranter" title="{{{this.Localizer(\'PROJECT.SETTINGS.AWARDSTAB.GRANTAWARDBUTTON.TOOLTIP\')}}}">{{{this.Localizer(\'PROJECT.SETTINGS.AWARDSTAB.GRANTAWARDBUTTON.TOOLTIP\')}}}</div>\r\n';});
 
 
 
-define('text!app/settings/awards/view/tpl/AwardItemForUserView.html',[],function () { return '<img src="{{awardPicUri}}" width="38" height="38" alt="{{awardName}}" class="awards-list__img" />';});
+define('text-loader!app/settings/awards/view/tpl/AwardItemForUserView.html',[],function () { return '<img src="{{awardPicUri}}" width="38" height="38" alt="{{awardName}}" class="awards-list__img" />';});
 
 
 
-define('text!app/settings/awards/view/tpl/AwardItemForUserViewGranter.html',[],function () { return '<div class="awards-list__button AwardGranter AwardGranterInUser" title="{{{this.Localizer(\'PROJECT.SETTINGS.AWARDSTAB.GRANTAWARDBUTTON.TOOLTIP\')}}}"></div>';});
+define('text-loader!app/settings/awards/view/tpl/AwardItemForUserViewGranter.html',[],function () { return '<div class="awards-list__button AwardGranter AwardGranterInUser" title="{{{this.Localizer(\'PROJECT.SETTINGS.AWARDSTAB.GRANTAWARDBUTTON.TOOLTIP\')}}}"></div>';});
 
 
 
-define('text!app/settings/awards/view/tpl/AwardList.html',[],function () { return '<div class="tr-list__item tr-list__item__setting {{row.__selected?\' selected\':\'\'}}">\r\n    <div class="{{cls}}">\r\n        <img class="tr-list__icon-awatar" src="{{row.AwardPicUri}}"/>\r\n        <div class="tr-list__title jsTitle">{{{this.highlightFilter(row.Name)}}}</div>\r\n        <div class="tr-list__description">{{{this.laureatesText(row)}}}</div>\r\n    </div>\r\n</div>';});
+define('text-loader!app/settings/awards/view/tpl/AwardList.html',[],function () { return '<div class="tr-list__item tr-list__item__setting {{row.__selected?\' selected\':\'\'}}">\r\n    <div class="{{cls}}">\r\n        <img class="tr-list__icon-awatar" src="{{row.AwardPicUri}}"/>\r\n        <div class="tr-list__title jsTitle">{{{this.highlightFilter(row.Name)}}}</div>\r\n        <div class="tr-list__description">{{{this.laureatesText(row)}}}</div>\r\n    </div>\r\n</div>';});
 
 
 /**

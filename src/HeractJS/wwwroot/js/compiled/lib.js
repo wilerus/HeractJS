@@ -40493,10 +40493,10 @@ define('text',['module'], function (module) {
 });
 
 
-define('text!core/dropdown/templates/pop.out.html',[],function () { return '<div class="js-button-region"></div>\r\n<div class="popout__wrp js-panel-region" tabindex="0" style="display: none"></div>';});
+define('text-loader!core/dropdown/templates/pop.out.html',[],function () { return '<div class="js-button-region"></div>\r\n<div class="popout__wrp js-panel-region" tabindex="0" style="display: none"></div>';});
 
 
-define('text!core/templates/fadingPanel.html',[],function () { return '';});
+define('text-loader!core/templates/fadingPanel.html',[],function () { return '';});
 
 /**
  * Developer: Stepan Burguchev
@@ -40511,7 +40511,7 @@ define('text!core/templates/fadingPanel.html',[],function () { return '';});
 
 /* global define, require, Marionette, Handlebars */
 
-define('core/views/FadingPanelView',['text!../templates/fadingPanel.html', 'core/libApi'],
+define('core/views/FadingPanelView',['text-loader!../templates/fadingPanel.html', 'core/libApi'],
     function (template) {
         'use strict';
 
@@ -40718,7 +40718,7 @@ define('core/views/behaviors/BlurableBehavior',[
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
 define('core/dropdown/views/PopoutView',[
-    'text!../templates/pop.out.html',
+    'text-loader!../templates/pop.out.html',
     'core/libApi',
     'core/utils/utilsApi',
     'core/services/WindowService',
@@ -41059,7 +41059,7 @@ define('core/dropdown/views/PopoutView',[
 });
 
 
-define('text!core/dropdown/templates/dropdown.html',[],function () { return '<div class="js-button-region"></div>\r\n<div class="dropdown__wrp js-panel-region" tabindex="0" style="display: none"></div>\r\n';});
+define('text-loader!core/dropdown/templates/dropdown.html',[],function () { return '<div class="js-button-region"></div>\r\n<div class="dropdown__wrp js-panel-region" tabindex="0" style="display: none"></div>\r\n';});
 
 /**
  * Developer: Stepan Burguchev
@@ -41074,7 +41074,7 @@ define('text!core/dropdown/templates/dropdown.html',[],function () { return '<di
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/dropdown/views/DropdownView',['text!../templates/dropdown.html', 'core/libApi', 'core/utils/utilsApi'],
+define('core/dropdown/views/DropdownView',['text-loader!../templates/dropdown.html', 'core/libApi', 'core/utils/utilsApi'],
     function (template, lib, utils) {
         'use strict';
 
@@ -41354,7 +41354,7 @@ define('core/dropdown/views/ListPanelView',['core/libApi'],
 
 
 
-define('text!core/dropdown/templates/menuItem.html',[],function () { return '{{#if tooltip}}\r\n<span class="popout-menu__txt" title="{{tooltip}}">{{name}}</span>\r\n{{else}}\r\n<span class="popout-menu__txt">{{name}}</span>\r\n{{/if}}';});
+define('text-loader!core/dropdown/templates/menuItem.html',[],function () { return '{{#if tooltip}}\r\n<span class="popout-menu__txt" title="{{tooltip}}">{{name}}</span>\r\n{{else}}\r\n<span class="popout-menu__txt">{{name}}</span>\r\n{{/if}}';});
 
 /**
  * Developer: Stepan Burguchev
@@ -41369,7 +41369,7 @@ define('text!core/dropdown/templates/menuItem.html',[],function () { return '{{#
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/dropdown/views/MenuItemView',['text!../templates/menuItem.html', 'core/libApi'],
+define('core/dropdown/views/MenuItemView',['text-loader!../templates/menuItem.html', 'core/libApi'],
     function (template) {
         'use strict';
 
@@ -41455,7 +41455,7 @@ define('core/dropdown/views/MenuPanelView',['./ListPanelView', './MenuItemView']
 
 
 
-define('text!core/dropdown/templates/defaultButton.html',[],function () { return '{{text}}';});
+define('text-loader!core/dropdown/templates/defaultButton.html',[],function () { return '{{text}}';});
 
 /**
  * Developer: Stepan Burguchev
@@ -41470,7 +41470,7 @@ define('text!core/dropdown/templates/defaultButton.html',[],function () { return
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/dropdown/views/DefaultButtonView',['text!../templates/defaultButton.html', 'core/libApi'],
+define('core/dropdown/views/DefaultButtonView',['text-loader!../templates/defaultButton.html', 'core/libApi'],
     function (template) {
         'use strict';
 
@@ -41707,7 +41707,7 @@ define('core/dropdown/dropdownApi',[
     });
 
 
-define('text!core/list/templates/emptyList.html',[],function () { return '{{text}}';});
+define('text-loader!core/list/templates/emptyList.html',[],function () { return '{{text}}';});
 
 /**
  * Developer: Stepan Burguchev
@@ -41722,7 +41722,7 @@ define('text!core/list/templates/emptyList.html',[],function () { return '{{text
 
 /* global define, require, Marionette, Handlebars, Backbone */
 
-define('core/list/views/EmptyListView',['text!core/list/templates/emptyList.html', 'core/libApi', 'core/services/LocalizationService'],
+define('core/list/views/EmptyListView',['text-loader!core/list/templates/emptyList.html', 'core/libApi', 'core/services/LocalizationService'],
     function (template, lib, LocalizationService) {
         'use strict';
 
@@ -41756,7 +41756,7 @@ define('core/list/views/EmptyListView',['text!core/list/templates/emptyList.html
     });
 
 
-define('text!core/list/templates/gridcolumnheader.html',[],function () { return '{{displayText}}\n{{#if sortingAsc}} <span class="sort_down"></span>{{/if}}\n{{#if sortingDesc}} <span class="sort_up"></span>{{/if}}';});
+define('text-loader!core/list/templates/gridcolumnheader.html',[],function () { return '{{displayText}}\n{{#if sortingAsc}} <span class="sort_down"></span>{{/if}}\n{{#if sortingDesc}} <span class="sort_up"></span>{{/if}}';});
 
 /**
  * Developer: Stepan Burguchev
@@ -41771,7 +41771,7 @@ define('text!core/list/templates/gridcolumnheader.html',[],function () { return 
 
 /* global define, require, Marionette, Handlebars */
 
-define('core/list/views/GridColumnHeaderView',['text!core/list/templates/gridcolumnheader.html', 'core/libApi'],
+define('core/list/views/GridColumnHeaderView',['text-loader!core/list/templates/gridcolumnheader.html', 'core/libApi'],
     function (template) {
         'use strict';
 
@@ -41817,7 +41817,7 @@ define('core/list/views/GridColumnHeaderView',['text!core/list/templates/gridcol
     });
 
 
-define('text!core/list/templates/gridheader.html',[],function () { return '{{#each columns}}\n    <div class="grid-header-column">\n        <div class="grid-header-column-content-view"></div>\n        {{#unless @last}}\n            <div class="grid-header-dragger"></div>\n        {{/unless}}\n    </div>\n{{/each}}';});
+define('text-loader!core/list/templates/gridheader.html',[],function () { return '{{#each columns}}\n    <div class="grid-header-column">\n        <div class="grid-header-column-content-view"></div>\n        {{#unless @last}}\n            <div class="grid-header-dragger"></div>\n        {{/unless}}\n    </div>\n{{/each}}';});
 
 /**
  * Developer: Stepan Burguchev
@@ -41877,7 +41877,7 @@ define('core/services/GlobalEventService',[
 *
 * */
 
-define('core/list/views/GridHeaderView',['text!core/list/templates/gridheader.html', 'core/libApi', 'core/utils/utilsApi', 'core/services/GlobalEventService'],
+define('core/list/views/GridHeaderView',['text-loader!core/list/templates/gridheader.html', 'core/libApi', 'core/utils/utilsApi', 'core/services/GlobalEventService'],
     function (template, lib, utils, GlobalEventService) {
         'use strict';
 
@@ -42147,7 +42147,7 @@ define('core/list/views/GridHeaderView',['text!core/list/templates/gridheader.ht
     });
 
 
-define('text!core/list/templates/grid.html',[],function () { return '<div class="grid-header-view"></div>\n<div class="grid-content-view"></div>\n<div class="js-nocolumns-view-region"></div>';});
+define('text-loader!core/list/templates/grid.html',[],function () { return '<div class="grid-header-view"></div>\n<div class="grid-content-view"></div>\n<div class="js-nocolumns-view-region"></div>';});
 
 /**
  * Developer: Stepan Burguchev
@@ -42360,7 +42360,7 @@ define('core/collections/SlidingWindowCollection',['core/libApi'],
     });
 
 
-define('text!core/list/templates/list.html',[],function () { return '<div class="visible-collection-view" tabindex="0"></div>';});
+define('text-loader!core/list/templates/list.html',[],function () { return '<div class="visible-collection-view" tabindex="0"></div>';});
 
 /**
  * Developer: Stepan Burguchev
@@ -42390,7 +42390,7 @@ define('core/list/views/ListView',[
         'core/libApi',
         'core/utils/utilsApi',
         'core/collections/SlidingWindowCollection',
-        'text!core/list/templates/list.html'
+        'text-loader!core/list/templates/list.html'
     ],
     function (lib, utils, SlidingWindowCollection, template) {
         'use strict';
@@ -43331,7 +43331,7 @@ define('core/list/views/RowView',['./behaviors/GridItemViewBehavior', '../models
     });
 
 
-define('text!core/list/templates/noColumns.html',[],function () { return '{{localize \'CORE.GRID.NOCOLUMNSVIEW.ALLCOLUMNSHIDDEN\'}}';});
+define('text-loader!core/list/templates/noColumns.html',[],function () { return '{{localize \'CORE.GRID.NOCOLUMNSVIEW.ALLCOLUMNSHIDDEN\'}}';});
 
 /**
  * Developer: Grigory Kuznetsov
@@ -43346,7 +43346,7 @@ define('text!core/list/templates/noColumns.html',[],function () { return '{{loca
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define('core/list/views/NoColumnsView',['core/libApi', 'text!core/list/templates/noColumns.html'],
+define('core/list/views/NoColumnsView',['core/libApi', 'text-loader!core/list/templates/noColumns.html'],
     function (lib, template) {
         'use strict';
 
@@ -43366,7 +43366,7 @@ define('core/list/views/NoColumnsView',['core/libApi', 'text!core/list/templates
     });
 
 
-define('text!core/list/templates/loadingRow.html',[],function () { return '{{localize \'CORE.GRID.LOADINGROW.LOADING\'}}';});
+define('text-loader!core/list/templates/loadingRow.html',[],function () { return '{{localize \'CORE.GRID.LOADINGROW.LOADING\'}}';});
 
 /**
  * Developer: Grigory Kuznetsov
@@ -43381,7 +43381,7 @@ define('text!core/list/templates/loadingRow.html',[],function () { return '{{loc
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define('core/list/views/LoadingRowView',['core/libApi', 'text!../templates/loadingRow.html'],
+define('core/list/views/LoadingRowView',['core/libApi', 'text-loader!../templates/loadingRow.html'],
     function (lib, template) {
         'use strict';
 
@@ -43424,7 +43424,7 @@ define('core/list/views/LoadingRowView',['core/libApi', 'text!../templates/loadi
         position change (when we scroll with scrollbar for example): updatePosition(newPosition)
  */
 
-define('core/list/views/GridView',['text!core/list/templates/grid.html',
+define('core/list/views/GridView',['text-loader!core/list/templates/grid.html',
         'core/libApi',
         'core/utils/utilsApi',
         'core/list/views/ListView',
@@ -43630,7 +43630,7 @@ define('core/list/views/GridView',['text!core/list/templates/grid.html',
     });
 
 
-define('text!core/list/templates/scrollbar.html',[],function () { return '<div class="dragger"></div>';});
+define('text-loader!core/list/templates/scrollbar.html',[],function () { return '<div class="dragger"></div>';});
 
 /**
  * Developer: Stepan Burguchev
@@ -43656,7 +43656,7 @@ define('text!core/list/templates/scrollbar.html',[],function () { return '<div c
         viewportHeight change (when we resize content views attached to this scrollbar): updateViewportHeight(newViewportHeight)
 */
 
-define('core/list/views/ScrollbarView',['text!core/list/templates/scrollbar.html', 'core/libApi'],
+define('core/list/views/ScrollbarView',['text-loader!core/list/templates/scrollbar.html', 'core/libApi'],
     function (template) {
         'use strict';
 
@@ -44432,7 +44432,7 @@ define('core/list/EventAggregator',['./views/EmptyListView',
     });
 
 
-define('text!core/list/templates/emptyGrid.html',[],function () { return '{{text}}';});
+define('text-loader!core/list/templates/emptyGrid.html',[],function () { return '{{text}}';});
 
 /**
  * Developer: Stepan Burguchev
@@ -44447,7 +44447,7 @@ define('text!core/list/templates/emptyGrid.html',[],function () { return '{{text
 
 /* global define, require, Marionette, Handlebars, Backbone */
 
-define('core/list/views/EmptyGridView',['text!core/list/templates/emptyGrid.html', 'core/libApi', 'core/services/LocalizationService'],
+define('core/list/views/EmptyGridView',['text-loader!core/list/templates/emptyGrid.html', 'core/libApi', 'core/services/LocalizationService'],
     function (template, lib, LocalizationService) {
         'use strict';
 
@@ -45504,7 +45504,7 @@ define('core/list/listApi',['./EventAggregator',
     });
 
 
-define('text!core/form/fields/templates/CommonField.html',[],function () { return '<div class="l-field-view">\n    <div class="h3-field">\n        <span class="js-field-error h3-field__error"></span>\n        <span class="h3-field__txt">{{title}}</span>\n        <span class="js-field-info h3-field__info"></span>\n    </div>\n    <div data-editor class="field-view"></div>\n</div>';});
+define('text-loader!core/form/fields/templates/CommonField.html',[],function () { return '<div class="l-field-view">\n    <div class="h3-field">\n        <span class="js-field-error h3-field__error"></span>\n        <span class="h3-field__txt">{{title}}</span>\n        <span class="js-field-info h3-field__info"></span>\n    </div>\n    <div data-editor class="field-view"></div>\n</div>';});
 
 /* global define, Backbone */
 
@@ -45521,16 +45521,16 @@ define('core/form/fields/models/FieldInfoModel',['core/libApi'], function() {
 });
 
 
-define('text!core/form/fields/templates/InfoButton_Normal.html',[],function () { return '<span class="js-anchor">(?)</span>';});
+define('text-loader!core/form/fields/templates/InfoButton_Normal.html',[],function () { return '<span class="js-anchor">(?)</span>';});
 
 
-define('text!core/form/fields/templates/InfoButton_Error.html',[],function () { return '<span class="js-anchor dropdown__anchor_error"></span>';});
+define('text-loader!core/form/fields/templates/InfoButton_Error.html',[],function () { return '<span class="js-anchor dropdown__anchor_error"></span>';});
 
 /* global define, Marionette, Handlebars */
 
 define('core/form/fields/views/InfoButtonView',[
-    'text!../templates/InfoButton_Normal.html',
-    'text!../templates/InfoButton_Error.html',
+    'text-loader!../templates/InfoButton_Normal.html',
+    'text-loader!../templates/InfoButton_Error.html',
     'core/dropdown/dropdownApi'], function (infoTemplate, errorTemplate, dropdown) {
     "use strict";
 
@@ -45585,7 +45585,7 @@ define('core/form/fields/views/InfoMessageView',['core/libApi'], function() {
 
 define('core/form/fields/CommonField',[
     'core/libApi',
-    'text!./templates/CommonField.html',
+    'text-loader!./templates/CommonField.html',
     './models/FieldInfoModel',
     './views/InfoButtonView',
     './views/InfoMessageView',
@@ -46574,7 +46574,7 @@ define('core/form/editors/base/BaseCompositeEditorView',['core/libApi', './Mario
     });
 
 
-define('text!core/form/editors/templates/booleanEditor.html',[],function () { return '<span class="checkbox js-toggle-button"></span> <span class="checkbox-text js-display-text">{{displayText}}</span>';});
+define('text-loader!core/form/editors/templates/booleanEditor.html',[],function () { return '<span class="checkbox js-toggle-button"></span> <span class="checkbox-text js-display-text">{{displayText}}</span>';});
 
 /**
  * Developer: Stepan Burguchev
@@ -46589,7 +46589,7 @@ define('text!core/form/editors/templates/booleanEditor.html',[],function () { re
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/form/editors/BooleanEditorView',['text!./templates/booleanEditor.html', './base/BaseItemEditorView'],
+define('core/form/editors/BooleanEditorView',['text-loader!./templates/booleanEditor.html', './base/BaseItemEditorView'],
     function (template, BaseItemEditorView) {
         'use strict';
 
@@ -46676,7 +46676,7 @@ define('core/form/editors/BooleanEditorView',['text!./templates/booleanEditor.ht
     });
 
 
-define('text!core/form/editors/templates/numberEditor.html',[],function () { return '<input class="field field_number js-input" type="text">\n<div class="number-button number-button_up js-spinner-up js-spinner-button"></div>\n<div class="number-button number-button_down js-spinner-down js-spinner-button"></div>\n';});
+define('text-loader!core/form/editors/templates/numberEditor.html',[],function () { return '<input class="field field_number js-input" type="text">\n<div class="number-button number-button_up js-spinner-up js-spinner-button"></div>\n<div class="number-button number-button_down js-spinner-down js-spinner-button"></div>\n';});
 
 /**
  * Developer: Stepan Burguchev
@@ -46691,7 +46691,7 @@ define('text!core/form/editors/templates/numberEditor.html',[],function () { ret
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/form/editors/NumberEditorView',['text!./templates/numberEditor.html', './base/BaseItemEditorView', 'core/libApi', 'core/utils/utilsApi'],
+define('core/form/editors/NumberEditorView',['text-loader!./templates/numberEditor.html', './base/BaseItemEditorView', 'core/libApi', 'core/utils/utilsApi'],
     function (template, BaseItemEditorView, lib, utils) {
         'use strict';
 
@@ -47029,7 +47029,7 @@ define('core/form/editors/NumberEditorView',['text!./templates/numberEditor.html
     });
 
 
-define('text!core/form/editors/templates/textAreaEditor.html',[],function () { return '<textarea class="textarea js-textarea"\r\n          placeholder="{{placeholder}}"\r\n          {{#if maxLength}} maxLength = \'{{maxLength}}\' {{/if}} ></textarea>\r\n\r\n';});
+define('text-loader!core/form/editors/templates/textAreaEditor.html',[],function () { return '<textarea class="textarea js-textarea"\r\n          placeholder="{{placeholder}}"\r\n          {{#if maxLength}} maxLength = \'{{maxLength}}\' {{/if}} ></textarea>\r\n\r\n';});
 
 /**
  * Developer: Stepan Burguchev
@@ -47044,7 +47044,7 @@ define('text!core/form/editors/templates/textAreaEditor.html',[],function () { r
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/form/editors/TextAreaEditorView',['text!./templates/textAreaEditor.html',
+define('core/form/editors/TextAreaEditorView',['text-loader!./templates/textAreaEditor.html',
         './base/BaseItemEditorView',
         'core/services/LocalizationService',
         'core/libApi',
@@ -47292,7 +47292,7 @@ define('core/form/editors/TextAreaEditorView',['text!./templates/textAreaEditor.
     });
 
 
-define('text!core/form/editors/templates/textEditor.html',[],function () { return '<input type="text"\r\n       class="field js-input"\r\n       placeholder="{{placeholder}}"\r\n       {{#if maxLength}} maxLength = \'{{maxLength}}\' {{/if}} >';});
+define('text-loader!core/form/editors/templates/textEditor.html',[],function () { return '<input type="text"\r\n       class="field js-input"\r\n       placeholder="{{placeholder}}"\r\n       {{#if maxLength}} maxLength = \'{{maxLength}}\' {{/if}} >';});
 
 /**
  * Developer: Stepan Burguchev
@@ -47307,7 +47307,7 @@ define('text!core/form/editors/templates/textEditor.html',[],function () { retur
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define('core/form/editors/TextEditorView',['core/libApi', 'text!./templates/textEditor.html', './base/BaseItemEditorView', 'core/services/LocalizationService', 'core/utils/utilsApi'],
+define('core/form/editors/TextEditorView',['core/libApi', 'text-loader!./templates/textEditor.html', './base/BaseItemEditorView', 'core/services/LocalizationService', 'core/utils/utilsApi'],
     function (lib, template, BaseItemEditorView, LocalizationService, utilsApi) {
         'use strict';
 
@@ -47485,7 +47485,7 @@ define('core/form/editors/TextEditorView',['core/libApi', 'text!./templates/text
     });
 
 
-define('text!core/form/editors/templates/passwordEditor.html',[],function () { return '<input type="Password"\n       class="field js-input"\n       placeholder="{{placeholder}}"\n       {{#if maxLength}} maxlength=\'{{maxLength}}\' {{/if}}>';});
+define('text-loader!core/form/editors/templates/passwordEditor.html',[],function () { return '<input type="Password"\n       class="field js-input"\n       placeholder="{{placeholder}}"\n       {{#if maxLength}} maxlength=\'{{maxLength}}\' {{/if}}>';});
 
 /**
  * Developer: Krasnovskiy Denis
@@ -47500,7 +47500,7 @@ define('text!core/form/editors/templates/passwordEditor.html',[],function () { r
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define('core/form/editors/PasswordEditorView',['text!./templates/passwordEditor.html', './TextEditorView'],
+define('core/form/editors/PasswordEditorView',['text-loader!./templates/passwordEditor.html', './TextEditorView'],
     function (template, TextEditorView) {
         'use strict';
 
@@ -47520,10 +47520,10 @@ define('core/form/editors/PasswordEditorView',['text!./templates/passwordEditor.
     });
 
 
-define('text!core/form/editors/templates/referenceEditor.html',[],function () { return '<div class="js-dropdown-region l-reference"></div>\n<!--<svg class="js-search-more-button fr-reference__search"><use xlink:href="#i-search"></use></svg>-->';});
+define('text-loader!core/form/editors/templates/referenceEditor.html',[],function () { return '<div class="js-dropdown-region l-reference"></div>\n<!--<svg class="js-search-more-button fr-reference__search"><use xlink:href="#i-search"></use></svg>-->';});
 
 
-define('text!core/form/editors/impl/reference/templates/referenceButton.html',[],function () { return '<span class="js-text reference-field__txt btn-wrp">\r\n    {{#if text}}\r\n        {{text}}\r\n        <span class="js-clear-button btn-del btn-del_absolute"></span>\r\n    {{else}}\r\n        {{localize \'SUITEGENERAL.FORM.EDITORS.REFERENCE.NOTSET\'}}\r\n    {{/if}}\r\n</span>';});
+define('text-loader!core/form/editors/impl/reference/templates/referenceButton.html',[],function () { return '<span class="js-text reference-field__txt btn-wrp">\r\n    {{#if text}}\r\n        {{text}}\r\n        <span class="js-clear-button btn-del btn-del_absolute"></span>\r\n    {{else}}\r\n        {{localize \'SUITEGENERAL.FORM.EDITORS.REFERENCE.NOTSET\'}}\r\n    {{/if}}\r\n</span>';});
 
 /**
  * Developer: Stepan Burguchev
@@ -47538,7 +47538,7 @@ define('text!core/form/editors/impl/reference/templates/referenceButton.html',[]
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/form/editors/impl/reference/views/ReferenceButtonView',['core/libApi', 'text!../../reference/templates/referenceButton.html'],
+define('core/form/editors/impl/reference/views/ReferenceButtonView',['core/libApi', 'text-loader!../../reference/templates/referenceButton.html'],
     function (lib, template) {
         'use strict';
 
@@ -47612,10 +47612,10 @@ define('core/form/editors/impl/reference/views/ReferenceButtonView',['core/libAp
     });
 
 
-define('text!core/form/editors/impl/reference/templates/referencePanel.html',[],function () { return '<div class="js-loading-region l-loader"></div>\r\n\r\n<div class="dd-list__filter dd-list__filter_reference">\r\n    {{#if text}}\r\n    <div class="dd-list__title btn-wrp-active">\r\n        {{text}}\r\n        <span class="js-clear btn-del btn-del_absolute"></span>\r\n    </div>\r\n    {{/if}}\r\n    <div class="list-search list-search_dd">\r\n        <input type="text" class="list-search__input js-input" placeholder="{{localize \'SUITEGENERAL.FORM.EDITORS.REFERENCE.SEARCH\'}}">\r\n    </div>\r\n</div>\r\n<div class="js-list-region dd-list__wrp"></div>\r\n<div class="js-scrollbar-region dd-list__scrollbar"></div>';});
+define('text-loader!core/form/editors/impl/reference/templates/referencePanel.html',[],function () { return '<div class="js-loading-region l-loader"></div>\r\n\r\n<div class="dd-list__filter dd-list__filter_reference">\r\n    {{#if text}}\r\n    <div class="dd-list__title btn-wrp-active">\r\n        {{text}}\r\n        <span class="js-clear btn-del btn-del_absolute"></span>\r\n    </div>\r\n    {{/if}}\r\n    <div class="list-search list-search_dd">\r\n        <input type="text" class="list-search__input js-input" placeholder="{{localize \'SUITEGENERAL.FORM.EDITORS.REFERENCE.SEARCH\'}}">\r\n    </div>\r\n</div>\r\n<div class="js-list-region dd-list__wrp"></div>\r\n<div class="js-scrollbar-region dd-list__scrollbar"></div>';});
 
 
-define('text!core/form/editors/impl/reference/templates/referenceListItem.html',[],function () { return '{{text}}';});
+define('text-loader!core/form/editors/impl/reference/templates/referenceListItem.html',[],function () { return '{{text}}';});
 
 /**
  * Developer: Stepan Burguchev
@@ -47633,7 +47633,7 @@ define('text!core/form/editors/impl/reference/templates/referenceListItem.html',
 define('core/form/editors/impl/reference/views/ReferenceListItemView',[
         'core/libApi',
         'core/list/listApi',
-        'text!../templates/referenceListItem.html'
+        'text-loader!../templates/referenceListItem.html'
     ],
     function (
         lib,
@@ -47704,7 +47704,7 @@ define('core/form/editors/impl/reference/models/SearchMoreModel',[
     });
 
 
-define('text!core/form/editors/impl/reference/templates/searchMoreListItem.html',[],function () { return '{{localize \'SUITEGENERAL.FORM.EDITORS.REFERENCE.SEARCHMORE\'}}';});
+define('text-loader!core/form/editors/impl/reference/templates/searchMoreListItem.html',[],function () { return '{{localize \'SUITEGENERAL.FORM.EDITORS.REFERENCE.SEARCHMORE\'}}';});
 
 /**
  * Developer: Stepan Burguchev
@@ -47719,7 +47719,7 @@ define('text!core/form/editors/impl/reference/templates/searchMoreListItem.html'
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/form/editors/impl/reference/views/SearchMoreListItemView',['text!../templates/searchMoreListItem.html', 'core/libApi'],
+define('core/form/editors/impl/reference/views/SearchMoreListItemView',['text-loader!../templates/searchMoreListItem.html', 'core/libApi'],
     function (template, lib) {
         'use strict';
         return Marionette.ItemView.extend({
@@ -47742,7 +47742,7 @@ define('core/form/editors/impl/reference/views/SearchMoreListItemView',['text!..
     });
 
 
-define('text!core/form/editors/impl/reference/templates/loading.html',[],function () { return '<div class="loader">{{localize \'SUITEGENERAL.FORM.EDITORS.REFERENCE.LOADING\'}}</div>';});
+define('text-loader!core/form/editors/impl/reference/templates/loading.html',[],function () { return '<div class="loader">{{localize \'SUITEGENERAL.FORM.EDITORS.REFERENCE.LOADING\'}}</div>';});
 
 /**
  * Developer: Stepan Burguchev
@@ -47757,7 +47757,7 @@ define('text!core/form/editors/impl/reference/templates/loading.html',[],functio
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/form/editors/impl/reference/views/LoadingView',['text!../templates/loading.html', 'core/libApi'],
+define('core/form/editors/impl/reference/views/LoadingView',['text-loader!../templates/loading.html', 'core/libApi'],
     function (template, lib) {
         'use strict';
         return Marionette.ItemView.extend({
@@ -47786,7 +47786,7 @@ define('core/form/editors/impl/reference/views/LoadingView',['text!../templates/
 define('core/form/editors/impl/reference/views/ReferencePanelView',['core/libApi',
         'core/list/listApi',
         'core/utils/utilsApi',
-        'text!../templates/referencePanel.html',
+        'text-loader!../templates/referencePanel.html',
         './ReferenceListItemView',
         '../models/SearchMoreModel',
         './SearchMoreListItemView',
@@ -48127,7 +48127,7 @@ define('core/form/editors/impl/reference/collections/BaseReferenceCollection',[
 define('core/form/editors/ReferenceEditorView',[
         'core/libApi',
         'core/dropdown/dropdownApi',
-        'text!./templates/referenceEditor.html',
+        'text-loader!./templates/referenceEditor.html',
         './base/BaseLayoutEditorView',
         './impl/reference/views/ReferenceButtonView',
         './impl/reference/views/ReferencePanelView',
@@ -48337,10 +48337,10 @@ define('core/form/editors/ReferenceEditorView',[
     });
 
 
-define('text!core/form/editors/templates/memberSelectEditor.html',[],function () { return '<div class="js-dropdown-region l-field-user"></div>';});
+define('text-loader!core/form/editors/templates/memberSelectEditor.html',[],function () { return '<div class="js-dropdown-region l-field-user"></div>';});
 
 
-define('text!core/form/editors/impl/memberSelect/templates/defaultButton.html',[],function () { return '<span class="js-anchor">\n    {{#with member}}\n      {{#if userpicUri}}\n       <span style="background-image: url({{userpicUri}});" class="js-avatar avatar-icon avatar-icon_field"></span>\n      {{else}}\n      <span class="avatar-icon avatar-icon_field">\n        {{abbreviation}}\n      </span>\n      {{/if}}\n    {{else}}\n    <span class="avatar-icon avatar-icon_field avatar-icon_assignee avatar-icon_field">\n    </span>\n    {{/with}}\n</span>\n<span class="js-text field-user__content">\n    {{#with member}}\n    {{fullName}}\n    {{else}}\n      <span class="dev-member-not-set">{{localize \'SUITEGENERAL.FORM.EDITORS.MEMBERSELECT.NOTSET\'}}</span>\n    {{/with}}\n    <span class="js-clear-button button-delete button-delete_absolute"></span>\n</span>';});
+define('text-loader!core/form/editors/impl/memberSelect/templates/defaultButton.html',[],function () { return '<span class="js-anchor">\n    {{#with member}}\n      {{#if userpicUri}}\n       <span style="background-image: url({{userpicUri}});" class="js-avatar avatar-icon avatar-icon_field"></span>\n      {{else}}\n      <span class="avatar-icon avatar-icon_field">\n        {{abbreviation}}\n      </span>\n      {{/if}}\n    {{else}}\n    <span class="avatar-icon avatar-icon_field avatar-icon_assignee avatar-icon_field">\n    </span>\n    {{/with}}\n</span>\n<span class="js-text field-user__content">\n    {{#with member}}\n    {{fullName}}\n    {{else}}\n      <span class="dev-member-not-set">{{localize \'SUITEGENERAL.FORM.EDITORS.MEMBERSELECT.NOTSET\'}}</span>\n    {{/with}}\n    <span class="js-clear-button button-delete button-delete_absolute"></span>\n</span>';});
 
 /**
  * Developer: Ksenia Kartvelishvili
@@ -48357,7 +48357,7 @@ define('text!core/form/editors/impl/memberSelect/templates/defaultButton.html',[
 
 define('core/form/editors/impl/memberSelect/views/DefaultButtonView',['core/dropdown/dropdownApi',
         'core/libApi',
-        'text!../templates/defaultButton.html'
+        'text-loader!../templates/defaultButton.html'
     ],
     function (dropdown, lib, template) {
         'use strict';
@@ -48439,10 +48439,10 @@ define('core/form/editors/impl/memberSelect/views/DefaultButtonView',['core/drop
     });
 
 
-define('text!core/form/editors/impl/memberSelect/templates/panel.html',[],function () { return '<div class="js-loading-region l-loader"></div>\r\n<div class="dd-list__filter">\r\n    <div class="list-search list-search_dd">\r\n        <input type="text" class="list-search__input js-input" placeholder="{{localize \'SUITEGENERAL.FORM.EDITORS.MEMBERSELECT.SEARCHPLACEHOLDER\'}}">\r\n    </div>\r\n</div>\r\n<div class="js-list-region dd-list__wrp"></div>\r\n<div class="js-scrollbar-region dd-list__scrollbar"></div>';});
+define('text-loader!core/form/editors/impl/memberSelect/templates/panel.html',[],function () { return '<div class="js-loading-region l-loader"></div>\r\n<div class="dd-list__filter">\r\n    <div class="list-search list-search_dd">\r\n        <input type="text" class="list-search__input js-input" placeholder="{{localize \'SUITEGENERAL.FORM.EDITORS.MEMBERSELECT.SEARCHPLACEHOLDER\'}}">\r\n    </div>\r\n</div>\r\n<div class="js-list-region dd-list__wrp"></div>\r\n<div class="js-scrollbar-region dd-list__scrollbar"></div>';});
 
 
-define('text!core/form/editors/impl/memberSelect/templates/listItem.html',[],function () { return '{{#if userpicUri}}\r\n    <span style="background-image: url({{userpicUri}});" class="avatar-icon avatar-icon_list"></span>\r\n{{else}}\r\n    <span class="avatar-icon avatar-icon_list">{{abbreviation}}</span>\r\n{{/if}}\r\n<span class="js-fullName">{{text}}</span>';});
+define('text-loader!core/form/editors/impl/memberSelect/templates/listItem.html',[],function () { return '{{#if userpicUri}}\r\n    <span style="background-image: url({{userpicUri}});" class="avatar-icon avatar-icon_list"></span>\r\n{{else}}\r\n    <span class="avatar-icon avatar-icon_list">{{abbreviation}}</span>\r\n{{/if}}\r\n<span class="js-fullName">{{text}}</span>';});
 
 /**
  * Developer: Stepan Burguchev
@@ -48461,7 +48461,7 @@ define('core/form/editors/impl/memberSelect/views/ListItemView',[
         'core/libApi',
         'core/list/listApi',
         'core/utils/utilsApi',
-        'text!../templates/listItem.html'
+        'text-loader!../templates/listItem.html'
     ],
     function (lib, list, utils, template) {
         'use strict';
@@ -48532,7 +48532,7 @@ define('core/form/editors/impl/memberSelect/views/PanelView',['core/libApi',
         'core/list/listApi',
         'core/dropdown/dropdownApi',
         'core/utils/utilsApi',
-        'text!../templates/panel.html',
+        'text-loader!../templates/panel.html',
         './ListItemView'
     ],
     function (lib, list, dropdown, utils, template, ListItemView) {
@@ -48770,7 +48770,7 @@ define('core/form/editors/MemberSelectEditorView',[
         'core/libApi',
         'core/dropdown/dropdownApi',
         'core/utils/utilsApi',
-        'text!./templates/memberSelectEditor.html',
+        'text-loader!./templates/memberSelectEditor.html',
         './base/BaseLayoutEditorView',
         'core/serviceLocator',
         './impl/memberSelect/views/DefaultButtonView',
@@ -48978,13 +48978,13 @@ define('core/form/editors/MemberSelectEditorView',[
     });
 
 
-define('text!core/form/editors/templates/dropdownEditor.html',[],function () { return '<div class="js-dropdown-region l-field #######"></div>';});
+define('text-loader!core/form/editors/templates/dropdownEditor.html',[],function () { return '<div class="js-dropdown-region l-field #######"></div>';});
 
 
-define('text!core/form/editors/impl/dropdown/templates/dropdownPanel.html',[],function () { return '{{#enableSearch}}\r\n<div class="dd-list__filter">\r\n    <div class="list-search list-search_dd">\r\n        <input type="text" class="list-search__input js-input" placeholder="{{localize \'CORE.FORM.EDITORS.DROPDOWN.SEARCH\'}}">\r\n    </div>\r\n</div>\r\n{{/enableSearch}}\r\n<div class="js-list-region dev-dropdown-editor__dropdown-view__panel-view__list-region"></div>\r\n<div class="js-scrollbar-region dev-dropdown-editor__dropdown-view__panel-view__scrollbar-region"></div>';});
+define('text-loader!core/form/editors/impl/dropdown/templates/dropdownPanel.html',[],function () { return '{{#enableSearch}}\r\n<div class="dd-list__filter">\r\n    <div class="list-search list-search_dd">\r\n        <input type="text" class="list-search__input js-input" placeholder="{{localize \'CORE.FORM.EDITORS.DROPDOWN.SEARCH\'}}">\r\n    </div>\r\n</div>\r\n{{/enableSearch}}\r\n<div class="js-list-region dev-dropdown-editor__dropdown-view__panel-view__list-region"></div>\r\n<div class="js-scrollbar-region dev-dropdown-editor__dropdown-view__panel-view__scrollbar-region"></div>';});
 
 
-define('text!core/form/editors/impl/dropdown/templates/defaultDropdownListItem.html',[],function () { return '{{text}}';});
+define('text-loader!core/form/editors/impl/dropdown/templates/defaultDropdownListItem.html',[],function () { return '{{text}}';});
 
 /**
  * Developer: Stepan Burguchev
@@ -49002,7 +49002,7 @@ define('text!core/form/editors/impl/dropdown/templates/defaultDropdownListItem.h
 define('core/form/editors/impl/dropdown/views/DefaultDropdownListItemView',[
         'core/list/listApi',
         'core/utils/utilsApi',
-        'text!../templates/defaultDropdownListItem.html'
+        'text-loader!../templates/defaultDropdownListItem.html'
     ],
     function (list, utils, template) {
         'use strict';
@@ -49089,7 +49089,7 @@ define('core/form/editors/impl/dropdown/collections/DropdownCollection',['core/u
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
 define('core/form/editors/impl/dropdown/views/DropdownPanelView',['core/libApi',
-        'text!../templates/dropdownPanel.html',
+        'text-loader!../templates/dropdownPanel.html',
         './DefaultDropdownListItemView',
         '../collections/DropdownCollection',
         'core/list/listApi',
@@ -49260,7 +49260,7 @@ define('core/form/editors/impl/dropdown/views/DropdownPanelView',['core/libApi',
     });
 
 
-define('text!core/form/editors/impl/dropdown/templates/dropdownButton.html',[],function () { return '<span class="js-text">{{#if hasValue}}{{#if text}}{{text}}{{else}}&nbsp{{/if}}{{else}}{{localize \'CORE.FORM.EDITORS.DROPDOWN.NOTSET\'}}{{/if}}</span>';});
+define('text-loader!core/form/editors/impl/dropdown/templates/dropdownButton.html',[],function () { return '<span class="js-text">{{#if hasValue}}{{#if text}}{{text}}{{else}}&nbsp{{/if}}{{else}}{{localize \'CORE.FORM.EDITORS.DROPDOWN.NOTSET\'}}{{/if}}</span>';});
 
 /**
  * Developer: Stepan Burguchev
@@ -49275,7 +49275,7 @@ define('text!core/form/editors/impl/dropdown/templates/dropdownButton.html',[],f
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/form/editors/impl/dropdown/views/DropdownButtonView',['core/libApi', 'text!../templates/dropdownButton.html'],
+define('core/form/editors/impl/dropdown/views/DropdownButtonView',['core/libApi', 'text-loader!../templates/dropdownButton.html'],
     function (lib, template) {
         'use strict';
 
@@ -49335,7 +49335,7 @@ define('core/form/editors/DropdownEditorView',[
         'core/libApi',
         'core/list/listApi',
         'core/dropdown/dropdownApi',
-        'text!./templates/dropdownEditor.html',
+        'text-loader!./templates/dropdownEditor.html',
         './base/BaseLayoutEditorView',
         './impl/dropdown/views/DropdownPanelView',
         './impl/dropdown/views/DropdownButtonView'
@@ -49551,7 +49551,7 @@ define('core/form/editors/DropdownEditorView',[
     });
 
 
-define('text!core/form/editors/templates/membersBubbleEditor.html',[],function () { return '<div class="js-dropdown-region l-user_bubble"></div>';});
+define('text-loader!core/form/editors/templates/membersBubbleEditor.html',[],function () { return '<div class="js-dropdown-region l-user_bubble"></div>';});
 
 /**
  * Developer: Ksenia Kartvelishvili
@@ -49578,10 +49578,10 @@ define('core/form/editors/impl/membersBubble/models/FakeInputModel',['core/libAp
     });
 
 
-define('text!core/form/editors/impl/membersBubble/templates/button.html',[],function () { return '<ul class="dev-bubble-list"></ul>';});
+define('text-loader!core/form/editors/impl/membersBubble/templates/button.html',[],function () { return '<ul class="dev-bubble-list"></ul>';});
 
 
-define('text!core/form/editors/impl/membersBubble/templates/bubble.html',[],function () { return '{{#if link}}\n    <a href="{{link}}" class="bubbles__link">\n{{/if}}\n    {{name}}\n{{#if link}}\n    </a>\n{{/if}}\n<div class="js-bubble-delete button-delete button-delete_absolute"></div>';});
+define('text-loader!core/form/editors/impl/membersBubble/templates/bubble.html',[],function () { return '{{#if link}}\n    <a href="{{link}}" class="bubbles__link">\n{{/if}}\n    {{name}}\n{{#if link}}\n    </a>\n{{/if}}\n<div class="js-bubble-delete button-delete button-delete_absolute"></div>';});
 
 /**
  * Developer: Ksenia Kartvelishvili
@@ -49596,7 +49596,7 @@ define('text!core/form/editors/impl/membersBubble/templates/bubble.html',[],func
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/form/editors/impl/membersBubble/views/BubbleView',['core/libApi', 'text!../templates/bubble.html'],
+define('core/form/editors/impl/membersBubble/views/BubbleView',['core/libApi', 'text-loader!../templates/bubble.html'],
     function (utils, template) {
         'use strict';
         return Marionette.ItemView.extend({
@@ -49646,7 +49646,7 @@ define('core/form/editors/impl/membersBubble/views/BubbleView',['core/libApi', '
     });
 
 
-define('text!core/form/editors/impl/membersBubble/templates/input.html',[],function () { return '<input type="text" class="js-input bubbles__input" autocomplete="off">';});
+define('text-loader!core/form/editors/impl/membersBubble/templates/input.html',[],function () { return '<input type="text" class="js-input bubbles__input" autocomplete="off">';});
 
 /**
  * Developer: Ksenia Kartvelishvili
@@ -49661,7 +49661,7 @@ define('text!core/form/editors/impl/membersBubble/templates/input.html',[],funct
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define('core/form/editors/impl/membersBubble/views/InputView',['core/libApi', 'core/utils/utilsApi', 'text!../templates/input.html', 'core/services/LocalizationService'],
+define('core/form/editors/impl/membersBubble/views/InputView',['core/libApi', 'core/utils/utilsApi', 'text-loader!../templates/input.html', 'core/services/LocalizationService'],
     function (lib, utils, template, LocalizationService) {
         'use strict';
 
@@ -49822,7 +49822,7 @@ define('core/form/editors/impl/membersBubble/views/InputView',['core/libApi', 'c
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/form/editors/impl/membersBubble/views/ButtonView',['core/libApi', 'text!../templates/button.html', './BubbleView', './InputView', '../models/FakeInputModel'],
+define('core/form/editors/impl/membersBubble/views/ButtonView',['core/libApi', 'text-loader!../templates/button.html', './BubbleView', './InputView', '../models/FakeInputModel'],
     function (utils, template, BubbleView, InputView, FakeInputModel) {
         'use strict';
 
@@ -49907,7 +49907,7 @@ define('core/form/editors/impl/membersBubble/views/ButtonView',['core/libApi', '
     });
 
 
-define('text!core/form/editors/impl/common/members/templates/listItem.html',[],function () { return '<div class="js-menu-select-item menu-bselect__item">\n    {{#if avatarUri}}\n    <img src="{{avatarUri}}" alt="" class="dev-user-icon avatar-icon avatar-icon_list">\n    {{else}}\n        {{#if abbreviation}}\n    <div class="avatar-icon avatar-icon_list">{{abbreviation}}</div>\n        {{/if}}\n    {{/if}}\n    <span class="js-name">{{name}}</span>\n</div>';});
+define('text-loader!core/form/editors/impl/common/members/templates/listItem.html',[],function () { return '<div class="js-menu-select-item menu-bselect__item">\n    {{#if avatarUri}}\n    <img src="{{avatarUri}}" alt="" class="dev-user-icon avatar-icon avatar-icon_list">\n    {{else}}\n        {{#if abbreviation}}\n    <div class="avatar-icon avatar-icon_list">{{abbreviation}}</div>\n        {{/if}}\n    {{/if}}\n    <span class="js-name">{{name}}</span>\n</div>';});
 
 /**
  * Developer: Ksenia Kartvelishvili
@@ -49922,7 +49922,7 @@ define('text!core/form/editors/impl/common/members/templates/listItem.html',[],f
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/form/editors/impl/common/members/views/MembersListItemView',['core/libApi', 'core/list/listApi', 'core/utils/utilsApi', 'text!../templates/listItem.html' ],
+define('core/form/editors/impl/common/members/views/MembersListItemView',['core/libApi', 'core/list/listApi', 'core/utils/utilsApi', 'text-loader!../templates/listItem.html' ],
     function (lib, list, utils, template) {
         'use strict';
         return Marionette.ItemView.extend({
@@ -49961,7 +49961,7 @@ define('core/form/editors/impl/common/members/views/MembersListItemView',['core/
     });
 
 
-define('text!core/form/editors/impl/common/members/templates/panel.html',[],function () { return '<div class="js-list-region"></div>\n<div class="js-scrollbar-region"></div>';});
+define('text-loader!core/form/editors/impl/common/members/templates/panel.html',[],function () { return '<div class="js-list-region"></div>\n<div class="js-scrollbar-region"></div>';});
 
 /**
  * Developer: Ksenia Kartvelishvili
@@ -49976,7 +49976,7 @@ define('text!core/form/editors/impl/common/members/templates/panel.html',[],func
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/form/editors/impl/common/members/views/MembersListView',['core/list/listApi', 'core/utils/utilsApi', './MembersListItemView', 'text!../templates/panel.html'],
+define('core/form/editors/impl/common/members/views/MembersListView',['core/list/listApi', 'core/utils/utilsApi', './MembersListItemView', 'text-loader!../templates/panel.html'],
     function (list, utils, ListItemView, template) {
         'use strict';
 
@@ -50113,7 +50113,7 @@ define('core/form/editors/MembersBubbleEditorView',[
         'core/dropdown/dropdownApi',
         'core/utils/utilsApi',
         'core/serviceLocator',
-        'text!./templates/membersBubbleEditor.html',
+        'text-loader!./templates/membersBubbleEditor.html',
         './base/BaseLayoutEditorView',
         './impl/common/members/models/MemberModel',
         './impl/membersBubble/models/FakeInputModel',
@@ -50429,7 +50429,7 @@ define('core/form/editors/MembersBubbleEditorView',[
     });
 
 
-define('text!core/form/editors/templates/durationEditor.html',[],function () { return '<input class="js-input field field_duration" placeholder="{{localize \'CORE.FORM.EDITORS.DURATION.NOTSET\'}}">\n<div class="js-duration-remove button-delete button-delete_duration"></div>';});
+define('text-loader!core/form/editors/templates/durationEditor.html',[],function () { return '<input class="js-input field field_duration" placeholder="{{localize \'CORE.FORM.EDITORS.DURATION.NOTSET\'}}">\n<div class="js-duration-remove button-delete button-delete_duration"></div>';});
 
 /**
  * Developer: Ksenia Kartvelishvili
@@ -50444,7 +50444,7 @@ define('text!core/form/editors/templates/durationEditor.html',[],function () { r
 
 /* global define, require, Backbone, Marionette, $, _, Localizer, Handlebars */
 
-define('core/form/editors/DurationEditorView',['text!./templates/durationEditor.html', './base/BaseItemEditorView', 'core/libApi', 'core/utils/utilsApi', 'core/services/LocalizationService' ],
+define('core/form/editors/DurationEditorView',['text-loader!./templates/durationEditor.html', './base/BaseItemEditorView', 'core/libApi', 'core/utils/utilsApi', 'core/services/LocalizationService' ],
     function (template, BaseItemEditorView, lib, utils, LocalizationService) {
         'use strict';
 
@@ -50901,7 +50901,7 @@ define('core/form/editors/DurationEditorView',['text!./templates/durationEditor.
     });
 
 
-define('text!core/form/editors/impl/radioGroup/templates/radioButton.html',[],function () { return '<span class="radiobutton js-toggle-button"></span> <span class="radiobutton-text js-display-text">{{displayText}}</span>';});
+define('text-loader!core/form/editors/impl/radioGroup/templates/radioButton.html',[],function () { return '<span class="radiobutton js-toggle-button"></span> <span class="radiobutton-text js-display-text">{{displayText}}</span>';});
 
 /**
  * Developer: Ksenia Kartvelishvili
@@ -50916,7 +50916,7 @@ define('text!core/form/editors/impl/radioGroup/templates/radioButton.html',[],fu
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/form/editors/impl/radioGroup/views/RadioButtonView',['core/libApi', 'text!../templates/radioButton.html'],
+define('core/form/editors/impl/radioGroup/views/RadioButtonView',['core/libApi', 'text-loader!../templates/radioButton.html'],
     function (utils, template) {
         'use strict';
 
@@ -51139,13 +51139,13 @@ define('core/form/editors/RadioGroupEditorView',[
     });
 
 
-define('text!core/form/editors/templates/dateEditor.html',[],function () { return '<div class="js-date-region"></div>';});
+define('text-loader!core/form/editors/templates/dateEditor.html',[],function () { return '<div class="js-date-region"></div>';});
 
 
-define('text!core/form/editors/impl/dateTime/templates/date.html',[],function () { return '<div class="js-popout-region"></div>';});
+define('text-loader!core/form/editors/impl/dateTime/templates/date.html',[],function () { return '<div class="js-popout-region"></div>';});
 
 
-define('text!core/form/editors/impl/dateTime/templates/datePanel.html',[],function () { return '<div class="js-datetimepicker"></div>';});
+define('text-loader!core/form/editors/impl/dateTime/templates/datePanel.html',[],function () { return '<div class="js-datetimepicker"></div>';});
 
 /**
  * Developer: Grigory Kuznetsov
@@ -51160,7 +51160,7 @@ define('text!core/form/editors/impl/dateTime/templates/datePanel.html',[],functi
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define('core/form/editors/impl/dateTime/views/DatePanelView',['core/libApi', 'core/utils/utilsApi', 'text!../templates/datePanel.html'],
+define('core/form/editors/impl/dateTime/views/DatePanelView',['core/libApi', 'core/utils/utilsApi', 'text-loader!../templates/datePanel.html'],
     function (lib, utils, template) {
         'use strict';
 
@@ -51230,7 +51230,7 @@ define('core/form/editors/impl/dateTime/views/DatePanelView',['core/libApi', 'co
     });
 
 
-define('text!core/form/editors/impl/dateTime/templates/dateInput.html',[],function () { return '<input class="js-date-input field field_date" type="text" placeholder=""><div style="position: relative; right: 20px;" class="js-anchor"></div><div class="js-date-remove button-delete button-delete_date"></div>';});
+define('text-loader!core/form/editors/impl/dateTime/templates/dateInput.html',[],function () { return '<input class="js-date-input field field_date" type="text" placeholder=""><div style="position: relative; right: 20px;" class="js-anchor"></div><div class="js-date-remove button-delete button-delete_date"></div>';});
 
 /**
  * Developer: Grigory Kuznetsov
@@ -51248,7 +51248,7 @@ define('text!core/form/editors/impl/dateTime/templates/dateInput.html',[],functi
 define('core/form/editors/impl/dateTime/views/DateInputView',['core/libApi',
         'core/utils/utilsApi',
         'core/services/LocalizationService',
-        'text!../templates/dateInput.html',
+        'text-loader!../templates/dateInput.html',
         '../../../../../dropdown/dropdownApi'
     ],
     function (lib, utils, LocalizationService, template, dropdownApi) {
@@ -51437,7 +51437,7 @@ define('core/form/editors/impl/dateTime/views/DateInputView',['core/libApi',
 
 define('core/form/editors/impl/dateTime/views/DateView',['core/libApi',
         'core/utils/utilsApi',
-        'text!../templates/date.html',
+        'text-loader!../templates/date.html',
         '../../../../../dropdown/dropdownApi',
         './DatePanelView',
         './DateInputView'
@@ -51496,7 +51496,7 @@ define('core/form/editors/impl/dateTime/views/DateView',['core/libApi',
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define('core/form/editors/DateEditorView',['core/libApi', 'text!./templates/dateEditor.html', './base/BaseLayoutEditorView', './impl/dateTime/views/DateView'],
+define('core/form/editors/DateEditorView',['core/libApi', 'text-loader!./templates/dateEditor.html', './base/BaseLayoutEditorView', './impl/dateTime/views/DateView'],
     function (lib, template, BaseLayoutEditorView, DateView) {
         'use strict';
 
@@ -51588,13 +51588,13 @@ define('core/form/editors/DateEditorView',['core/libApi', 'text!./templates/date
     });
 
 
-define('text!core/form/editors/templates/timeEditor.html',[],function () { return '<div class="js-time-region"></div>';});
+define('text-loader!core/form/editors/templates/timeEditor.html',[],function () { return '<div class="js-time-region"></div>';});
 
 
-define('text!core/form/editors/impl/dateTime/templates/time.html',[],function () { return '<div class="js-dropdown-region" ></div>';});
+define('text-loader!core/form/editors/impl/dateTime/templates/time.html',[],function () { return '<div class="js-dropdown-region" ></div>';});
 
 
-define('text!core/form/editors/impl/dateTime/templates/timeInput.html',[],function () { return '<input class="js-time-input field field_time"><div class="js-time-remove button-delete button-delete_time"></div>';});
+define('text-loader!core/form/editors/impl/dateTime/templates/timeInput.html',[],function () { return '<input class="js-time-input field field_time"><div class="js-time-remove button-delete button-delete_time"></div>';});
 
 /**
  * Developer: Grigory Kuznetsov
@@ -51609,7 +51609,7 @@ define('text!core/form/editors/impl/dateTime/templates/timeInput.html',[],functi
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define('core/form/editors/impl/dateTime/views/TimeInputView',['core/libApi', 'core/utils/utilsApi', 'text!../templates/timeInput.html', 'core/services/LocalizationService'],
+define('core/form/editors/impl/dateTime/views/TimeInputView',['core/libApi', 'core/utils/utilsApi', 'text-loader!../templates/timeInput.html', 'core/services/LocalizationService'],
     function (lib, utils, template, LocalizationService) {
         'use strict';
         return Marionette.ItemView.extend({
@@ -51780,7 +51780,7 @@ define('core/form/editors/impl/dateTime/views/TimeInputView',['core/libApi', 'co
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define('core/form/editors/impl/dateTime/views/TimeView',['core/libApi', 'core/utils/utilsApi', 'core/dropdown/dropdownApi', 'core/list/listApi', 'text!../templates/time.html', './TimeInputView'],
+define('core/form/editors/impl/dateTime/views/TimeView',['core/libApi', 'core/utils/utilsApi', 'core/dropdown/dropdownApi', 'core/list/listApi', 'text-loader!../templates/time.html', './TimeInputView'],
     function (lib, utils, dropdown, list, template, TimeInputView) {
         'use strict';
 
@@ -51887,7 +51887,7 @@ define('core/form/editors/impl/dateTime/views/TimeView',['core/libApi', 'core/ut
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define('core/form/editors/TimeEditorView',['core/libApi', 'text!./templates/timeEditor.html', './base/BaseLayoutEditorView', './impl/dateTime/views/TimeView'],
+define('core/form/editors/TimeEditorView',['core/libApi', 'text-loader!./templates/timeEditor.html', './base/BaseLayoutEditorView', './impl/dateTime/views/TimeView'],
     function (lib, template, BaseLayoutEditorView, TimeView) {
         'use strict';
 
@@ -51979,7 +51979,7 @@ define('core/form/editors/TimeEditorView',['core/libApi', 'text!./templates/time
     });
 
 
-define('text!core/form/editors/templates/dateTimeEditor.html',[],function () { return '<div class="js-date-region" style="display: inline-block"></div>\r\n<div class="js-time-region" style="display: inline-block"></div>\r\n<span class="js-clear-button button-delete button-delete_absolute dev-button-delete-timeeditor" style="display: inline;"></span>';});
+define('text-loader!core/form/editors/templates/dateTimeEditor.html',[],function () { return '<div class="js-date-region" style="display: inline-block"></div>\r\n<div class="js-time-region" style="display: inline-block"></div>\r\n<span class="js-clear-button button-delete button-delete_absolute dev-button-delete-timeeditor" style="display: inline;"></span>';});
 
 /**
  * Developer: Grigory Kuznetsov
@@ -51994,7 +51994,7 @@ define('text!core/form/editors/templates/dateTimeEditor.html',[],function () { r
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define('core/form/editors/DateTimeEditorView',['core/libApi','text!./templates/dateTimeEditor.html', './base/BaseLayoutEditorView', './impl/dateTime/views/DateView', './impl/dateTime/views/TimeView'],
+define('core/form/editors/DateTimeEditorView',['core/libApi','text-loader!./templates/dateTimeEditor.html', './base/BaseLayoutEditorView', './impl/dateTime/views/DateView', './impl/dateTime/views/TimeView'],
     function (lib, template, BaseLayoutEditorView, DateView, TimeView) {
         'use strict';
 
@@ -52120,7 +52120,7 @@ define('core/form/editors/DateTimeEditorView',['core/libApi','text!./templates/d
     });
 
 
-define('text!core/form/editors/templates/mentionEditor.html',[],function () { return '<div class="js-dropdown-region dev-mention-editor__dropdown-region"></div>';});
+define('text-loader!core/form/editors/templates/mentionEditor.html',[],function () { return '<div class="js-dropdown-region dev-mention-editor__dropdown-region"></div>';});
 
 /**
  * Developer: Stepan Burguchev
@@ -52136,7 +52136,7 @@ define('text!core/form/editors/templates/mentionEditor.html',[],function () { re
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
 define('core/form/editors/MentionEditorView',[
-    'text!./templates/mentionEditor.html',
+    'text-loader!./templates/mentionEditor.html',
     'core/libApi',
     'core/dropdown/dropdownApi',
     'core/utils/utilsApi',
@@ -52394,13 +52394,13 @@ define('core/form/editors/MentionEditorView',[
 });
 
 
-define('text!core/form/editors/templates/multiSelectEditor.html',[],function () { return '<div class="js-dropdown-region l-field"></div>';});
+define('text-loader!core/form/editors/templates/multiSelectEditor.html',[],function () { return '<div class="js-dropdown-region l-field"></div>';});
 
 
-define('text!core/form/editors/impl/multiSelect/templates/multiSelectPanel.html',[],function () { return '<div class="multiselect-panel__btn-top">\r\n    <div class="js-select-all link-green">{{localize \'CORE.FORM.EDITORS.MULTISELECT.SELECTALL\'}}</div>\r\n</div>\r\n<div class="js-list multiselect-panel__list"></div>\r\n<div class="multiselect-panel__btn-bottom">\r\n{{#if explicitApply}}\r\n    <div class="js-cancel link-grey">{{localize \'CORE.FORM.EDITORS.MULTISELECT.CANCEL\'}}</div>\r\n    <div class="js-apply btn btn_green">{{localize \'CORE.FORM.EDITORS.MULTISELECT.APPLY\'}}</div>\r\n{{else}}\r\n    <div class="js-close btn btn_green">{{localize \'CORE.FORM.EDITORS.MULTISELECT.CLOSE\'}}</div>\r\n{{/if}}\r\n</div>';});
+define('text-loader!core/form/editors/impl/multiSelect/templates/multiSelectPanel.html',[],function () { return '<div class="multiselect-panel__btn-top">\r\n    <div class="js-select-all link-green">{{localize \'CORE.FORM.EDITORS.MULTISELECT.SELECTALL\'}}</div>\r\n</div>\r\n<div class="js-list multiselect-panel__list"></div>\r\n<div class="multiselect-panel__btn-bottom">\r\n{{#if explicitApply}}\r\n    <div class="js-cancel link-grey">{{localize \'CORE.FORM.EDITORS.MULTISELECT.CANCEL\'}}</div>\r\n    <div class="js-apply btn btn_green">{{localize \'CORE.FORM.EDITORS.MULTISELECT.APPLY\'}}</div>\r\n{{else}}\r\n    <div class="js-close btn btn_green">{{localize \'CORE.FORM.EDITORS.MULTISELECT.CLOSE\'}}</div>\r\n{{/if}}\r\n</div>';});
 
 
-define('text!core/form/editors/impl/multiSelect/templates/multiSelectItem.html',[],function () { return '{{text}}';});
+define('text-loader!core/form/editors/impl/multiSelect/templates/multiSelectItem.html',[],function () { return '{{text}}';});
 
 /**
  * Developer: Oleg Verevkin
@@ -52419,7 +52419,7 @@ define(
     'core/form/editors/impl/multiSelect/views/MultiSelectItemView',[
         'core/list/listApi',
         'core/utils/utilsApi',
-        'text!../templates/multiSelectItem.html'
+        'text-loader!../templates/multiSelectItem.html'
     ],
     function(list, utils, template) {
         'use strict';
@@ -52488,7 +52488,7 @@ define(
         'core/libApi',
         'core/list/listApi',
         'core/utils/utilsApi',
-        'text!../templates/multiSelectPanel.html',
+        'text-loader!../templates/multiSelectPanel.html',
         './MultiSelectItemView'
     ],
     function(lib, list, utils, template, MultiSelectItemView) {
@@ -52558,7 +52558,7 @@ define(
 );
 
 
-define('text!core/form/editors/impl/multiSelect/templates/multiSelectButton.html',[],function () { return '{{displayValue}}';});
+define('text-loader!core/form/editors/impl/multiSelect/templates/multiSelectButton.html',[],function () { return '{{displayValue}}';});
 
 /**
  * Developer: Oleg Verevkin
@@ -52577,7 +52577,7 @@ define(
     'core/form/editors/impl/multiSelect/views/MultiSelectButtonView',[
         'core/libApi',
         'core/utils/utilsApi',
-        'text!../templates/multiSelectButton.html'
+        'text-loader!../templates/multiSelectButton.html'
     ],
     function(lib, utils, template) {
         'use strict';
@@ -52637,7 +52637,7 @@ define(
         'core/libApi',
         'core/list/listApi',
         'core/dropdown/dropdownApi',
-        'text!./templates/multiSelectEditor.html',
+        'text-loader!./templates/multiSelectEditor.html',
         './base/BaseLayoutEditorView',
         './impl/multiSelect/views/MultiSelectPanelView',
         './impl/multiSelect/views/MultiSelectButtonView'
@@ -53503,7 +53503,7 @@ define('core/form/formApi',[
 	});
 
 
-define('text!core/nativeGrid/templates/nativeGrid.html',[],function () { return '<div class="js-popout-region dev-popout-region"></div>\r\n<div class="js-native-grid-header-region dev-native-grid-header"></div>\r\n<div class="js-native-grid-list-region dev-native-grid-list"></div>\r\n<div class="js-nocolumns-view-region"></div>\r\n';});
+define('text-loader!core/nativeGrid/templates/nativeGrid.html',[],function () { return '<div class="js-popout-region dev-popout-region"></div>\r\n<div class="js-native-grid-header-region dev-native-grid-header"></div>\r\n<div class="js-native-grid-list-region dev-native-grid-list"></div>\r\n<div class="js-nocolumns-view-region"></div>\r\n';});
 
 /**
  * Developer: Grigory Kuznetsov
@@ -53521,7 +53521,7 @@ define('text!core/nativeGrid/templates/nativeGrid.html',[],function () { return 
 define('core/nativeGrid/views/ListView',[
         'core/libApi',
         'core/utils/utilsApi',
-        'text!core/list/templates/list.html'
+        'text-loader!core/list/templates/list.html'
     ],
     function (lib, utils, template) {
         'use strict';
@@ -53989,7 +53989,7 @@ define('core/nativeGrid/views/RowView',['../../list/views/RowView', './behaviors
     });
 
 
-define('text!core/nativeGrid/templates/header.html',[],function () { return '{{#each columns}}\r\n<div class="grid-header-column">\r\n    <div class="grid-header-column-content-view"></div>\r\n    <div class="grid-header-dragger"></div>\r\n</div>\r\n{{/each}}';});
+define('text-loader!core/nativeGrid/templates/header.html',[],function () { return '{{#each columns}}\r\n<div class="grid-header-column">\r\n    <div class="grid-header-column-content-view"></div>\r\n    <div class="grid-header-dragger"></div>\r\n</div>\r\n{{/each}}';});
 
 /**
  * Developer: Grigory Kuznetsov
@@ -54004,7 +54004,7 @@ define('text!core/nativeGrid/templates/header.html',[],function () { return '{{#
 
 /* global define, require, Marionette, _, Handlebars, shared, $ */
 
-define('core/nativeGrid/views/HeaderView',['../../list/views/GridHeaderView', 'text!../templates/header.html', 'core/services/GlobalEventService'],
+define('core/nativeGrid/views/HeaderView',['../../list/views/GridHeaderView', 'text-loader!../templates/header.html', 'core/services/GlobalEventService'],
     function (GridHeaderView, template, GlobalEventService) {
         'use strict';
 
@@ -54240,7 +54240,7 @@ define('core/nativeGrid/views/HeaderView',['../../list/views/GridHeaderView', 't
     });
 
 
-define('text!core/nativeGrid/templates/columnHeader.html',[],function () { return '{{#if filterView}}<span class="js-filter-btn filter-sort-btn"></span>{{/if}}\r\n<div class="js-cell-content" style="display: inline">\r\n    {{displayText}}\r\n    {{#if sortingAsc}}<span class="sort_down"></span>{{/if}}\r\n    {{#if sortingDesc}}<span class="sort_up"></span>{{/if}}\r\n</div>\r\n';});
+define('text-loader!core/nativeGrid/templates/columnHeader.html',[],function () { return '{{#if filterView}}<span class="js-filter-btn filter-sort-btn"></span>{{/if}}\r\n<div class="js-cell-content" style="display: inline">\r\n    {{displayText}}\r\n    {{#if sortingAsc}}<span class="sort_down"></span>{{/if}}\r\n    {{#if sortingDesc}}<span class="sort_up"></span>{{/if}}\r\n</div>\r\n';});
 
 /**
  * Developer: Grigory Kuznetsov
@@ -54255,7 +54255,7 @@ define('text!core/nativeGrid/templates/columnHeader.html',[],function () { retur
 
 /* global define, require, Marionette, Handlebars */
 
-define('core/nativeGrid/views/ColumnHeaderView',['text!../templates/columnHeader.html', 'core/libApi', '../../list/views/GridColumnHeaderView'],
+define('core/nativeGrid/views/ColumnHeaderView',['text-loader!../templates/columnHeader.html', 'core/libApi', '../../list/views/GridColumnHeaderView'],
     function (template, lib, GridColumnHeaderView) {
         'use strict';
 
@@ -54348,7 +54348,7 @@ define('core/nativeGrid/views/ColumnHeaderView',['text!../templates/columnHeader
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
 define('core/nativeGrid/views/NativeGridView',['core/libApi',
-        'text!../templates/nativeGrid.html',
+        'text-loader!../templates/nativeGrid.html',
         './ListView',
         'core/nativeGrid/views/RowView',
         './HeaderView',
@@ -54752,7 +54752,7 @@ define('core/services/RoutingServiceBase',[
 });
 
 
-define('text!core/services/message/templates/message.html',[],function () { return '<div class="msg-popup__content">\r\n\t<div class="msg-popup__title">\r\n\t\t{{text}}\r\n\t</div>\r\n\t<div class="msg-popup__desc">{{description}}</div>\r\n\t<div class="msg-popup__buttons">\r\n\t    {{#each buttons}}\r\n\t        <div class="js-buttons msg-popup__button {{#if default}}msg-popup__button_default{{/if}}">{{text}}</div>\r\n\t    {{/each}}\r\n\t</div>\r\n</div>';});
+define('text-loader!core/services/message/templates/message.html',[],function () { return '<div class="msg-popup__content">\r\n\t<div class="msg-popup__title">\r\n\t\t{{text}}\r\n\t</div>\r\n\t<div class="msg-popup__desc">{{description}}</div>\r\n\t<div class="msg-popup__buttons">\r\n\t    {{#each buttons}}\r\n\t        <div class="js-buttons msg-popup__button {{#if default}}msg-popup__button_default{{/if}}">{{text}}</div>\r\n\t    {{/each}}\r\n\t</div>\r\n</div>';});
 
 /**
  * Developer: Stepan Burguchev
@@ -54767,7 +54767,7 @@ define('text!core/services/message/templates/message.html',[],function () { retu
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/services/message/views/MessageView',['text!../templates/message.html', 'core/libApi', '../../WindowService'],
+define('core/services/message/views/MessageView',['text-loader!../templates/message.html', 'core/libApi', '../../WindowService'],
     function (template, lib, WindowService, LocalizationService) {
         'use strict';
 
@@ -55084,7 +55084,7 @@ define('core/services/routing/ModuleProxy',[
     });
 
 
-define('text!core/views/behaviors/loading/templates/loading.html',[],function () { return '<span class="loader">{{text}}</span>';});
+define('text-loader!core/views/behaviors/loading/templates/loading.html',[],function () { return '<span class="loader">{{text}}</span>';});
 
 /**
  * Developer: Ksenia Kartvelishvili
@@ -55099,7 +55099,7 @@ define('text!core/views/behaviors/loading/templates/loading.html',[],function ()
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _, Localizer */
 
-define('core/views/behaviors/loading/views/LoadingView',['core/libApi', 'text!../templates/loading.html'],
+define('core/views/behaviors/loading/views/LoadingView',['core/libApi', 'text-loader!../templates/loading.html'],
     function (lib, template) {
         'use strict';
         return Marionette.ItemView.extend({
@@ -55237,7 +55237,7 @@ define('core/views/behaviors/PopupBehavior',[
     });
 
 
-define('text!core/templates/searchBar.html',[],function () { return '<div class="tr-search tr-search_mselect" id="searchInput">\n    <input class="tr-search__input js-search-input" name="searchName" placeholder="{{{placeholder}}}">\n    <div class="js-search-clear tr-search__clear"></div>\n</div>';});
+define('text-loader!core/templates/searchBar.html',[],function () { return '<div class="tr-search tr-search_mselect" id="searchInput">\n    <input class="tr-search__input js-search-input" name="searchName" placeholder="{{{placeholder}}}">\n    <div class="js-search-clear tr-search__clear"></div>\n</div>';});
 
 /**
  * Developer: Ksenia Kartvelishvili
@@ -55252,7 +55252,7 @@ define('text!core/templates/searchBar.html',[],function () { return '<div class=
 
 /* global define, require, Handlebars, Backbone, Marionette, $, _ */
 
-define('core/views/SearchBarView',['core/libApi', 'text!../templates/searchBar.html', 'core/services/LocalizationService'],
+define('core/views/SearchBarView',['core/libApi', 'text-loader!../templates/searchBar.html', 'core/services/LocalizationService'],
     function (utils, template, LocalizationService) {
         'use strict';
 
@@ -55307,7 +55307,7 @@ define('core/views/SearchBarView',['core/libApi', 'text!../templates/searchBar.h
     });
 
 
-define('text!core/templates/splitPanel.html',[],function () { return '<div class="js-panel1 dev-core__tr-left-column"></div>\r\n<div class="js-resizer dev-core__resizer"></div>\r\n<div class="js-panel2 dev-core__tr-right-column"></div>';});
+define('text-loader!core/templates/splitPanel.html',[],function () { return '<div class="js-panel1 dev-core__tr-left-column"></div>\r\n<div class="js-resizer dev-core__resizer"></div>\r\n<div class="js-panel2 dev-core__tr-right-column"></div>';});
 
 /**
  * Developer: Stepan Burguchev
@@ -55324,7 +55324,7 @@ define('text!core/templates/splitPanel.html',[],function () { return '<div class
 
 define('core/views/SplitPanelView',[
     'core/libApi',
-    'text!../templates/splitPanel.html',
+    'text-loader!../templates/splitPanel.html',
     'core/services/GlobalEventService'
 ], function (lib, template, GlobalEventService) {
     'use strict';

@@ -78,7 +78,7 @@ export class TaskBar extends ChartBar {
                         className: 'barSelectBody',
                         y: position,
                         x: 0
-                    } as React.DOMAttributes ),
+                    } as React.DOMAttributes),
                     this.rect({
                         className: 'barChartBody',
                         id: id,

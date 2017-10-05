@@ -51,7 +51,7 @@ define(['../templates/caseModule.hbs', 'comindware/core', 'prism', 'markdown'],
                 } else {
                     path = this.model.get('sectionId') +'/' + this.model.get('groupId');
                 }
-                var caseScriptPath = 'text!./cases/' + path + '.js';
+                var caseScriptPath = 'text-loader!./cases/' + path + '.js';
                 var caseScript = './cases/' + path;
 
                 var contextRequire = require.context('rootpath/demo/');

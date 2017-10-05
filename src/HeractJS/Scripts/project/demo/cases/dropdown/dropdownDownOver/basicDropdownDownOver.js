@@ -5,7 +5,7 @@
 
     return core.dropdown.factory.createDropdown({
         buttonView: Marionette.ItemView.extend({
-            template: Handlebars.compile('<input value="" class="input" placeholder="Enter text!">'),
+            template: Handlebars.compile('<input value="" class="input" placeholder="Enter text-loader!">'),
             tagName: 'span'
         }),
         panelView: Marionette.ItemView.extend({

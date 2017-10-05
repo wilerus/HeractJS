@@ -36,9 +36,8 @@ define([
     'rootpath/demo/Config',
     'rootpath/list/Config',
     'rootpath/gantt/Config',
-    'rootpath/form/Config'
+    'rootpath/form/Config',
+    'rootpath/chatik/Config'
 ], function () {
-    "use strict";
-
     return Array.prototype.slice.call(arguments, 0);
 });
