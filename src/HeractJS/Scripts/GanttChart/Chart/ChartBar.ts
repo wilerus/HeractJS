@@ -73,12 +73,12 @@ export class TaskBar extends ChartBar {
                     onContextMenu: this.showActionPopup.bind(this),
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this)
-                } as React.DOMAttributes,
+                } as React.ClassAttributes<HTMLElement>,
                     this.rect({
                         className: 'barSelectBody',
                         y: position,
                         x: 0
-                    } as React.DOMAttributes),
+                    } as React.ClassAttributes<SVGAElement>),
                     this.rect({
                         className: 'barChartBody',
                         id: id,
@@ -88,18 +88,18 @@ export class TaskBar extends ChartBar {
                         rx: 3,
                         ry: 3,
                         filter: 'url(#shadowFilter)'
-                    } as React.DOMAttributes),
+                    } as React.ClassAttributes<SVGAElement>),
                     this.rect({
                         className: 'barChartFillBody',
                         y: position + 5,
                         x: startDate + 1,
                         width: progress
-                    } as React.DOMAttributes),
+                    } as React.ClassAttributes<SVGAElement>),
                     this.text({
                         className: 'barTitle',
                         x: length,
                         y: position + 10
-                    } as React.DOMAttributes, taskTitle)
+                    } as React.ClassAttributes<SVGAElement>, taskTitle)
                 );
                 break;
             case 'milestone':
@@ -109,12 +109,12 @@ export class TaskBar extends ChartBar {
                     onContextMenu: this.showActionPopup.bind(this),
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this)
-                } as React.DOMAttributes,
+                } as React.ClassAttributes<HTMLElement>,
                     this.rect({
                         className: 'barSelectBody',
                         y: position,
                         x: 0
-                    } as React.DOMAttributes),
+                    } as React.ClassAttributes<SVGAElement>),
                     this.rect({
                         className: 'milestoneChart',
                         id: id,
@@ -123,12 +123,12 @@ export class TaskBar extends ChartBar {
                         rx: 3,
                         ry: 3,
                         filter: 'url(#shadowFilter)'
-                    } as React.DOMAttributes),
+                    } as React.ClassAttributes<SVGAElement>),
                     this.text({
                         className: 'barTitle',
                         x: length + 5,
                         y: position + 10
-                    } as React.DOMAttributes, taskTitle)
+                    } as React.ClassAttributes<SVGAElement>, taskTitle)
                 );
                 break;
             case 'project':
@@ -136,12 +136,12 @@ export class TaskBar extends ChartBar {
                     onContextMenu: this.showActionPopup.bind(this),
                     onDoubleClick: this.showModalWindow.bind(this),
                     onClick: this.startTaskSelection.bind(this)
-                } as React.DOMAttributes,
+                } as React.ClassAttributes<HTMLElement>,
                     this.rect({
                         className: 'barSelectBody',
                         y: position,
                         x: 0
-                    } as React.DOMAttributes),
+                    } as React.ClassAttributes<SVGAElement>),
                     React.createElement('path', {
                         d: `M${startDate} ${position + 15} C ${startDate + 3} ${position + 10}, ${startDate + 3} ${position + 10}, ${startDate + 7} ${position + 10},
                             L${startDate + 7} ${position + 10}, ${length - 7} ${position + 10},
@@ -151,12 +151,12 @@ export class TaskBar extends ChartBar {
                         className: 'projectBody',
                         id: id,
                         filter: 'url(#shadowFilterPath)'
-                    } as React.DOMAttributes),
+                    } as React.ClassAttributes<HTMLElement>),
                     this.text({
                         className: 'barTitle',
                         x: length,
                         y: position + 15
-                    } as React.DOMAttributes, taskTitle)
+                    } as React.ClassAttributes<SVGAElement>, taskTitle)
                 );
                 break;
             default:

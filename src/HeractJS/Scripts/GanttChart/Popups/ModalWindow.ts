@@ -5,7 +5,7 @@ import {AppMediator} from '../../../scripts/services/ApplicationMediator';
 const GCMediator: any = AppMediator.getInstance();
 
 export class ModalWindow extends React.Component<any, any> {
-    private componentWillMount() {
+    public componentWillMount() {
         this.state = {
             title: 'title',
             startDate: 'Placeholder',
@@ -52,79 +52,79 @@ export class ModalWindow extends React.Component<any, any> {
         return React.createElement('div', {
             id: 'modalWindowWrapper',
             className: 'modalWindowWrapper'
-        } as React.DOMAttributes,
+        } as React.DOMAttributes<React.Component>,
             React.createElement('div', {
                 id: 'modalWindow',
                 className: 'modalWindow'
-            } as React.DOMAttributes,
+            } as React.DOMAttributes<React.Component>,
                 React.createElement('div', {
                     id: 'modalWindowTitle',
                     className: 'modalWindowTitle'
-                } as React.DOMAttributes,
+                } as React.DOMAttributes<React.Component>,
                     React.createElement('input', {
                         type: 'text',
                         className: 'infoPopupTitle',
                         onChange: null,
                         defaultValue: this.state.title
-                    } as React.DOMAttributes)
+                    } as React.DOMAttributes<React.Component>)
                 ),
                 React.createElement('div', {
                     id: 'modalWindowBody',
                     className: 'modalWindowBody'
-                } as React.DOMAttributes,
+                } as React.DOMAttributes<React.Component>,
                     React.createElement('input', {
                         type: 'text',
                         className: 'infoPopupDescription',
                         onChange: null,
                         defaultValue: this.state.description
-                    } as React.DOMAttributes),
+                    } as React.DOMAttributes<React.Component>),
                     React.createElement('span', {
                         className: 'GCInputLabel'
-                    } as React.DOMAttributes, 'Task start: '),
+                    } as React.DOMAttributes<React.Component>, 'Task start: '),
                     React.createElement('input', {
                         id: 'modalWindowInputStart',
                         type: 'datetime-local',
                         className: 'modalWindowInput',
                         onChange: null,
                         defaultValue: this.state.startDate
-                    } as React.DOMAttributes),
+                    } as React.DOMAttributes<React.Component>),
                     React.createElement('span', {
                         className: 'GCInputLabel'
-                    } as React.DOMAttributes, 'Task finish: '),
+                    } as React.DOMAttributes<React.Component>, 'Task finish: '),
                     React.createElement('input', {
                         id: 'modalWindowInputFinish',
                         type: 'datetime-local',
                         className: 'modalWindowInput',
                         onChange: null,
                         defaultValue: this.state.completeDate
-                    } as React.DOMAttributes),
+                    } as React.DOMAttributes<React.Component>),
                     React.createElement('span', {
                         className: 'GCInputLabel'
-                    } as React.DOMAttributes, 'Task duration: '),
+                    } as React.DOMAttributes<React.Component>, 'Task duration: '),
                     React.createElement('input', {
                         id: 'modalWindowInputDuration',
                         type: 'datetime-local',
                         className: 'modalWindowInput',
                         onChange: null,
                         defaultValue: this.state.completeDate
-                    } as React.DOMAttributes)
+                    } as React.DOMAttributes<React.Component>)
                 ),
                 React.createElement('div', {
                     id: 'modalWindowButtons',
                     className: 'modalWindowButtons'
-                } as React.DOMAttributes,
+                } as React.DOMAttributes<React.Component>,
                     React.createElement('button', {
                         onMouseDown: this.hide.bind(this),
                         id: 'modalWindowButtonOk',
                         type: 'datetime-local',
                         className: 'modalWindowButtonOk'
-                    } as React.DOMAttributes, 'Ok'),
+                    } as React.DOMAttributes<React.Component>, 'Ok'),
                     React.createElement('button', {
                         onMouseDown: this.hide.bind(this),
                         id: 'modalWindowButtonCancel',
                         type: 'datetime-local',
                         className: 'modalWindowButtonCancel'
-                    } as React.DOMAttributes, 'Cancel')
+                    } as React.DOMAttributes<React.Component>, 'Cancel')
                 )
             )
         );

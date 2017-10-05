@@ -4,7 +4,6 @@ import {AppMediator} from '../../../scripts/services/ApplicationMediator';
 const GCMediator: any = AppMediator.getInstance();
 
 export class TaskLink extends React.Component<any, any> {
-
     constructor(props: Object, context: Object) {
         super(props, context);
         this.state = {
@@ -59,7 +58,7 @@ export class TaskLink extends React.Component<any, any> {
         this.buildConnection();
     }
 
-    private shouldComponentUpdate(nextProps: any, nextState: any) {
+    public shouldComponentUpdate(nextProps: any, nextState: any) {
         if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
             return true
         } else {
@@ -67,7 +66,7 @@ export class TaskLink extends React.Component<any, any> {
         }
     }
 
-    private componentWillReceiveProps() {
+    public componentWillReceiveProps() {
         this.buildConnection();
     }
 
@@ -76,6 +75,6 @@ export class TaskLink extends React.Component<any, any> {
             className: 'taskLink',
             points: this.state.firstPoint + ' ' + this.state.secondPoint + ' ' + this.state.thirdPoint,
             filter: 'url(#shadowFilterPath)'
-        } as React.DOMAttributes);
+        });
     }
 }

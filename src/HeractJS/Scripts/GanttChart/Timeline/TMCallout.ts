@@ -22,7 +22,7 @@ export class TasklineCallouts extends ChartBar {
         };
     }
 
-    private componentWillReceiveProps(nextProps: any) {
+    public componentWillReceiveProps(nextProps: any) {
         const data = nextProps.data
         this.setState({
             id: data.id,
@@ -52,17 +52,17 @@ export class TasklineCallouts extends ChartBar {
             onMouseEnter: this.handleRectHover.bind(this),
             onContextMenu: this.showActionPopup.bind(this),
             onClick: this.startTaskSelection.bind(this)
-        } as React.DOMAttributes,
+        },
             React.createElement('defs', {},
                 React.createElement('clipPath', {
                     id: props.data.id + 'clipPath'
-                } as React.DOMAttributes,
+                },
                     this.rect({
                         id: props.data.id + 'clipRect',
                         x: this.state.startDate * this.state.cellCapacity,
                         height: 29,
                         width: duration
-                    } as React.DOMAttributes)
+                    })
                 )
             ),
             React.createElement('path', {
@@ -71,7 +71,7 @@ export class TasklineCallouts extends ChartBar {
                     M${duration + startDate - 7} 32 C ${duration - 3 + startDate} 32, ${duration + startDate - 3} 32, ${duration + startDate} 37`,
                 stroke: 'rgb(150,150,150)',
                 fill: 'transparent'
-            } as React.DOMAttributes),
+            }),
             this.text({
                 className: 'taskLineTaskTitle',
                 x: startDate + duration / 2,
@@ -79,7 +79,7 @@ export class TasklineCallouts extends ChartBar {
                 clipPath: `url(#${props.data.id}clipPath)`,
                 width: duration,
                 y: 14
-            } as React.DOMAttributes, `${props.data.name} - ${props.data.description}`),
+            }, `${props.data.name} - ${props.data.description}`),
             this.text({
                 className: 'taskLineTaskDate',
                 x: startDate + duration / 2,
@@ -87,7 +87,7 @@ export class TasklineCallouts extends ChartBar {
                 textAnchor: 'middle',
                 width: duration,
                 y: 29
-            } as React.DOMAttributes, 'This will be date')
+            }, 'This will be date')
         );
     }
 }

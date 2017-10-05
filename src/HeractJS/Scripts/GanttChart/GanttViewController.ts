@@ -53,11 +53,11 @@ export class ChartView extends React.Component<any, any> {
         }.bind(this));
     }
 
-    private componentDidMount() {
+    public componentDidMount() {
         this.rebuildElements();
     }
 
-    private shouldComponentUpdate(nextProps: any, nextState: any) {
+    public shouldComponentUpdate(nextProps: any, nextState: any) {
         //if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
         //    return true;
         //} else {
@@ -272,112 +272,112 @@ export class ChartView extends React.Component<any, any> {
             return React.createElement(TaskBar, {
                 key: ganttBar.id,
                 data: ganttBar
-            } as React.DOMAttributes);
+            } as React.DOMAttributes<React.Component>);
         });
         const links: Array<TaskLink> = this.state.displayingLinks.map((link: any) => {
             if (link) {
                 return React.createElement(TaskLink, {
                     key: link.id,
                     data: link
-                } as React.DOMAttributes);
+                });
             }
         });
         const timeline: Array<DateLine> = this.state.timeLine.map((timeLineItem: any) => {
             return React.createElement(DateLine, {
                 key: timeLineItem.id,
                 data: timeLineItem
-            } as React.DOMAttributes);
+            } as React.DOMAttributes<React.Component>);
         });
         return React.createElement('div', {
             id: 'ganttChartContainer',
             className: 'ganttChartContainer'
-        } as React.DOMAttributes,
+        } as React.DOMAttributes<React.Component>,
             React.createElement('div', {
                 id: 'timelineContainer',
                 className: 'timelineContainer'
-            } as React.DOMAttributes,
+            } as React.DOMAttributes<React.Component>,
                 React.createElement('svg', {
                     className: 'ganttTimeline',
                     id: 'ganttTimeline'
-                } as React.DOMAttributes, timeline)),
+                } as React.DOMAttributes<React.Component>, timeline)),
             React.createElement('div', {
                 id: 'ganttChart',
                 className: 'ganttChart',
                 onMouseDown: this.startPanning.bind(this),
                 onWheel: this.startScrolling.bind(this)
-            } as React.DOMAttributes,
+            } as React.DOMAttributes<React.Component>,
                 React.createElement(InfoPopup, {
                     ref: 'infoPopup'
-                } as React.DOMAttributes),
+                } as React.DOMAttributes<React.Component>),
                 React.createElement(ActionChartPopup, {
                     ref: 'actionChartPopup'
-                } as React.DOMAttributes),
+                } as React.DOMAttributes<React.Component>),
                 React.createElement(ActionTasklinePopup, {
                     ref: 'actionTasklinePopup'
-                } as React.DOMAttributes),
+                } as React.DOMAttributes<React.Component>),
                 React.createElement(ModalWindow, {
                     ref: 'modalWindow'
-                } as React.DOMAttributes),
+                } as React.DOMAttributes<React.Component>),
                 React.createElement('svg', {
                     className: 'ganttChartView',
                     id: 'ganttChartView'
-                } as React.DOMAttributes,
+                } as React.DOMAttributes<React.Component>,
                     React.createElement('defs', {
-                    } as React.DOMAttributes,
+                    } as React.DOMAttributes<React.Component>,
                         React.createElement('filter', {
                             id: 'shadowFilter',
                             x: 0,
                             y: 0,
                             width: '200%',
                             height: '200%'
-                        } as React.DOMAttributes,
+                        } as React.DOMAttributes<React.Component>,
                             React.createElement('feOffset', {
                                 dx: '1',
                                 dy: '1'
-                            } as React.DOMAttributes),
+                            } as React.DOMAttributes<React.Component>),
                             React.createElement('feGaussianBlur', {
                                 in: 'SourceAlpha',
                                 stdDeviation: '2'
-                            } as React.DOMAttributes),
+                            } as React.DOMAttributes<React.Component>),
                             React.createElement('feComponentTransfer', {
                             }, React.createElement('feFuncA', {
                                 type: 'linear',
                                 slope: '0.6'
-                                } as React.DOMAttributes)),
+                                } as React.DOMAttributes<React.Component>)),
                             React.createElement('feBlend', {
                                 in: 'SourceGraphic',
                                 in2: 'blurOut',
                                 mode: 'normal'
-                            } as React.DOMAttributes)
+                            } as React.DOMAttributes<React.Component>)
                         )
                     ),
                     React.createElement('defs', {
-                    } as React.DOMAttributes,
+                    } as React.DOMAttributes<React.Component>,
                         React.createElement('filter', {
                             id: 'shadowFilterPath',
                             x: 0,
                             y: -1,
                             width: '200%',
                             height: '200%'
-                        } as React.DOMAttributes,
+                        } as React.DOMAttributes<React.Component>,
                             React.createElement('feOffset', {
                                 dx: '1',
                                 dy: '1'
-                            } as React.DOMAttributes),
+                            } as React.DOMAttributes<React.Component>),
                             React.createElement('feGaussianBlur', {
                                 in: 'SourceAlpha',
                                 stdDeviation: '1'
-                            } as React.DOMAttributes),
+                            } as React.DOMAttributes<React.Component>),
                             React.createElement('feComponentTransfer', {
                             }, React.createElement('feFuncA', {
                                 type: 'linear',
                                 slope: '0.6'
-                            } as React.DOMAttributes)),
+                            } as React.DOMAttributes<React.Component>)),
                             React.createElement('feBlend', {
                                 in: 'SourceGraphic',
                                 in2: 'blurOut',
                                 mode: 'normal'
-                            } as React.DOMAttributes)
+                            } as React.DOMAttributes<React.Component>)
                         )
                     ),
                     React.createElement('marker', {
@@ -389,10 +389,10 @@ export class ChartView extends React.Component<any, any> {
                         markerWidth: 12,
                         markerHeight: 4,
                         orient: '0'
-                    } as React.DOMAttributes,
+                    } as React.DOMAttributes<React.Component>,
                         React.createElement('path', {
                             d: 'M 0 0 L 40 0 L 20 20 z'
-                        } as React.DOMAttributes)),
+                        } as React.DOMAttributes<React.Component>)),
                     bars,
                     links
                 )

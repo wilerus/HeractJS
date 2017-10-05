@@ -9,15 +9,10 @@
  *       actual or intended publication of such source code.
  */
 
-import chatikInitializer from 'chatikInitializer';
-
-export default {
-    id: 'chatik',
-    module: chatikInitializer,
-    navigationUrl: {
-        default: 'chatik'
-    },
-    routes: {
-        'chatik': 'navigate'
+export default shared.application.Module.extend({
+    contentView: new Marionette.ItemView(),
+    
+    navigate() {
+        //WindowTitleService.setTitle(this.recordTypeModel ? this.recordTypeModel.get('name') : null, this.datasetModel ? this.datasetModel.get('name') : null);
     }
-};
+});

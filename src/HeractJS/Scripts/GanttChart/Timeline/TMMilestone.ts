@@ -26,7 +26,7 @@ export class TasklineMilestone extends ChartBar {
         };
     }
 
-    private componentWillReceiveProps(nextProps: any) {
+    public componentWillReceiveProps(nextProps: any) {
         const data = nextProps.data
         this.setState({
             id: data.id,
@@ -59,7 +59,7 @@ export class TasklineMilestone extends ChartBar {
             onContextMenu: this.showActionPopup.bind(this),
             onDoubleClick: this.showModalWindow.bind(this),
             onClick: this.startTaskSelection.bind(this)
-        } as React.DOMAttributes,
+        },
             this.rect({
                 className: 'milestoneTimeline',
                 id: this.props.data.id,
@@ -68,7 +68,7 @@ export class TasklineMilestone extends ChartBar {
                 rx: 3,
                 ry: 3,
                 filter: 'url(#shadowFilter)'
-            } as React.DOMAttributes),
+            }),
             React.createElement('line', {
                 className: 'bodyConnection',
                 x1: startDate + 7.5,
@@ -77,12 +77,12 @@ export class TasklineMilestone extends ChartBar {
                 y2: 30,
                 strokeWidth: 1,
                 stroke: 'rgb(120,120,120)'
-            } as React.DOMAttributes),
+            }),
             this.text({
                 className: 'barTitle',
                 x: startDate - 40,
                 y: 40
-            } as React.DOMAttributes, 'This will be date')
+            }, 'This will be date')
         );
     }
 }

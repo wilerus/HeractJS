@@ -82,18 +82,18 @@ export class ActionChartPopup extends React.Component<any, any> {
                 left: this.state.left,
                 top: this.state.top
             }
-        } as React.DOMAttributes,
+        } as React.DOMAttributes<React.Component>,
             React.createElement('div', {
                 className: 'actionPopupTitle'
-            } as React.DOMAttributes, this.state.title),
+            } as React.DOMAttributes<React.Component>, this.state.title),
             React.createElement('button', {
                 className: 'addToTasklineButton',
                 onClick: this.addToTaskline.bind(this)
-            } as React.DOMAttributes, 'Add to taskline'),
+            } as React.DOMAttributes<React.Component>, 'Add to taskline'),
             React.createElement('button', {
                 className: 'removeFromTasklineButton',
                 onClick: this.removeFromTaskline.bind(this)
-            } as React.DOMAttributes, 'Remove from taskline')
+            } as React.DOMAttributes<React.Component>, 'Remove from taskline')
         );
     }
 };

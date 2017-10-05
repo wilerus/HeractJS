@@ -5,7 +5,7 @@ import {AppMediator} from '../../../scripts/services/ApplicationMediator';
 const GCMediator: any = AppMediator.getInstance();
 
 export class InfoPopup extends React.Component<any, any> {
-    private componentWillMount() {
+    public componentWillMount() {
         this.state = {
             title: 'title',
             startDate: 'Placeholder',
@@ -57,22 +57,22 @@ export class InfoPopup extends React.Component<any, any> {
         return React.createElement('div', {
             id: 'infoPopup',
             className: 'infoPopup'
-        } as React.DOMAttributes,
+        } as React.DOMAttributes<React.Component>,
             React.createElement('div', {
                 className: 'infoPopupTitle'
-            } as React.DOMAttributes, this.state.title),
+            } as React.DOMAttributes<React.Component>, this.state.title),
             React.createElement('div', {
                 className: 'infoPopupText'
-            } as React.DOMAttributes, this.state.description),
+            } as React.DOMAttributes<React.Component>, this.state.description),
             React.createElement('div', {
                 className: 'infoPopupText'
-            } as React.DOMAttributes, `Start date ${this.state.startDate} hours`),
+            } as React.DOMAttributes<React.Component>, `Start date ${this.state.startDate} hours`),
             React.createElement('div', {
                 className: 'infoPopupText'
-            } as React.DOMAttributes, `Complete date ${this.state.endDate} hours`),
+            } as React.DOMAttributes<React.Component>, `Complete date ${this.state.endDate} hours`),
             React.createElement('div', {
                 className: 'infoPopupText'
-            } as React.DOMAttributes, `Duration ${this.state.duration} hours`)
+            } as React.DOMAttributes<React.Component>, `Duration ${this.state.duration} hours`)
         );
     }
 };

@@ -6,6 +6,7 @@
     <AssemblyName>HeractJS</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>HeractJS</PackageId>
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>

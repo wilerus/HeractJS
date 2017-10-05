@@ -63,19 +63,19 @@ export class TasklineBar extends ChartBar {
             onContextMenu: this.showActionPopup.bind(this),
             onMouseDown: this.startBarUpdate.bind(this),
             onClick: this.startTaskSelection.bind(this)
-        } as React.DOMAttributes,
+        } as React.DOMAttributes<SVGAElement>,
             React.createElement('defs', {
-            } as React.DOMAttributes,
+            } as React.DOMAttributes<SVGAElement>,
                 React.createElement('clipPath', {
                     id: id + 'clipPath'
-                } as React.DOMAttributes,
+                } as React.DOMAttributes<SVGAElement>,
                     this.rect({
                         className: 'clipRect',
                         id: id + 'clipRect',
                         x: startDate + 1,
                         height: 28,
                         width: duration
-                    } as React.DOMAttributes)
+                    } as React.DOMAttributes<SVGAElement>)
                 )
             ),
             this.rect({
@@ -85,21 +85,21 @@ export class TasklineBar extends ChartBar {
                 y: 1.5,
                 width: duration,
                 filter: 'url(#shadowFilter)'
-            } as React.DOMAttributes),
+            } as React.DOMAttributes<SVGAElement>),
             this.text({
                 className: 'taskLineTaskTitle',
                 x: startDate + 2,
                 width: duration,
                 clipPath: `url(#${id}clipPath)`,
                 y: 13
-            } as React.DOMAttributes, `${props.data.name} - ${props.data.description}`),
+            } as React.DOMAttributes<SVGAElement>, `${props.data.name} - ${props.data.description}`),
             this.text({
                 className: 'taskLineTaskDate',
                 x: startDate + 2,
                 width: duration,
                 clipPath: `url(#${id}clipPath)`,
                 y: 25
-            } as React.DOMAttributes, this.state.date)
+            } as React.DOMAttributes<SVGAElement>, this.state.date)
         );
     }
 }

@@ -12,7 +12,7 @@ export class DateLine extends React.Component<any, any> {
         };
     }
 
-    private componentDidMount() {
+    public componentDidMount() {
         const data = this.props.data;
         this.setState({
             marginLeft: data.style.marginLeft,
@@ -27,18 +27,18 @@ export class DateLine extends React.Component<any, any> {
         return React.createElement('g', {
             y: this.state.top,
             x: this.state.marginLeft
-        } as React.DOMAttributes,
+        } as React.DOMAttributes<React.Component>,
             React.createElement('rect', {
                 className: 'dateLineItem',
                 x: this.state.marginLeft,
                 y: -1,
                 width: this.state.width
-            } as React.DOMAttributes),
+            } as React.DOMAttributes<React.Component>),
             React.createElement('text', {
                 className: 'timeLineText',
                 x: this.state.marginLeft + this.state.width * 0.5,
                 y: 18
-            } as React.DOMAttributes, this.state.text)
+            } as React.DOMAttributes<React.Component>, this.state.text)
         );
     }
 };

@@ -1,9 +1,6 @@
 ﻿var path = require('path');
 const webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
-var LimitChunkCountPlugin = require('webpack/lib/optimize/LimitChunkCountPlugin');
-var AggressiveMergingPlugin = require('webpack/lib/optimize/AggressiveMergingPlugin');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 
@@ -11,12 +8,13 @@ module.exports = {
     entry: {
         'project': './scripts/project/Application.js'
     },
-    devtool: "inline-source-map",
+    devtool: "source-map",
     output: {
         path: path.resolve(__dirname + '/wwwroot/js/'),
         filename: 'cmw.tracker.[name].bundle.js',
         chunkFilename: "[id].chunk.js",
-        publicPath: path.resolve(__dirname + '/wwwroot/js/')
+        publicPath: path.resolve(__dirname + '/wwwroot/js/'),
+        sourceMapFilename: '[file].map'
     },
     resolve: {
         modules: [
@@ -24,10 +22,10 @@ module.exports = {
             path.resolve(__dirname + '/wwwroot/js/'),
             path.resolve(__dirname, "node_modules")
         ],
-        extensions: ['.Webpack.js', '.web.js', '.ts', '.js', '.tsx'],
+        extensions: ['.ts', '.js', '.tsx'],
         alias: {
-            coreui: path.resolve(__dirname + '/node_modules/comindware.core.ui/dist/core.bundle.js'),
-            'comindware/core': path.resolve(__dirname + '/node_modules/comindware.core.ui/dist/core.bundle.js'),
+            coreui: 'comindware.core.ui',
+            'comindware/core': 'comindware.core.ui',
             rootpath: path.resolve(__dirname + '/scripts/project'),
             recourcePath: path.resolve(__dirname + '/wwwroot/resources'),
             sharedpath: path.resolve(__dirname + '/scripts/project/shared'),
@@ -41,6 +39,8 @@ module.exports = {
             profileAboutInitializer: path.resolve(__dirname + '/scripts/project/profile/aboutandextras/Initializer'),
             profileNotificationInitializer: path.resolve(__dirname + '/scripts/project/profile/notificationSettings/Initializer'),
             profileProfileInitializer: path.resolve(__dirname + '/scripts/project/profile/profile/Initializer'),
+            //dashboardInitializer: path.resolve(__dirname + '/scripts/project/dashboard/Initializer'),
+            //chatikInitializer: path.resolve(__dirname + '/scripts/project/chatik/Initializer'),
             navigation: path.resolve(__dirname + '/scripts/project/navigation/module.js'),
             LANGMAPEN: path.resolve(__dirname + '/wwwroot/js/compiled/localizationMap.en.js'),
             appMediator: path.resolve(__dirname + '/scripts/services/ApplicationMediator'),
@@ -89,7 +89,7 @@ module.exports = {
                     }
                 }]
             })
-        }, {
+        }/*, {
             test: /\.js$/,
             loader: 'babel-loader',
             exclude: [
@@ -98,21 +98,16 @@ module.exports = {
             options: {
                 presets: ['latest']
             }
-        }]
+        }*/]
     },
     plugins: [
-        new CommonsChunkPlugin({ name: 'commons', filename: 'commons.js' }),
-        new LimitChunkCountPlugin({ maxChunks: 1 }),
-        new AggressiveMergingPlugin({
-            minSizeReduce: 1.5,
-            moveToParents: true
+        new ExtractTextPlugin({
+            filename: 'bundle.css'
         }),
-        new ExtractTextPlugin('bundle.css'),
         new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.optimize.ModuleConcatenationPlugin()
-        //new webpack.optimize.DedupePlugin(),
-        //new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.LimitChunkCountPlugin({
+            maxChunks: 1
+        }),
         //new webpack.optimize.UglifyJsPlugin()
-    ],
-    //eslint: { emitError: true },
+    ]
 };

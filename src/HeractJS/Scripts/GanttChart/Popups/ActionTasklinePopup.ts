@@ -95,19 +95,19 @@ export class ActionTasklinePopup extends React.Component<any, any> {
                 left: this.state.left,
                 top: this.state.top
             }
-        } as React.DOMAttributes,
+        } as React.DOMAttributes<SVGAElement>,
             React.createElement('div', {
                 className: 'actionPopupTitle'
-            } as React.DOMAttributes, this.state.title),
+            } as React.DOMAttributes<SVGAElement>, this.state.title),
             React.createElement('button', {
                 className: 'removeFromTasklineButton',
                 onClick: this.removeFromTaskline.bind(this)
-            } as React.DOMAttributes, 'Remove from taskline'),
+            } as React.DOMAttributes<SVGAElement>, 'Remove from taskline'),
             React.createElement('button', {
                 className: 'addToCalloutsButton',
                 id: 'addToCalloutsButton',
                 onClick: this.addToCallouts.bind(this)
-            } as React.DOMAttributes, 'Display as callout')
+            } as React.DOMAttributes<SVGAElement>, 'Display as callout')
         );
     }
 };

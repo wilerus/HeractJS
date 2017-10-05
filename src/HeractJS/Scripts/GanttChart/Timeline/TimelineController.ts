@@ -8,7 +8,6 @@ import {AppMediator} from '../../../scripts/services/ApplicationMediator'
 const GCMediator: any = AppMediator.getInstance();
 const objectConstuctor = Object as any //just to get rid of console lint junk
 export class TaskLineView extends React.Component<any, any> {
-
     constructor() {
         super();
         this.state = {
@@ -172,7 +171,7 @@ export class TaskLineView extends React.Component<any, any> {
             return React.createElement(TasklineTimeItem, {
                 key: itemData.id,
                 data: itemData
-            } as React.DOMAttributes);
+            } as React.DOMAttributes<React.Component>);
         });
         const tasklineBars = this.state.tasklineTasks.map((timeLineItem: any) => {
             const itemData = objectConstuctor.assign({}, timeLineItem)
@@ -180,7 +179,7 @@ export class TaskLineView extends React.Component<any, any> {
             return React.createElement(TasklineBar, {
                 key: itemData.id,
                 data: itemData
-            } as React.DOMAttributes);
+            } as React.DOMAttributes<React.Component>);
         });
         const tasklineMilestones = this.state.tasklineMilestones.map((timeLineItem: any) => {
             const itemData = objectConstuctor.assign({}, timeLineItem)
@@ -188,7 +187,7 @@ export class TaskLineView extends React.Component<any, any> {
             return React.createElement(TasklineMilestone, {
                 key: itemData.id,
                 data: itemData
-            } as React.DOMAttributes);
+            } as React.DOMAttributes<React.Component>);
         });
         const tasklineCallouts = this.state.tasklineCallouts.map((timeLineItem: any) => {
             const itemData = objectConstuctor.assign({}, timeLineItem)
@@ -196,29 +195,29 @@ export class TaskLineView extends React.Component<any, any> {
             return React.createElement(TasklineCallouts, {
                 key: itemData.id,
                 data: itemData
-            } as React.DOMAttributes);
+            } as React.DOMAttributes<React.Component>);
         });
         return React.createElement('div', {
             id: 'tasklineContainer',
             className: 'tasklineContainer',
             onMouseDown: this.startPanning.bind(this),
             onWheel: this.startScrolling.bind(this)
-        } as React.DOMAttributes,
+        } as React.DOMAttributes<React.Component>,
             React.createElement('svg', {
                 className: 'taskLineCallouts',
                 id: 'taskLineCallouts'
-            } as React.DOMAttributes, tasklineCallouts),
+            } as React.DOMAttributes<React.Component>, tasklineCallouts),
             React.createElement('svg', {
                 className: 'tasklineTimeline',
                 id: 'tasklineTimeline'
-            } as React.DOMAttributes, tasklineTimeline),
+            } as React.DOMAttributes<React.Component>, tasklineTimeline),
             React.createElement('svg', {
                 className: 'tasklineBars',
                 id: 'tasklineBars'
-            } as React.DOMAttributes, tasklineBars),
+            } as React.DOMAttributes<React.Component>, tasklineBars),
             React.createElement('svg', {
                 className: 'tasklineMilestones',
                 id: 'tasklineMilestones'
-            } as React.DOMAttributes, tasklineMilestones));
+            } as React.DOMAttributes<React.Component>, tasklineMilestones));
     }
 };
