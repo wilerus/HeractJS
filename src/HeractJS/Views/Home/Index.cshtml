@@ -1,16 +1,22 @@
 ﻿@section styles {
-    <link rel="stylesheet" type="text/css" href="~/css/site.css">
-    <link rel="stylesheet" type="text/css" href="~/css/demo.css">
-    <link rel="stylesheet" type="text/css" href="~/css/master.css">
-    <link rel="stylesheet" type="text/css" href="~/css/master-new.css">
+    <link rel="stylesheet" type="text/css" href="~/js/bundle.css">
 }
 
 @section scripts {
     <script src="~/js/commons.js"></script>
-    <script src="~/js/cmw.tracker.gantt.bundle.js"></script>
+    <script src="~/js/cmw.tracker.project.bundle.js"></script>
 }
 
-
+<div class="js-fading-region fading-container hidden"></div>
+<div class="js-popup-region popup-container hidden"></div>
+<div class="wrapper">
+    <div class="js-navigation-region js-navigation-container wrapper__menu"></div>
+    <div class="js-content-container wrapper__content">
+        <div class="js-content-loading-region l-loader"></div>
+        <div class="js-content-region layout"></div>
+        <div class="js-toast-notification-region"></div>
+    </div>
+</div>
 
 
 <div id="content"> </div>
