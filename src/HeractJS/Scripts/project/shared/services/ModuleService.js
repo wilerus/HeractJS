@@ -35,6 +35,8 @@ define([
             
 	        FORM: 'module:form',
 
+	        DASHBOARD: 'module:dashboard',
+
             PROJECT_ROOMS_SHOWALL: 'module:project:rooms:showAll',
             PROJECT_ROOMS_OVERVIEW: 'module:project:rooms:overview',
 

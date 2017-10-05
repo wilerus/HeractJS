@@ -44,8 +44,9 @@ define([
             COMMUNICATION_ROUTES: "cmw.workspace.CommunicationRoutesItem",
             GRID: "cmw.workspace.GridItem",
             GANTT: "cmw.workspace.GanttItem",
-	        FORM: "cmw.workspace.FormItem",
-            CHATIK: "cmw.workspace.Chatik"
+	          FORM: "cmw.workspace.FormItem",
+            CHATIK: "cmw.workspace.Chatik",
+            FORM: "cmw.workspace.FormItem"
         };
 
         var configItems = [systemItems.ARCHITECTURE, systemItems.PROCESS_MONITOR, systemItems.DATA_MODEL,

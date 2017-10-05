@@ -22,6 +22,9 @@ define([
     'recourcePath/core/dropdown.css',
     'recourcePath/core/scrollbar.css',
     'recourcePath/core/pop.out.css',
+    'recourcePath/shared/nv.d3.css',
+    'recourcePath/shared/Dashboard.css',
+
 ], function () {
     "use strict";
 
