@@ -133,6 +133,11 @@ define([
                                     return wsItem;
                                 }
                                 break;
+                            case 'cmw.workspace.Chatik':
+                                if (shared.services.SecurityService.hasGlobalPermission(shared.services.SecurityService.globalPermissions.APP_DESIGN)) {
+                                    return wsItem;
+                                }
+                                break;
                         }
 
                     } else {

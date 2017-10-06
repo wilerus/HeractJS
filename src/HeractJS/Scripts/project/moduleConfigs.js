@@ -37,8 +37,8 @@ define([
     'rootpath/list/Config',
     'rootpath/gantt/Config',
     'rootpath/form/Config',
-    //'rootpath/chatik/Config',
-    //'rootpath/dashboard/Config'
+    'rootpath/chatik/Config',
+    'rootpath/dashboard/Config'
 ], function () {
     return Array.prototype.slice.call(arguments, 0);
 });
