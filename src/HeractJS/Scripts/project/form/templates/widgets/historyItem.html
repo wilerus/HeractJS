@@ -1,9 +1,0 @@
-<div class="avatar-icon avatar-icon_tab-list" style="background-image: url({{this.author.userpicUri}})"></div>
-<div class="tab-list__info">
-    <div class="tab-list__author">{{this.author.name}}</div>
-    <div class="tab-list__title tab-list__title_toggle">{{actionName}} {{localize 'ELEGANCE.FORM.WIDGETS.HISTORY.ON'}} {{actionDate}}</div>
-    <div class="tab-list__history js-details-container hidden">{{#each details}}
-        {{predicateName}}: <span class="tab-list__history-main">{{value}}</span> {{#oldValue}}({{localize 'ELEGANCE.FORM.WIDGETS.HISTORY.WAS'}}: {{this}}){{/oldValue}}<br>
-        {{/each}}
-    </div>
-</div>

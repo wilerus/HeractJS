@@ -1,9 +1,0 @@
-<div>
-    {{#each this}}
-    <div component-id="{{componentId}}" data-editors="{{@key}}"
-         class="card__i{{#equal @index  0}} first-item{{/equal}}{{#isRequired}} field-required{{/isRequired}}{{#hasValidationError}} field-invalid{{/hasValidationError}}{{^isVisible}} hidden{{/isVisible}}">
-        {{^equal @key 'cmw.ui.AttachmentsDataSet'}}<h3 class="h3-card{{#equal access 'Editable'}} h3-card_edit{{/equal}}">
-        {{labelText}}</h3>{{/equal}}
-    </div>
-    {{/each}}
-</div>

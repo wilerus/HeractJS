@@ -30,7 +30,6 @@ define([
 
         onShow: function () {
             this.contentRegion.show(this.options.content);
-            this.scrollbarRegion.show(this.options.scrollbar);
         }
     });
 });

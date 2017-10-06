@@ -24,8 +24,8 @@ module.exports = {
         ],
         extensions: ['.ts', '.js', '.tsx'],
         alias: {
-            coreui: 'comindware.core.ui',
-            'comindware/core': 'comindware.core.ui',
+            coreui: 'comindware.core.ui/dist/core.js',
+            'comindware/core': 'comindware.core.ui/dist/core.js',
             rootpath: path.resolve(__dirname + '/scripts/project'),
             recourcePath: path.resolve(__dirname + '/wwwroot/resources'),
             sharedpath: path.resolve(__dirname + '/scripts/project/shared'),

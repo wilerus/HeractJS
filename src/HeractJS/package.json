@@ -12,7 +12,7 @@
     "@types/redux": "^3.6.0",
     "bootstrap": "3.3.7",
     "bootstrap-datetime-picker": "2.4.4",
-    "comindware.core.ui": "1.1.42",
+    "comindware.core.ui": "1.4.7",
     "d3": "^3.5.17",
     "jquery": "3.2.1",
     "lodash": "4.17.4",

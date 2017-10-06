@@ -23,6 +23,8 @@
                 "id": "cmw.workspace.FormItem", "systemType": "cmw.workspace.SystemItem", "name": "Form", "picUrl": "/resource/icons/unassigned_22x22.png"
             }, {
                 "id": "cmw.workspace.Chatik", "systemType": "cmw.workspace.SystemItem", "name": "Chatik", "picUrl": "/resource/icons/unassigned_22x22.png"
+            }, {
+                "id": "cmw.workspace.DrawTool", "systemType": "cmw.workspace.SystemItem", "name": "DrawTool", "picUrl": "/resource/icons/unassigned_22x22.png"
             }]
     };
 });
