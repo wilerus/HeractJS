@@ -1,13 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EDAE11CE-C258-4F12-AF1B-E57E8097A6AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7E436F5D-7D84-498D-BF97-A7409282834F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeractJS", "src\HeractJS\HeractJS.csproj", "{08A7D447-C484-4670-AC58-AC4DB8BCACC1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSocket", "WebSocket", "{40FC4F4F-7F0A-48E1-BA2B-51E78630209E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketManager", "src\WebSocketManager\WebSocketManager\WebSocketManager.csproj", "{96E7B47C-216D-4FA7-88EF-8F14AFD86B43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketManager.Common", "src\WebSocketManager\WebSocketManager.Common\WebSocketManager.Common.csproj", "{12D4B4D4-F1EB-4CE6-AA34-2DEF3D805935}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,12 +25,23 @@ Global
 		{08A7D447-C484-4670-AC58-AC4DB8BCACC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08A7D447-C484-4670-AC58-AC4DB8BCACC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08A7D447-C484-4670-AC58-AC4DB8BCACC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96E7B47C-216D-4FA7-88EF-8F14AFD86B43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96E7B47C-216D-4FA7-88EF-8F14AFD86B43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96E7B47C-216D-4FA7-88EF-8F14AFD86B43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96E7B47C-216D-4FA7-88EF-8F14AFD86B43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12D4B4D4-F1EB-4CE6-AA34-2DEF3D805935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D4B4D4-F1EB-4CE6-AA34-2DEF3D805935}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12D4B4D4-F1EB-4CE6-AA34-2DEF3D805935}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12D4B4D4-F1EB-4CE6-AA34-2DEF3D805935}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{08A7D447-C484-4670-AC58-AC4DB8BCACC1} = {EDAE11CE-C258-4F12-AF1B-E57E8097A6AD}
+		{40FC4F4F-7F0A-48E1-BA2B-51E78630209E} = {EDAE11CE-C258-4F12-AF1B-E57E8097A6AD}
+		{96E7B47C-216D-4FA7-88EF-8F14AFD86B43} = {40FC4F4F-7F0A-48E1-BA2B-51E78630209E}
+		{12D4B4D4-F1EB-4CE6-AA34-2DEF3D805935} = {40FC4F4F-7F0A-48E1-BA2B-51E78630209E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0A99189-5558-4C05-ADB1-1EDED23327FF}

@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost:8181/",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:8181/project",
       "sslPort": 0
@@ -14,6 +18,11 @@
       "environmentVariables": {
         "Hosting:Environment": "Development"
       }
+    },
+    "Local IIS": {
+      "commandName": "IIS",
+      "launchBrowser": true,
+      "launchUrl": "localhost:8181"
     }
   }
 }
