@@ -9,9 +9,7 @@
  *       actual or intended publication of such source code.
  */
 
-import shared from 'shared';
-
-export default shared.application.Module.extend({
+export default Core.Controller.extend({
     contentView: new Marionette.ItemView(),
     
     navigate() {

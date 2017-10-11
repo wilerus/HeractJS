@@ -26,7 +26,7 @@ define([
 ) {
     'use strict';
 
-    return shared.application.Module.extend({
+    return Core.Controller.extend({
         contentViewOptions: function () {
             return {
                 collection: new Backbone.Collection(_.map(casesConfig.sections, function (section) {

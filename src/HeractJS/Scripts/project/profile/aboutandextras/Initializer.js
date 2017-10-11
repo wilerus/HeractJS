@@ -14,7 +14,7 @@ define([
 ], function (shared, ModuleView) {
     'use strict';
 
-    return shared.application.Module.extend({
+    return Core.Controller.extend({
         helpTopicId: 'PROFILE.ABOUT',
 
         onDestroy: function() {

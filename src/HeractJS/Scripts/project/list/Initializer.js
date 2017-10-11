@@ -20,7 +20,7 @@ define([
 ) {
     'use strict';
 
-    return shared.application.Module.extend({
+    return Core.Controller.extend({
         contentView: ContentView,
 
         navigate: function () {

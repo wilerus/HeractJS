@@ -4,7 +4,7 @@
     'use strict';
 
 
-    var ProfileInfoModule = shared.application.Module.extend({
+    var ProfileInfoModule = Core.Controller.extend({
         layout : 'ProfileLayout',
         helpTopicId: 'PROFILE.PROFILE',
 

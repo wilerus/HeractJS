@@ -21,24 +21,27 @@ define([
     './services/SecurityService',
     './services/UrlService',
     './services/SidecardService',
-  //  './services/CacheService',
-  //  './services/FormService',
-  //  './services/ToastNotificationService',
-	'./services/ErrorService',
-	'./Meta',
+    //  './services/CacheService',
+    //  './services/FormService',
+    //  './services/ToastNotificationService',
+    './services/ErrorService',
+    './Meta',
+    'coreui'
 
-
-/*
-    './general/DelayedSync',
-    './general/BackboneErrorHandling',
-    './general/PromiseErrorHandling',
-    './general/BackboneAjaxCancellable'
-*/
+    /*
+        './general/DelayedSync',
+        './general/BackboneErrorHandling',
+        './general/PromiseErrorHandling',
+        './general/BackboneAjaxCancellable'
+    */
 
 ], function (Module, ContentViewBehavior, Helpers, Comparators,
-            RoutingService, ModuleService, SecurityService, UrlService, SidecardService, //CacheService, //FormService, ToastNotificationService,
-            ErrorService, Meta) {
+             RoutingService, ModuleService, SecurityService, UrlService, SidecardService,
+             ErrorService, Meta, core
+) {
     'use strict';
+    window.Core = core.default;
+
     return {
         application: {
             Module: Module,
@@ -48,16 +51,16 @@ define([
                 }
             }
         },
-/*        collections: {
-            PersonCollection: PersonCollection
-        },
-        notifications: {
-            controllers: {
-                NotificationsController: NotificationsController,
-                NotificationsInformerController: NotificationsInformerController
-            }
-        },
-*/      
+        /*        collections: {
+                    PersonCollection: PersonCollection
+                },
+                notifications: {
+                    controllers: {
+                        NotificationsController: NotificationsController,
+                        NotificationsInformerController: NotificationsInformerController
+                    }
+                },
+        */
 
         services: {
             RoutingService: RoutingService,

@@ -1,6 +1,7 @@
-﻿var path = require('path');
+﻿
+const path = require('path');
 const webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 
@@ -24,8 +25,9 @@ module.exports = {
         ],
         extensions: ['.ts', '.js', '.tsx'],
         alias: {
-            coreui: 'comindware.core.ui/dist/core.js',
-            'comindware/core': 'comindware.core.ui/dist/core.js',
+            coreui: 'comindware.Core.ui/dist/Core.js',
+            Core: 'comindware.Core.ui/dist/Core.js',
+            'comindware/core': 'comindware.Core.ui/dist/Core.js',
             rootpath: path.resolve(__dirname + '/scripts/project'),
             recourcePath: path.resolve(__dirname + '/wwwroot/resources'),
             sharedpath: path.resolve(__dirname + '/scripts/project/shared'),

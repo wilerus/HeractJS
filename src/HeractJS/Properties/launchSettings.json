@@ -21,8 +21,7 @@
     },
     "Local IIS": {
       "commandName": "IIS",
-      "launchBrowser": true,
-      "launchUrl": "localhost:8181"
+      "launchBrowser": true
     }
   }
 }

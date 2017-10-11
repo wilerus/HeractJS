@@ -14,7 +14,7 @@ define([
     'use strict';
     var counter = 1;
 
-    var ProfileNotificationsModule = shared.application.Module.extend({
+    var ProfileNotificationsModule = Core.Controller.extend({
         helpTopicId: 'PROFILE.NOTIFICATIONS',
 
         showProfileNotifications: function () {
