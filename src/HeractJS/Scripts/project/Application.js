@@ -18,9 +18,10 @@ define([
         'navigation', 'rootpath/NavigationContext',
         'rootpath/CurrentUserModel',
         'rootpath/StylesConfig',
-        'appMediator'
+        'appMediator',
+        './shared/application/views/DefaultContentView'
     ],
-    function (en, core, shared, moduleConfigs, navigation, navigationContext, currentUserModel, stylesConfig, appMediator) {
+    function (en, core, shared, moduleConfigs, navigation, navigationContext, currentUserModel, stylesConfig, appMediator, DefaultContentView) {
         'use strict';
 
         window.Context = {};
@@ -33,6 +34,8 @@ define([
             localizationMap: window['LANGMAPEN'],
             warningAsError: !!window.Context.compiled
         });
+
+        var appModuleConfigs = _.flatten([moduleConfigs]);
 
         Core.Application.start({
             regions: {
@@ -86,13 +89,13 @@ define([
                 if (!moduleConfig) {
                     Core.utils.helpers.throwArgumentError();
                 }
-                moduleConfigs.push(moduleConfig);
+                appModuleConfigs.push(moduleConfig);
             },
             webSocketConfiguration: {
                 activateOnStart: true,
                 url: "ws://" + window.location.host + "/notifications"
             },
-
+            contentView: DefaultContentView,
             serviceInitializer() {
                 this.currentUser = new currentUserModel(JSON.parse('{"UserId":"account.1","UserName":"admin","UserAbbreviation":"ad","UserLogin":"admin","PersonalContainer":"account.1_tasks","Language":"EN","NeedTrialInfo":false,"TutorialCompletedSteps":0,"TutorialDismissed":false,"IsAdmin":true,"IsManager":false,"IsResourcePoolManager":false,"IsSystemAdmin":false,"HasSubordinates":false}'));
 
@@ -101,20 +104,23 @@ define([
                     predefinedItems: []
                 });
 
+                shared.services.ModuleService.initialize({
+                    modules: appModuleConfigs
+                });
+
                 shared.services.RoutingService.initialize({
                     defaultUrl: this.navigationController.getDefaultUrl(),
-                    modules: moduleConfigs
+                    modules: appModuleConfigs
                 });
                 shared.services.SecurityService.initialize({
                     // userPermissions: Context.configurationModel.GlobalPermissions
                 });
 
-                shared.services.ModuleService.initialize({
-                    modules: moduleConfigs
-                });
                 this.navigationRegion.show(this.navigationController.view);
             }
         });
         //initialize application mediator
         window.application.appMediator = appMediator.AppMediator.getInstance();
+
+        $('.js-startup-loading').remove();
     });
