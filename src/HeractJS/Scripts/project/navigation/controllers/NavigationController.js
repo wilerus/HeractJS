@@ -68,82 +68,47 @@ define([
                 }.bind(this));
             },
 
-            __getNavigationItems: function (context) {	    
+            __getNavigationItems: function (context) {
                 //noinspection JSUnresolvedVariable
                 var itemsArray = _.chain(context.workspace)
                     .filter(function (wsItem) {
-                    if (wsItem.systemType === 'cmw.workspace.SystemItem') {
-                        switch (wsItem.id) {
-                            case 'cmw.workspace.MyTasksItem':
-                                return wsItem;
-                                break;
-                            case 'cmw.workspace.PeopleItem':
-                                return wsItem;
-                                break;
-                            case 'cmw.workspace.RecordsItem':
-                                return wsItem;
-                                break;
-                            case 'cmw.workspace.GridItem':
-                                return wsItem;
-                                break;
-                            case 'cmw.workspace.GanttItem':
-                                return wsItem;
-                                break;
-                            case 'cmw.workspace.FormItem':
-                                return wsItem;
-                                break;
-                            case 'cmw.workspace.SettingsItem':
-                            if (shared.services.SecurityService.hasGlobalPermission(shared.services.SecurityService.globalPermissions.APP_DESIGN) ||
-                                shared.services.SecurityService.hasGlobalPermission(shared.services.SecurityService.globalPermissions.USER_MANAGEMENT)) {
+                        if (wsItem.systemType === 'cmw.workspace.SystemItem') {
+                            switch (wsItem.id) {
+                                case 'cmw.workspace.MyTasksItem':
                                     return wsItem;
-                                }
-                                break;
-                            case 'cmw.workspace.ProcessesItem':
-                            if (shared.services.SecurityService.hasGlobalPermission(shared.services.SecurityService.globalPermissions.APP_DESIGN)) {
+                                case 'cmw.workspace.PeopleItem':
                                     return wsItem;
-                                }
-                                break;
-                            case 'cmw.workspace.ProcessMonitoringItem':
-                            if (shared.services.SecurityService.hasGlobalPermission(shared.services.SecurityService.globalPermissions.APP_DESIGN)) {
+                                case 'cmw.workspace.RecordsItem':
                                     return wsItem;
-                                }
-                                break;
-                            case 'cmw.workspace.ArchitectureItem':
-                            if (shared.services.SecurityService.hasGlobalPermission(shared.services.SecurityService.globalPermissions.APP_DESIGN)) {
+                                case 'cmw.workspace.GridItem':
                                     return wsItem;
-                                }
-                                break;
-                            case 'cmw.workspace.DataDiagramItem':
-                            if (shared.services.SecurityService.hasGlobalPermission(shared.services.SecurityService.globalPermissions.APP_DESIGN)) {
+                                case 'cmw.workspace.GanttItem':
                                     return wsItem;
-                                }
-                                break;
-                            case 'cmw.workspace.GlobalFunctionsItem':
-                            if (shared.services.SecurityService.hasGlobalPermission(shared.services.SecurityService.globalPermissions.APP_DESIGN)) {
+                                case 'cmw.workspace.FormItem':
                                     return wsItem;
-                                }
-                                break;
-                            case 'cmw.workspace.CommunicationChannelsItem':
-                                if (shared.services.SecurityService.hasGlobalPermission(shared.services.SecurityService.globalPermissions.APP_DESIGN)) {
+                                case 'cmw.workspace.SettingsItem':
                                     return wsItem;
-                                }
-                                break;
-                            case 'cmw.workspace.CommunicationRoutesItem':
-                                if (shared.services.SecurityService.hasGlobalPermission(shared.services.SecurityService.globalPermissions.APP_DESIGN)) {
+                                case 'cmw.workspace.ProcessesItem':
                                     return wsItem;
-                                }
-                                break;
-                            case 'cmw.workspace.Chatik':
-                                if (shared.services.SecurityService.hasGlobalPermission(shared.services.SecurityService.globalPermissions.APP_DESIGN)) {
+                                case 'cmw.workspace.ProcessMonitoringItem':
                                     return wsItem;
-                                }
-                                break;
+                                case 'cmw.workspace.ArchitectureItem':
+                                    return wsItem;
+                                case 'cmw.workspace.DataDiagramItem':
+                                    return wsItem;
+                                case 'cmw.workspace.GlobalFunctionsItem':
+                                    return wsItem;
+                                case 'cmw.workspace.CommunicationChannelsItem':
+                                    return wsItem;
+                                case 'cmw.workspace.CommunicationRoutesItem':
+                                    return wsItem;
+                                case 'cmw.workspace.Chatik':
+                                    return wsItem;
+                            }
+                        } else {
+                            return wsItem;
                         }
-
-                    } else {
-                        return wsItem;
-                    }
-                }).map(function (wsItem) {
+                    }).map(function (wsItem) {
                         return NavigationItemFactory.createModel(wsItem);
                     }).value();
 

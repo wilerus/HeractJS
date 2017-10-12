@@ -36,8 +36,10 @@ define([
     'rootpath/demo/Config',
     'rootpath/list/Config',
     'rootpath/gantt/Config',
-    'rootpath/chatik/Config',
     'rootpath/dashboard/Config'
 ], function () {
-    return Array.prototype.slice.call(arguments, 0);
+    const array = Array.prototype.slice.call(arguments, 0);
+    const foo = require('rootpath/chatik/Config');
+    array.push(foo.default);
+    return array;
 });

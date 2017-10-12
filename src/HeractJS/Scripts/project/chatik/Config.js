@@ -12,7 +12,7 @@
 import chatikInitializer from 'chatikInitializer';
 
 export default {
-    id: 'chatik',
+    id: 'module:chatik',
     module: chatikInitializer,
     navigationUrl: {
         default: 'chatik'

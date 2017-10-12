@@ -32,7 +32,8 @@ define([
 
             GRID: 'module:grid',
 	        GANTT: 'module:gantt',
-            
+            CHATIK: 'module:chatik',
+
 	        FORM: 'module:form',
 
 	        DASHBOARD: 'module:dashboard',
@@ -88,7 +89,7 @@ define([
                 //return '#' + moduleId + '/' + urlName;
 
                 options = options || {};
-                var moduleConfig = _.findWhere(configs, { id : moduleId });
+                var moduleConfig = _.findWhere(configs, { id : moduleId }) || _.findWhere(configs.default, { id : moduleId });
                 if (!moduleConfig) {
                     return '#' + moduleId + '/' + urlName;
                     core.utils.helpers.throwError('Failed to find a module with id `' + moduleId + '`.');

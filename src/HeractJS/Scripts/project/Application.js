@@ -99,13 +99,13 @@ define([
             serviceInitializer() {
                 this.currentUser = new currentUserModel(JSON.parse('{"UserId":"account.1","UserName":"admin","UserAbbreviation":"ad","UserLogin":"admin","PersonalContainer":"account.1_tasks","Language":"EN","NeedTrialInfo":false,"TutorialCompletedSteps":0,"TutorialDismissed":false,"IsAdmin":true,"IsManager":false,"IsResourcePoolManager":false,"IsSystemAdmin":false,"HasSubordinates":false}'));
 
+                shared.services.ModuleService.initialize({
+                    modules: appModuleConfigs
+                });
+
                 this.navigationController = new navigation.Controller({
                     context: navigationContext,
                     predefinedItems: []
-                });
-
-                shared.services.ModuleService.initialize({
-                    modules: appModuleConfigs
                 });
 
                 shared.services.RoutingService.initialize({

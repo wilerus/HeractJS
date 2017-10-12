@@ -21,7 +21,8 @@
     },
     "Local IIS": {
       "commandName": "IIS",
-      "launchBrowser": true
+      "launchBrowser": true,
+      "launchUrl": "project"
     }
   }
 }

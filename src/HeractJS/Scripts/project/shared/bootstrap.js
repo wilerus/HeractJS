@@ -44,24 +44,12 @@ define([
 
     return {
         application: {
-            Module: Module,
             views: {
                 behaviors: {
                     ContentViewBehavior: ContentViewBehavior
                 }
             }
         },
-        /*        collections: {
-                    PersonCollection: PersonCollection
-                },
-                notifications: {
-                    controllers: {
-                        NotificationsController: NotificationsController,
-                        NotificationsInformerController: NotificationsInformerController
-                    }
-                },
-        */
-
         services: {
             RoutingService: RoutingService,
             ModuleService: ModuleService,
