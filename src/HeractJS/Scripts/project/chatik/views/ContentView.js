@@ -10,7 +10,7 @@
  */
 
 import shared from 'shared';
-import template from '../templates/content.html';
+import template from '../templates/contentView.html';
 
 export default Marionette.LayoutView.extend({
     template: Handlebars.compile(template),
@@ -53,6 +53,5 @@ export default Marionette.LayoutView.extend({
 
     __handleBigButton() {
         this.trigger('websoket:message', 'foo');
-        debugger;
     }
 });

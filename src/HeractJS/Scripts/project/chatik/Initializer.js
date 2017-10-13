@@ -10,25 +10,34 @@
  */
 
 import ContentView from './views/ContentView';
+import ChatikView from './views/chatik/ChatikView';
 
 export default Core.Controller.extend({
     initialize() {
       this.listenTo(this.view, 'websoket:message', this.__handleBigButtonEvent);
+      this.viewModel = new Backbone.Collection();
     },
 
     contentView: ContentView,
 
     navigate() {
-        //this.moduleRegion.show(new ContentView({}));
+        const chatikView = new ChatikView({collection: this.viewModel});
+        this.moduleRegion.show(chatikView);
+        this.listenTo(chatikView, 'send:message', this.__handleBigButtonEvent);
     },
 
     eventsHandlers: {
         onWebSocketMessage(data) {
-            console.log(data);
+            this.__addMessages(data);
         }
     },
 
     __handleBigButtonEvent(data) {
+        debugger;
         this.sendWebSocketMessage(data);
+    },
+
+    __addMessages(data) {
+        this.viewModel.add(data);
     }
 });
