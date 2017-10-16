@@ -33,7 +33,6 @@ export default Core.Controller.extend({
     },
 
     __handleBigButtonEvent(data) {
-        debugger;
         this.sendWebSocketMessage(data);
     },
 

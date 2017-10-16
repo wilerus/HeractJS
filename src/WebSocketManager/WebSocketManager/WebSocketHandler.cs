@@ -30,6 +30,7 @@ namespace WebSocketManager
             await SendMessageAsync(socket, new Message()
             {
                 MessageType = MessageType.ConnectionEvent,
+                Id = "module:chatik",
                 Data = WebSocketConnectionManager.GetId(socket)
             }).ConfigureAwait(false);
         }
