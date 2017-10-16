@@ -1,4 +1,5 @@
-﻿using System.Net.WebSockets;
+﻿using System;
+using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 using WebSocketManager;
@@ -8,6 +9,8 @@ namespace TestTs
 {
     public class NotificationsHandler : WebSocketHandler
     {
+        const string testId = "module:chatik";
+
         public NotificationsHandler(WebSocketConnectionManager webSocketConnectionManager)
             : base(webSocketConnectionManager)
         {
@@ -22,7 +25,12 @@ namespace TestTs
             var message = new Message()
             {
                 MessageType = MessageType.Text,
-                Data = $"{socketId} is now connected"
+                Data = new MessageData
+                {
+                    Message = $"{socketId} is now connected",
+                    DateTime = DateTime.Now.ToLongDateString()
+                },
+                Id = testId
             };
 
             await SendMessageToAllAsync(message);
@@ -34,7 +42,12 @@ namespace TestTs
             var message = new Message()
             {
                 MessageType = MessageType.Text,
-                Data = $"{socketId} said: {Encoding.UTF8.GetString(buffer, 0, result.Count)}"
+                Data = new MessageData
+                {
+                    Message = $"{socketId} said: {Encoding.UTF8.GetString(buffer, 0, result.Count)}",
+                    DateTime = DateTime.Now.ToLongDateString()
+                },
+                Id = testId
             };
 
             await SendMessageToAllAsync(message).ConfigureAwait(false);
@@ -49,7 +62,12 @@ namespace TestTs
             var message = new Message()
             {
                 MessageType = MessageType.Text,
-                Data = $"{socketId} disconnected"
+                Data = new MessageData
+                {
+                    Message = $"{socketId} disconnected",
+                    DateTime = DateTime.Now.ToLongDateString()
+                },
+                Id = testId
             };
             await SendMessageToAllAsync(message).ConfigureAwait(false);
         }

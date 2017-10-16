@@ -31,7 +31,11 @@ namespace WebSocketManager
             {
                 MessageType = MessageType.ConnectionEvent,
                 Id = "module:chatik",
-                Data = WebSocketConnectionManager.GetId(socket)
+                Data = new MessageData
+                {
+                    Message = WebSocketConnectionManager.GetId(socket),
+                    DateTime = DateTime.Now.ToLongDateString()
+                }
             }).ConfigureAwait(false);
         }
 
