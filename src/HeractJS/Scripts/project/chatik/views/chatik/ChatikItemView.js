@@ -11,7 +11,7 @@
 
 export default Marionette.ItemView.extend({
     template: Handlebars.compile(
-        `<div class="js-content-region dev-demo-core__list-canvas__content-region">{{username}}</div>
-        <div class="js-scrollbar-region dev-demo-core__list-canvas__scrollbar-region">{{datetime}}</div>`
+        `<div class="js-content-region">{{message}}</div>
+        <div class="js-scrollbar-region">{{dateTime}}</div>`
     )
 });

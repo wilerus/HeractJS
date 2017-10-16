@@ -26,7 +26,7 @@ export default Marionette.LayoutView.extend({
 
     onRender() {
         const actionsView = new ChatikActionsView();
-        this.listRegion.show(new ChatikListView(this.getOption('collection')));
+        this.listRegion.show(new ChatikListView({collection: this.getOption('collection')}));
         this.messageRegion.show(actionsView);
         this.listenTo(actionsView, 'send:message', this.__handleMessage);
     },

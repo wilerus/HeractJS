@@ -14,7 +14,7 @@ import ChatikView from './views/chatik/ChatikView';
 
 export default Core.Controller.extend({
     initialize() {
-      this.viewModel = new Backbone.Collection();
+        this.viewModel = new Backbone.Collection();
     },
 
     contentView: ContentView,
@@ -26,7 +26,7 @@ export default Core.Controller.extend({
     },
 
     eventsHandlers: {
-        onWebSocketMessage: data => {
+        onWebSocketMessage(data) {
             this.__addMessages(data);
         }
     },
