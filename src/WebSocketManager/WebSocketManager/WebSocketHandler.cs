@@ -27,7 +27,7 @@ namespace WebSocketManager
         {
             WebSocketConnectionManager.AddSocket(socket);
 
-            await SendMessageAsync(socket, new Message()
+            await SendMessageAsync(socket, new ServerMessage()
             {
                 MessageType = MessageType.ConnectionEvent,
                 Id = "module:chatik",
@@ -44,7 +44,7 @@ namespace WebSocketManager
             await WebSocketConnectionManager.RemoveSocket(WebSocketConnectionManager.GetId(socket)).ConfigureAwait(false);
         }
 
-        public async Task SendMessageAsync(WebSocket socket, Message message)
+        public async Task SendMessageAsync(WebSocket socket, ServerMessage message)
         {
             if (socket.State != WebSocketState.Open)
                 return;
@@ -59,12 +59,12 @@ namespace WebSocketManager
                                    cancellationToken: CancellationToken.None).ConfigureAwait(false);
         }
 
-        public async Task SendMessageAsync(string socketId, Message message)
+        public async Task SendMessageAsync(string socketId, ServerMessage message)
         {
             await SendMessageAsync(WebSocketConnectionManager.GetSocketById(socketId), message).ConfigureAwait(false);
         }
 
-        public async Task SendMessageToAllAsync(Message message)
+        public async Task SendMessageToAllAsync(ServerMessage message)
         {
             foreach (var pair in WebSocketConnectionManager.GetAll())
             {

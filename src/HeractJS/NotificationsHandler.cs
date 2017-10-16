@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebSocketManager;
 using WebSocketManager.Common;
+using Newtonsoft.Json;
 
 namespace TestTs
 {
@@ -22,7 +23,7 @@ namespace TestTs
 
             var socketId = WebSocketConnectionManager.GetId(socket);
 
-            var message = new Message()
+            var message = new ServerMessage()
             {
                 MessageType = MessageType.Text,
                 Data = new MessageData
@@ -39,12 +40,15 @@ namespace TestTs
         public override async Task ReceiveAsync(WebSocket socket, WebSocketReceiveResult result, byte[] buffer)
         {
             var socketId = WebSocketConnectionManager.GetId(socket);
-            var message = new Message()
+            var jsonData = Encoding.UTF8.GetString(buffer, 0, result.Count);
+            var clientData = JsonConvert.DeserializeObject<ClientMessage>(jsonData);
+
+            var message = new ServerMessage()
             {
                 MessageType = MessageType.Text,
                 Data = new MessageData
                 {
-                    Message = $"{socketId} said: {Encoding.UTF8.GetString(buffer, 0, result.Count)}",
+                    Message = clientData.Data,
                     DateTime = DateTime.Now.ToLongDateString()
                 },
                 Id = testId
@@ -59,7 +63,7 @@ namespace TestTs
 
             await base.OnDisconnected(socket);
 
-            var message = new Message()
+            var message = new ServerMessage()
             {
                 MessageType = MessageType.Text,
                 Data = new MessageData

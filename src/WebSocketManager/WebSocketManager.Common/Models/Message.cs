@@ -6,7 +6,7 @@
         ConnectionEvent
     }
 
-    public struct Message
+    public struct ServerMessage
     {
         public MessageType MessageType { get; set; }
 
@@ -22,5 +22,12 @@
         public string UserName { get; set; }
 
         public string DateTime { get; set; }
+    }
+
+    public struct ClientMessage
+    {
+        public string Id { get; set; }
+
+        public string Data { get; set; }
     }
 }
