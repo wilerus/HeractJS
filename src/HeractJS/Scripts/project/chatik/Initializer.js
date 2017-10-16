@@ -14,7 +14,6 @@ import ChatikView from './views/chatik/ChatikView';
 
 export default Core.Controller.extend({
     initialize() {
-      this.listenTo(this.view, 'websoket:message', this.__handleBigButtonEvent);
       this.viewModel = new Backbone.Collection();
     },
 
@@ -27,7 +26,7 @@ export default Core.Controller.extend({
     },
 
     eventsHandlers: {
-        onWebSocketMessage(data) {
+        onWebSocketMessage: data => {
             this.__addMessages(data);
         }
     },
