@@ -13,8 +13,8 @@ export default Marionette.ItemView.extend({
     className: 'chatik-actions-container',
 
     template: Handlebars.compile(
-        `<input type='text' class='js-message-input'>
-        <button class="js-message-send-button button-send-message"></button>`),
+        `<input type='text' class='js-message-input chatik-message-input'>
+        <button class="js-message-send-button button-send-message">➤</button>`),
 
     ui: {
         messageInput: '.js-message-input',
@@ -22,10 +22,19 @@ export default Marionette.ItemView.extend({
     },
 
     events: {
-        'click @ui.messageButton': '__handleMessage'
+        'click @ui.messageButton': '__handleMessage',
+        'keypress @ui.messageInput': '__handleInputKeypress'
     },
 
     __handleMessage(data) {
         this.trigger('send:message', this.ui.messageInput.val());
+        this.ui.messageInput.val('');
+    },
+
+    __handleInputKeypress(e) {
+        if (e.which === 13) {
+            this.trigger('send:message', this.ui.messageInput.val());
+            this.ui.messageInput.val('');
+        }
     }
 });

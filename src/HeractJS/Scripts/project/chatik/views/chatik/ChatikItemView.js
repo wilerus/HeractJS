@@ -10,8 +10,10 @@
  */
 
 export default Marionette.ItemView.extend({
+    className: 'chatik-message-item',
+
     template: Handlebars.compile(
-        `<div class="js-content-region">{{message}}</div>
-        <div class="js-scrollbar-region">{{dateTime}}</div>`
+        `<div class="js-content-region chatik-message-user_text">{{message}}</div>
+        <div class="js-scrollbar-region chatik-message-user_dataTime">{{dateTime}}</div>`
     )
 });
